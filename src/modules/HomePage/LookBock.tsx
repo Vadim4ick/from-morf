@@ -2,14 +2,12 @@ import Image from "next/image";
 
 const LookBock = () => {
   return (
-    <section className="max-w-[1307px] px-4 mx-auto p-4 my-[128px]">
+    <section className="mx-auto my-32 max-w-[1307px] p-4">
       <div className="grid grid-cols-2 gap-[20px]">
         <div>
-          <div className="mb-[128px]">
-            <h1 className="text-3xl font-bold text-[#444444] mb-[18px]">
-              LOOK BOOK
-            </h1>
-            <p className="mb-[36px] text-[#4F4F4F] max-w-[440px]">
+          <div className="mb-32">
+            <h1 className="mb-[18px] text-3xl font-bold">LOOK BOOK</h1>
+            <p className="mb-9 max-w-[440px] text-[#4F4F4F]">
               Изысканный костюм и белая рубашка – символы безупречного вкуса.
               Сумки светлых тонов завершают ваш образ, добавляя нотку роскоши.
             </p>

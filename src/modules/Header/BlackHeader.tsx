@@ -2,7 +2,7 @@ import { HeaderContent } from "./HeaderContent";
 
 const BlackHeader = () => {
   return (
-    <header className="h-[var(--header-height)] z-10 fixed w-full bg-[#F8F8F8]">
+    <header className="bg-headerBg fixed z-10 h-[var(--header-height)] w-full">
       <HeaderContent variant="black" />
     </header>
   );

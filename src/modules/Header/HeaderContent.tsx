@@ -9,8 +9,8 @@ import clsx from "clsx";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
   return (
-    <div className="max-w-[1195px] px-[23px] mx-auto h-full">
-      <div className="flex items-center h-full justify-between">
+    <div className="mx-auto h-full max-w-[1195px] px-[23px]">
+      <div className="flex h-full items-center justify-between">
         {/* Burger */}
         <Burger variant={variant} />
 
@@ -19,7 +19,7 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
           <LogoIcon
             className={clsx("", {
               "text-white": variant === "white",
-              "text-[#444444]": variant === "black",
+              "text-darkGrayColor": variant === "black",
             })}
           />
         </Link>
@@ -28,21 +28,21 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
         <div className="flex gap-[20px]">
           <ProfileIcon
             className={clsx("text-transparent", {
-              "stroke-[#444444]": variant === "black",
+              "stroke-darkGrayColor": variant === "black",
               "stroke-white": variant === "white",
             })}
           />
 
           <FavoritesIcon
             className={clsx("text-transparent", {
-              "stroke-[#444444]": variant === "black",
+              "stroke-darkGrayColor": variant === "black",
               "stroke-white": variant === "white",
             })}
           />
 
           <BasketIcon
             className={clsx("text-transparent", {
-              "stroke-[#444444]": variant === "black",
+              "stroke-darkGrayColor": variant === "black",
               "stroke-white": variant === "white",
             })}
           />
