@@ -1,5 +1,6 @@
 import { LookBock } from "@/modules/HomePage/LookBock";
 import { MainSlider } from "@/modules/HomePage/MainSlider";
+import { StyleAdvice } from "@/modules/StyleAdvice/StyleAdvice";
 
 const HomePage = () => {
   return (
@@ -32,6 +33,8 @@ const HomePage = () => {
           </button>
         </div>
       </section>
+
+      <StyleAdvice />
     </main>
   );
 };
