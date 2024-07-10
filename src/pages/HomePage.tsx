@@ -1,5 +1,7 @@
 import { LookBock } from "@/modules/HomePage/LookBock";
 import { MainSlider } from "@/modules/HomePage/MainSlider";
+import { NewItems } from "@/modules/HomePage/NewItems";
+import { SliderBestsellers } from "@/modules/HomePage/SliderBestsellers";
 import { StyleAdvice } from "@/modules/StyleAdvice/StyleAdvice";
 
 const HomePage = () => {
@@ -33,6 +35,10 @@ const HomePage = () => {
           </button>
         </div>
       </section>
+
+      <NewItems />
+
+      <SliderBestsellers />
 
       <StyleAdvice />
     </main>

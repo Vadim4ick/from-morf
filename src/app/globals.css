@@ -27,6 +27,51 @@
   font-style: normal;
 }
 
+.swiper-bestsellers .slide-bestsellers.swiper-slide-active img {
+  height: 572px;
+}
+
+.swiper-bestsellers .slide-bestsellers img {
+  height: 676px;
+  transition: height 0.5s ease-in-out;
+}
+
+.button-bestsellers {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-bestsellers::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #444444;
+}
+
+.button-bestsellers.right::before {
+  right: -100%;
+  transition: right 0.8s;
+}
+
+.button-bestsellers.right:hover::before {
+  right: 0;
+}
+.button-bestsellers.right:hover svg,
+.button-bestsellers.left:hover svg {
+  color: white;
+  transition: color 0.5s ease 0s;
+}
+
+.button-bestsellers.left::before {
+  left: -100%;
+  transition: left 0.8s;
+}
+
+.button-bestsellers.left:hover::before {
+  left: 0;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

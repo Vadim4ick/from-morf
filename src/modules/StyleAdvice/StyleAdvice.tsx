@@ -29,7 +29,9 @@ const StyleAdvice = () => {
       <div className="mx-auto max-w-[1307px] px-4">
         <div className="flex">
           <div>
-            <h3 className="mb-5 text-2xl uppercase">Советы по стилю</h3>
+            <h3 className="mb-5 text-2xl font-bold uppercase">
+              Советы по стилю
+            </h3>
 
             <div className="grid grid-cols-3 gap-[20px]">
               {arr.map((el) => (
