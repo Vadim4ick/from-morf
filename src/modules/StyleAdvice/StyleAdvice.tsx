@@ -40,8 +40,11 @@ const StyleAdvice = () => {
                 </Link>
               ))}
 
-              <Button className="mx-auto w-fit self-end" variant={"default"}>
-                смотреть еще
+              <Button
+                className="buttonAnimate relative mx-auto w-fit self-end transition-colors hover:text-white"
+                variant={"default"}
+              >
+                <span className="z-20">смотреть еще</span>
               </Button>
             </div>
           </div>

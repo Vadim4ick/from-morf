@@ -73,6 +73,40 @@
   left: 0;
 }
 
+.buttonAnimate {
+  overflow: hidden;
+  position: relative;
+}
+
+.buttonAnimate::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: -51%;
+  background: #444444;
+  transition: left 0.5s;
+}
+
+.buttonAnimate::after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  right: -51%;
+  background: #444444;
+  transition: right 0.5s;
+}
+
+.buttonAnimate:hover::before {
+  left: 0;
+}
+.buttonAnimate:hover::after {
+  right: 0;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

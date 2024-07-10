@@ -64,8 +64,11 @@ const NewItems = () => {
               ))}
             </div>
 
-            <Button className="mb-12 ml-auto w-fit" variant={"default"}>
-              все новинки
+            <Button
+              className="buttonAnimate mb-12 ml-auto w-fit transition-colors hover:text-white"
+              variant={"default"}
+            >
+              <span className="z-20"> все новинки</span>
             </Button>
           </div>
         </div>
