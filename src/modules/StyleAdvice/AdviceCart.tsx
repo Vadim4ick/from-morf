@@ -9,18 +9,22 @@ interface AdviceCart {
 
 interface Props {
   item: AdviceCart;
+  widthPhoto?: number;
+  heightPhoto?: number;
 }
 
 const AdviceCart = (props: Props) => {
-  const { item } = props;
+  const { item, widthPhoto = 465, heightPhoto = 575 } = props;
 
   return (
     <article>
       <div className="h-full">
         <Image
           src={item.img}
-          width={465}
-          height={575}
+          width={widthPhoto}
+          height={heightPhoto}
+          // width={widthPhoto === "default" ? 465 : 305}
+          // height={widthPhoto === "default" ? 575 : 430}
           alt={""}
           className="object-cover"
         />

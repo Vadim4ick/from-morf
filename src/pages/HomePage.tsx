@@ -12,7 +12,7 @@ const HomePage = () => {
       <LookBock />
 
       <section className="bg-blackColor">
-        <div className="mx-auto max-w-[1307px] px-4 py-[17px]">
+        <div className="container py-[17px]">
           <button className="flex flex-col gap-[9px] text-white">
             <p className="uppercase">Новая коллекция уже в продаже</p>
 

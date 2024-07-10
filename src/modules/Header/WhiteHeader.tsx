@@ -3,10 +3,10 @@ import { useRef, useState } from "react";
 import { HeaderContent } from "./HeaderContent";
 
 const WhiteHeader = () => {
-  // const scrollRef = useRef(null);
+  const scrollRef = useRef(null);
 
   const { scrollY } = useScroll({
-    // target: scrollRef,
+    target: scrollRef,
   });
 
   const [shouldAnimate, setShouldAnimate] = useState(false);
@@ -21,13 +21,13 @@ const WhiteHeader = () => {
 
   return (
     <motion.header
-      // ref={scrollRef}
+      ref={scrollRef}
       animate={
         shouldAnimate
           ? { background: "#F8F8F8" }
           : { background: "rgba(248, 248, 248, 0)" }
       }
-      className="fixed z-10 h-[var(--header-height)] w-full"
+      className="fixed z-50 h-[var(--header-height)] w-full"
     >
       <HeaderContent variant={shouldAnimate ? "black" : "white"} />
     </motion.header>

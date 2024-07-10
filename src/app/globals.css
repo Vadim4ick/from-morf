@@ -55,11 +55,11 @@
   transition: right 0.8s;
 }
 
-.button-bestsellers.right:hover::before {
+.button-bestsellers.right:hover:not([disabled])::before {
   right: 0;
 }
-.button-bestsellers.right:hover svg,
-.button-bestsellers.left:hover svg {
+.button-bestsellers.right:hover:not([disabled]) svg,
+.button-bestsellers.left:hover:not([disabled]) svg {
   color: white;
   transition: color 0.5s ease 0s;
 }
@@ -69,9 +69,10 @@
   transition: left 0.8s;
 }
 
-.button-bestsellers.left:hover::before {
+.button-bestsellers.left:hover:not([disabled])::before {
   left: 0;
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;

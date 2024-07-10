@@ -26,7 +26,7 @@ const arr = [
 const StyleAdvice = () => {
   return (
     <section className="bg-[#EDEDED] py-24">
-      <div className="mx-auto max-w-[1307px] px-4">
+      <div className="container">
         <div className="flex">
           <div>
             <h3 className="mb-5 text-2xl font-bold uppercase">

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const LookBock = () => {
   return (
-    <section className="mx-auto my-32 max-w-[1307px] p-4">
+    <section className="container my-32 py-4">
       <div className="grid grid-cols-2 gap-[20px]">
         <div>
           <div className="mb-32">
