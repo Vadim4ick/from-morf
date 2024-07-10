@@ -2,14 +2,14 @@ import { cn } from "@/lib/utils";
 import { Heart } from "@/shared/icons/Heart";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface ItemCart {
   id: number;
   date: string;
   desc: string;
-
   images: string[];
+  sizes: number[];
 }
 
 const NewItemCart = ({ item }: { item: ItemCart }) => {
@@ -28,10 +28,19 @@ const NewItemCart = ({ item }: { item: ItemCart }) => {
               className="h-[430px] origin-center object-cover transition-all duration-500 group-hover:pr-[45px]"
             />
 
+            <div className="absolute left-0 top-0 grid h-full w-full grid-cols-3">
+              {item.images.map((_, idx) => (
+                <div
+                  onMouseEnter={() => setCurrentImageIdx(idx)}
+                  className="h-full"
+                  key={`image-${idx}`}
+                />
+              ))}
+            </div>
+
             <ul className="absolute bottom-0 left-0 mb-[10px] grid h-[2px] w-full grid-cols-3 gap-2 pl-[26px] pr-[71px] opacity-0 transition-all duration-500 group-hover:opacity-100">
               {item.images.map((_, idx) => (
                 <li
-                  onMouseEnter={() => setCurrentImageIdx(idx)}
                   key={idx}
                   className={cn("w-full rounded-full", {
                     "bg-[#9D9D9D]": idx === currentImageIdx,
@@ -49,10 +58,9 @@ const NewItemCart = ({ item }: { item: ItemCart }) => {
               </button>
 
               <div className="flex flex-col items-center gap-2 border-b border-t border-[#888888] py-2 text-white">
-                <div>36</div>
-                <div>38</div>
-                <div>40</div>
-                <div>42</div>
+                {item.sizes.map((size) => (
+                  <div key={size}>{size}</div>
+                ))}
               </div>
             </div>
           </div>
