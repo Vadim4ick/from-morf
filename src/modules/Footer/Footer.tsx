@@ -1,3 +1,4 @@
+import { Creatin } from "@/shared/icons/Creatin";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -61,9 +62,10 @@ const Footer = () => {
               <a href="#">Пользовательское соглашение</a>
             </div>
 
-            <div className="flex gap-[39px]">
+            <div className="flex items-center gap-[39px]">
               <span>разработано</span>
-              <span>CREATIN</span>
+
+              <Creatin />
             </div>
           </div>
         </div>

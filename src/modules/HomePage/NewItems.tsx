@@ -1,8 +1,4 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import Image from "next/image";
 import { NewItemCart } from "@/components/elements/NewItemCart";
 
 const arr = [
@@ -39,23 +35,7 @@ const NewItems = () => {
         <h3 className="mb-5 text-2xl font-bold uppercase">новинки</h3>
 
         <div className="flex gap-5">
-          <Link href={"/"}>
-            <Image
-              src={first.images[0]}
-              alt="1.png"
-              width={628}
-              height={676}
-              className="object-cover"
-            />
-
-            <div className="mt-[12px] flex flex-col gap-1">
-              <p className="font-medium text-blackColor">
-                Жакет из португальского льна
-              </p>
-
-              <p className="font-bold">20 140 ₽</p>
-            </div>
-          </Link>
+          <NewItemCart sizesImg="big" item={first} />
 
           <div className="flex flex-col justify-between">
             <div className="flex gap-5">

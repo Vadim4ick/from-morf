@@ -1,8 +1,12 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Heart } from "@/shared/icons/Heart";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+
+type SizesImg = "default" | "big";
 
 interface ItemCart {
   id: number;
@@ -12,7 +16,23 @@ interface ItemCart {
   sizes: number[];
 }
 
-const NewItemCart = ({ item }: { item: ItemCart }) => {
+const defaultSize = {
+  width: 305,
+  height: 430,
+};
+
+const bigSize = {
+  width: 628,
+  height: 676,
+};
+
+const NewItemCart = ({
+  item,
+  sizesImg = "default",
+}: {
+  item: ItemCart;
+  sizesImg?: SizesImg;
+}) => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
 
   return (
@@ -23,9 +43,17 @@ const NewItemCart = ({ item }: { item: ItemCart }) => {
             <Image
               src={item.images[currentImageIdx]}
               alt="1.png"
-              width={305}
-              height={430}
-              className="h-[430px] origin-center object-cover transition-all duration-500 group-hover:pr-[45px]"
+              width={sizesImg === "default" ? defaultSize.width : bigSize.width}
+              height={
+                sizesImg === "default" ? defaultSize.height : bigSize.height
+              }
+              className={cn(
+                "origin-center object-cover transition-all duration-500 group-hover:pr-[45px]",
+                {
+                  "h-[430px]": sizesImg === "default",
+                  "h-[676px]": sizesImg === "big",
+                },
+              )}
             />
 
             <div className="absolute left-0 top-0 grid h-full w-full grid-cols-3">
