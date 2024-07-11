@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AdviceCart } from "./AdviceCart";
-import { Button } from "@/components/ui/button";
+import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate";
 
 const arr = [
   {
@@ -40,12 +40,9 @@ const StyleAdvice = () => {
                 </Link>
               ))}
 
-              <Button
-                className="buttonAnimate relative mx-auto w-fit self-end transition-colors hover:text-white"
-                variant={"default"}
-              >
-                <span className="z-20">смотреть еще</span>
-              </Button>
+              <ButtonAnimate className="mx-auto self-end">
+                смотреть еще
+              </ButtonAnimate>
             </div>
           </div>
         </div>

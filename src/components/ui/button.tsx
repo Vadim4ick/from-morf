@@ -9,7 +9,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "border border-[#444444] text-[14px] uppercase",
+        default:
+          "border border-[#444444] text-[14px] uppercase overflow-hidden",
+        // default: "border border-[#444444] text-[14px] uppercase",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:

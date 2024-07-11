@@ -10,6 +10,7 @@ import { Arrow } from "@/shared/icons/Arrow";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import "./index.scss";
 
 const arr = [
   {
@@ -54,6 +55,7 @@ const SliderBestsellers = () => {
             </button>
 
             <button
+              // className=""
               id="bestsellers-next"
               className="button-bestsellers left flex size-[36px] cursor-pointer items-center justify-center rounded-[2px] bg-[#F4F4F4] disabled:cursor-auto disabled:opacity-[0.5]"
             >

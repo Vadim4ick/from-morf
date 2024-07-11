@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { NewItemCart } from "@/components/elements/NewItemCart";
+import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate";
 
 const arr = [
   {
@@ -44,12 +44,7 @@ const NewItems = () => {
               ))}
             </div>
 
-            <Button
-              className="buttonAnimate mb-12 ml-auto w-fit transition-colors hover:text-white"
-              variant={"default"}
-            >
-              <span className="z-20"> все новинки</span>
-            </Button>
+            <ButtonAnimate className="mb-12 ml-auto">все новинки</ButtonAnimate>
           </div>
         </div>
       </div>
