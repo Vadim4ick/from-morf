@@ -6,6 +6,23 @@
   content: "";
   backdrop-filter: blur(24px);
 }
+
+.bgGradientMainSlider::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  left: 0;
+
+  background: linear-gradient(
+    180deg,
+    rgba(24, 24, 24, 0) 0%,
+    rgba(24, 24, 24, 0.8) 100%
+  );
+  z-index: 2;
+}
+
 @font-face {
   font-family: "Kinetika";
   src:

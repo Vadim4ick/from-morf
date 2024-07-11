@@ -2,40 +2,42 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-
-import Image from "next/image";
-import Link from "next/link";
 import { Arrow } from "@/shared/icons/Arrow";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "./index.scss";
+import { NewItemCart } from "@/components/elements/NewItemCart";
 
 const arr = [
   {
     id: 0,
-    img: "/bestseller/1.png",
-    description: "Жакет из португальского льна",
+    images: ["/bestseller/1.png"],
+    desc: "Жакет из португальского льна",
     price: "20 140 ₽",
+    sizes: [36, 38, 40, 42],
   },
   {
     id: 1,
-    img: "/bestseller/1.png",
-    description: "Жакет из португальского льна",
+    images: ["/bestseller/1.png"],
+    desc: "Жакет из португальского льна",
     price: "20 140 ₽",
+    sizes: [36, 38, 40, 42],
   },
   {
     id: 2,
-    img: "/bestseller/1.png",
-    description: "Жакет из португальского льна",
+    images: ["/bestseller/1.png"],
+    desc: "Жакет из португальского льна",
     price: "20 140 ₽",
+    sizes: [36, 38, 40, 42],
   },
   {
     id: 3,
-    img: "/bestseller/1.png",
-    description: "Жакет из португальского льна",
+    images: ["/bestseller/1.png"],
+    desc: "Жакет из португальского льна",
     price: "20 140 ₽",
+    sizes: [36, 38, 40, 42],
   },
 ];
 
@@ -76,7 +78,7 @@ const SliderBestsellers = () => {
         >
           {arr.map((item) => (
             <SwiperSlide key={item.id} className="slide-bestsellers">
-              <Link href={"/"}>
+              {/* <Link href={"/"}>
                 <Image
                   src={item.img}
                   alt="1.png"
@@ -92,7 +94,9 @@ const SliderBestsellers = () => {
 
                   <p className="font-bold">{item.price}</p>
                 </div>
-              </Link>
+              </Link> */}
+
+              <NewItemCart sizesImg="big" item={item} />
             </SwiperSlide>
           ))}
         </Swiper>

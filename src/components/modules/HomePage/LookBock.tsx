@@ -1,4 +1,6 @@
+import { ArrowLink } from "@/shared/icons/ArrowLink";
 import Image from "next/image";
+import Link from "next/link";
 
 const LookBock = () => {
   return (
@@ -12,7 +14,14 @@ const LookBock = () => {
               Сумки светлых тонов завершают ваш образ, добавляя нотку роскоши.
             </p>
 
-            <a href="">Смотркть</a>
+            <Link
+              className="flex items-center gap-[5px] font-medium underline"
+              href="/"
+            >
+              <span>Смотреть</span>
+
+              <ArrowLink className="text-[#545454]" />
+            </Link>
           </div>
           <Image
             width={630}

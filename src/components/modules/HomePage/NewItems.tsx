@@ -4,21 +4,18 @@ import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate
 const arr = [
   {
     id: 1,
-    date: "17.06.24",
     desc: "Как создать капсульный гардероб: основные принципы и идеи",
     images: ["/newItem/1.png", "/newItem/2.png", "/newItem/3.png"],
     sizes: [36, 38, 40, 42],
   },
   {
     id: 2,
-    date: "17.06.24",
     desc: "Как создать капсульный гардероб: основные принципы и идеи",
     images: ["/newItem/1.png", "/newItem/2.png", "/newItem/3.png"],
     sizes: [36, 38, 40, 42],
   },
   {
     id: 3,
-    date: "17.06.24",
     desc: "Как создать капсульный гардероб: основные принципы и идеи",
     images: ["/newItem/1.png", "/newItem/2.png", "/newItem/3.png"],
     sizes: [36, 38, 40, 42],

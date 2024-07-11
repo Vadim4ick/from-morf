@@ -32,7 +32,7 @@ const MainSlider = () => {
         slidesPerView={1}
       >
         <SwiperSlide>
-          <div className="relative h-screen">
+          <div className="bgGradientMainSlider relative h-screen">
             <Image
               priority
               className="object-cover"
@@ -41,7 +41,7 @@ const MainSlider = () => {
               fill
             />
 
-            <div className="absolute bottom-[195px] left-1/2 flex -translate-x-1/2 flex-col gap-8 text-white">
+            <div className="absolute bottom-[195px] left-1/2 z-10 flex -translate-x-1/2 flex-col gap-8 text-white">
               <div className="flex flex-col items-center justify-center gap-[10px]">
                 <h2 className="text-center text-4xl font-bold uppercase">
                   Современная элегантность
@@ -53,14 +53,14 @@ const MainSlider = () => {
               </div>
 
               <button className="relative mx-auto h-[42px] w-full max-w-[185px] border border-[#8D8D8D] before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-[#2C2C2C] before:opacity-60">
-                <span className="relative z-10 text-white">новинки</span>
+                <span className="relative text-white">новинки</span>
               </button>
             </div>
           </div>
         </SwiperSlide>
 
         <SwiperSlide>
-          <div className="relative h-screen">
+          <div className="bgGradientMainSlider relative h-screen">
             <Image
               priority
               className="object-cover"
@@ -69,7 +69,7 @@ const MainSlider = () => {
               fill
             />
 
-            <div className="absolute bottom-[195px] left-1/2 flex -translate-x-1/2 flex-col gap-8 text-white">
+            <div className="absolute bottom-[195px] left-1/2 z-10 flex -translate-x-1/2 flex-col gap-8 text-white">
               <div className="flex flex-col gap-[10px]">
                 <h2 className="text-center text-4xl font-bold uppercase">
                   Современная элегантность2

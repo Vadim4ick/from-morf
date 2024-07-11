@@ -10,7 +10,6 @@ type SizesImg = "default" | "big";
 
 interface ItemCart {
   id: number;
-  date: string;
   desc: string;
   images: string[];
   sizes: number[];
