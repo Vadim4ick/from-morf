@@ -45,3 +45,16 @@
     transition: color 0.5s ease 0s;
   }
 }
+
+.swiper-pagination-bullet {
+  width: 100px;
+  height: 2px;
+  background: #ffffff66;
+  opacity: 0.4;
+  border-radius: 0px;
+
+  &.swiper-pagination-bullet-active {
+    background: #ffffff;
+    opacity: 1;
+  }
+}

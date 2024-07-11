@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.backdrop::after {
+  content: "";
+  backdrop-filter: blur(24px);
+}
 @font-face {
   font-family: "Kinetika";
   src:
