@@ -1,8 +1,8 @@
-import { LookBock } from "@/modules/HomePage/LookBock";
-import { MainSlider } from "@/modules/HomePage/MainSlider";
-import { NewItems } from "@/modules/HomePage/NewItems";
-import { SliderBestsellers } from "@/modules/HomePage/SliderBestsellers";
-import { StyleAdvice } from "@/modules/StyleAdvice/StyleAdvice";
+import { LookBock } from "@/components/modules/HomePage/LookBock";
+import { MainSlider } from "@/components/modules/HomePage/MainSlider";
+import { NewItems } from "@/components/modules/HomePage/NewItems";
+import { SliderBestsellers } from "@/components/modules/HomePage/SliderBestsellers";
+import { StyleAdvice } from "@/components/modules/StyleAdvice/StyleAdvice";
 
 const HomePage = () => {
   return (

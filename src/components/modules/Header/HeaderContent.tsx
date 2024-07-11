@@ -3,9 +3,9 @@ import { ProfileIcon } from "@/shared/icons/header/ProfileIcon";
 import { LogoIcon } from "@/shared/icons/LogoIcon";
 import { FavoritesIcon } from "@/shared/icons/header/FavoritesIcon";
 import { BasketIcon } from "@/shared/icons/header/BasketIcon";
-import { Burger } from "@/modules/Header/Burger";
-import { VariantHeader } from "@/modules/Header/Header";
 import clsx from "clsx";
+import { VariantHeader } from "./Header";
+import { Burger } from "./Burger";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
   return (

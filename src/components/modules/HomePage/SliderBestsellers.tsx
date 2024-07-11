@@ -10,7 +10,6 @@ import { Arrow } from "@/shared/icons/Arrow";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import { useEffect, useRef } from "react";
 
 const arr = [
   {
