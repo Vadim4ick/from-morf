@@ -9,7 +9,7 @@ const HomePage = () => {
     <main>
       <MainSlider />
 
-      <LookBock />
+      {/* <LookBock />
 
       <section className="bg-blackColor">
         <div className="container py-[17px]">
@@ -40,7 +40,7 @@ const HomePage = () => {
 
       <SliderBestsellers />
 
-      <StyleAdvice />
+      <StyleAdvice /> */}
     </main>
   );
 };
