@@ -11,8 +11,8 @@ const HomePage = () => {
 
       <LookBock />
 
-      {/* <section className="bg-blackColor">
-        <div className="container py-[17px]">
+      <section className="bg-blackColor">
+        <div className="container px-[67px] py-[17px] max-tabletSmall:px-4">
           <button className="flex flex-col gap-[9px] text-white">
             <p className="uppercase">Новая коллекция уже в продаже</p>
 
@@ -40,7 +40,7 @@ const HomePage = () => {
 
       <SliderBestsellers />
 
-      <StyleAdvice /> */}
+      <StyleAdvice />
     </main>
   );
 };

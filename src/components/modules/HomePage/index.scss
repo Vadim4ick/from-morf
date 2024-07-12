@@ -2,8 +2,25 @@
   &.swiper-slide-active img {
     height: 572px;
   }
+
   img {
     height: 676px;
+  }
+
+  @media (max-width: 991px) {
+    &.swiper-slide-active img {
+      height: 418px;
+    }
+
+    img {
+      height: 493px;
+    }
+  }
+
+  @media (max-width: 515px) {
+    img {
+      height: 418px;
+    }
   }
 }
 

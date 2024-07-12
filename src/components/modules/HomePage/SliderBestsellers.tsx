@@ -43,10 +43,10 @@ const arr = [
 
 const SliderBestsellers = () => {
   return (
-    <section className="py-[128px]">
-      <div className="container">
-        <div className="flex items-center justify-between">
-          <h3 className="mb-5 text-2xl font-bold uppercase">бестселлеры</h3>
+    <section className="max-tabletSmall:pb-[76px] max-tabletSmall:pt-[96px] max-mobile:py-[72px] tabletSmall:py-[128px]">
+      <div className="container px-[67px] max-tabletSmall:px-[16px]">
+        <div className="mb-5 flex items-center justify-between">
+          <h3 className="text-2xl font-bold uppercase">бестселлеры</h3>
 
           <div className="flex items-center gap-2">
             <button
@@ -57,7 +57,6 @@ const SliderBestsellers = () => {
             </button>
 
             <button
-              // className=""
               id="bestsellers-next"
               className="button-bestsellers left flex size-[36px] cursor-pointer items-center justify-center rounded-[2px] bg-[#F4F4F4] disabled:cursor-auto disabled:opacity-[0.5]"
             >
@@ -74,29 +73,18 @@ const SliderBestsellers = () => {
           modules={[Navigation]}
           className="swiper-bestsellers"
           spaceBetween={20}
-          slidesPerView={2}
+          breakpoints={{
+            515: {
+              slidesPerView: 1.6,
+            },
+            800: {
+              slidesPerView: 2,
+            },
+          }}
         >
           {arr.map((item) => (
             <SwiperSlide key={item.id} className="slide-bestsellers">
-              {/* <Link href={"/"}>
-                <Image
-                  src={item.img}
-                  alt="1.png"
-                  width={628}
-                  height={676}
-                  className="object-cover"
-                />
-
-                <div className="mt-[12px] flex flex-col gap-1">
-                  <p className="font-medium text-blackColor">
-                    {item.description}
-                  </p>
-
-                  <p className="font-bold">{item.price}</p>
-                </div>
-              </Link> */}
-
-              <NewItemCart sizesImg="big" item={item} />
+              <NewItemCart sizesImg="slider" item={item} />
             </SwiperSlide>
           ))}
         </Swiper>

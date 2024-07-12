@@ -176,7 +176,7 @@ const LookBock = () => {
   );
 
   return (
-    <section className="container my-32 py-4 max-tabletSmall:px-4 tabletSmall:px-[67px]">
+    <section className="container my-32 py-4 max-tabletSmall:px-4 max-mobileSmall:my-[72px] tabletSmall:px-[67px]">
       {!isTablet834 && desktop}
 
       {isTablet834 && !isMobile768 && tablet}

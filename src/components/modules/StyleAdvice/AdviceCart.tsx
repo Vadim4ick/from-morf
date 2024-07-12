@@ -26,9 +26,9 @@ const AdviceCart = (props: Props) => {
         />
       </div>
 
-      <div className="flex flex-col gap-2 pt-4">
+      <div className="flex flex-col gap-2 pt-4 max-tabletBig:pt-3">
         <p className="text-[14px] text-[#707070]">{item.date}</p>
-        <p className="text-xl">{item.desc}</p>
+        <p className="text-xl max-mobileSmall:text-base">{item.desc}</p>
       </div>
     </article>
   );

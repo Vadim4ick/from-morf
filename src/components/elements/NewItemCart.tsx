@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-type SizesImg = "default" | "big";
+type SizesImg = "default" | "big" | "slider";
 
 interface ItemCart {
   id: number;
@@ -34,8 +34,6 @@ const NewItemCart = ({
 }) => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
 
-  console.log(item.images.length);
-
   return (
     <article className="group overflow-hidden">
       <Link href={"/"}>
@@ -51,8 +49,10 @@ const NewItemCart = ({
               className={cn(
                 "origin-center object-cover transition-all duration-500 group-hover:pr-[45px]",
                 {
-                  "h-[430px]": sizesImg === "default",
-                  "h-[676px]": sizesImg === "big",
+                  "h-[430px] max-tabletBig:h-[310px] max-mobile:h-[240px]":
+                    sizesImg === "default",
+                  "h-[676px] max-tabletBig:h-[494px]": sizesImg === "big",
+                  "h-full": sizesImg === "slider",
                 },
               )}
             />
