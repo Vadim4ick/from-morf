@@ -34,6 +34,8 @@ const NewItemCart = ({
 }) => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
 
+  console.log(item.images.length);
+
   return (
     <article className="group overflow-hidden">
       <Link href={"/"}>
@@ -55,7 +57,9 @@ const NewItemCart = ({
               )}
             />
 
-            <div className="absolute left-0 top-0 grid h-full w-full grid-cols-3">
+            <div
+              className={`absolute left-0 top-0 grid h-full w-full grid-cols-${item.images.length}`}
+            >
               {item.images.map((_, idx) => (
                 <div
                   onMouseEnter={() => setCurrentImageIdx(idx)}
@@ -65,7 +69,16 @@ const NewItemCart = ({
               ))}
             </div>
 
-            <ul className="absolute bottom-0 left-0 mb-[10px] grid h-[2px] w-full grid-cols-3 gap-2 pl-[26px] pr-[71px] opacity-0 transition-all duration-500 group-hover:opacity-100">
+            <ul
+              className={cn(
+                `absolute bottom-0 left-0 mb-[10px] h-[2px] w-full gap-2 pl-[26px] pr-[71px] opacity-0 transition-all duration-500 group-hover:opacity-100`,
+                {
+                  "": item.images.length === 0,
+                  [`grid-cols-${item.images.length} grid`]:
+                    item.images.length > 1,
+                },
+              )}
+            >
               {item.images.map((_, idx) => (
                 <li
                   key={idx}

@@ -58,22 +58,6 @@ const LookBock = () => {
             />
           </div>
         </div>
-        {/* <div className="col-span-2">
-          <img
-            src="/lookBock/1.png"
-            alt="Main Look"
-            className="w-full h-auto"
-          />
-        </div>
-        <div>
-          <img src="/lookBock/2.png" alt="Look 1" className="w-full h-auto" />
-        </div>
-        <div>
-          <img src="/lookBock/3.png" alt="Look 2" className="w-full h-auto" />
-        </div>
-        <div className="col-span-2">
-          <img src="/lookBock/4.png" alt="Bag" className="w-full h-auto" />
-        </div> */}
       </div>
     </section>
   );

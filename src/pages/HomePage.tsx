@@ -9,9 +9,9 @@ const HomePage = () => {
     <main>
       <MainSlider />
 
-      {/* <LookBock />
+      <LookBock />
 
-      <section className="bg-blackColor">
+      {/* <section className="bg-blackColor">
         <div className="container py-[17px]">
           <button className="flex flex-col gap-[9px] text-white">
             <p className="uppercase">Новая коллекция уже в продаже</p>
