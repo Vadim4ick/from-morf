@@ -41,7 +41,7 @@ const arr = [
   },
 ];
 
-const Page = ({ params }: { params: { categories: string } }) => {
+const AllGoodsPage = ({ categories }: { categories: string }) => {
   return (
     <>
       <section className="pb-32 pt-[var(--header-height)] max-mobile:pb-[72px]">
@@ -71,4 +71,4 @@ const Page = ({ params }: { params: { categories: string } }) => {
   );
 };
 
-export default Page;
+export { AllGoodsPage };
