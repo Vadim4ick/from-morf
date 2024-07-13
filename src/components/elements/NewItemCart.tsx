@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-type SizesImg = "default" | "big" | "slider";
+type SizesImg = "default" | "big" | "slider" | "goods";
 
 interface ItemCart {
   id: number;
@@ -47,12 +47,13 @@ const NewItemCart = ({
                 sizesImg === "default" ? defaultSize.height : bigSize.height
               }
               className={cn(
-                "origin-center object-cover transition-all duration-500 group-hover:pr-[45px]",
+                "object-cover transition-all duration-500 group-hover:pr-[45px]",
                 {
                   "h-[430px] max-tabletBig:h-[310px] max-mobile:h-[240px]":
                     sizesImg === "default",
                   "h-[676px] max-tabletBig:h-[494px]": sizesImg === "big",
                   "h-full": sizesImg === "slider",
+                  "aspect-square": sizesImg === "goods",
                 },
               )}
             />

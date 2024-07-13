@@ -44,7 +44,7 @@ const arr = [
 const Page = ({ params }: { params: { categories: string } }) => {
   return (
     <>
-      <section className="pb-32 pt-[var(--header-height)]">
+      <section className="pb-32 pt-[var(--header-height)] max-mobile:pb-[72px]">
         <div className="container">
           <div className="mb-8 flex flex-col items-center justify-center">
             <h1 className="pt-[48px] text-[32px] font-medium uppercase">
@@ -55,9 +55,9 @@ const Page = ({ params }: { params: { categories: string } }) => {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-12">
-            <div className="grid w-full grid-cols-2 gap-x-[20px] gap-y-12">
+            <div className="grid w-full grid-cols-2 gap-x-[20px] gap-y-12 max-mobile:grid-cols-1 max-mobile:gap-y-6">
               {arr.map((item) => (
-                <NewItemCart key={item.id} item={item} />
+                <NewItemCart key={item.id} sizesImg="goods" item={item} />
               ))}
             </div>
 
