@@ -6,7 +6,7 @@ import { StyleAdvice } from "@/components/modules/StyleAdvice/StyleAdvice";
 
 const HomePage = () => {
   return (
-    <main>
+    <>
       <MainSlider />
 
       <LookBock />
@@ -41,7 +41,7 @@ const HomePage = () => {
       <SliderBestsellers />
 
       <StyleAdvice />
-    </main>
+    </>
   );
 };
 

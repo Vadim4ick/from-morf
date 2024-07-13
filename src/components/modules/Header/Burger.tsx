@@ -19,28 +19,30 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <motion.button
-      onClick={() => setOpen(!open)}
-      className="relative h-[10px] w-7"
-    >
-      <motion.div
-        className={clsx("absolute top-0 h-[2px] w-full", {
-          "bg-white": variant === "white",
-          "bg-darkGrayColor": variant === "black",
-        })}
-        variants={topVariants}
-        animate={open ? "open" : "closed"}
-      />
+    <div className="w-[100px]">
+      <motion.button
+        onClick={() => setOpen(!open)}
+        className="relative h-[10px] w-7"
+      >
+        <motion.div
+          className={clsx("absolute top-0 h-[2px] w-full", {
+            "bg-white": variant === "white",
+            "bg-darkGrayColor": variant === "black",
+          })}
+          variants={topVariants}
+          animate={open ? "open" : "closed"}
+        />
 
-      <motion.div
-        className={clsx("absolute bottom-0 h-[2px] w-full", {
-          "bg-white": variant === "white",
-          "bg-darkGrayColor": variant === "black",
-        })}
-        variants={bottomVariants}
-        animate={open ? "open" : "closed"}
-      />
-    </motion.button>
+        <motion.div
+          className={clsx("absolute bottom-0 h-[2px] w-full", {
+            "bg-white": variant === "white",
+            "bg-darkGrayColor": variant === "black",
+          })}
+          variants={bottomVariants}
+          animate={open ? "open" : "closed"}
+        />
+      </motion.button>
+    </div>
   );
 };
 

@@ -13,7 +13,7 @@ import { NewItemCart } from "@/components/elements/NewItemCart";
 const arr = [
   {
     id: 0,
-    images: ["/bestseller/1.png"],
+    images: ["/bestseller/1.png", "/newItem/1.png"],
     desc: "Жакет из португальского льна",
     price: "20 140 ₽",
     sizes: [36, 38, 40, 42],

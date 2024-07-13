@@ -17,11 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
+        <div className="flex h-full flex-col">
+          <Header />
 
-        {children}
+          <main className="grow">{children}</main>
 
-        <Footer />
+          <Footer />
+        </div>
       </body>
     </html>
   );

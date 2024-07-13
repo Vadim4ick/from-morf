@@ -23,6 +23,27 @@
   z-index: 2;
 }
 
+.container {
+  max-width: 1410px;
+  padding-left: 67px;
+  padding-right: 67px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 834px) {
+  .container {
+    max-width: 1310px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
 @font-face {
   font-family: "Kinetika";
   src:
