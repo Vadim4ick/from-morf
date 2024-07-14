@@ -1,0 +1,1 @@
+export { SliderRecommendations } from "./SliderRecommendations";

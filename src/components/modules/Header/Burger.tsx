@@ -19,7 +19,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-[100px]">
+    <div className="flex w-[100px]">
       <motion.button
         onClick={() => setOpen(!open)}
         className="relative h-[10px] w-7"

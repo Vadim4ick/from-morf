@@ -19,6 +19,9 @@ const config = {
     // },
 
     extend: {
+      gridTemplateColumns: {
+        goods: "1fr 500px",
+      },
       colors: {
         blackColor: "#181818",
         darkGrayColor: "#444444",
