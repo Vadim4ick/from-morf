@@ -45,7 +45,7 @@ const SliderRecommendations = () => {
   const isTablet600 = useMediaQuery(600);
 
   return (
-    <section className="pb-[128px] pt-[135px]">
+    <section className="pb-[128px] pt-[135px] max-desktop:pb-[96px] max-desktop:pt-[48px]">
       <div className="container px-[67px] max-tabletSmall:px-[16px]">
         {!isTablet600 && (
           <>
@@ -100,10 +100,13 @@ const SliderRecommendations = () => {
           </>
         )}
 
-        {isTablet600 &&
-          arr.map((item) => (
-            <NewItemCart key={item.id} sizesImg="recommended" item={item} />
-          ))}
+        {isTablet600 && (
+          <div className="flex flex-col gap-6">
+            {arr.map((item) => (
+              <NewItemCart key={item.id} sizesImg="recommended" item={item} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
