@@ -2,22 +2,14 @@
 
 import { Breadcrumbs } from "@/components/elements/Breadcrumbs";
 import Image from "next/image";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { Arrow } from "@/shared/icons/Arrow";
 import { Button } from "@/components/ui/button";
 import { Heart } from "@/shared/icons/Heart";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { SwiperSlide, Swiper } from "swiper/react";
+import { SelectSizes } from "@/components/elements/SelectSizes";
 
 import "swiper/css";
+import { TableSizeModal } from "./TableSize";
 
 const BottomLayout = () => {
   return (
@@ -37,18 +29,7 @@ const BottomLayout = () => {
 };
 
 const GoodsItem = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
-
   const isDesktop1100 = useMediaQuery(1100);
-
-  const handleValueChange = (value: string) => {
-    setSelectedItem(value);
-  };
-
-  const handleOpenChange = (open: boolean) => {
-    setIsOpen(open);
-  };
 
   return (
     <section className="container pt-[var(--header-height)]">
@@ -205,60 +186,9 @@ const GoodsItem = () => {
             {/* CENTER */}
             <div className="flex flex-col gap-6 border-b border-[#D1D1D1] py-9">
               <div className="flex items-center justify-between gap-3">
-                <Select
-                  onValueChange={handleValueChange}
-                  onOpenChange={handleOpenChange}
-                >
-                  <SelectTrigger
-                    className={cn("w-full bg-[#F4F4F4] text-[16px]", {
-                      "border border-[#B5B5B5]": !isOpen,
-                      "border-b border-[#B5B5B5]": isOpen,
-                    })}
-                  >
-                    <SelectValue placeholder="Выбрать размер" />
-                  </SelectTrigger>
+                <SelectSizes />
 
-                  <SelectContent className="text-[14px]">
-                    <SelectItem
-                      className={`mb-1 ${selectedItem === "XS" ? "bg-[#E1E1E1]" : ""}`}
-                      value="XS"
-                    >
-                      XS
-                    </SelectItem>
-                    <SelectItem
-                      className={`mb-1 ${selectedItem === "S" ? "bg-[#E1E1E1]" : ""}`}
-                      value="S"
-                    >
-                      S
-                    </SelectItem>
-                    <SelectItem
-                      className={selectedItem === "M" ? "bg-[#E1E1E1]" : ""}
-                      value="M"
-                    >
-                      M
-                    </SelectItem>
-                    <SelectItem
-                      className={selectedItem === "L" ? "bg-[#E1E1E1]" : ""}
-                      value="L"
-                    >
-                      L
-                    </SelectItem>
-                    <SelectItem
-                      className={selectedItem === "XL" ? "bg-[#E1E1E1]" : ""}
-                      value="XL"
-                    >
-                      XL
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <button className="flex w-full max-w-[197px] items-center justify-center gap-[8px] text-[#767676]">
-                  <span className="relative after:absolute after:bottom-[2px] after:left-0 after:h-[1px] after:w-full after:bg-[#767676] max-desktop:text-[14px]">
-                    Подобрать размер
-                  </span>
-
-                  <Arrow className="size-[10px] rotate-180 max-desktop:size-[9px]" />
-                </button>
+                <TableSizeModal />
               </div>
 
               <div className="flex items-center justify-between gap-3">
