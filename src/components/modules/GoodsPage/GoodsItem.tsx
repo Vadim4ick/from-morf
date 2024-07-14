@@ -9,7 +9,7 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import { SelectSizes } from "@/components/elements/SelectSizes";
 
 import "swiper/css";
-import { TableSizeModal } from "./TableSize";
+import { TableSizeModal } from "./TableSizeModal";
 
 const BottomLayout = () => {
   return (
