@@ -22,7 +22,7 @@ const TableSizeModal = () => {
         className={cn("w-full desktop:max-w-[505px]")}
       >
         <div className="max-desktop:px-[50px] max-mobile:px-0">
-          <div className="flex flex-col gap-8 pb-[25px] max-desktop:gap-4">
+          <div className="flex flex-col gap-8 pb-[25px] max-desktop:gap-4 max-mobileSmall:pr-4">
             <h2
               className={cn(
                 "pl-[44px] text-lg font-medium uppercase max-desktop:text-center",

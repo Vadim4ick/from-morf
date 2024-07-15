@@ -7,11 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import "./index.scss";
 
 const TableSize = () => {
   return (
-    <Table className="table-scroll bg-[#EEEEEE] text-[12px] text-[#666666] max-mobileSmall:w-[467px] desktop:max-w-[467px]">
+    <Table className="bg-[#EEEEEE] text-[12px] text-[#666666] max-mobileSmall:w-[467px] desktop:max-w-[467px]">
       <TableHeader>
         <TableRow style={{ boxShadow: "0px 0.6px 0px 0px #CDCDCD" }}>
           <TableHead className="font-bold uppercase">INT</TableHead>
