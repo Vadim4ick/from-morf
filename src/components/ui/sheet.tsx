@@ -31,7 +31,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  "fixed z-50 gap-4 bg-background p-4 shadow-lg transition rounded-[2px] ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+  "fixed z-50 gap-4 bg-background mobileSmall:p-4 shadow-lg transition max-mobileSmall:pt-[40px] max-mobileSmall:px-[16px] max-mobileSmall:pb-[33px] rounded-[2px] ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
   {
     variants: {
       side: {
@@ -65,11 +65,17 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="absolute left-[25px] top-[22px]">
-        <Close />
+      <div className="max-desktop:mt-9 max-desktop:flex max-desktop:items-center max-desktop:justify-center">
+        <SheetPrimitive.Close
+          className={cn(
+            "relative before:-z-10 before:h-full before:w-full max-desktop:flex max-desktop:size-[36px] max-desktop:items-center max-desktop:justify-center before:max-desktop:absolute before:max-desktop:left-0 before:max-desktop:top-0 before:max-desktop:rounded-full before:max-desktop:bg-[#EBEBEB] desktop:absolute desktop:left-[25px] desktop:top-[22px]",
+          )}
+        >
+          <Close className="max-desktop:size-[10px]" />
 
-        <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
+          <span className="sr-only">Close</span>
+        </SheetPrimitive.Close>
+      </div>
     </SheetPrimitive.Content>
   </SheetPortal>
 ));
