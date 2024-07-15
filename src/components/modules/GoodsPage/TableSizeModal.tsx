@@ -15,11 +15,11 @@ const TableSizeModal = () => {
 
       <SheetContent className="max-w-[505px]">
         <div className="flex flex-col gap-8 pb-[25px]">
-          <h2 className="pl-[60px] text-lg font-medium uppercase">
+          <h2 className="pl-[44px] text-lg font-medium uppercase">
             Таблица размеров
           </h2>
 
-          <p>
+          <p className="max-w-[323px]">
             Найдите в таблице параметры, близкие к вашим, чтобы определить свой
             размер.
           </p>
