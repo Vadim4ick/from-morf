@@ -54,6 +54,32 @@ const BottomLinks = () => {
   );
 };
 
+const AddBasket = () => {
+  return (
+    <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-2 desktop:border-b">
+      <div className="flex items-center justify-between gap-3">
+        <SelectSizes />
+
+        <TableSizeModal />
+      </div>
+
+      <div className="flex items-center justify-between gap-3">
+        <Button size={"sm"} className="w-full" variant={"secondary"}>
+          Добавить в корзину
+        </Button>
+
+        <Button
+          className="shrink-0 grow-0 basis-auto"
+          variant={"outline"}
+          size={"icon"}
+        >
+          <Heart className="size-4 text-transparent" stroke="black" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 const GoodsItem = () => {
   const isDesktop1100 = useMediaQuery(1100);
 
@@ -174,7 +200,7 @@ const GoodsItem = () => {
 
         {/* Right */}
         <div className="relative">
-          <div className="sticky top-[calc(var(--header-height)_+_20px)]">
+          <div className="top-[calc(var(--header-height)_+_20px)] desktop:sticky">
             {/* TOP */}
             <div className="flex flex-col gap-9 border-b border-[#D1D1D1] pb-9 max-desktop:pb-8">
               <div className="flex flex-col gap-2">
@@ -212,28 +238,8 @@ const GoodsItem = () => {
             {/* BOTTOM_Links */}
             {isDesktop1100 && <BottomLinks />}
 
-            {/* CENTER */}
-            <div className="flex flex-col gap-6 border-[#D1D1D1] py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-0 desktop:border-b">
-              <div className="flex items-center justify-between gap-3">
-                <SelectSizes />
-
-                <TableSizeModal />
-              </div>
-
-              <div className="flex items-center justify-between gap-3">
-                <Button size={"sm"} className="w-full" variant={"secondary"}>
-                  Добавить в корзину
-                </Button>
-
-                <Button
-                  className="shrink-0 grow-0 basis-auto"
-                  variant={"outline"}
-                  size={"icon"}
-                >
-                  <Heart className="size-4 text-transparent" stroke="black" />
-                </Button>
-              </div>
-            </div>
+            {/* AddBasket */}
+            {!isDesktop1100 && <AddBasket />}
 
             {/* BOTTOM */}
             {!isDesktop1100 && <BottomLayout />}
@@ -242,6 +248,9 @@ const GoodsItem = () => {
             {!isDesktop1100 && <BottomLinks />}
           </div>
         </div>
+
+        {/* AddBasket */}
+        {isDesktop1100 && <AddBasket />}
       </div>
     </section>
   );
