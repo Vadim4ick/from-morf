@@ -3,10 +3,6 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Arrow } from "@/shared/icons/Arrow";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
@@ -47,17 +43,17 @@ const MainSlider = () => {
             />
 
             <div className="container absolute bottom-[160px] left-1/2 z-10 flex -translate-x-1/2 flex-col gap-8 text-white">
-              <div className="max-tabletSmall:gap-[6px] flex flex-col items-center justify-center gap-[10px]">
-                <h2 className="max-tabletSmall:text-lg text-center text-4xl font-bold uppercase">
+              <div className="flex flex-col items-center justify-center gap-[10px] max-tabletSmall:gap-[6px]">
+                <h2 className="text-center text-4xl font-bold uppercase max-tabletSmall:text-lg">
                   Современная элегантность
                 </h2>
 
-                <p className="max-tabletSmall:text-[12px] text-center text-[18px]">
+                <p className="text-center text-[18px] max-tabletSmall:text-[12px]">
                   Откройте для себя силу стиля с нашей новой коллекцией.
                 </p>
               </div>
 
-              <button className="max-tabletSmall:max-w-[175px] max-tabletSmall:h-[36px] relative mx-auto h-[42px] w-full max-w-[185px] border border-[#8D8D8D] before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-[#2C2C2C] before:opacity-60">
+              <button className="relative mx-auto h-[42px] w-full max-w-[185px] border border-[#8D8D8D] before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-[#2C2C2C] before:opacity-60 max-tabletSmall:h-[36px] max-tabletSmall:max-w-[175px]">
                 <span className="relative text-white">новинки</span>
               </button>
             </div>

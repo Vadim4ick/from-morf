@@ -8,7 +8,6 @@ import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { SelectSizes } from "@/components/elements/SelectSizes";
 
-import "swiper/css";
 import { TableSizeModal } from "./TableSizeModal";
 import { Arrow } from "@/shared/icons/Arrow";
 import Link from "next/link";

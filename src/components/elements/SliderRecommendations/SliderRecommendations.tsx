@@ -5,9 +5,6 @@ import { Navigation } from "swiper/modules";
 import { Arrow } from "@/shared/icons/Arrow";
 import { NewItemCart } from "@/components/elements/NewItemCart";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 
 const arr = [

@@ -4,9 +4,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { Arrow } from "@/shared/icons/Arrow";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
 import "./index.scss";
 import { NewItemCart } from "@/components/elements/NewItemCart";
 

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Header } from "@/components/modules/Header/Header";
 import { Footer } from "@/components/modules/Footer/Footer";
 
-import "./globals.css";
+import "@/shared/styles/globals.css";
+import "@/shared/styles/index.scss";
 
 export const metadata: Metadata = {
   title: "Create Next App",
