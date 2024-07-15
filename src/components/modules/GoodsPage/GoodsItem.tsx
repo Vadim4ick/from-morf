@@ -10,6 +10,8 @@ import { SelectSizes } from "@/components/elements/SelectSizes";
 
 import "swiper/css";
 import { TableSizeModal } from "./TableSizeModal";
+import { Arrow } from "@/shared/icons/Arrow";
+import Link from "next/link";
 
 const BottomLayout = () => {
   return (
@@ -24,6 +26,30 @@ const BottomLayout = () => {
       <div className="flex items-center gap-[6px] max-mobile:text-sm">
         Размер на модели: <b>36</b>
       </div>
+    </div>
+  );
+};
+
+const BottomLinks = () => {
+  return (
+    <div className="pt-[34px] max-tabletBig:pt-[16px]">
+      <Link
+        href={"/"}
+        className="flex items-center justify-between gap-3 py-[10px]"
+      >
+        <p>Доставка и оплата</p>
+
+        <Arrow className="rotate-180" />
+      </Link>
+
+      <Link
+        href={"/"}
+        className="flex items-center justify-between gap-3 py-[10px]"
+      >
+        <p>Возврат</p>
+
+        <Arrow className="rotate-180" />
+      </Link>
     </div>
   );
 };
@@ -183,8 +209,11 @@ const GoodsItem = () => {
             {/* BOTTOM */}
             {isDesktop1100 && <BottomLayout />}
 
+            {/* BOTTOM_Links */}
+            {isDesktop1100 && <BottomLinks />}
+
             {/* CENTER */}
-            <div className="flex flex-col gap-6 border-b border-[#D1D1D1] py-9">
+            <div className="flex flex-col gap-6 border-[#D1D1D1] py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-0 desktop:border-b">
               <div className="flex items-center justify-between gap-3">
                 <SelectSizes />
 
@@ -208,6 +237,9 @@ const GoodsItem = () => {
 
             {/* BOTTOM */}
             {!isDesktop1100 && <BottomLayout />}
+
+            {/* BOTTOM_Links */}
+            {!isDesktop1100 && <BottomLinks />}
           </div>
         </div>
       </div>

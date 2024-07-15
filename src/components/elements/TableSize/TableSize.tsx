@@ -10,7 +10,7 @@ import {
 
 const TableSize = () => {
   return (
-    <Table className="max-w-[467px] bg-[#EEEEEE] text-[12px] text-[#666666]">
+    <Table className="bg-[#EEEEEE] text-[12px] text-[#666666] desktop:max-w-[467px]">
       <TableHeader>
         <TableRow style={{ boxShadow: "0px 0.6px 0px 0px #CDCDCD" }}>
           <TableHead className="font-bold uppercase">INT</TableHead>
