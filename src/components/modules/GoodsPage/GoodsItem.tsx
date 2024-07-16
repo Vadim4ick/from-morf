@@ -80,6 +80,45 @@ const AddBasket = () => {
   );
 };
 
+type ImageType = "one" | "double";
+
+interface ArrayImg {
+  id: number;
+  type: ImageType;
+  img: string | string[];
+}
+
+const arr: ArrayImg[] = [
+  {
+    id: 1,
+    type: "one",
+    img: "/goods/1.png",
+  },
+  {
+    id: 2,
+    type: "one",
+    img: "/goods/2.png",
+  },
+  {
+    id: 3,
+    type: "double",
+    img: ["/goods/3.png", "/goods/4.png"],
+  },
+  {
+    id: 4,
+    type: "one",
+    img: "/goods/5.png",
+  },
+];
+
+const isString = (value: unknown): value is string => {
+  return typeof value === "string";
+};
+
+const isArrayOfStrings = (value: unknown): value is string[] => {
+  return Array.isArray(value) && value.every(isString);
+};
+
 const GoodsItem = () => {
   const isDesktop1100 = useMediaQuery(1100);
 
@@ -92,110 +131,76 @@ const GoodsItem = () => {
         {/* LEFT */}
         {!isDesktop1100 && (
           <div className="relative flex flex-col gap-5">
-            <Lightbox imageUrl="/goods/1.png">
-              <Image
-                src={"/goods/1.png"}
-                className="h-full w-full"
-                alt=""
-                objectFit="cover"
-                height={700}
-                width={738}
-              />
-            </Lightbox>
-
-            <Image
-              src={"/goods/2.png"}
-              className="h-full w-full"
-              alt=""
-              objectFit="cover"
-              height={700}
-              width={738}
-            />
-
-            <div className="flex gap-5">
-              <Image
-                src={"/goods/3.png"}
-                className="h-full w-full"
-                alt=""
-                objectFit="cover"
-                height={700}
-                width={738}
-              />
-
-              <Image
-                src={"/goods/4.png"}
-                className="h-full w-full"
-                alt=""
-                objectFit="cover"
-                height={700}
-                width={738}
-              />
-            </div>
-
-            <Image
-              src={"/goods/5.png"}
-              className="h-full w-full"
-              alt=""
-              objectFit="cover"
-              height={700}
-              width={738}
-            />
+            {arr.map((el) => {
+              if (el.type === "one" && isString(el.img)) {
+                return (
+                  <Lightbox key={el.id} imageUrl={el.img}>
+                    <Image
+                      src={el.img}
+                      className="h-full w-full object-cover"
+                      alt=""
+                      height={700}
+                      width={738}
+                    />
+                  </Lightbox>
+                );
+              } else if (el.type === "double" && isArrayOfStrings(el.img)) {
+                return (
+                  <div key={el.id} className="flex gap-5">
+                    {el.img.map((img) => (
+                      <Lightbox key={img} imageUrl={img}>
+                        <Image
+                          src={img}
+                          className="h-full w-full object-cover"
+                          alt=""
+                          height={700}
+                          width={738}
+                        />
+                      </Lightbox>
+                    ))}
+                  </div>
+                );
+              }
+            })}
           </div>
         )}
 
         {isDesktop1100 && (
           <div className="w-full">
             <Swiper spaceBetween={20} slidesPerView={1}>
-              <SwiperSlide>
-                <Image
-                  src={"/goods/1.png"}
-                  className="aspect-square h-full w-full object-cover"
-                  alt=""
-                  objectFit="cover"
-                  height={700}
-                  width={700}
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image
-                  src={"/goods/2.png"}
-                  className="aspect-square h-full w-full object-cover"
-                  alt=""
-                  objectFit="cover"
-                  height={700}
-                  width={700}
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image
-                  src={"/goods/3.png"}
-                  className="aspect-square h-full w-full object-cover"
-                  alt=""
-                  objectFit="cover"
-                  height={700}
-                  width={700}
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image
-                  src={"/goods/4.png"}
-                  className="aspect-square h-full w-full object-cover"
-                  alt=""
-                  objectFit="cover"
-                  height={700}
-                  width={700}
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image
-                  src={"/goods/5.png"}
-                  className="aspect-square h-full w-full object-cover"
-                  alt=""
-                  objectFit="cover"
-                  height={700}
-                  width={700}
-                />
-              </SwiperSlide>
+              {arr.map((el) => {
+                if (el.type === "one" && isString(el.img)) {
+                  return (
+                    <SwiperSlide key={el.id}>
+                      <Lightbox imageUrl={el.img}>
+                        <Image
+                          src={el.img}
+                          className="aspect-square h-full w-full object-cover"
+                          alt=""
+                          objectFit="cover"
+                          height={700}
+                          width={700}
+                        />
+                      </Lightbox>
+                    </SwiperSlide>
+                  );
+                } else if (el.type === "double" && isArrayOfStrings(el.img)) {
+                  return el.img.map((img) => (
+                    <SwiperSlide key={img}>
+                      <Lightbox imageUrl={img}>
+                        <Image
+                          src={img}
+                          className="aspect-square h-full w-full object-cover"
+                          alt=""
+                          objectFit="cover"
+                          height={700}
+                          width={700}
+                        />
+                      </Lightbox>
+                    </SwiperSlide>
+                  ));
+                }
+              })}
             </Swiper>
           </div>
         )}
