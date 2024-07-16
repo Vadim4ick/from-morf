@@ -11,6 +11,7 @@ import { SelectSizes } from "@/components/elements/SelectSizes";
 import { TableSizeModal } from "./TableSizeModal";
 import { Arrow } from "@/shared/icons/Arrow";
 import Link from "next/link";
+import { Lightbox } from "@/components/ui/lightbox";
 
 const BottomLayout = () => {
   return (
@@ -91,14 +92,16 @@ const GoodsItem = () => {
         {/* LEFT */}
         {!isDesktop1100 && (
           <div className="relative flex flex-col gap-5">
-            <Image
-              src={"/goods/1.png"}
-              className="h-full w-full"
-              alt=""
-              objectFit="cover"
-              height={700}
-              width={738}
-            />
+            <Lightbox imageUrl="/goods/1.png">
+              <Image
+                src={"/goods/1.png"}
+                className="h-full w-full"
+                alt=""
+                objectFit="cover"
+                height={700}
+                width={738}
+              />
+            </Lightbox>
 
             <Image
               src={"/goods/2.png"}
