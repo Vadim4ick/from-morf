@@ -5,17 +5,22 @@ const authForm = createDomain();
 
 export const changeAuthEmail = authForm.createEvent<string>();
 export const changeAuthPassword = authForm.createEvent<string>();
+
+export const resetAuthForm = authForm.createEvent();
+
 export const toggleAuthForm = authForm.createEvent();
 
 export const $authFormEmail = authForm
   .createStore<string>("")
   .on(changeAuthEmail, (_, value) => value)
-  .on(toggleAuthForm, () => "");
+  .on(toggleAuthForm, () => "")
+  .on(resetAuthForm, () => "");
 
 export const $authFormPassword = authForm
   .createStore<string>("")
   .on(changeAuthPassword, (_, value) => value)
-  .on(toggleAuthForm, () => "");
+  .on(toggleAuthForm, () => "")
+  .on(resetAuthForm, () => "");
 
 export const $typeForm = authForm
   .createStore<TypeAuthForm>("auth")

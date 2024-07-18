@@ -20,9 +20,10 @@ import {
   changeAuthPassword,
   toggleAuthForm,
 } from "@/shared/context/auth";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { authQuery } from "@/shared/queries/authQueries";
+import { Eye } from "lucide-react";
 
 const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
   const [email, password, currentForm] = useUnit([
@@ -30,6 +31,8 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
     $authFormPassword,
     $typeForm,
   ]);
+
+  const [visiblePass, setVisiblePass] = useState(false);
 
   const router = useRouter();
 
@@ -87,12 +90,20 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
             onChange={(e) => changeAuthEmail(e.target.value)}
           />
 
-          <Input
-            placeholder="Пароль"
-            className="rounded-[2px] bg-[#E2E2E2F]"
-            value={password}
-            onChange={(e) => changeAuthPassword(e.target.value)}
-          />
+          <div className="relative">
+            <Input
+              type={visiblePass ? "text" : "password"}
+              placeholder="Пароль"
+              className="rounded-[2px] bg-[#E2E2E2F]"
+              value={password}
+              onChange={(e) => changeAuthPassword(e.target.value)}
+            />
+
+            <Eye
+              onClick={() => setVisiblePass(!visiblePass)}
+              className="absolute right-2 top-1/2 size-5 -translate-y-1/2 cursor-pointer"
+            />
+          </div>
 
           <Button className="w-full" variant={"secondary"}>
             Продолжить

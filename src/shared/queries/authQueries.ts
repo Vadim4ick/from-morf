@@ -12,11 +12,11 @@ class AuthQueries {
     return { data, status };
   }
 
-  async register() {
+  async register({ email, password }: { email: string; password: string }) {
     try {
       const { data, status } = await $apiBack.post(`/users`, {
-        email: "firulvv@mail.ru",
-        password: "d1r3ctu5",
+        email: email,
+        password: password,
         role: "7b9561f9-12bf-4b55-b1b3-6c282ded5ab2",
       });
 

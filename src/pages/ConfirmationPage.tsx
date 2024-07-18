@@ -11,9 +11,15 @@ import { cn, parseJwt, verifyActivationToken } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { authQuery } from "@/shared/queries/authQueries";
+import { useUnit } from "effector-react";
+import { $authFormPassword, resetAuthForm } from "@/shared/context/auth";
 
 const ConfirmationPage = () => {
+  const [password] = useUnit([$authFormPassword]);
   const [email, setEmail] = useState("");
+
+  const [timer, setTimer] = useState(30);
+
   const router = useRouter();
 
   const [error, setError] = useState<null | string>(null);
@@ -21,8 +27,11 @@ const ConfirmationPage = () => {
   const handleSubmit = async (value: string) => {
     const token = localStorage.getItem("activateToken");
 
-    if (!token) {
-      return console.log("Упc... Отсутсвует токен.");
+    if (!token && token !== "undefined") {
+      console.log("Упc... Отсутсвует токен.");
+
+      resetAuthForm();
+      return router.push("/");
     }
 
     if (token) {
@@ -30,6 +39,7 @@ const ConfirmationPage = () => {
 
       if (status === 401) {
         localStorage.removeItem("activateToken");
+        resetAuthForm();
         return router.push("/");
       }
 
@@ -40,10 +50,11 @@ const ConfirmationPage = () => {
         return;
       }
 
-      const statusRegister = await authQuery.register();
+      const statusRegister = await authQuery.register({ email, password });
 
       if (statusRegister === 200) {
         console.log("Вы зарегались!");
+        resetAuthForm();
         router.push("/");
       }
     }
@@ -56,13 +67,14 @@ const ConfirmationPage = () => {
 
     if (status === 200) {
       localStorage.setItem("activateToken", data.activationToken);
+      setTimer(30);
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem("activateToken");
 
-    if (!token) {
+    if (!token && token !== "undefined") {
       return console.log("Упc... Отсутсвует токен.");
     }
 
@@ -70,6 +82,16 @@ const ConfirmationPage = () => {
 
     setEmail(email);
   }, []);
+
+  useEffect(() => {
+    const int = setInterval(() => {
+      if (timer > 0) {
+        setTimer((prev) => prev - 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(int);
+  }, [timer]);
 
   return (
     <div className="h-screen w-full pt-[var(--header-height)]">
@@ -138,9 +160,17 @@ const ConfirmationPage = () => {
 
             {error && <p className="pb-2 text-[15px] text-red-600">{error}</p>}
 
-            <button onClick={sendMore} className="text-[15px]">
+            {Boolean(timer) ? (
+              <div className="text-[#939393]">{timer}</div>
+            ) : (
+              <button onClick={sendMore} className="text-[15px]">
+                Отправить еще раз
+              </button>
+            )}
+
+            {/* <button onClick={sendMore} className="text-[15px]">
               Отправить еще раз
-            </button>
+            </button> */}
           </form>
         </div>
       </div>
