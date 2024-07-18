@@ -1,5 +1,7 @@
+import { ConfirmationPage } from "@/pages/ConfirmationPage";
+
 const Page = () => {
-  return <div>page</div>;
+  return <ConfirmationPage />;
 };
 
 export default Page;

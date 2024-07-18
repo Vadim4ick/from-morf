@@ -1,3 +1,4 @@
+import { createActivationToken } from "@/lib/utils";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -17,17 +18,21 @@ export async function POST(request: Request) {
   });
 
   try {
+    const { token, activationCode } = await createActivationToken(email);
+
     await transporter.sendMail({
       from: '"Message bot"<your@gmail.com>', // sender address
       to: email, // list of receivers
       subject: `Сообщение от From-Morf`, // Subject line
       // text: JSON.stringify(message), // plain text body
       html: `
-        code 4122
+       Код будет действителен в течении 5 минут. 
+       
+       Code ${activationCode}
       `, // html body
     });
 
-    return NextResponse.json({ status: 200 });
+    return NextResponse.json({ status: 200, activationToken: token });
   } catch (err) {
     console.log(err);
     return NextResponse.json({ status: 500 });

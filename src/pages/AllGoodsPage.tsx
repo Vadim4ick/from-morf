@@ -5,6 +5,7 @@ const AllGoodsPage = ({ categories }: { categories: string }) => {
   return (
     <>
       <AllGoodsHeader />
+
       <StyleAdvice />
     </>
   );

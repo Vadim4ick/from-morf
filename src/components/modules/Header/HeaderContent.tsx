@@ -5,17 +5,9 @@ import { BasketIcon } from "@/shared/icons/header/BasketIcon";
 import clsx from "clsx";
 import { VariantHeader } from "./Header";
 import { Burger } from "./Burger";
-
-import axios from "axios";
-import { ProfileModal } from "@/components/elements/ProfileModal";
+import { ProfileModal } from "../ProfileModal";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
-  const onClick = async () => {
-    const { data } = await axios.post("http://localhost:3000/api/send-email", {
-      email: "firulvv@mail.ru",
-    });
-  };
-
   return (
     <div className="mx-auto h-full max-w-[1195px] px-[23px]">
       <div className="flex h-full items-center justify-between">
