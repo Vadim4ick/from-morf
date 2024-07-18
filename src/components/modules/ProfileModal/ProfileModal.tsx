@@ -23,6 +23,7 @@ import {
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { $apiFront } from "@/shared/api/api";
+import { authQuery } from "@/shared/queries/authQueries";
 
 const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
   const [email, password, currentForm] = useUnit([
@@ -40,13 +41,15 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
       console.log("email", email);
       console.log("password", password);
     } else {
-      const { data, status } = await $apiFront.post<{
-        status: number;
-        activationToken: string;
-      }>("/api/send-email", {
-        email: email,
-        password: password,
-      });
+      // const { data, status } = await $apiFront.post<{
+      //   status: number;
+      //   activationToken: string;
+      // }>("/api/send-email", {
+      //   email: email,
+      //   password: password,
+      // });
+
+      const { status, data } = await authQuery.sendMail({ email });
 
       if (status === 200) {
         localStorage.setItem("activateToken", data.activationToken);

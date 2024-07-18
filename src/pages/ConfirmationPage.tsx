@@ -7,21 +7,22 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useState } from "react";
-import { parseJwt, verifyActivationToken } from "@/lib/utils";
-import { useUnit } from "effector-react";
-import { $authFormEmail } from "@/shared/context/auth";
+import { cn, parseJwt, verifyActivationToken } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { authQuery } from "@/shared/queries/authQueries";
 
 const ConfirmationPage = () => {
-  const [code, setCode] = useState("");
+  const [email, setEmail] = useState("");
+  const router = useRouter();
 
-  const email = useUnit($authFormEmail);
+  const [error, setError] = useState<null | string>(null);
 
   const handleSubmit = async (value: string) => {
     const token = localStorage.getItem("activateToken");
 
     if (!token) {
-      return console.log("lol");
+      return console.log("Упc... Отсутсвует токен.");
     }
 
     if (token) {
@@ -29,34 +30,46 @@ const ConfirmationPage = () => {
 
       if (status === 401) {
         localStorage.removeItem("activateToken");
-        return alert("Ссылка не актуальна или устарела");
+        return router.push("/");
       }
 
-      const { email, activationCode } = parseJwt(token);
-
-      console.log("email", email);
-      console.log("activationCode", activationCode);
+      const { activationCode } = parseJwt(token);
 
       if (activationCode !== value) {
-        console.log("Код не совпадает");
+        setError("Неверный код");
         return;
       }
 
-      console.log("Вы зарегались!");
+      const statusRegister = await authQuery.register();
+
+      if (statusRegister === 200) {
+        console.log("Вы зарегались!");
+        router.push("/");
+      }
     }
   };
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("activateToken");
+  const sendMore = async () => {
+    setError(null);
 
-  //   if (!token) {
-  //     return console.log("lol");
-  //   }
+    const { status, data } = await authQuery.sendMail({ email });
 
-  //   const { email } = parseJwt(token);
+    if (status === 200) {
+      localStorage.setItem("activateToken", data.activationToken);
+    }
+  };
 
-  //   setEmail(email);
-  // }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("activateToken");
+
+    if (!token) {
+      return console.log("Упc... Отсутсвует токен.");
+    }
+
+    const { email } = parseJwt(token);
+
+    setEmail(email);
+  }, []);
 
   return (
     <div className="h-screen w-full pt-[var(--header-height)]">
@@ -77,21 +90,57 @@ const ConfirmationPage = () => {
 
           <form
             onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col items-center justify-center gap-7"
+            className="flex flex-col items-center justify-center"
           >
-            <InputOTP onComplete={(value) => handleSubmit(value)} maxLength={4}>
-              <InputOTPGroup>
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-              </InputOTPGroup>
-              <InputOTPSeparator />
-              <InputOTPGroup>
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-              </InputOTPGroup>
-            </InputOTP>
+            <div className="mb-6">
+              <InputOTP
+                onChange={() => setError(null)}
+                onComplete={(value) => handleSubmit(value)}
+                maxLength={4}
+              >
+                <InputOTPGroup>
+                  <InputOTPSlot
+                    index={0}
+                    className={cn("", {
+                      "text-red-600 ring-1 ring-red-600": error,
+                    })}
+                  />
+                  <InputOTPSlot
+                    index={1}
+                    className={cn("", {
+                      "text-red-600 ring-1 ring-red-600": error,
+                    })}
+                  />
+                </InputOTPGroup>
 
-            <button className="text-[15px]">Отправить еще раз</button>
+                <InputOTPSeparator
+                  className={cn("", {
+                    "text-red-600": error,
+                  })}
+                />
+
+                <InputOTPGroup>
+                  <InputOTPSlot
+                    index={2}
+                    className={cn("", {
+                      "text-red-600 ring-1 ring-red-600": error,
+                    })}
+                  />
+                  <InputOTPSlot
+                    index={3}
+                    className={cn("", {
+                      "text-red-600 ring-1 ring-red-600": error,
+                    })}
+                  />
+                </InputOTPGroup>
+              </InputOTP>
+            </div>
+
+            {error && <p className="pb-2 text-[15px] text-red-600">{error}</p>}
+
+            <button onClick={sendMore} className="text-[15px]">
+              Отправить еще раз
+            </button>
           </form>
         </div>
       </div>
