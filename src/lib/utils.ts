@@ -15,7 +15,7 @@ export async function createActivationToken(email: string) {
       email,
       activationCode,
     },
-    "SECRET_TEST_1234",
+    process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
     {
       expiresIn: "1m",
     },
@@ -29,7 +29,7 @@ export function verifyActivationToken(token: string) {
 
   const decoded = jwt.verify(
     token,
-    "SECRET_TEST_1234",
+    process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
     async (err: VerifyErrors | null) => {
       if (err) {
         jwtError = err;
