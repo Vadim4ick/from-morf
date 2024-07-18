@@ -7,12 +7,15 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { parseJwt, verifyActivationToken } from "@/lib/utils";
+import { useUnit } from "effector-react";
+import { $authFormEmail } from "@/shared/context/auth";
 
 const ConfirmationPage = () => {
   const [code, setCode] = useState("");
-  const [email, setEmail] = useState("");
+
+  const email = useUnit($authFormEmail);
 
   const handleSubmit = async (value: string) => {
     const token = localStorage.getItem("activateToken");
@@ -22,17 +25,24 @@ const ConfirmationPage = () => {
     }
 
     if (token) {
-      const tes = verifyActivationToken(token);
+      const { status } = await verifyActivationToken(token);
 
-      console.log(tes);
+      if (status === 401) {
+        localStorage.removeItem("activateToken");
+        return alert("Ссылка не актуальна или устарела");
+      }
 
-      // console.log("email", email);
-      // console.log("activationCode", activationCode);
+      const { email, activationCode } = parseJwt(token);
 
-      // if (activationCode !== value) {
-      //   console.log("Код не совпадает");
-      //   return;
-      // }
+      console.log("email", email);
+      console.log("activationCode", activationCode);
+
+      if (activationCode !== value) {
+        console.log("Код не совпадает");
+        return;
+      }
+
+      console.log("Вы зарегались!");
     }
   };
 
@@ -61,7 +71,7 @@ const ConfirmationPage = () => {
 
             <div className="flex flex-col items-center justify-center text-[15px] text-[#939393]">
               Отправили его на email
-              <span>{"firulvv@mail"}</span>
+              <span>{email}</span>
             </div>
           </div>
 

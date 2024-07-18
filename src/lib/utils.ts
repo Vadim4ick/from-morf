@@ -15,21 +15,21 @@ export async function createActivationToken(email: string) {
       email,
       activationCode,
     },
-    process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+    "JWT_SECRET_FROM-MORF" as string,
     {
-      expiresIn: "1m",
+      expiresIn: "5m",
     },
   );
 
   return { token, activationCode };
 }
 
-export function verifyActivationToken(token: string) {
+export async function verifyActivationToken(token: string) {
   let jwtError = null;
 
-  const decoded = jwt.verify(
+  await jwt.verify(
     token,
-    process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+    "JWT_SECRET_FROM-MORF" as string,
     async (err: VerifyErrors | null) => {
       if (err) {
         jwtError = err;
@@ -37,17 +37,14 @@ export function verifyActivationToken(token: string) {
     },
   );
 
-  if (jwtError) {
+  if (Boolean(jwtError)) {
     return {
       message: "Unauthorized",
       status: 401,
     };
   }
 
-  // Если токен действителен, decoded будет содержать полезную нагрузку токена
-  console.log("Token is valid:", decoded);
-
-  return decoded;
+  return { status: 200 };
 }
 
 export const parseJwt = (token: string) =>

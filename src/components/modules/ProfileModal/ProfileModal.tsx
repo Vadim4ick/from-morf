@@ -11,18 +11,49 @@ import { Button } from "@/components/ui/button";
 import { ProfileIcon } from "@/shared/icons/header/ProfileIcon";
 import { VariantHeader } from "@/components/modules/Header/Header";
 import clsx from "clsx";
-import { useAuthForm } from "./model/hooks/useAuthForm";
+import { useUnit } from "effector-react";
+import {
+  $authFormEmail,
+  $authFormPassword,
+  $typeForm,
+  changeAuthEmail,
+  changeAuthPassword,
+  toggleAuthForm,
+} from "@/shared/context/auth";
+import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { $apiFront } from "@/shared/api/api";
 
 const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
-  const {
-    email,
-    onChangeEmail,
-    onChangePass,
-    onSubmit,
-    password,
-    currentForm,
-    onChangeForm,
-  } = useAuthForm();
+  const [email, password, currentForm] = useUnit([
+    $authFormEmail,
+    $authFormPassword,
+    $typeForm,
+  ]);
+
+  const router = useRouter();
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (currentForm === "auth") {
+      console.log("email", email);
+      console.log("password", password);
+    } else {
+      const { data, status } = await $apiFront.post<{
+        status: number;
+        activationToken: string;
+      }>("/api/send-email", {
+        email: email,
+        password: password,
+      });
+
+      if (status === 200) {
+        localStorage.setItem("activateToken", data.activationToken);
+        router.push("/test");
+      }
+    }
+  };
 
   return (
     <Dialog>
@@ -53,14 +84,14 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
             placeholder="Email"
             className="rounded-[2px] bg-[#E2E2E2F]"
             value={email}
-            onChange={(e) => onChangeEmail(e)}
+            onChange={(e) => changeAuthEmail(e.target.value)}
           />
 
           <Input
             placeholder="Пароль"
             className="rounded-[2px] bg-[#E2E2E2F]"
             value={password}
-            onChange={(e) => onChangePass(e)}
+            onChange={(e) => changeAuthPassword(e.target.value)}
           />
 
           <Button className="w-full" variant={"secondary"}>
@@ -69,7 +100,7 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
         </form>
 
         <Button
-          onClick={onChangeForm}
+          onClick={() => toggleAuthForm()}
           className="mt-2 w-full"
           variant={"reset"}
         >
