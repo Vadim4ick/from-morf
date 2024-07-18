@@ -22,7 +22,6 @@ import {
 } from "@/shared/context/auth";
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { $apiFront } from "@/shared/api/api";
 import { authQuery } from "@/shared/queries/authQueries";
 
 const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
@@ -41,13 +40,11 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
       console.log("email", email);
       console.log("password", password);
     } else {
-      // const { data, status } = await $apiFront.post<{
-      //   status: number;
-      //   activationToken: string;
-      // }>("/api/send-email", {
-      //   email: email,
-      //   password: password,
-      // });
+      const { registered } = await authQuery.checkAuthEmail({ email });
+
+      if (registered) {
+        return console.log("Такой email уже зарегистрирован");
+      }
 
       const { status, data } = await authQuery.sendMail({ email });
 

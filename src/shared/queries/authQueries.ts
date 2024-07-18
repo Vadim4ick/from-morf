@@ -27,6 +27,17 @@ class AuthQueries {
       console.log((error as Error).message);
     }
   }
+
+  async checkAuthEmail({ email }: { email: string }) {
+    const { data } = await $apiFront.post<{
+      registered: boolean;
+      status: number;
+    }>("/api/check-email", {
+      email: email,
+    });
+
+    return data;
+  }
 }
 
 export const authQuery = new AuthQueries();
