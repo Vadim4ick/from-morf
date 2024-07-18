@@ -27,7 +27,7 @@ const ConfirmationPage = () => {
   const handleSubmit = async (value: string) => {
     const token = localStorage.getItem("activateToken");
 
-    if (!token && token !== "undefined") {
+    if (!token || token === "undefined") {
       console.log("Упc... Отсутсвует токен.");
 
       resetAuthForm();
@@ -74,7 +74,7 @@ const ConfirmationPage = () => {
   useEffect(() => {
     const token = localStorage.getItem("activateToken");
 
-    if (!token && token !== "undefined") {
+    if (!token || token === "undefined") {
       return console.log("Упc... Отсутсвует токен.");
     }
 

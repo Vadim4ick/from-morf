@@ -15,9 +15,11 @@ import { useUnit } from "effector-react";
 import {
   $authFormEmail,
   $authFormPassword,
+  $regiterError,
   $typeForm,
   changeAuthEmail,
   changeAuthPassword,
+  changeRegisterError,
   toggleAuthForm,
 } from "@/shared/context/auth";
 import { FormEvent, useState } from "react";
@@ -26,10 +28,11 @@ import { authQuery } from "@/shared/queries/authQueries";
 import { Eye } from "lucide-react";
 
 const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
-  const [email, password, currentForm] = useUnit([
+  const [email, password, currentForm, regiterError] = useUnit([
     $authFormEmail,
     $authFormPassword,
     $typeForm,
+    $regiterError,
   ]);
 
   const [visiblePass, setVisiblePass] = useState(false);
@@ -46,7 +49,8 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
       const { registered } = await authQuery.checkAuthEmail({ email });
 
       if (registered) {
-        return console.log("Такой email уже зарегистрирован");
+        console.log("Такой email уже зарегистрирован");
+        return changeRegisterError(true);
       }
 
       const { status, data } = await authQuery.sendMail({ email });
@@ -82,12 +86,21 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
           </DialogDescription>
         </DialogHeader>
 
+        {currentForm === "register" && regiterError && (
+          <div className="mb-3 text-[15px] text-red-600">
+            Такой email уже зарегестрирован!
+          </div>
+        )}
+
         <form onSubmit={onSubmit} className="flex flex-col gap-[10px]">
           <Input
             placeholder="Email"
             className="rounded-[2px] bg-[#E2E2E2F]"
             value={email}
             onChange={(e) => changeAuthEmail(e.target.value)}
+            onFocus={() =>
+              currentForm === "register" && changeRegisterError(false)
+            }
           />
 
           <div className="relative">

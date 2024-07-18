@@ -6,6 +6,8 @@ const authForm = createDomain();
 export const changeAuthEmail = authForm.createEvent<string>();
 export const changeAuthPassword = authForm.createEvent<string>();
 
+export const changeRegisterError = authForm.createEvent<boolean>();
+
 export const resetAuthForm = authForm.createEvent();
 
 export const toggleAuthForm = authForm.createEvent();
@@ -22,6 +24,12 @@ export const $authFormPassword = authForm
   .on(toggleAuthForm, () => "")
   .on(resetAuthForm, () => "");
 
+export const $regiterError = authForm
+  .createStore<boolean>(false)
+  .on(changeRegisterError, (_, value) => value)
+  .on(toggleAuthForm, () => false)
+  .on(resetAuthForm, () => false);
+
 export const $typeForm = authForm
   .createStore<TypeAuthForm>("auth")
   .on(toggleAuthForm, (store) => {
@@ -31,11 +39,3 @@ export const $typeForm = authForm
       return "auth";
     }
   });
-
-// const typeForm = createDomain();
-
-// export const toggleType = typeForm.createEvent();
-
-// export const $currentAuthForm = typeForm
-//   .createStore<TypeForm>("auth")
-//   .on(toggleType, (state) => (state === "auth" ? "register" : "auth"));
