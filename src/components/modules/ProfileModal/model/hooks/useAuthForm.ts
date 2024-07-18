@@ -1,9 +1,9 @@
 "use client";
 
-import axios from "axios";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { TypeAuthForm } from "../types";
+import { $apiFront } from "@/shared/api/api";
 
 const useAuthForm = () => {
   const [email, setEmail] = useState("");
@@ -13,18 +13,25 @@ const useAuthForm = () => {
 
   const router = useRouter();
 
-  const onClick = async () => {
-    const { data, status } = await axios.post<{
-      status: number;
-      activationToken: string;
-    }>("http://localhost:3000/api/send-email", {
-      email: email,
-      password: password,
-    });
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
 
-    if (status === 200) {
-      localStorage.setItem("activateToken", data.activationToken);
-      router.push("/test");
+    if (currentForm === "auth") {
+      console.log("email", email);
+      console.log("password", password);
+    } else {
+      const { data, status } = await $apiFront.post<{
+        status: number;
+        activationToken: string;
+      }>("/api/send-email", {
+        email: email,
+        password: password,
+      });
+
+      if (status === 200) {
+        localStorage.setItem("activateToken", data.activationToken);
+        router.push("/test");
+      }
     }
   };
 
@@ -47,7 +54,7 @@ const useAuthForm = () => {
   return {
     email,
     password,
-    onClick,
+    onSubmit,
     onChangeEmail,
     onChangePass,
     onChangeForm,

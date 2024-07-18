@@ -49,3 +49,6 @@ export function verifyActivationToken(token: string) {
 
   return decoded;
 }
+
+export const parseJwt = (token: string) =>
+  JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());

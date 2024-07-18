@@ -8,11 +8,11 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useEffect, useState } from "react";
-import { verifyActivationToken } from "@/lib/utils";
+import { parseJwt, verifyActivationToken } from "@/lib/utils";
 
 const ConfirmationPage = () => {
   const [code, setCode] = useState("");
-  const [email] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async (value: string) => {
     const token = localStorage.getItem("activateToken");
@@ -36,7 +36,17 @@ const ConfirmationPage = () => {
     }
   };
 
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("activateToken");
+
+  //   if (!token) {
+  //     return console.log("lol");
+  //   }
+
+  //   const { email } = parseJwt(token);
+
+  //   setEmail(email);
+  // }, []);
 
   return (
     <div className="h-screen w-full pt-[var(--header-height)]">
@@ -51,7 +61,7 @@ const ConfirmationPage = () => {
 
             <div className="flex flex-col items-center justify-center text-[15px] text-[#939393]">
               Отправили его на email
-              <span>test@mail.ru</span>
+              <span>{"firulvv@mail"}</span>
             </div>
           </div>
 

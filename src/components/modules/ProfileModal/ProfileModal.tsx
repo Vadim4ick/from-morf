@@ -18,7 +18,7 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
     email,
     onChangeEmail,
     onChangePass,
-    onClick,
+    onSubmit,
     password,
     currentForm,
     onChangeForm,
@@ -48,7 +48,7 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
           </DialogDescription>
         </DialogHeader>
 
-        <form className="flex flex-col gap-[10px]">
+        <form onSubmit={onSubmit} className="flex flex-col gap-[10px]">
           <Input
             placeholder="Email"
             className="rounded-[2px] bg-[#E2E2E2F]"
@@ -63,7 +63,7 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
             onChange={(e) => onChangePass(e)}
           />
 
-          <Button onClick={onClick} className="w-full" variant={"secondary"}>
+          <Button className="w-full" variant={"secondary"}>
             Продолжить
           </Button>
         </form>
