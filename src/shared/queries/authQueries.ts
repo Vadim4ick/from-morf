@@ -4,9 +4,8 @@ import {
   saveRefreshTokenStorage,
 } from "@/lib/auth-token";
 import { $apiBack, $apiFront } from "../api/api";
-import { LoginData, User } from "../types/authForm";
+import { LoginData } from "../types/authForm";
 import axios from "axios";
-import { setUser } from "../context/user";
 
 class AuthQueries {
   async sendMail({ email, password }: { email: string; password: string }) {
@@ -51,18 +50,6 @@ class AuthQueries {
       saveRefreshTokenStorage(data.data.refresh_token);
 
       console.log("data", data);
-    } catch (error) {
-      console.log((error as Error).message);
-    }
-  }
-
-  async me() {
-    try {
-      const { data } = await $apiBack.get<{ data: User }>(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`,
-      );
-
-      setUser(data.data);
     } catch (error) {
       console.log((error as Error).message);
     }
