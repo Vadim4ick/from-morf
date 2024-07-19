@@ -37,8 +37,7 @@ const AuthForm = () => {
     const { email, password } = data;
 
     if (currentForm === "auth") {
-      console.log("email", email);
-      console.log("password", password);
+      await authQuery.login({ email, password });
     } else {
       const { registered } = await authQuery.checkAuthEmail({ email });
 

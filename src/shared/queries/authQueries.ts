@@ -1,4 +1,12 @@
+import {
+  getRefreshToken,
+  saveAccessTokenStorage,
+  saveRefreshTokenStorage,
+} from "@/lib/auth-token";
 import { $apiBack, $apiFront } from "../api/api";
+import { LoginData, User } from "../types/authForm";
+import axios from "axios";
+import { setUser } from "../context/user";
 
 class AuthQueries {
   async sendMail({ email, password }: { email: string; password: string }) {
@@ -24,6 +32,61 @@ class AuthQueries {
       console.log(data);
 
       return status;
+    } catch (error) {
+      console.log((error as Error).message);
+    }
+  }
+
+  async login({ email, password }: { email: string; password: string }) {
+    try {
+      const { data } = await axios.post<LoginData>(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
+        {
+          email: email,
+          password: password,
+        },
+      );
+
+      saveAccessTokenStorage(data.data.access_token);
+      saveRefreshTokenStorage(data.data.refresh_token);
+
+      console.log("data", data);
+    } catch (error) {
+      console.log((error as Error).message);
+    }
+  }
+
+  async me() {
+    try {
+      const { data } = await $apiBack.get<{ data: User }>(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me`,
+      );
+
+      setUser(data.data);
+    } catch (error) {
+      console.log((error as Error).message);
+    }
+  }
+
+  async refresh() {
+    const token = getRefreshToken();
+
+    if (!token) {
+      return;
+    }
+
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/refresh`,
+        {
+          refresh_token: token,
+        },
+      );
+
+      saveAccessTokenStorage(data.data.access_token);
+      saveRefreshTokenStorage(data.data.refresh_token);
+
+      console.log("data", data);
     } catch (error) {
       console.log((error as Error).message);
     }
