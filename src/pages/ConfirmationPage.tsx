@@ -8,11 +8,15 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { cn, parseJwt, verifyActivationToken } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { authQuery } from "@/shared/queries/authQueries";
 import { useUnit } from "effector-react";
-import { $authFormPassword, resetAuthForm } from "@/shared/context/auth";
+import {
+  $authFormPassword,
+  resetAuthForm,
+  toggleConfirmPage,
+} from "@/shared/context/auth";
 
 const ConfirmationPage = () => {
   const [password] = useUnit([$authFormPassword]);
@@ -20,7 +24,7 @@ const ConfirmationPage = () => {
 
   const [timer, setTimer] = useState(30);
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const [error, setError] = useState<null | string>(null);
 
@@ -31,7 +35,9 @@ const ConfirmationPage = () => {
       console.log("Упc... Отсутсвует токен.");
 
       resetAuthForm();
-      return router.push("/");
+
+      return toggleConfirmPage(false);
+      // return router.push("/");
     }
 
     if (token) {
@@ -40,7 +46,8 @@ const ConfirmationPage = () => {
       if (status === 401) {
         localStorage.removeItem("activateToken");
         resetAuthForm();
-        return router.push("/");
+        return toggleConfirmPage(false);
+        // return router.push("/");
       }
 
       const { activationCode } = parseJwt(token);
@@ -55,7 +62,8 @@ const ConfirmationPage = () => {
       if (statusRegister === 200) {
         console.log("Вы зарегались!");
         resetAuthForm();
-        router.push("/");
+        toggleConfirmPage(false);
+        // router.push("/");
       }
     }
   };
@@ -124,20 +132,20 @@ const ConfirmationPage = () => {
                   <InputOTPSlot
                     index={0}
                     className={cn("", {
-                      "text-red-600 ring-1 ring-red-600": error,
+                      "text-error ring-error ring-1": error,
                     })}
                   />
                   <InputOTPSlot
                     index={1}
                     className={cn("", {
-                      "text-red-600 ring-1 ring-red-600": error,
+                      "text-error ring-error ring-1": error,
                     })}
                   />
                 </InputOTPGroup>
 
                 <InputOTPSeparator
                   className={cn("", {
-                    "text-red-600": error,
+                    "text-error": error,
                   })}
                 />
 
@@ -145,20 +153,20 @@ const ConfirmationPage = () => {
                   <InputOTPSlot
                     index={2}
                     className={cn("", {
-                      "text-red-600 ring-1 ring-red-600": error,
+                      "text-error ring-error ring-1": error,
                     })}
                   />
                   <InputOTPSlot
                     index={3}
                     className={cn("", {
-                      "text-red-600 ring-1 ring-red-600": error,
+                      "text-error ring-error ring-1": error,
                     })}
                   />
                 </InputOTPGroup>
               </InputOTP>
             </div>
 
-            {error && <p className="pb-2 text-[15px] text-red-600">{error}</p>}
+            {error && <p className="text-error pb-2 text-[15px]">{error}</p>}
 
             {Boolean(timer) ? (
               <div className="text-[#939393]">{timer}</div>
@@ -167,10 +175,6 @@ const ConfirmationPage = () => {
                 Отправить еще раз
               </button>
             )}
-
-            {/* <button onClick={sendMore} className="text-[15px]">
-              Отправить еще раз
-            </button> */}
           </form>
         </div>
       </div>

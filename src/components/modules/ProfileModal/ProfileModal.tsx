@@ -21,9 +21,9 @@ import {
   changeAuthPassword,
   changeRegisterError,
   toggleAuthForm,
+  toggleConfirmPage,
 } from "@/shared/context/auth";
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 import { authQuery } from "@/shared/queries/authQueries";
 import { Eye } from "lucide-react";
 
@@ -36,8 +36,6 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
   ]);
 
   const [visiblePass, setVisiblePass] = useState(false);
-
-  const router = useRouter();
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -57,7 +55,7 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
 
       if (status === 200) {
         localStorage.setItem("activateToken", data.activationToken);
-        router.push("/test");
+        toggleConfirmPage(true);
       }
     }
   };
@@ -87,7 +85,7 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
         </DialogHeader>
 
         {currentForm === "register" && regiterError && (
-          <div className="mb-3 text-[15px] text-red-600">
+          <div className="text-error mb-3 text-[15px]">
             Такой email уже зарегестрирован!
           </div>
         )}

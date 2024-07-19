@@ -8,6 +8,8 @@ export const changeAuthPassword = authForm.createEvent<string>();
 
 export const changeRegisterError = authForm.createEvent<boolean>();
 
+export const toggleConfirmPage = authForm.createEvent<boolean>();
+
 export const resetAuthForm = authForm.createEvent();
 
 export const toggleAuthForm = authForm.createEvent();
@@ -39,3 +41,7 @@ export const $typeForm = authForm
       return "auth";
     }
   });
+
+export const $confirm = authForm
+  .createStore<boolean>(false)
+  .on(toggleConfirmPage, (_, value) => value);

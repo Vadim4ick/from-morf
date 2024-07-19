@@ -26,6 +26,7 @@ const config = {
         blackColor: "#181818",
         darkGrayColor: "#444444",
         headerBg: "#F8F8F8",
+        error: "#c02222",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
