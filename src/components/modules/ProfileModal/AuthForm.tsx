@@ -1,0 +1,120 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  $regiterError,
+  $typeForm,
+  changeRegisterError,
+  toggleConfirmPage,
+} from "@/shared/context/auth";
+import { authQuery } from "@/shared/queries/authQueries";
+import { useUnit } from "effector-react";
+import { Eye } from "lucide-react";
+import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormAuthSchema, formAuthSchema } from "./model/formSchemas";
+
+const AuthForm = () => {
+  const [visiblePass, setVisiblePass] = useState(false);
+
+  const [currentForm, regiterError] = useUnit([$typeForm, $regiterError]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormAuthSchema>({
+    resolver: zodResolver(formAuthSchema),
+  });
+
+  useEffect(() => {
+    reset();
+  }, [currentForm]);
+
+  const onSubmit: SubmitHandler<FormAuthSchema> = async (data) => {
+    const { email, password } = data;
+
+    if (currentForm === "auth") {
+      console.log("email", email);
+      console.log("password", password);
+    } else {
+      const { registered } = await authQuery.checkAuthEmail({ email });
+
+      if (registered) {
+        console.log("Такой email уже зарегистрирован");
+        return changeRegisterError(true);
+      }
+
+      const { status, data } = await authQuery.sendMail({ email, password });
+
+      if (status === 200) {
+        localStorage.setItem("activateToken", data.activationToken);
+        toggleConfirmPage(true);
+      }
+    }
+  };
+
+  return (
+    <>
+      {currentForm === "register" && regiterError && (
+        <div className="mb-3 text-[15px] text-error">
+          Такой email уже зарегестрирован!
+        </div>
+      )}
+
+      {errors.email && (
+        <div className="mb-3 text-[15px] text-error">
+          {errors.email.message}
+        </div>
+      )}
+
+      {errors.password && (
+        <div className="mb-3 text-[15px] text-error">
+          {errors.password.message}
+        </div>
+      )}
+
+      {currentForm === "register" && regiterError && (
+        <div className="mb-3 text-[15px] text-error">
+          Такой email уже зарегестрирован!
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-[10px]"
+      >
+        <Input
+          {...register("email")}
+          placeholder="Email"
+          className="rounded-[2px] bg-[#E2E2E2F]"
+          onFocus={() =>
+            currentForm === "register" && changeRegisterError(false)
+          }
+        />
+
+        <div className="relative">
+          <Input
+            {...register("password")}
+            type={visiblePass ? "text" : "password"}
+            placeholder="Пароль"
+            className="rounded-[2px] bg-[#E2E2E2F]"
+          />
+
+          <Eye
+            onClick={() => setVisiblePass(!visiblePass)}
+            className="absolute right-2 top-1/2 size-5 -translate-y-1/2 cursor-pointer"
+          />
+        </div>
+
+        <Button className="w-full" variant={"secondary"}>
+          Продолжить
+        </Button>
+      </form>
+    </>
+  );
+};
+
+export { AuthForm };

@@ -1,12 +1,13 @@
 import { $apiBack, $apiFront } from "../api/api";
 
 class AuthQueries {
-  async sendMail({ email }: { email: string }) {
+  async sendMail({ email, password }: { email: string; password: string }) {
     const { data, status } = await $apiFront.post<{
       status: number;
       activationToken: string;
     }>("/api/send-email", {
       email: email,
+      password: password,
     });
 
     return { data, status };

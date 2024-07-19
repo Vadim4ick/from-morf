@@ -6,6 +6,7 @@ export async function POST(request: Request) {
   const formData = await request.json();
 
   const email = formData.email;
+  const password = formData.password;
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -18,10 +19,13 @@ export async function POST(request: Request) {
   });
 
   try {
-    const { token, activationCode } = await createActivationToken(email);
+    const { token, activationCode } = await createActivationToken(
+      email,
+      password,
+    );
 
     await transporter.sendMail({
-      from: '"Message bot"<your@gmail.com>', // sender address
+      from: "Message bot", // sender address
       to: email, // list of receivers
       subject: `Сообщение от From-Morf`, // Subject line
       // text: JSON.stringify(message), // plain text body

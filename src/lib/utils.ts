@@ -7,12 +7,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // create activation token
-export async function createActivationToken(email: string) {
+export async function createActivationToken(email: string, password: string) {
   const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
 
   const token = jwt.sign(
     {
       email,
+      password,
       activationCode,
     },
     "JWT_SECRET_FROM-MORF" as string,

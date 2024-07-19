@@ -11,16 +11,11 @@ import { cn, parseJwt, verifyActivationToken } from "@/lib/utils";
 // import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { authQuery } from "@/shared/queries/authQueries";
-import { useUnit } from "effector-react";
-import {
-  $authFormPassword,
-  resetAuthForm,
-  toggleConfirmPage,
-} from "@/shared/context/auth";
+import { toggleConfirmPage } from "@/shared/context/auth";
 
 const ConfirmationPage = () => {
-  const [password] = useUnit([$authFormPassword]);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [timer, setTimer] = useState(30);
 
@@ -34,8 +29,6 @@ const ConfirmationPage = () => {
     if (!token || token === "undefined") {
       console.log("Упc... Отсутсвует токен.");
 
-      resetAuthForm();
-
       return toggleConfirmPage(false);
       // return router.push("/");
     }
@@ -45,7 +38,6 @@ const ConfirmationPage = () => {
 
       if (status === 401) {
         localStorage.removeItem("activateToken");
-        resetAuthForm();
         return toggleConfirmPage(false);
         // return router.push("/");
       }
@@ -61,7 +53,6 @@ const ConfirmationPage = () => {
 
       if (statusRegister === 200) {
         console.log("Вы зарегались!");
-        resetAuthForm();
         toggleConfirmPage(false);
         // router.push("/");
       }
@@ -71,7 +62,7 @@ const ConfirmationPage = () => {
   const sendMore = async () => {
     setError(null);
 
-    const { status, data } = await authQuery.sendMail({ email });
+    const { status, data } = await authQuery.sendMail({ email, password });
 
     if (status === 200) {
       localStorage.setItem("activateToken", data.activationToken);
@@ -86,9 +77,10 @@ const ConfirmationPage = () => {
       return console.log("Упc... Отсутсвует токен.");
     }
 
-    const { email } = parseJwt(token);
+    const { email, password } = parseJwt(token);
 
     setEmail(email);
+    setPassword(password);
   }, []);
 
   useEffect(() => {
@@ -132,13 +124,13 @@ const ConfirmationPage = () => {
                   <InputOTPSlot
                     index={0}
                     className={cn("", {
-                      "text-error ring-error ring-1": error,
+                      "text-error ring-1 ring-error": error,
                     })}
                   />
                   <InputOTPSlot
                     index={1}
                     className={cn("", {
-                      "text-error ring-error ring-1": error,
+                      "text-error ring-1 ring-error": error,
                     })}
                   />
                 </InputOTPGroup>
@@ -153,20 +145,20 @@ const ConfirmationPage = () => {
                   <InputOTPSlot
                     index={2}
                     className={cn("", {
-                      "text-error ring-error ring-1": error,
+                      "text-error ring-1 ring-error": error,
                     })}
                   />
                   <InputOTPSlot
                     index={3}
                     className={cn("", {
-                      "text-error ring-error ring-1": error,
+                      "text-error ring-1 ring-error": error,
                     })}
                   />
                 </InputOTPGroup>
               </InputOTP>
             </div>
 
-            {error && <p className="text-error pb-2 text-[15px]">{error}</p>}
+            {error && <p className="pb-2 text-[15px] text-error">{error}</p>}
 
             {Boolean(timer) ? (
               <div className="text-[#939393]">{timer}</div>
