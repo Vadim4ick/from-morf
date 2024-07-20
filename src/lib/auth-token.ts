@@ -1,6 +1,5 @@
 import { $apiBack } from "@/shared/api/api";
 import { LoginData } from "@/shared/types/authForm";
-import { AxiosError } from "axios";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 
 export enum EnumTokens {
@@ -22,14 +21,14 @@ export const getRefreshToken = () => {
 
 export const saveAccessTokenStorage = (accessToken: string) => {
   setCookie(null, EnumTokens.ACCESS_TOKEN, accessToken, {
-    maxAge: 900000,
+    maxAge: 300,
     path: "/",
   });
 };
 
 export const saveRefreshTokenStorage = (refreshToken: string) => {
   setCookie(null, EnumTokens.REFRESH_TOKEN, refreshToken, {
-    maxAge: 900000,
+    maxAge: 900,
     path: "/",
   });
 };
@@ -55,11 +54,6 @@ export async function generateTokens() {
       saveRefreshTokenStorage(res.data.data.refresh_token);
     }
   } catch (error) {
-    // @ts-ignore
-    if ((error as AxiosError).response?.data?.redirect) {
-      // @ts-ignore
-      window.location.href = (error as AxiosError).response?.data?.redirect;
-    }
     throw new Error((error as Error).message);
   }
 }
