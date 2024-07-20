@@ -14,11 +14,14 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormAuthSchema, formAuthSchema } from "./model/formSchemas";
+import { loginUser } from "@/shared/context/user";
 
 const AuthForm = () => {
   const [visiblePass, setVisiblePass] = useState(false);
 
   const [currentForm, regiterError] = useUnit([$typeForm, $regiterError]);
+
+  const loginUserFx = useUnit(loginUser);
 
   const {
     register,
@@ -37,7 +40,8 @@ const AuthForm = () => {
     const { email, password } = data;
 
     if (currentForm === "auth") {
-      await authQuery.login({ email, password });
+      // await authQuery.login({ email, password });
+      loginUserFx({ email, password });
     } else {
       const { registered } = await authQuery.checkAuthEmail({ email });
 

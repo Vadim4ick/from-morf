@@ -19,8 +19,8 @@ import Image from "next/image";
 import { Arrow } from "@/shared/icons/Arrow";
 import { Exit } from "@/shared/icons/Exit";
 import { removeAccessToken, removeRefreshToken } from "@/lib/auth-token";
-import { useRouter } from "next/navigation";
 import { pathImage } from "@/lib/utils";
+import { clearUser } from "@/shared/context/user";
 
 const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
   const [currentForm, user] = useUnit([$typeForm, $user]);
@@ -31,7 +31,7 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
     removeAccessToken();
     removeRefreshToken();
 
-    window.location.reload();
+    clearUser();
   };
 
   return (

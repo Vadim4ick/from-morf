@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import jwt, { VerifyErrors } from "jsonwebtoken";
-import path from "path";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -1,7 +1,12 @@
 "use client";
 
+import {
+  saveAccessTokenStorage,
+  saveRefreshTokenStorage,
+} from "@/lib/auth-token";
 import { $apiBack } from "@/shared/api/api";
-import { User } from "@/shared/types/authForm";
+import { LoginData, User } from "@/shared/types/authForm";
+import axios from "axios";
 import { createDomain, createEffect } from "effector";
 
 export const getMeFx = createEffect(async () => {
@@ -38,7 +43,36 @@ export const updateUserFx = createEffect(
   },
 );
 
+export const loginUserFx = createEffect(
+  async ({ email, password }: { email: string; password: string }) => {
+    try {
+      const { data } = await axios.post<LoginData>(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
+        {
+          email: email,
+          password: password,
+        },
+      );
+
+      saveAccessTokenStorage(data.data.access_token);
+      saveRefreshTokenStorage(data.data.refresh_token);
+
+      const dataUser = await getMeFx();
+
+      return dataUser;
+    } catch (error) {
+      console.log((error as Error).message);
+    }
+  },
+);
+
 export const authForm = createDomain();
 
 export const loadUser = authForm.createEvent();
 export const updateUser = authForm.createEvent<{ userData: Partial<User> }>();
+export const loginUser = authForm.createEvent<{
+  email: string;
+  password: string;
+}>();
+
+export const clearUser = authForm.createEvent();

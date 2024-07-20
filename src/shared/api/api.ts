@@ -1,4 +1,9 @@
-import { getAccessToken, removeFromStorage } from "@/lib/auth-token";
+import {
+  getAccessToken,
+  removeAccessToken,
+  removeFromStorage,
+  removeRefreshToken,
+} from "@/lib/auth-token";
 import axios from "axios";
 import { authQuery } from "../queries/authQueries";
 
@@ -39,6 +44,8 @@ $apiBack.interceptors.response.use(
       } catch (error) {
         // if (errorCatch(error as AxiosError) === "jwt expired")
         // removeFromStorage();
+        removeAccessToken();
+        removeRefreshToken();
       }
     }
     throw error;
