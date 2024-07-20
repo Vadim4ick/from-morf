@@ -8,6 +8,7 @@ import { $apiBack } from "@/shared/api/api";
 import { LoginData, User } from "@/shared/types/authForm";
 import axios from "axios";
 import { createDomain, createEffect } from "effector";
+import { changeLoginError } from "../auth";
 
 export const getMeFx = createEffect(async () => {
   try {
@@ -62,6 +63,12 @@ export const loginUserFx = createEffect(
       return dataUser;
     } catch (error) {
       console.log((error as Error).message);
+      changeLoginError(true);
+
+      setTimeout(() => {
+        changeLoginError(false);
+      }, 2000);
+      throw new Error((error as Error).message);
     }
   },
 );

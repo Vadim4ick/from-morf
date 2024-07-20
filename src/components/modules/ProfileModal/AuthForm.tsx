@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+  $loginError,
   $regiterError,
   $typeForm,
   changeRegisterError,
@@ -19,9 +20,11 @@ import { loginUser } from "@/shared/context/user";
 const AuthForm = () => {
   const [visiblePass, setVisiblePass] = useState(false);
 
-  const [currentForm, regiterError] = useUnit([$typeForm, $regiterError]);
-
-  const loginUserFx = useUnit(loginUser);
+  const [currentForm, regiterError, loginError] = useUnit([
+    $typeForm,
+    $regiterError,
+    $loginError,
+  ]);
 
   const {
     register,
@@ -40,14 +43,20 @@ const AuthForm = () => {
     const { email, password } = data;
 
     if (currentForm === "auth") {
-      // await authQuery.login({ email, password });
-      loginUserFx({ email, password });
+      loginUser({ email, password });
     } else {
       const { registered } = await authQuery.checkAuthEmail({ email });
 
       if (registered) {
         console.log("Такой email уже зарегистрирован");
-        return changeRegisterError(true);
+
+        changeRegisterError(true);
+
+        setTimeout(() => {
+          changeRegisterError(false);
+        }, 2000);
+
+        return;
       }
 
       const { status, data } = await authQuery.sendMail({ email, password });
@@ -66,6 +75,11 @@ const AuthForm = () => {
           Такой email уже зарегестрирован!
         </div>
       )}
+      {currentForm === "auth" && loginError && (
+        <div className="mb-3 text-[15px] text-error">
+          Неправильный логин или пароль!
+        </div>
+      )}
 
       {errors.email && (
         <div className="mb-3 text-[15px] text-error">
@@ -76,12 +90,6 @@ const AuthForm = () => {
       {errors.password && (
         <div className="mb-3 text-[15px] text-error">
           {errors.password.message}
-        </div>
-      )}
-
-      {currentForm === "register" && regiterError && (
-        <div className="mb-3 text-[15px] text-error">
-          Такой email уже зарегестрирован!
         </div>
       )}
 
