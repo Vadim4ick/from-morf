@@ -19,6 +19,14 @@ export const getRefreshToken = () => {
   return cookies.token || null;
 };
 
+export const removeAccessToken = () => {
+  destroyCookie(undefined, EnumTokens.ACCESS_TOKEN);
+};
+
+export const removeRefreshToken = () => {
+  destroyCookie(undefined, EnumTokens.REFRESH_TOKEN);
+};
+
 export const saveAccessTokenStorage = (accessToken: string) => {
   setCookie(null, EnumTokens.ACCESS_TOKEN, accessToken, {
     maxAge: 300,
