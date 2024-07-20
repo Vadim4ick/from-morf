@@ -4,7 +4,7 @@ import {
   saveRefreshTokenStorage,
 } from "@/lib/auth-token";
 import { $apiBack, $apiFront } from "../api/api";
-import { LoginData } from "../types/authForm";
+import { LoginData, User } from "../types/authForm";
 import axios from "axios";
 
 class AuthQueries {
@@ -48,6 +48,26 @@ class AuthQueries {
 
       saveAccessTokenStorage(data.data.access_token);
       saveRefreshTokenStorage(data.data.refresh_token);
+
+      console.log("data", data);
+    } catch (error) {
+      console.log((error as Error).message);
+    }
+  }
+
+  async updateUser({ userData }: { userData: User }) {
+    try {
+      const { data } = await $apiBack.patch<LoginData>(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${userData.id}`,
+        {
+          name: userData.name,
+          surname: userData.surname,
+          email: userData.email,
+          address: userData.address,
+          phone: userData.phone,
+          avatar: userData.avatar,
+        },
+      );
 
       console.log("data", data);
     } catch (error) {

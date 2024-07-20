@@ -9,6 +9,11 @@ export interface LoginData {
 }
 
 export interface User {
+  id: string;
   avatar: string | null;
   email: string;
+  surname: string;
+  address: string;
+  name: string;
+  phone: string;
 }

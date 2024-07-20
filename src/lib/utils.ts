@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import jwt, { VerifyErrors } from "jsonwebtoken";
+import path from "path";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -48,5 +49,8 @@ export async function verifyActivationToken(token: string) {
   return { status: 200 };
 }
 
+export const pathImage = (img: string) => {
+  return `http://localhost:8055/assets/${img}`;
+};
 export const parseJwt = (token: string) =>
   JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());

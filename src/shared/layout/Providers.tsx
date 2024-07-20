@@ -3,19 +3,19 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { getMeFx, loadUser } from "../context/user/index";
-import { $user } from "../context/user/state";
+// import { $user } from "../context/user/state";
 
 import "./../../shared/context/user/init";
 import { Loader } from "@/components/ui/loader";
 
 const Providers = ({ children }: { children: ReactNode }) => {
-  const user = useUnit($user);
+  // const user = useUnit($user);
   const handleLoadUserFx = useUnit(loadUser);
   const spinner = useUnit(getMeFx.pending);
 
   const [loading, setLoading] = useState(true);
 
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     handleLoadUserFx();

@@ -20,6 +20,7 @@ import { Arrow } from "@/shared/icons/Arrow";
 import { Exit } from "@/shared/icons/Exit";
 import { removeAccessToken, removeRefreshToken } from "@/lib/auth-token";
 import { useRouter } from "next/navigation";
+import { pathImage } from "@/lib/utils";
 
 const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
   const [currentForm, user] = useUnit([$typeForm, $user]);
@@ -77,23 +78,13 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
           <DialogHeader className="border-b border-[#CDCDCD] py-4">
             <button className="flex w-full items-center justify-between">
               <div className="flex gap-5">
-                {user?.avatar ? (
-                  <Image
-                    width={52}
-                    height={52}
-                    alt="avatar"
-                    src={user.avatar}
-                    className="size-[52px] rounded-full"
-                  />
-                ) : (
-                  <Image
-                    width={52}
-                    height={52}
-                    alt="avatar"
-                    src="/no-avatar.png"
-                    className="size-[52px] rounded-full"
-                  />
-                )}
+                <Image
+                  width={52}
+                  height={52}
+                  alt="avatar"
+                  src={user?.avatar ? pathImage(user.avatar) : "/no-avatar.png"}
+                  className="size-[52px] rounded-full"
+                />
 
                 <div className="flex flex-col items-start">
                   <p>{user?.email}</p>
