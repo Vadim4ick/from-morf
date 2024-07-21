@@ -12,20 +12,34 @@ import { TableSizeModal } from "./TableSizeModal";
 import { Arrow } from "@/shared/icons/Arrow";
 import Link from "next/link";
 import { Lightbox } from "@/components/ui/lightbox";
+import { GetGoodsQuery } from "@/graphql/__generated__";
+import ReactMarkdown from "react-markdown";
+import { pathImage } from "@/lib/utils";
+import { Fragment } from "react";
 
-const BottomLayout = () => {
+const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
-    <div className="flex flex-col gap-3 border-b border-[#D1D1D1] py-6">
-      <div className="flex items-center gap-[6px] max-mobile:text-sm">
-        Артикул: <b>Х125761</b>
-      </div>
-
-      <div className="flex items-center gap-[6px] max-mobile:text-sm">
-        Параметры модели: <b>177/82/62/86</b>
-      </div>
-      <div className="flex items-center gap-[6px] max-mobile:text-sm">
-        Размер на модели: <b>36</b>
-      </div>
+    <div>
+      <ReactMarkdown
+        components={{
+          li: ({ children }) => {
+            return (
+              <li className="flex items-center gap-[6px] max-mobile:text-sm">
+                {children}
+              </li>
+            );
+          },
+          ol: ({ children }) => {
+            return (
+              <ol className="flex flex-col gap-3 border-b border-[#D1D1D1] py-6">
+                {children}
+              </ol>
+            );
+          },
+        }}
+      >
+        {parameters}
+      </ReactMarkdown>
     </div>
   );
 };
@@ -54,11 +68,11 @@ const BottomLinks = () => {
   );
 };
 
-const AddBasket = () => {
+const AddBasket = ({ currentSizes }: { currentSizes: string[] }) => {
   return (
     <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-2 desktop:border-b">
       <div className="flex items-center justify-between gap-3">
-        <SelectSizes />
+        <SelectSizes currentSizes={currentSizes} />
 
         <TableSizeModal />
       </div>
@@ -80,46 +94,7 @@ const AddBasket = () => {
   );
 };
 
-type ImageType = "one" | "double";
-
-interface ArrayImg {
-  id: number;
-  type: ImageType;
-  img: string | string[];
-}
-
-const arr: ArrayImg[] = [
-  {
-    id: 1,
-    type: "one",
-    img: "/goods/1.png",
-  },
-  {
-    id: 2,
-    type: "one",
-    img: "/goods/2.png",
-  },
-  {
-    id: 3,
-    type: "double",
-    img: ["/goods/3.png", "/goods/4.png"],
-  },
-  {
-    id: 4,
-    type: "one",
-    img: "/goods/5.png",
-  },
-];
-
-const isString = (value: unknown): value is string => {
-  return typeof value === "string";
-};
-
-const isArrayOfStrings = (value: unknown): value is string[] => {
-  return Array.isArray(value) && value.every(isString);
-};
-
-const GoodsItem = () => {
+const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const isDesktop1100 = useMediaQuery(1100);
 
   return (
@@ -131,33 +106,47 @@ const GoodsItem = () => {
         {/* LEFT */}
         {!isDesktop1100 && (
           <div className="relative flex flex-col gap-5">
-            {arr.map((el) => {
-              if (el.type === "one" && isString(el.img)) {
+            {item.image_builder.map((el) => {
+              if (
+                el.collection === "goodsImg" &&
+                el.item.__typename === "goodsImg"
+              ) {
                 return (
-                  <Lightbox key={el.id} imageUrl={el.img}>
+                  <Lightbox key={el.id} imageUrl={pathImage(el.item.img.id)}>
                     <Image
-                      src={el.img}
+                      src={pathImage(el.item.img.id)}
                       className="h-full w-full object-cover"
                       alt=""
-                      height={700}
-                      width={738}
+                      height={el.item.img.height}
+                      width={el.item.img.width}
                     />
                   </Lightbox>
                 );
-              } else if (el.type === "double" && isArrayOfStrings(el.img)) {
+              } else if (
+                el.collection === "goodsTwoImages" &&
+                el.item.__typename === "goodsTwoImages"
+              ) {
                 return (
                   <div key={el.id} className="flex gap-5">
-                    {el.img.map((img) => (
-                      <Lightbox key={img} imageUrl={img}>
-                        <Image
-                          src={img}
-                          className="h-full w-full object-cover"
-                          alt=""
-                          height={700}
-                          width={738}
-                        />
-                      </Lightbox>
-                    ))}
+                    <Lightbox imageUrl={pathImage(el.item.imgOne.id)}>
+                      <Image
+                        src={pathImage(el.item.imgOne.id)}
+                        className="h-full w-full object-cover"
+                        alt=""
+                        height={el.item.imgOne.height}
+                        width={el.item.imgOne.width}
+                      />
+                    </Lightbox>
+
+                    <Lightbox imageUrl={pathImage(el.item.imgTwo.id)}>
+                      <Image
+                        className="h-full w-full object-cover"
+                        alt=""
+                        src={pathImage(el.item.imgTwo.id)}
+                        height={el.item.imgTwo.height}
+                        width={el.item.imgTwo.width}
+                      />
+                    </Lightbox>
                   </div>
                 );
               }
@@ -168,37 +157,58 @@ const GoodsItem = () => {
         {isDesktop1100 && (
           <div className="w-full">
             <Swiper spaceBetween={20} slidesPerView={1}>
-              {arr.map((el) => {
-                if (el.type === "one" && isString(el.img)) {
+              {item.image_builder.map((el) => {
+                if (
+                  el.collection === "goodsImg" &&
+                  el.item.__typename === "goodsImg"
+                ) {
                   return (
                     <SwiperSlide key={el.id}>
-                      <Lightbox imageUrl={el.img}>
+                      <Lightbox imageUrl={pathImage(el.item.img.id)}>
                         <Image
-                          src={el.img}
+                          src={pathImage(el.item.img.id)}
                           className="aspect-square h-full w-full object-cover"
                           alt=""
                           objectFit="cover"
-                          height={700}
-                          width={700}
+                          height={el.item.img.height}
+                          width={el.item.img.width}
                         />
                       </Lightbox>
                     </SwiperSlide>
                   );
-                } else if (el.type === "double" && isArrayOfStrings(el.img)) {
-                  return el.img.map((img) => (
-                    <SwiperSlide key={img}>
-                      <Lightbox imageUrl={img}>
-                        <Image
-                          src={img}
-                          className="aspect-square h-full w-full object-cover"
-                          alt=""
-                          objectFit="cover"
-                          height={700}
-                          width={700}
-                        />
-                      </Lightbox>
-                    </SwiperSlide>
-                  ));
+                } else if (
+                  el.collection === "goodsTwoImages" &&
+                  el.item.__typename === "goodsTwoImages"
+                ) {
+                  return (
+                    <Fragment key={el.id}>
+                      <SwiperSlide>
+                        <Lightbox imageUrl={pathImage(el.item.imgOne.id)}>
+                          <Image
+                            src={pathImage(el.item.imgOne.id)}
+                            className="aspect-square h-full w-full object-cover"
+                            alt=""
+                            objectFit="cover"
+                            height={el.item.imgOne.height}
+                            width={el.item.imgOne.width}
+                          />
+                        </Lightbox>
+                      </SwiperSlide>
+
+                      <SwiperSlide>
+                        <Lightbox imageUrl={pathImage(el.item.imgTwo.id)}>
+                          <Image
+                            src={pathImage(el.item.imgTwo.id)}
+                            className="aspect-square h-full w-full object-cover"
+                            alt=""
+                            objectFit="cover"
+                            height={el.item.imgTwo.height}
+                            width={el.item.imgTwo.width}
+                          />
+                        </Lightbox>
+                      </SwiperSlide>
+                    </Fragment>
+                  );
                 }
               })}
             </Swiper>
@@ -212,44 +222,49 @@ const GoodsItem = () => {
             <div className="flex flex-col gap-9 border-b border-[#D1D1D1] pb-9 max-desktop:pb-8">
               <div className="flex flex-col gap-2">
                 <h1 className="text-[28px] font-medium uppercase max-mobile:text-lg">
-                  повседневная рубашка
+                  {item.name}
                 </h1>
 
                 <span className="text-[22px] font-medium max-mobile:text-base">
-                  12 540 ₽
+                  {item.price} ₽
                 </span>
               </div>
 
               <div className="flex flex-col gap-6">
-                <p className="max-mobile:text-sm">
-                  В меру строгая и романтичная. Очень знакомая, но такая разная!
-                  Белую рубашку из хлопка мы выполнили в свободном фасоне
-                  ассиметричного силуэта.
-                </p>
-
-                <div className="flex flex-col gap-3 max-mobile:gap-2">
-                  <div className="flex items-center gap-[6px] max-mobile:text-sm">
-                    Материал: <b>Хлопок 100%</b>
-                  </div>
-
-                  <div className="flex items-center gap-[6px] max-mobile:text-sm">
-                    Цвет: <b>Ярко белый</b>
-                  </div>
-                </div>
+                <ReactMarkdown
+                  components={{
+                    li: ({ children }) => {
+                      return (
+                        <li className="flex items-center gap-[6px] max-mobile:text-sm">
+                          {children}
+                        </li>
+                      );
+                    },
+                    ol: ({ children }) => {
+                      return (
+                        <ol className="flex flex-col gap-3 max-mobile:gap-2">
+                          {children}
+                        </ol>
+                      );
+                    },
+                  }}
+                >
+                  {item.description}
+                </ReactMarkdown>
               </div>
             </div>
 
             {/* BOTTOM */}
-            {isDesktop1100 && <BottomLayout />}
+            {isDesktop1100 && <BottomLayout parameters={item.parameters} />}
 
             {/* BOTTOM_Links */}
             {isDesktop1100 && <BottomLinks />}
 
             {/* AddBasket */}
-            {!isDesktop1100 && <AddBasket />}
+            {!isDesktop1100 && <AddBasket currentSizes={item.select} />}
 
             {/* BOTTOM */}
-            {!isDesktop1100 && <BottomLayout />}
+            {!isDesktop1100 && <BottomLayout parameters={item.parameters} />}
 
             {/* BOTTOM_Links */}
             {!isDesktop1100 && <BottomLinks />}
@@ -257,7 +272,7 @@ const GoodsItem = () => {
         </div>
 
         {/* AddBasket */}
-        {isDesktop1100 && <AddBasket />}
+        {isDesktop1100 && <AddBasket currentSizes={item.select} />}
       </div>
     </section>
   );

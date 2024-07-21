@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { sizes } from "@/shared/const";
 import { useState } from "react";
 
-const SelectSizes = () => {
+const SelectSizes = ({ currentSizes }: { currentSizes: string[] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
 
@@ -34,10 +34,15 @@ const SelectSizes = () => {
 
       <SelectContent className="text-[14px]">
         {sizes.map((size) => {
+          const matchedSizes = currentSizes.includes(size.value);
+
           return (
             <SelectItem
               key={size.value}
-              className={`mb-1 ${selectedItem === size.value ? "bg-[#E1E1E1]" : ""}`}
+              disabled={!matchedSizes}
+              className={cn(`mb-1`, {
+                "bg-[#E1E1E1]": selectedItem === size.value,
+              })}
               value={size.value}
             >
               <div className="grid grid-cols-2 gap-[2px]">

@@ -1,6 +1,0 @@
-query GetTest {
-  test {
-    id
-    test
-  }
-}
