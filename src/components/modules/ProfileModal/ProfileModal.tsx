@@ -19,19 +19,32 @@ import Image from "next/image";
 import { Arrow } from "@/shared/icons/Arrow";
 import { Exit } from "@/shared/icons/Exit";
 import { removeAccessToken, removeRefreshToken } from "@/lib/auth-token";
-import { pathImage } from "@/lib/utils";
+import { cn, pathImage, visibleNameFn } from "@/lib/utils";
 import { clearUser } from "@/shared/context/user";
+import { Warning } from "@/shared/icons/Warning";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { protectedPath } from "@/shared/const";
 
 const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
   const [currentForm, user] = useUnit([$typeForm, $user]);
 
   const { isAuth } = useAuth();
 
+  const pathname = usePathname();
+  const route = useRouter();
+
   const onExit = () => {
     removeAccessToken();
     removeRefreshToken();
 
     clearUser();
+
+    protectedPath.map((el) => {
+      if (pathname === el) {
+        route.push("/");
+      }
+    });
   };
 
   return (
@@ -76,7 +89,10 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
           className="w-full max-w-[415px] px-7 py-2"
         >
           <DialogHeader className="border-b border-[#CDCDCD] py-4">
-            <button className="flex w-full items-center justify-between">
+            <Link
+              href={"/profile"}
+              className="flex w-full items-center justify-between"
+            >
               <div className="flex gap-5">
                 <Image
                   width={52}
@@ -87,27 +103,42 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
                 />
 
                 <div className="flex flex-col items-start">
-                  <p>{user?.email}</p>
+                  <p>{visibleNameFn(user)}</p>
 
                   <p className="text-[15px] text-[#939393]">{user?.email}</p>
                 </div>
               </div>
 
               <Arrow className="rotate-180 cursor-pointer" />
-            </button>
+            </Link>
           </DialogHeader>
 
-          <button className="flex w-full items-center justify-between border-b border-[#CDCDCD] py-[20px]">
+          <Link
+            href={"/profile"}
+            className="flex w-full items-center justify-between border-b border-[#CDCDCD] py-[20px]"
+          >
             <div className="flex flex-col items-start">
               <p>Сохранённые адреса:</p>
 
-              <p className="text-[15px] text-[#939393]">
-                Краснодар, ул. Красная 64, кв. 49
-              </p>
+              <div
+                className={cn("text-[15px]", {
+                  "text-[#939393]": user?.address,
+                  "text-error": !user?.address,
+                })}
+              >
+                {user?.address ? (
+                  user.address
+                ) : (
+                  <p className="flex items-center justify-center gap-2">
+                    <span className="pt-[4px]">Добавьте адрес доставки!</span>
+                    <Warning className="size-4" />
+                  </p>
+                )}
+              </div>
             </div>
 
             <Arrow className="rotate-180 cursor-pointer" />
-          </button>
+          </Link>
 
           <button className="flex w-full items-center justify-between border-b border-[#CDCDCD] py-[20px]">
             <p>Заказы:</p>

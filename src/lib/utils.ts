@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import jwt, { VerifyErrors } from "jsonwebtoken";
+import { User } from "@/shared/types/authForm";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -51,5 +52,14 @@ export async function verifyActivationToken(token: string) {
 export const pathImage = (img: string) => {
   return `http://localhost:8055/assets/${img}`;
 };
+
 export const parseJwt = (token: string) =>
   JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+
+export const visibleNameFn = (user: User | null) => {
+  if (user?.name) {
+    return user.surname ? `${user.name} ${user.surname}` : user.name;
+  }
+
+  return user?.email;
+};

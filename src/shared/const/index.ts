@@ -5,3 +5,5 @@ export const sizes = [
   { value: "L", description: "(48)" },
   { value: "XL", description: "(50)" },
 ];
+
+export const protectedPath = ["/profile", "/profile2", "/profile3"];
