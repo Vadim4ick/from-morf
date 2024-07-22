@@ -6,39 +6,13 @@ import { Arrow } from "@/shared/icons/Arrow";
 
 import "./index.scss";
 import { NewItemCart } from "@/components/elements/NewItemCart";
+import { GetHomePageQuery } from "@/graphql/__generated__";
 
-const arr = [
-  {
-    id: 0,
-    images: ["/bestseller/1.png", "/newItem/1.png"],
-    desc: "Жакет из португальского льна",
-    price: "20 140 ₽",
-    sizes: [36, 38, 40, 42],
-  },
-  {
-    id: 1,
-    images: ["/bestseller/1.png"],
-    desc: "Жакет из португальского льна",
-    price: "20 140 ₽",
-    sizes: [36, 38, 40, 42],
-  },
-  {
-    id: 2,
-    images: ["/bestseller/1.png"],
-    desc: "Жакет из португальского льна",
-    price: "20 140 ₽",
-    sizes: [36, 38, 40, 42],
-  },
-  {
-    id: 3,
-    images: ["/bestseller/1.png"],
-    desc: "Жакет из португальского льна",
-    price: "20 140 ₽",
-    sizes: [36, 38, 40, 42],
-  },
-];
-
-const SliderBestsellers = () => {
+const SliderBestsellers = ({
+  bestseller,
+}: {
+  bestseller: GetHomePageQuery["homePage"]["sliderBestsellers"];
+}) => {
   return (
     <section className="max-tabletSmall:pb-[76px] max-tabletSmall:pt-[96px] max-mobile:py-[72px] tabletSmall:py-[128px]">
       <div className="container px-[67px] max-tabletSmall:px-[16px]">
@@ -79,9 +53,9 @@ const SliderBestsellers = () => {
             },
           }}
         >
-          {arr.map((item) => (
+          {bestseller.map((item) => (
             <SwiperSlide key={item.id} className="slide-bestsellers">
-              <NewItemCart sizesImg="slider" item={item} />
+              <NewItemCart sizesImg="slider" item={item.goods_id} />
             </SwiperSlide>
           ))}
         </Swiper>

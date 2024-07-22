@@ -1,0 +1,33 @@
+query GetHomePage {
+  homePage {
+    id
+
+    sliderBestsellers {
+      id
+
+      goods_id {
+        select
+        images {
+          id
+          directus_files_id {
+            ...MediaFragment
+          }
+        }
+      }
+    }
+
+    newItems {
+      id
+
+      goods_id {
+        select
+
+        images {
+          directus_files_id {
+            ...MediaFragment
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,8 +3,9 @@ import { MainSlider } from "@/components/modules/HomePage/MainSlider";
 import { NewItems } from "@/components/modules/HomePage/NewItems";
 import { SliderBestsellers } from "@/components/modules/HomePage/SliderBestsellers";
 import { StyleAdvice } from "@/components/modules/StyleAdvice/StyleAdvice";
+import { GetHomePageQuery } from "@/graphql/__generated__";
 
-const HomePage = () => {
+const HomePage = ({ homePage }: { homePage: GetHomePageQuery["homePage"] }) => {
   return (
     <>
       <MainSlider />
@@ -36,9 +37,9 @@ const HomePage = () => {
         </div>
       </section>
 
-      <NewItems />
+      <NewItems homePage={homePage.newItems} />
 
-      <SliderBestsellers />
+      <SliderBestsellers bestseller={homePage.sliderBestsellers} />
 
       <StyleAdvice />
     </>

@@ -6,8 +6,16 @@ query GetGoods($id: ID!) {
     description
     parameters
     select
+
+    images {
+      directus_files_id {
+        ...MediaFragment
+      }
+    }
+
     image_builder {
       id
+
       item {
         __typename
 
@@ -26,6 +34,7 @@ query GetGoods($id: ID!) {
           }
         }
       }
+
       collection
     }
   }

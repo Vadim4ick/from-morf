@@ -3,36 +3,20 @@
 import { NewItemCart } from "@/components/elements/NewItemCart";
 import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
+import { GetHomePageQuery } from "@/graphql/__generated__";
 
-const arr = [
-  {
-    id: 1,
-    desc: "Как создать капсульный гардероб: основные принципы и идеи",
-    images: ["/newItem/1.png", "/newItem/2.png", "/newItem/3.png"],
-    sizes: [36, 38, 40, 42],
-  },
-  {
-    id: 2,
-    desc: "Как создать капсульный гардероб: основные принципы и идеи",
-    images: ["/newItem/1.png", "/newItem/2.png", "/newItem/3.png"],
-    sizes: [36, 38, 40, 42],
-  },
-  {
-    id: 3,
-    desc: "Как создать капсульный гардероб: основные принципы и идеи",
-    images: ["/newItem/1.png", "/newItem/2.png", "/newItem/3.png"],
-    sizes: [36, 38, 40, 42],
-  },
-];
-
-const NewItems = () => {
+const NewItems = ({
+  homePage,
+}: {
+  homePage: GetHomePageQuery["homePage"]["newItems"];
+}) => {
   const isTablet991 = useMediaQuery(991);
   const isTablet768 = useMediaQuery(450);
 
-  const first = arr[0];
+  const first = homePage[0];
   const otherElements = isTablet768
-    ? arr.slice(1)
-    : arr.slice(!isTablet991 ? 1 : 2);
+    ? homePage.slice(1)
+    : homePage.slice(!isTablet991 ? 1 : 2);
 
   return (
     <section className="pt-16">
@@ -40,12 +24,12 @@ const NewItems = () => {
         <h3 className="mb-5 text-2xl font-bold uppercase">новинки</h3>
 
         <div className="flex gap-[20px] max-mobileSmall:flex-col">
-          <NewItemCart sizesImg="big" item={first} />
+          <NewItemCart sizesImg="big" item={first.goods_id} />
 
           <div className="flex flex-col justify-between max-mobileSmall:gap-[36px]">
             <div className="flex gap-5">
               {otherElements.map((item) => (
-                <NewItemCart key={item.id} item={item} />
+                <NewItemCart key={item.id} item={item.goods_id} />
               ))}
             </div>
 

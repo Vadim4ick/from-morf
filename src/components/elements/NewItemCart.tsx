@@ -1,19 +1,14 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { GetHomePageQuery } from "@/graphql/__generated__";
+import { cn, pathImage } from "@/lib/utils";
+import { sizes } from "@/shared/const";
 import { Heart } from "@/shared/icons/Heart";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
 type SizesImg = "default" | "big" | "slider" | "goods" | "recommended";
-
-interface ItemCart {
-  id: number;
-  desc: string;
-  images: string[];
-  sizes: number[];
-}
 
 const defaultSize = {
   width: 305,
@@ -29,10 +24,14 @@ const NewItemCart = ({
   item,
   sizesImg = "default",
 }: {
-  item: ItemCart;
+  item: GetHomePageQuery["homePage"]["newItems"][0]["goods_id"];
   sizesImg?: SizesImg;
 }) => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
+
+  const matchedSizes = sizes.filter((detail) =>
+    item.select.includes(detail.value),
+  );
 
   return (
     <article className="group overflow-hidden">
@@ -40,7 +39,7 @@ const NewItemCart = ({
         <div className="relative">
           <div className="relative">
             <Image
-              src={item.images[currentImageIdx]}
+              src={pathImage(item.images[currentImageIdx].directus_files_id.id)}
               alt="1.png"
               width={sizesImg === "default" ? defaultSize.width : bigSize.width}
               height={
@@ -101,9 +100,9 @@ const NewItemCart = ({
               </button>
 
               <div className="flex flex-col items-center gap-2 border-b border-t border-[#888888] py-2 text-white">
-                {item.sizes.map((size) => (
-                  <div key={size}>{size}</div>
-                ))}
+                {matchedSizes.map((size) => {
+                  return <div key={size.value}>{size.description}</div>;
+                })}
               </div>
             </div>
           </div>
