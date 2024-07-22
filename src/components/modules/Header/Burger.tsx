@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { VariantHeader } from "./Header";
 import clsx from "clsx";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { useUnit } from "effector-react";
+import { $burgerOpen, toggleBurgerOpen } from "@/shared/context/burger";
 
 const topVariants = {
   closed: { rotate: 0, translateY: 0 },
@@ -19,19 +21,19 @@ const bottomVariants = {
 };
 
 const Burger = ({ variant }: { variant: VariantHeader }) => {
-  const [open, setOpen] = useState(false);
+  const burgerOpen = useUnit($burgerOpen);
 
   useEffect(() => {
-    if (open) {
+    if (burgerOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [open]);
+  }, [burgerOpen]);
 
   return (
     <div className="flex w-[100px]">
-      <Sheet modal={false} open={open} onOpenChange={setOpen}>
+      <Sheet modal={false} open={burgerOpen} onOpenChange={toggleBurgerOpen}>
         <SheetTrigger>
           <motion.button className="relative h-[10px] w-7">
             <motion.div
@@ -40,7 +42,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                 "bg-darkGrayColor": variant === "black",
               })}
               variants={topVariants}
-              animate={open ? "open" : "closed"}
+              animate={burgerOpen ? "open" : "closed"}
             />
 
             <motion.div
@@ -49,7 +51,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                 "bg-darkGrayColor": variant === "black",
               })}
               variants={bottomVariants}
-              animate={open ? "open" : "closed"}
+              animate={burgerOpen ? "open" : "closed"}
             />
           </motion.button>
         </SheetTrigger>
