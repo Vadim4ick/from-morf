@@ -1,0 +1,14 @@
+query GetNewItems {
+  newItems {
+    id
+    title
+
+    items {
+      id
+
+      goods_id {
+        ...Good
+      }
+    }
+  }
+}

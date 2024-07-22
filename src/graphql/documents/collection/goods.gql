@@ -1,41 +1,5 @@
 query GetGoods($id: ID!) {
   goods_by_id(id: $id) {
-    id
-    name
-    price
-    description
-    parameters
-    select
-
-    images {
-      directus_files_id {
-        ...MediaFragment
-      }
-    }
-
-    image_builder {
-      id
-
-      item {
-        __typename
-
-        ... on goodsImg {
-          img {
-            ...MediaFragment
-          }
-        }
-        ... on goodsTwoImages {
-          imgOne {
-            ...MediaFragment
-          }
-
-          imgTwo {
-            ...MediaFragment
-          }
-        }
-      }
-
-      collection
-    }
+    ...Good
   }
 }
