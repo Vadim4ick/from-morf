@@ -55,30 +55,59 @@ interface SheetContentProps
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
-  SheetContentProps
->(({ side = "right", className, children, ...props }, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <SheetPrimitive.Content
-      ref={ref}
-      className={cn(sheetVariants({ side }), className)}
-      {...props}
-    >
-      {children}
-      <div className="max-desktop:mt-9 max-desktop:flex max-desktop:items-center max-desktop:justify-center">
-        <SheetPrimitive.Close
-          className={cn(
-            "relative before:-z-10 before:h-full before:w-full max-desktop:flex max-desktop:size-[36px] max-desktop:items-center max-desktop:justify-center before:max-desktop:absolute before:max-desktop:left-0 before:max-desktop:top-0 before:max-desktop:rounded-full before:max-desktop:bg-[#EBEBEB] desktop:absolute desktop:left-[25px] desktop:top-[22px]",
-          )}
-        >
-          <Close className="max-desktop:size-[10px]" />
+  SheetContentProps & {
+    customOverlay?: boolean;
+    close?: boolean;
+  }
+>(
+  (
+    {
+      side = "right",
+      className,
+      close = true,
+      customOverlay,
+      children,
+      ...props
+    },
+    ref,
+  ) => (
+    <SheetPortal>
+      <>
+        {customOverlay ? (
+          <div
+            className={cn(
+              "fixed inset-0 top-[var(--header-height)] z-50 bg-[#5B5B5B]/55 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+            )}
+          />
+        ) : (
+          <SheetOverlay />
+        )}
 
-          <span className="sr-only">Close</span>
-        </SheetPrimitive.Close>
-      </div>
-    </SheetPrimitive.Content>
-  </SheetPortal>
-));
+        <SheetPrimitive.Content
+          ref={ref}
+          className={cn(sheetVariants({ side }), className)}
+          {...props}
+        >
+          {children}
+
+          {close && (
+            <div className="max-desktop:mt-9 max-desktop:flex max-desktop:items-center max-desktop:justify-center">
+              <SheetPrimitive.Close
+                className={cn(
+                  "relative before:-z-10 before:h-full before:w-full max-desktop:flex max-desktop:size-[36px] max-desktop:items-center max-desktop:justify-center before:max-desktop:absolute before:max-desktop:left-0 before:max-desktop:top-0 before:max-desktop:rounded-full before:max-desktop:bg-[#EBEBEB] desktop:absolute desktop:left-[25px] desktop:top-[22px]",
+                )}
+              >
+                <Close className="max-desktop:size-[10px]" />
+
+                <span className="sr-only">Close</span>
+              </SheetPrimitive.Close>
+            </div>
+          )}
+        </SheetPrimitive.Content>
+      </>
+    </SheetPortal>
+  ),
+);
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({
