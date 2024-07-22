@@ -60,12 +60,14 @@ export type Query = {
   readonly homePage_goods_aggregated: ReadonlyArray<HomePage_Goods_Aggregated>;
   readonly homePage_goods_by_id: Maybe<HomePage_Goods>;
   readonly homePage_goods_by_version: Maybe<Version_HomePage_Goods>;
-  readonly newItems: Maybe<NewItems>;
-  readonly newItems_by_version: Maybe<Version_NewItems>;
-  readonly newItems_goods: ReadonlyArray<NewItems_Goods>;
-  readonly newItems_goods_aggregated: ReadonlyArray<NewItems_Goods_Aggregated>;
-  readonly newItems_goods_by_id: Maybe<NewItems_Goods>;
-  readonly newItems_goods_by_version: Maybe<Version_NewItems_Goods>;
+  readonly sectionGoods: ReadonlyArray<SectionGoods>;
+  readonly sectionGoods_aggregated: ReadonlyArray<SectionGoods_Aggregated>;
+  readonly sectionGoods_by_id: Maybe<SectionGoods>;
+  readonly sectionGoods_by_version: Maybe<Version_SectionGoods>;
+  readonly sectionGoods_goods: ReadonlyArray<SectionGoods_Goods>;
+  readonly sectionGoods_goods_aggregated: ReadonlyArray<SectionGoods_Goods_Aggregated>;
+  readonly sectionGoods_goods_by_id: Maybe<SectionGoods_Goods>;
+  readonly sectionGoods_goods_by_version: Maybe<Version_SectionGoods_Goods>;
 };
 
 
@@ -310,18 +312,8 @@ export type QueryHomePage_Goods_By_VersionArgs = {
 };
 
 
-export type QueryNewItemsArgs = {
-  version: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryNewItems_By_VersionArgs = {
-  version: Scalars['String']['input'];
-};
-
-
-export type QueryNewItems_GoodsArgs = {
-  filter: InputMaybe<NewItems_Goods_Filter>;
+export type QuerySectionGoodsArgs = {
+  filter: InputMaybe<SectionGoods_Filter>;
   limit: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   page: InputMaybe<Scalars['Int']['input']>;
@@ -330,8 +322,8 @@ export type QueryNewItems_GoodsArgs = {
 };
 
 
-export type QueryNewItems_Goods_AggregatedArgs = {
-  filter: InputMaybe<NewItems_Goods_Filter>;
+export type QuerySectionGoods_AggregatedArgs = {
+  filter: InputMaybe<SectionGoods_Filter>;
   groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
   limit: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
@@ -341,13 +333,46 @@ export type QueryNewItems_Goods_AggregatedArgs = {
 };
 
 
-export type QueryNewItems_Goods_By_IdArgs = {
+export type QuerySectionGoods_By_IdArgs = {
   id: Scalars['ID']['input'];
   version: InputMaybe<Scalars['String']['input']>;
 };
 
 
-export type QueryNewItems_Goods_By_VersionArgs = {
+export type QuerySectionGoods_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
+export type QuerySectionGoods_GoodsArgs = {
+  filter: InputMaybe<SectionGoods_Goods_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QuerySectionGoods_Goods_AggregatedArgs = {
+  filter: InputMaybe<SectionGoods_Goods_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QuerySectionGoods_Goods_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QuerySectionGoods_Goods_By_VersionArgs = {
   id: Scalars['ID']['input'];
   version: Scalars['String']['input'];
 };
@@ -365,8 +390,8 @@ export type Subscription = {
   readonly homePage_goods_1_mutated: Maybe<HomePage_Goods_1_Mutated>;
   readonly homePage_goods_mutated: Maybe<HomePage_Goods_Mutated>;
   readonly homePage_mutated: Maybe<HomePage_Mutated>;
-  readonly newItems_goods_mutated: Maybe<NewItems_Goods_Mutated>;
-  readonly newItems_mutated: Maybe<NewItems_Mutated>;
+  readonly sectionGoods_goods_mutated: Maybe<SectionGoods_Goods_Mutated>;
+  readonly sectionGoods_mutated: Maybe<SectionGoods_Mutated>;
 };
 
 
@@ -425,12 +450,12 @@ export type SubscriptionHomePage_MutatedArgs = {
 };
 
 
-export type SubscriptionNewItems_Goods_MutatedArgs = {
+export type SubscriptionSectionGoods_Goods_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
 
-export type SubscriptionNewItems_MutatedArgs = {
+export type SubscriptionSectionGoods_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
@@ -1289,110 +1314,6 @@ export type HomePage_Mutated = {
   readonly key: Scalars['ID']['output'];
 };
 
-export type NewItems = {
-  readonly __typename?: 'newItems';
-  readonly id: Scalars['ID']['output'];
-  readonly items: Maybe<ReadonlyArray<Maybe<NewItems_Goods>>>;
-  readonly items_func: Maybe<Count_Functions>;
-  readonly title: Maybe<Scalars['String']['output']>;
-};
-
-
-export type NewItemsItemsArgs = {
-  filter: InputMaybe<NewItems_Goods_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type NewItems_Filter = {
-  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<NewItems_Filter>>>;
-  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<NewItems_Filter>>>;
-  readonly id: InputMaybe<Number_Filter_Operators>;
-  readonly items: InputMaybe<NewItems_Goods_Filter>;
-  readonly items_func: InputMaybe<Count_Function_Filter_Operators>;
-  readonly title: InputMaybe<String_Filter_Operators>;
-};
-
-export type NewItems_Goods = {
-  readonly __typename?: 'newItems_goods';
-  readonly goods_id: Maybe<Goods>;
-  readonly id: Scalars['ID']['output'];
-  readonly newItems_id: Maybe<NewItems>;
-};
-
-
-export type NewItems_GoodsGoods_IdArgs = {
-  filter: InputMaybe<Goods_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type NewItems_GoodsNewItems_IdArgs = {
-  filter: InputMaybe<NewItems_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type NewItems_Goods_Aggregated = {
-  readonly __typename?: 'newItems_goods_aggregated';
-  readonly avg: Maybe<NewItems_Goods_Aggregated_Fields>;
-  readonly avgDistinct: Maybe<NewItems_Goods_Aggregated_Fields>;
-  readonly count: Maybe<NewItems_Goods_Aggregated_Count>;
-  readonly countAll: Maybe<Scalars['Int']['output']>;
-  readonly countDistinct: Maybe<NewItems_Goods_Aggregated_Count>;
-  readonly group: Maybe<Scalars['JSON']['output']>;
-  readonly max: Maybe<NewItems_Goods_Aggregated_Fields>;
-  readonly min: Maybe<NewItems_Goods_Aggregated_Fields>;
-  readonly sum: Maybe<NewItems_Goods_Aggregated_Fields>;
-  readonly sumDistinct: Maybe<NewItems_Goods_Aggregated_Fields>;
-};
-
-export type NewItems_Goods_Aggregated_Count = {
-  readonly __typename?: 'newItems_goods_aggregated_count';
-  readonly goods_id: Maybe<Scalars['Int']['output']>;
-  readonly id: Maybe<Scalars['Int']['output']>;
-  readonly newItems_id: Maybe<Scalars['Int']['output']>;
-};
-
-export type NewItems_Goods_Aggregated_Fields = {
-  readonly __typename?: 'newItems_goods_aggregated_fields';
-  readonly goods_id: Maybe<Scalars['Float']['output']>;
-  readonly id: Maybe<Scalars['Float']['output']>;
-  readonly newItems_id: Maybe<Scalars['Float']['output']>;
-};
-
-export type NewItems_Goods_Filter = {
-  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<NewItems_Goods_Filter>>>;
-  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<NewItems_Goods_Filter>>>;
-  readonly goods_id: InputMaybe<Goods_Filter>;
-  readonly id: InputMaybe<Number_Filter_Operators>;
-  readonly newItems_id: InputMaybe<NewItems_Filter>;
-};
-
-export type NewItems_Goods_Mutated = {
-  readonly __typename?: 'newItems_goods_mutated';
-  readonly data: Maybe<NewItems_Goods>;
-  readonly event: Maybe<EventEnum>;
-  readonly key: Scalars['ID']['output'];
-};
-
-export type NewItems_Mutated = {
-  readonly __typename?: 'newItems_mutated';
-  readonly data: Maybe<NewItems>;
-  readonly event: Maybe<EventEnum>;
-  readonly key: Scalars['ID']['output'];
-};
-
 export type Number_Filter_Operators = {
   readonly _between: InputMaybe<ReadonlyArray<InputMaybe<Scalars['GraphQLStringOrFloat']['input']>>>;
   readonly _eq: InputMaybe<Scalars['GraphQLStringOrFloat']['input']>;
@@ -1406,6 +1327,136 @@ export type Number_Filter_Operators = {
   readonly _nin: InputMaybe<ReadonlyArray<InputMaybe<Scalars['GraphQLStringOrFloat']['input']>>>;
   readonly _nnull: InputMaybe<Scalars['Boolean']['input']>;
   readonly _null: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SectionGoods = {
+  readonly __typename?: 'sectionGoods';
+  readonly id: Scalars['ID']['output'];
+  readonly items: Maybe<ReadonlyArray<Maybe<SectionGoods_Goods>>>;
+  readonly items_func: Maybe<Count_Functions>;
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+
+export type SectionGoodsItemsArgs = {
+  filter: InputMaybe<SectionGoods_Goods_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type SectionGoods_Aggregated = {
+  readonly __typename?: 'sectionGoods_aggregated';
+  readonly avg: Maybe<SectionGoods_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<SectionGoods_Aggregated_Fields>;
+  readonly count: Maybe<SectionGoods_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<SectionGoods_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<SectionGoods_Aggregated_Fields>;
+  readonly min: Maybe<SectionGoods_Aggregated_Fields>;
+  readonly sum: Maybe<SectionGoods_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<SectionGoods_Aggregated_Fields>;
+};
+
+export type SectionGoods_Aggregated_Count = {
+  readonly __typename?: 'sectionGoods_aggregated_count';
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly items: Maybe<Scalars['Int']['output']>;
+  readonly title: Maybe<Scalars['Int']['output']>;
+};
+
+export type SectionGoods_Aggregated_Fields = {
+  readonly __typename?: 'sectionGoods_aggregated_fields';
+  readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type SectionGoods_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<SectionGoods_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<SectionGoods_Filter>>>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly items: InputMaybe<SectionGoods_Goods_Filter>;
+  readonly items_func: InputMaybe<Count_Function_Filter_Operators>;
+  readonly title: InputMaybe<String_Filter_Operators>;
+};
+
+export type SectionGoods_Goods = {
+  readonly __typename?: 'sectionGoods_goods';
+  readonly goods_id: Maybe<Goods>;
+  readonly id: Scalars['ID']['output'];
+  readonly sectionGoods_id: Maybe<SectionGoods>;
+};
+
+
+export type SectionGoods_GoodsGoods_IdArgs = {
+  filter: InputMaybe<Goods_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type SectionGoods_GoodsSectionGoods_IdArgs = {
+  filter: InputMaybe<SectionGoods_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type SectionGoods_Goods_Aggregated = {
+  readonly __typename?: 'sectionGoods_goods_aggregated';
+  readonly avg: Maybe<SectionGoods_Goods_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<SectionGoods_Goods_Aggregated_Fields>;
+  readonly count: Maybe<SectionGoods_Goods_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<SectionGoods_Goods_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<SectionGoods_Goods_Aggregated_Fields>;
+  readonly min: Maybe<SectionGoods_Goods_Aggregated_Fields>;
+  readonly sum: Maybe<SectionGoods_Goods_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<SectionGoods_Goods_Aggregated_Fields>;
+};
+
+export type SectionGoods_Goods_Aggregated_Count = {
+  readonly __typename?: 'sectionGoods_goods_aggregated_count';
+  readonly goods_id: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly sectionGoods_id: Maybe<Scalars['Int']['output']>;
+};
+
+export type SectionGoods_Goods_Aggregated_Fields = {
+  readonly __typename?: 'sectionGoods_goods_aggregated_fields';
+  readonly goods_id: Maybe<Scalars['Float']['output']>;
+  readonly id: Maybe<Scalars['Float']['output']>;
+  readonly sectionGoods_id: Maybe<Scalars['Float']['output']>;
+};
+
+export type SectionGoods_Goods_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<SectionGoods_Goods_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<SectionGoods_Goods_Filter>>>;
+  readonly goods_id: InputMaybe<Goods_Filter>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly sectionGoods_id: InputMaybe<SectionGoods_Filter>;
+};
+
+export type SectionGoods_Goods_Mutated = {
+  readonly __typename?: 'sectionGoods_goods_mutated';
+  readonly data: Maybe<SectionGoods_Goods>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type SectionGoods_Mutated = {
+  readonly __typename?: 'sectionGoods_mutated';
+  readonly data: Maybe<SectionGoods>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
 };
 
 export type String_Filter_Operators = {
@@ -1497,20 +1548,25 @@ export type Version_HomePage_Goods_1 = {
   readonly id: Scalars['ID']['output'];
 };
 
-export type Version_NewItems = {
-  readonly __typename?: 'version_newItems';
+export type Version_SectionGoods = {
+  readonly __typename?: 'version_sectionGoods';
   readonly id: Scalars['ID']['output'];
   readonly items: Maybe<Scalars['JSON']['output']>;
   readonly items_func: Maybe<Count_Functions>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
-export type Version_NewItems_Goods = {
-  readonly __typename?: 'version_newItems_goods';
+export type Version_SectionGoods_Goods = {
+  readonly __typename?: 'version_sectionGoods_goods';
   readonly goods_id: Maybe<Scalars['JSON']['output']>;
   readonly id: Scalars['ID']['output'];
-  readonly newItems_id: Maybe<Scalars['JSON']['output']>;
+  readonly sectionGoods_id: Maybe<Scalars['JSON']['output']>;
 };
+
+export type GetBurgerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetBurgerQuery = { readonly __typename?: 'Query', readonly sectionGoods: ReadonlyArray<{ readonly __typename?: 'sectionGoods', readonly id: string, readonly title: string }> };
 
 export type GetGoodsQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -1528,10 +1584,12 @@ export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'homePage', readonly id: string, readonly sliderBestsellers: ReadonlyArray<{ readonly __typename?: 'homePage_goods_1', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly select: any, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly newItems: ReadonlyArray<{ readonly __typename?: 'homePage_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly select: any, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }> } };
 
-export type GetNewItemsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetSectionItemsQueryVariables = Exact<{
+  title: InputMaybe<Scalars['String']['input']>;
+}>;
 
 
-export type GetNewItemsQuery = { readonly __typename?: 'Query', readonly newItems: { readonly __typename?: 'newItems', readonly id: string, readonly title: string, readonly items: ReadonlyArray<{ readonly __typename?: 'newItems_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> } };
+export type GetSectionItemsQuery = { readonly __typename?: 'Query', readonly sectionGoods: ReadonlyArray<{ readonly __typename?: 'sectionGoods', readonly id: string, readonly title: string, readonly items: ReadonlyArray<{ readonly __typename?: 'sectionGoods_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
 
 export const MediaFragmentFragmentDoc = gql`
     fragment MediaFragment on directus_files {
@@ -1575,6 +1633,14 @@ export const GoodFragmentDoc = gql`
   }
 }
     ${MediaFragmentFragmentDoc}`;
+export const GetBurgerDocument = gql`
+    query GetBurger {
+  sectionGoods {
+    id
+    title
+  }
+}
+    `;
 export const GetGoodsDocument = gql`
     query GetGoods($id: ID!) {
   goods_by_id(id: $id) {
@@ -1612,9 +1678,9 @@ export const GetHomePageDocument = gql`
   }
 }
     ${MediaFragmentFragmentDoc}`;
-export const GetNewItemsDocument = gql`
-    query GetNewItems {
-  newItems {
+export const GetSectionItemsDocument = gql`
+    query GetSectionItems($title: String) {
+  sectionGoods(filter: {title: {_eq: $title}}) {
     id
     title
     items {
@@ -1634,14 +1700,17 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    GetBurger(variables?: GetBurgerQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetBurgerQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetBurgerQuery>(GetBurgerDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetBurger', 'query', variables);
+    },
     GetGoods(variables: GetGoodsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGoodsQuery>(GetGoodsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoods', 'query', variables);
     },
     GetHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHomePage', 'query', variables);
     },
-    GetNewItems(variables?: GetNewItemsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetNewItemsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetNewItemsQuery>(GetNewItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetNewItems', 'query', variables);
+    GetSectionItems(variables?: GetSectionItemsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSectionItemsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetSectionItemsQuery>(GetSectionItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSectionItems', 'query', variables);
     }
   };
 }

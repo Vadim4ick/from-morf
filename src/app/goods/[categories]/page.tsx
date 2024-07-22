@@ -1,10 +1,22 @@
 import { gql } from "@/graphql/client";
 import { AllGoodsPage } from "@/pages/AllGoodsPage";
+import { notFound } from "next/navigation";
 
 const Page = async ({ params }: { params: { categories: string } }) => {
-  const { newItems } = await gql.GetNewItems();
+  const { sectionGoods } = await gql.GetSectionItems({
+    title: decodeURIComponent(params.categories),
+  });
 
-  return <AllGoodsPage categories={params.categories} newItems={newItems} />;
+  if (!sectionGoods.length) {
+    return notFound();
+  }
+
+  return (
+    <AllGoodsPage
+      categories={decodeURIComponent(params.categories)}
+      sectionGoods={sectionGoods[0]}
+    />
+  );
 };
 
 export default Page;

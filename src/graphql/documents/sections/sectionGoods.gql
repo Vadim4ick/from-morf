@@ -1,5 +1,5 @@
-query GetNewItems {
-  newItems {
+query GetSectionItems($title: String) {
+  sectionGoods(filter: { title: { _eq: $title } }) {
     id
     title
 

@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { getMeFx, loadUser } from "../context/user/index";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Loader } from "@/components/ui/loader";
 
@@ -24,15 +25,29 @@ const Providers = ({ children }: { children: ReactNode }) => {
     }
   }, [spinner]);
 
+  const [queryClient] = useState(
+    new QueryClient({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+        },
+      },
+    }),
+  );
+
   if (loading) {
     return (
-      <div className="flex h-full w-full items-center justify-center">
-        <Loader className="size-10" />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="flex h-full w-full items-center justify-center">
+          <Loader className="size-10" />
+        </div>
+      </QueryClientProvider>
     );
   }
 
-  return <>{children}</>;
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 };
 
 export { Providers };

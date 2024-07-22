@@ -31,7 +31,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  "fixed z-50 gap-4 bg-background mobileSmall:p-4 shadow-lg transition max-mobileSmall:pt-[40px] max-mobileSmall:pl-[16px] max-mobileSmall:pb-[33px] rounded-[2px] ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+  "fixed z-50 gap-4 bg-background shadow-lg transition max-mobileSmall:pt-[40px] max-mobileSmall:pl-[16px] max-mobileSmall:pb-[33px] rounded-[2px] ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
   {
     variants: {
       side: {
@@ -39,6 +39,7 @@ const sheetVariants = cva(
         bottom:
           "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
         left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
+        custom: "data-[state=closed]:duration-0 data-[state=open]:duration-0",
         right:
           "bottom-[4px] right-[4px] h-[calc(100%_-_8px)] w-3/4  border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
       },
@@ -58,6 +59,8 @@ const SheetContent = React.forwardRef<
   SheetContentProps & {
     customOverlay?: boolean;
     close?: boolean;
+    portal?: boolean;
+    open?: boolean;
   }
 >(
   (
@@ -66,14 +69,16 @@ const SheetContent = React.forwardRef<
       className,
       close = true,
       customOverlay,
+      portal = true,
+      open,
       children,
       ...props
     },
     ref,
-  ) => (
-    <SheetPortal>
+  ) => {
+    const modal = (
       <>
-        {customOverlay ? (
+        {customOverlay && open ? (
           <div
             className={cn(
               "fixed inset-0 top-[var(--header-height)] z-50 bg-[#5B5B5B]/55 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -105,8 +110,14 @@ const SheetContent = React.forwardRef<
           )}
         </SheetPrimitive.Content>
       </>
-    </SheetPortal>
-  ),
+    );
+
+    if (portal) {
+      return <SheetPortal>{modal}</SheetPortal>;
+    }
+
+    return modal;
+  },
 );
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
@@ -142,11 +153,7 @@ const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
 >(({ className, ...props }, ref) => (
-  <SheetPrimitive.Title
-    ref={ref}
-    className={cn("text-lg font-semibold text-foreground", className)}
-    {...props}
-  />
+  <SheetPrimitive.Title ref={ref} className={cn("", className)} {...props} />
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 

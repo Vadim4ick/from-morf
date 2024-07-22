@@ -10,7 +10,7 @@ import { ProfileModal } from "../ProfileModal";
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
   return (
     <div className="mx-auto h-full max-w-[1195px] px-[23px]">
-      <div className="flex h-full items-center justify-between">
+      <div className="relative flex h-full items-center justify-between">
         {/* Burger */}
         <Burger variant={variant} />
 

@@ -7,7 +7,7 @@ const GoodsPage = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
     <>
       <GoodsItem item={item} />
 
-      <SliderRecommendations />
+      {/* <SliderRecommendations  /> */}
     </>
   );
 };
