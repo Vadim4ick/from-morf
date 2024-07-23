@@ -41,4 +41,51 @@ fragment Good on goods {
 
     collection
   }
+
+  recomendation {
+    goods_id {
+      id
+      name
+      price
+      description
+      parameters
+      select
+
+      direction {
+        id
+        title
+      }
+
+      images {
+        directus_files_id {
+          ...MediaFragment
+        }
+      }
+
+      image_builder {
+        id
+
+        item {
+          __typename
+
+          ... on goodsImg {
+            img {
+              ...MediaFragment
+            }
+          }
+          ... on goodsTwoImages {
+            imgOne {
+              ...MediaFragment
+            }
+
+            imgTwo {
+              ...MediaFragment
+            }
+          }
+        }
+
+        collection
+      }
+    }
+  }
 }

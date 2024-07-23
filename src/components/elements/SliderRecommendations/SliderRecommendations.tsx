@@ -6,43 +6,17 @@ import { Arrow } from "@/shared/icons/Arrow";
 import { NewItemCart } from "@/components/elements/NewItemCart";
 
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
+import { GetGoodsQuery } from "@/graphql/__generated__";
 
-const arr = [
-  {
-    id: 0,
-    images: ["/bestseller/1.png", "/newItem/1.png"],
-    desc: "Жакет из португальского льна",
-    price: "20 140 ₽",
-    sizes: [36, 38, 40, 42],
-  },
-  {
-    id: 1,
-    images: ["/bestseller/1.png"],
-    desc: "Жакет из португальского льна",
-    price: "20 140 ₽",
-    sizes: [36, 38, 40, 42],
-  },
-  {
-    id: 2,
-    images: ["/bestseller/1.png"],
-    desc: "Жакет из португальского льна",
-    price: "20 140 ₽",
-    sizes: [36, 38, 40, 42],
-  },
-  {
-    id: 3,
-    images: ["/bestseller/1.png"],
-    desc: "Жакет из португальского льна",
-    price: "20 140 ₽",
-    sizes: [36, 38, 40, 42],
-  },
-];
-
-const SliderRecommendations = () => {
+const SliderRecommendations = ({
+  recomendation,
+}: {
+  recomendation: GetGoodsQuery["goods_by_id"]["recomendation"];
+}) => {
   const isTablet600 = useMediaQuery(600);
 
   return (
-    <section className="pb-[128px] pt-[135px] max-desktop:pb-[96px] max-desktop:pt-[48px] max-tabletSmall:pt-[42px]">
+    <section className="pb-[128px] max-desktop:pb-[96px]">
       <div className="container px-[67px] max-tabletSmall:px-[16px]">
         {!isTablet600 && (
           <>
@@ -88,9 +62,16 @@ const SliderRecommendations = () => {
                 },
               }}
             >
-              {arr.map((item) => (
-                <SwiperSlide key={item.id} className="slide-recommendations">
-                  <NewItemCart sizesImg="recommended" item={item} />
+              {recomendation.map((item) => (
+                <SwiperSlide
+                  key={item.goods_id.id}
+                  className="slide-recommendations"
+                >
+                  <NewItemCart
+                    link={`/goods/${item.goods_id.id}`}
+                    sizesImg="recommended"
+                    item={item.goods_id}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -103,8 +84,13 @@ const SliderRecommendations = () => {
               рекомендуем к образу
             </h3>
 
-            {arr.map((item) => (
-              <NewItemCart key={item.id} sizesImg="recommended" item={item} />
+            {recomendation.map((item) => (
+              <NewItemCart
+                link={`/goods/${item.goods_id.id}`}
+                key={item.goods_id.id}
+                sizesImg="recommended"
+                item={item.goods_id}
+              />
             ))}
           </div>
         )}

@@ -14,7 +14,7 @@ import Link from "next/link";
 import { Lightbox } from "@/components/ui/lightbox";
 import { GetGoodsQuery } from "@/graphql/__generated__";
 import ReactMarkdown from "react-markdown";
-import { pathImage } from "@/lib/utils";
+import { formatPrice, pathImage } from "@/lib/utils";
 import { Fragment } from "react";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
@@ -98,7 +98,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const isDesktop1100 = useMediaQuery(1100);
 
   return (
-    <section className="container pt-[var(--header-height)]">
+    <section className="container pb-[135px] pt-[var(--header-height)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px]">
       {/* Breadcrumbs */}
       <Breadcrumbs className="pb-4 pt-8" />
 
@@ -226,7 +226,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 </h1>
 
                 <span className="text-[22px] font-medium max-mobile:text-base">
-                  {item.price} ₽
+                  {formatPrice(item.price)} ₽
                 </span>
               </div>
 

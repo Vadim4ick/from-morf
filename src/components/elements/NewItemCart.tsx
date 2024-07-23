@@ -1,7 +1,7 @@
 "use client";
 
 import { GetHomePageQuery } from "@/graphql/__generated__";
-import { cn, pathImage } from "@/lib/utils";
+import { cn, formatPrice, pathImage } from "@/lib/utils";
 import { sizes } from "@/shared/const";
 import { Heart } from "@/shared/icons/Heart";
 import Image from "next/image";
@@ -113,7 +113,7 @@ const NewItemCart = ({
         <div className="mt-[12px] flex flex-col gap-1">
           <p className="font-medium text-blackColor">{item.name}</p>
 
-          <p className="font-bold">{item.price} ₽</p>
+          <p className="font-bold"> {formatPrice(item.price)} ₽</p>
         </div>
       </Link>
     </article>

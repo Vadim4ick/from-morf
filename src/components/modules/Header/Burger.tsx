@@ -106,7 +106,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                     onClick={() => toggleBurgerOpen()}
                     key={el.id}
                     href={`/goods/additional/${encodeURIComponent(el.title)}`}
-                    className="flex items-center justify-between px-4 py-[8px]"
+                    className="flex items-center justify-between px-4 py-[8px] transition-colors hover:bg-[#E1E1E1]"
                   >
                     <span className="text-lg font-medium">{el.title}</span>
 
@@ -122,7 +122,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                     onClick={() => toggleBurgerOpen()}
                     key={el.id}
                     href={`/goods/main/${encodeURIComponent(el.title)}`}
-                    className="flex items-center justify-between px-4 py-[8px]"
+                    className="flex items-center justify-between px-4 py-[8px] transition-colors hover:bg-[#E1E1E1]"
                   >
                     <span className="text-lg font-medium">{el.title}</span>
 
