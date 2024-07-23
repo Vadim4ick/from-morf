@@ -6,6 +6,8 @@ query GetHomePage {
       id
 
       goods_id {
+        id
+
         select
 
         name
@@ -25,6 +27,8 @@ query GetHomePage {
       id
 
       goods_id {
+        id
+
         select
 
         name

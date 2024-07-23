@@ -53,11 +53,17 @@ const SliderBestsellers = ({
             },
           }}
         >
-          {bestseller.map((item) => (
-            <SwiperSlide key={item.id} className="slide-bestsellers">
-              <NewItemCart link={`/}`} sizesImg="slider" item={item.goods_id} />
-            </SwiperSlide>
-          ))}
+          {bestseller.map((item) => {
+            return (
+              <SwiperSlide key={item.id} className="slide-bestsellers">
+                <NewItemCart
+                  link={`/goods/${item.goods_id.id}`}
+                  sizesImg="slider"
+                  item={item.goods_id}
+                />
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </section>

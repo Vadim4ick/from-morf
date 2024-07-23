@@ -26,7 +26,7 @@ const NewItems = ({
         <div className="flex gap-[20px] max-mobileSmall:flex-col">
           <NewItemCart
             sizesImg="big"
-            link={`/goods/additional}`}
+            link={`/goods/${first.goods_id.id}`}
             item={first.goods_id}
           />
 
@@ -34,7 +34,7 @@ const NewItems = ({
             <div className="flex gap-5">
               {otherElements.map((item) => (
                 <NewItemCart
-                  link={`/goods/additional}`}
+                  link={`/goods/${item.goods_id.id}`}
                   key={item.id}
                   item={item.goods_id}
                 />

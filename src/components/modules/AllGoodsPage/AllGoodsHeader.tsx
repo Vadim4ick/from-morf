@@ -27,7 +27,7 @@ const AllGoodsHeader = ({
                 key={item.id}
                 sizesImg="goods"
                 item={item}
-                link={`/goods/${item.direction.title}/${item.id}`}
+                link={`/goods/${item.id}`}
               />
             ))}
           </div>
