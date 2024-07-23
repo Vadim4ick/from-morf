@@ -1,13 +1,13 @@
 import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate";
 import { NewItemCart } from "@/components/elements/NewItemCart";
-import { GetSectionItemsQuery } from "@/graphql/__generated__";
+import { GetGoodItemsQuery } from "@/graphql/__generated__";
 
 const AllGoodsHeader = ({
   categories,
   sectionGoods,
 }: {
   categories: string;
-  sectionGoods: GetSectionItemsQuery["sectionGoods"][0];
+  sectionGoods: GetGoodItemsQuery["goods"];
 }) => {
   return (
     <section className="pb-32 pt-[var(--header-height)] max-mobile:pb-[72px]">
@@ -17,16 +17,17 @@ const AllGoodsHeader = ({
             {categories}
           </h1>
 
-          <p className="text-[#7E7E7E]">{sectionGoods.items.length} товаров</p>
+          <p className="text-[#7E7E7E]">{sectionGoods.length} товаров</p>
         </div>
 
         <div className="flex flex-col items-center justify-center gap-12">
           <div className="grid w-full grid-cols-2 gap-x-[20px] gap-y-12 max-mobile:grid-cols-1 max-mobile:gap-y-6">
-            {sectionGoods.items.map((item) => (
+            {sectionGoods.map((item) => (
               <NewItemCart
                 key={item.id}
                 sizesImg="goods"
-                item={item.goods_id}
+                item={item}
+                link={`/goods/${item.direction.title}/${item.id}`}
               />
             ))}
           </div>

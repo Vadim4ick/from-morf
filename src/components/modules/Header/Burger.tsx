@@ -36,15 +36,6 @@ const bottomVariants = {
   open: { rotate: -45, translateY: -5 },
 };
 
-const arr = [
-  "Новинки",
-  "Брюки",
-  "Платья",
-  "Юбки",
-  "Топы и боди",
-  "Рубашки и блузки",
-];
-
 const Burger = ({ variant }: { variant: VariantHeader }) => {
   const burgerOpen = useUnit($burgerOpen);
 
@@ -109,7 +100,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
 
           <SheetDescription className="flex flex-col pb-16 pt-4 text-darkGrayColor">
             {data &&
-              data.sectionGoods.map((el) => {
+              data.sectionsDirections.map((el) => {
                 return (
                   <Link
                     onClick={() => toggleBurgerOpen()}

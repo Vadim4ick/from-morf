@@ -55,7 +55,7 @@ const SliderBestsellers = ({
         >
           {bestseller.map((item) => (
             <SwiperSlide key={item.id} className="slide-bestsellers">
-              <NewItemCart sizesImg="slider" item={item.goods_id} />
+              <NewItemCart link={`/}`} sizesImg="slider" item={item.goods_id} />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -1,13 +1,13 @@
 import { AllGoodsHeader } from "@/components/modules/AllGoodsPage/AllGoodsHeader";
 import { StyleAdvice } from "@/components/modules/StyleAdvice/StyleAdvice";
-import { GetSectionItemsQuery } from "@/graphql/__generated__";
+import { GetGoodItemsQuery } from "@/graphql/__generated__";
 
 const AllGoodsPage = ({
   categories,
   sectionGoods,
 }: {
   categories: string;
-  sectionGoods: GetSectionItemsQuery["sectionGoods"][0];
+  sectionGoods: GetGoodItemsQuery["goods"];
 }) => {
   return (
     <>

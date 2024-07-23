@@ -1,5 +1,5 @@
 query GetBurger {
-  sectionGoods {
+  sectionsDirections {
     id
     title
   }

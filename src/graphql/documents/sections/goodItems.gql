@@ -1,0 +1,5 @@
+query GetGoodItems($title: String) {
+  goods(filter: { direction: { title: { _eq: $title } } }) {
+    ...Good
+  }
+}

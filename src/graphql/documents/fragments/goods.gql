@@ -6,6 +6,11 @@ fragment Good on goods {
   parameters
   select
 
+  direction {
+    id
+    title
+  }
+
   images {
     directus_files_id {
       ...MediaFragment

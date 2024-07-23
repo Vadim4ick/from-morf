@@ -7,6 +7,11 @@ query GetHomePage {
 
       goods_id {
         select
+
+        name
+
+        price
+
         images {
           id
           directus_files_id {
@@ -21,6 +26,10 @@ query GetHomePage {
 
       goods_id {
         select
+
+        name
+
+        price
 
         images {
           directus_files_id {

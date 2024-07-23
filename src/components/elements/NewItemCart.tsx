@@ -23,9 +23,11 @@ const bigSize = {
 const NewItemCart = ({
   item,
   sizesImg = "default",
+  link,
 }: {
   item: GetHomePageQuery["homePage"]["newItems"][0]["goods_id"];
   sizesImg?: SizesImg;
+  link: string;
 }) => {
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
 
@@ -35,7 +37,7 @@ const NewItemCart = ({
 
   return (
     <article className="group overflow-hidden">
-      <Link href={"/"}>
+      <Link href={link}>
         <div className="relative">
           <div className="relative">
             <Image
@@ -109,11 +111,9 @@ const NewItemCart = ({
         </div>
 
         <div className="mt-[12px] flex flex-col gap-1">
-          <p className="font-medium text-blackColor">
-            Жакет из португальского льна
-          </p>
+          <p className="font-medium text-blackColor">{item.name}</p>
 
-          <p className="font-bold">20 140 ₽</p>
+          <p className="font-bold">{item.price} ₽</p>
         </div>
       </Link>
     </article>
