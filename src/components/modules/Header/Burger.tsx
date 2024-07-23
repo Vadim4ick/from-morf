@@ -64,7 +64,11 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
 
   return (
     <div className="flex w-[100px]">
-      <Sheet modal={false} open={burgerOpen} onOpenChange={toggleBurgerOpen}>
+      <Sheet
+        modal={false}
+        open={burgerOpen}
+        onOpenChange={() => toggleBurgerOpen()}
+      >
         <SheetTrigger>
           <motion.button className="relative h-[10px] w-7">
             <motion.div
@@ -108,6 +112,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               data.sectionGoods.map((el) => {
                 return (
                   <Link
+                    onClick={() => toggleBurgerOpen()}
                     key={el.id}
                     href={`/goods/${encodeURIComponent(el.title)}`}
                     className="flex items-center justify-between px-4 py-[8px]"

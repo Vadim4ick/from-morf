@@ -2,7 +2,7 @@ import { createDomain } from "effector";
 
 const burgerOpen = createDomain();
 
-export const toggleBurgerOpen = burgerOpen.createEvent<boolean>();
+export const toggleBurgerOpen = burgerOpen.createEvent();
 
 export const $burgerOpen = burgerOpen
   .createStore<boolean>(false)
