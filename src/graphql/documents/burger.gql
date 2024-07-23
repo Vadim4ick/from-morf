@@ -1,4 +1,9 @@
 query GetBurger {
+  additionalSections {
+    id
+    title
+  }
+
   sectionsDirections {
     id
     title

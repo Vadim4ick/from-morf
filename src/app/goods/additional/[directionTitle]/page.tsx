@@ -2,9 +2,15 @@ import { gql } from "@/graphql/client";
 import { AllGoodsPage } from "@/pages/AllGoodsPage";
 import { notFound } from "next/navigation";
 
-const Page = async ({ params }: { params: { categories: string } }) => {
-  const { goods } = await gql.GetGoodItems({
-    title: decodeURIComponent(params.categories),
+const Page = async ({
+  params,
+}: {
+  params: {
+    directionTitle: string;
+  };
+}) => {
+  const { goods } = await gql.GetGoodItemsAdditional({
+    additionalTitle: decodeURIComponent(params.directionTitle),
   });
 
   if (!goods.length) {
@@ -13,7 +19,7 @@ const Page = async ({ params }: { params: { categories: string } }) => {
 
   return (
     <AllGoodsPage
-      categories={decodeURIComponent(params.categories)}
+      categories={decodeURIComponent(params.directionTitle)}
       sectionGoods={goods}
     />
   );

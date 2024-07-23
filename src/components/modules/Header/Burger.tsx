@@ -99,13 +99,29 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
           </SheetHeader>
 
           <SheetDescription className="flex flex-col pb-16 pt-4 text-darkGrayColor">
-            {data &&
+            {data?.additionalSections &&
+              data.additionalSections.map((el) => {
+                return (
+                  <Link
+                    onClick={() => toggleBurgerOpen()}
+                    key={el.id}
+                    href={`/goods/additional/${encodeURIComponent(el.title)}`}
+                    className="flex items-center justify-between px-4 py-[8px]"
+                  >
+                    <span className="text-lg font-medium">{el.title}</span>
+
+                    <Arrow className="rotate-180" />
+                  </Link>
+                );
+              })}
+
+            {data?.sectionsDirections &&
               data.sectionsDirections.map((el) => {
                 return (
                   <Link
                     onClick={() => toggleBurgerOpen()}
                     key={el.id}
-                    href={`/goods/${encodeURIComponent(el.title)}`}
+                    href={`/goods/main/${encodeURIComponent(el.title)}`}
                     className="flex items-center justify-between px-4 py-[8px]"
                   >
                     <span className="text-lg font-medium">{el.title}</span>

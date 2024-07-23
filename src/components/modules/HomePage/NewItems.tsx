@@ -24,12 +24,20 @@ const NewItems = ({
         <h3 className="mb-5 text-2xl font-bold uppercase">новинки</h3>
 
         <div className="flex gap-[20px] max-mobileSmall:flex-col">
-          <NewItemCart sizesImg="big" link={`/}`} item={first.goods_id} />
+          <NewItemCart
+            sizesImg="big"
+            link={`/goods/additional}`}
+            item={first.goods_id}
+          />
 
           <div className="flex flex-col justify-between max-mobileSmall:gap-[36px]">
             <div className="flex gap-5">
               {otherElements.map((item) => (
-                <NewItemCart link={`/}`} key={item.id} item={item.goods_id} />
+                <NewItemCart
+                  link={`/goods/additional}`}
+                  key={item.id}
+                  item={item.goods_id}
+                />
               ))}
             </div>
 

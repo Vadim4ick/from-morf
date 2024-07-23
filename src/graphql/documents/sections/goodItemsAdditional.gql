@@ -1,0 +1,11 @@
+query GetGoodItemsAdditional($additionalTitle: String) {
+  goods(
+    filter: {
+      additionalDirection: {
+        additionalSections_id: { title: { _eq: $additionalTitle } }
+      }
+    }
+  ) {
+    ...Good
+  }
+}
