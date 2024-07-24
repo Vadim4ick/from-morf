@@ -6,17 +6,17 @@ import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { GetHomePageQuery } from "@/graphql/__generated__";
 
 const NewItems = ({
-  homePage,
+  newItems,
 }: {
-  homePage: GetHomePageQuery["homePage"]["newItems"];
+  newItems: GetHomePageQuery["homePage"]["newItems"];
 }) => {
   const isTablet991 = useMediaQuery(991);
   const isTablet768 = useMediaQuery(450);
 
-  const first = homePage[0];
+  const first = newItems[0];
   const otherElements = isTablet768
-    ? homePage.slice(1)
-    : homePage.slice(!isTablet991 ? 1 : 2);
+    ? newItems.slice(1)
+    : newItems.slice(!isTablet991 ? 1 : 2);
 
   return (
     <section className="pt-16">

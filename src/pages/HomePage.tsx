@@ -1,3 +1,5 @@
+"use client";
+
 import { LookBock } from "@/components/modules/HomePage/LookBock";
 import { MainSlider } from "@/components/modules/HomePage/MainSlider";
 import { NewItems } from "@/components/modules/HomePage/NewItems";
@@ -37,9 +39,11 @@ const HomePage = ({ homePage }: { homePage: GetHomePageQuery["homePage"] }) => {
         </div>
       </section>
 
-      <NewItems homePage={homePage.newItems} />
+      {homePage && <NewItems newItems={homePage.newItems} />}
 
-      <SliderBestsellers bestseller={homePage.sliderBestsellers} />
+      {homePage && (
+        <SliderBestsellers bestseller={homePage.sliderBestsellers} />
+      )}
 
       <StyleAdvice />
     </>

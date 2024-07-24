@@ -11,7 +11,9 @@ const AllGoodsPage = ({
 }) => {
   return (
     <>
-      <AllGoodsHeader categories={categories} sectionGoods={sectionGoods} />
+      {sectionGoods && (
+        <AllGoodsHeader categories={categories} sectionGoods={sectionGoods} />
+      )}
 
       <StyleAdvice />
     </>

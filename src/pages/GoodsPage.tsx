@@ -5,9 +5,9 @@ import { GetGoodsQuery } from "@/graphql/__generated__";
 const GoodsPage = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   return (
     <>
-      <GoodsItem item={item} />
+      {item && <GoodsItem item={item} />}
 
-      {item.recomendation.length > 0 && (
+      {item && item.recomendation.length > 0 && (
         <SliderRecommendations recomendation={item.recomendation} />
       )}
     </>
