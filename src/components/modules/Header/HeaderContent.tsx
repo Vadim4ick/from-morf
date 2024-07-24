@@ -28,12 +28,14 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
         <div className="relative flex gap-[20px]">
           <ProfileModal variant={variant} />
 
-          <FavoritesIcon
-            className={clsx("text-transparent", {
-              "stroke-darkGrayColor": variant === "black",
-              "stroke-white": variant === "white",
-            })}
-          />
+          <Link href={"/favorites"}>
+            <FavoritesIcon
+              className={clsx("text-transparent", {
+                "stroke-darkGrayColor": variant === "black",
+                "stroke-white": variant === "white",
+              })}
+            />
+          </Link>
 
           <BasketIcon
             className={clsx("text-transparent", {

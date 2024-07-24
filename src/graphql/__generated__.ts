@@ -1825,6 +1825,13 @@ export type GoodFragment = { readonly __typename?: 'goods', readonly id: string,
 
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
+export type GetGoodsFavoritesItemsQueryVariables = Exact<{
+  ids: InputMaybe<ReadonlyArray<Scalars['GraphQLStringOrFloat']['input']> | Scalars['GraphQLStringOrFloat']['input']>;
+}>;
+
+
+export type GetGoodsFavoritesItemsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
+
 export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1948,6 +1955,13 @@ export const GetGoodsDocument = gql`
   }
 }
     ${GoodFragmentDoc}`;
+export const GetGoodsFavoritesItemsDocument = gql`
+    query GetGoodsFavoritesItems($ids: [GraphQLStringOrFloat!]) {
+  goods(filter: {id: {_in: $ids}}) {
+    ...Good
+  }
+}
+    ${GoodFragmentDoc}`;
 export const GetHomePageDocument = gql`
     query GetHomePage {
   homePage {
@@ -2013,6 +2027,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetGoods(variables: GetGoodsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGoodsQuery>(GetGoodsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoods', 'query', variables);
+    },
+    GetGoodsFavoritesItems(variables?: GetGoodsFavoritesItemsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodsFavoritesItemsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetGoodsFavoritesItemsQuery>(GetGoodsFavoritesItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodsFavoritesItems', 'query', variables);
     },
     GetHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHomePage', 'query', variables);
