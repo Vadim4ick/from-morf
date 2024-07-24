@@ -3,6 +3,7 @@
 import { NewItemCart } from "@/components/elements/NewItemCart";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/ui/loader";
+import { getPluralForm } from "@/lib/utils";
 import {
   getFavs,
   getFavsFx,
@@ -48,7 +49,7 @@ const FavoritesPage = () => {
           </h1>
           {favorites && (
             <p className="text-center text-[#7E7E7E]">
-              {favorites.length} товара
+              {favorites.length} {getPluralForm(favorites.length)}
             </p>
           )}
         </div>

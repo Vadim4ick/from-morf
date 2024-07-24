@@ -6,8 +6,10 @@ export const formProfileSchema = z.object({
   email: z.string().email("Несуществующий email"),
   phone: z
     .string()
-    .min(9, "Введите номер телефона")
-    .max(12, "Введите номер телефона"),
+    .regex(
+      /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/,
+      "Введите корректный номер телефона",
+    ),
   address: z.string().min(20, "Введите город, улицу и дом"),
 });
 

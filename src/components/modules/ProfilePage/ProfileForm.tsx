@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProfileSchema, formProfileSchema } from "./model/formSchemas";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { SuccessInput } from "@/shared/icons/SuccessInput";
 import { Warning } from "@/shared/icons/Warning";
 import { updateUser } from "@/shared/context/user";
 import { User } from "@/shared/types/authForm";
-import Image from "next/image";
 import { Avatar } from "./Avatar";
+import MaskInput from "react-maskinput";
 
 const ProfileForm = ({ user }: { user: User }) => {
   const {
@@ -20,24 +20,26 @@ const ProfileForm = ({ user }: { user: User }) => {
     formState: { errors },
     reset,
     watch,
+    control,
   } = useForm<FormProfileSchema>({
     resolver: zodResolver(formProfileSchema),
   });
 
   const [email, setEmail] = useState(user.email || "");
-  const [phone, setPhone] = useState(user.phone || "");
+  // const [phone, setPhone] = useState(user.phone || "");
   const [surname, setSurname] = useState(user.surname || "");
   const [name, setName] = useState(user.name || "");
   const [address, setAddress] = useState(user.address || "");
 
   const onSubmit: SubmitHandler<FormProfileSchema> = async (data) => {
-    console.log(data);
+    const phone = data.phone.replace(/\D/g, "");
 
     if (user) {
       updateUser({
         userData: {
           id: user.id,
           ...data,
+          phone: String(phone),
         },
       });
     }
@@ -129,7 +131,6 @@ const ProfileForm = ({ user }: { user: User }) => {
             {errors.phone && (
               <div className="text-error">{errors.phone.message}</div>
             )}
-
             <div className="flex items-center gap-3">
               <p className="text-sm">Введите номер телефона (+7)</p>
 
@@ -137,11 +138,24 @@ const ProfileForm = ({ user }: { user: User }) => {
               {user?.phone && <SuccessInput />}
             </div>
 
-            <Input
-              {...register("phone")}
-              value={phone || ""}
-              onChange={(e) => setPhone(e.target.value)}
-              className="h-12 rounded-[2px] bg-[#EBEBEB]"
+            <Controller
+              name="phone"
+              control={control}
+              defaultValue={user.phone || ""}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <MaskInput
+                    alwaysShowMask
+                    mask={"+7 (000) 000-00-00"}
+                    showMask
+                    maskChar="_"
+                    value={value}
+                    onChange={onChange}
+                    // @ts-ignore
+                    className="h-12 rounded-[2px] bg-[#EBEBEB] px-3 py-2 text-sm"
+                  />
+                );
+              }}
             />
           </label>
         </div>
