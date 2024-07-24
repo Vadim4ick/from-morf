@@ -1,8 +1,14 @@
 import { gql } from "@/graphql/client";
-import { GoodsPage } from "@/pages/GoodsPage";
+import GoodsPage from "@/pages/GoodsPage";
 import { notFound } from "next/navigation";
 
 const Page = async ({ params }: { params: { id: string } }) => {
+  const id = parseInt(params.id);
+
+  if (!id) {
+    return notFound();
+  }
+
   const { goods_by_id } = await gql.GetGoods({ id: params.id });
 
   if (!goods_by_id) {

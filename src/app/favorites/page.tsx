@@ -1,4 +1,4 @@
-import { FavoritesPage } from "@/pages/FavoritesPage";
+import FavoritesPage from "@/pages/FavoritesPage";
 
 const Page = () => {
   return <FavoritesPage />;

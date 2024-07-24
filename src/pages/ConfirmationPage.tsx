@@ -174,4 +174,4 @@ const ConfirmationPage = () => {
   );
 };
 
-export { ConfirmationPage };
+export default ConfirmationPage;

@@ -1,19 +1,30 @@
 "use client";
 
 import { NewItemCart } from "@/components/elements/NewItemCart";
+import { getFavs, setFavoriteOnLoad } from "@/shared/context/favorites";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { useGetFavoritesItems } from "@/shared/services/getFavoritesItems";
+import { useEffect } from "react";
 
 const FavoritesPage = () => {
-  const items = [];
+  const { favoritesFromLs, favorites } = useFavorite();
 
-  const { favoritesFromLs } = useFavorite();
+  console.log(favorites);
 
-  const { data, isLoading } = useGetFavoritesItems({ ids: favoritesFromLs });
+  useEffect(() => {
+    const data = localStorage.getItem("favs");
 
-  if (isLoading) {
-    return <div>Load..</div>;
-  }
+    if (data) {
+      const favs = JSON.parse(data);
+
+      setFavoriteOnLoad(favs);
+      getFavs({ ids: favs });
+    }
+  }, []);
+
+  // if (isLoading) {
+  //   return <div>Load..</div>;
+  // }
 
   return (
     <section className="pt-[calc(var(--header-height)_+_48px)]">
@@ -22,16 +33,16 @@ const FavoritesPage = () => {
           <h1 className="text-center text-[32px] font-bold uppercase">
             избранное
           </h1>
-          {data && (
+          {favorites && (
             <p className="text-center text-[#7E7E7E]">
-              {data.goods.length} товара
+              {favorites.length} товара
             </p>
           )}
         </div>
 
         <div className="grid grid-cols-3 gap-[20px] max-tabletBig:grid-cols-2 max-mobile:grid-cols-1">
-          {data &&
-            data.goods.map((item) => {
+          {favorites &&
+            favorites.map((item) => {
               return (
                 <NewItemCart
                   sizesImg="goods"
@@ -47,4 +58,4 @@ const FavoritesPage = () => {
   );
 };
 
-export { FavoritesPage };
+export default FavoritesPage;

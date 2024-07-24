@@ -1,23 +1,13 @@
 "use client";
 
 import { useUnit } from "effector-react";
-import { $favoritesFromLS, setFavoriteOnLoad } from "../context/favorites";
-import { useEffect } from "react";
+import { $favorites, $favoritesFromLS } from "../context/favorites";
 
 const useFavorite = () => {
   const favoritesFromLs = useUnit($favoritesFromLS);
+  const favorites = useUnit($favorites);
 
-  useEffect(() => {
-    const data = localStorage.getItem("favs");
-
-    if (data) {
-      const favs = JSON.parse(data);
-
-      setFavoriteOnLoad(favs);
-    }
-  }, []);
-
-  return { favoritesFromLs };
+  return { favoritesFromLs, favorites };
 };
 
 export { useFavorite };

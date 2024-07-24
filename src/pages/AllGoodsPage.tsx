@@ -18,4 +18,4 @@ const AllGoodsPage = ({
   );
 };
 
-export { AllGoodsPage };
+export default AllGoodsPage;

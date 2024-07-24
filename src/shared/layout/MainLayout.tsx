@@ -4,7 +4,7 @@ import { Footer } from "@/components/modules/Footer/Footer";
 import { Header } from "@/components/modules/Header/Header";
 import { useUnit } from "effector-react";
 import { $confirm } from "../context/auth";
-import { ConfirmationPage } from "@/pages/ConfirmationPage";
+import ConfirmationPage from "@/pages/ConfirmationPage";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [confirm] = useUnit([$confirm]);

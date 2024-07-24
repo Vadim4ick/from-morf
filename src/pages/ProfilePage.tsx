@@ -29,4 +29,4 @@ const ProfilePage = () => {
   );
 };
 
-export { ProfilePage };
+export default ProfilePage;

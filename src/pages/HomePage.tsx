@@ -46,4 +46,4 @@ const HomePage = ({ homePage }: { homePage: GetHomePageQuery["homePage"] }) => {
   );
 };
 
-export { HomePage };
+export default HomePage;

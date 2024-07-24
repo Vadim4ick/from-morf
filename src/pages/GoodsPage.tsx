@@ -14,4 +14,4 @@ const GoodsPage = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   );
 };
 
-export { GoodsPage };
+export default GoodsPage;
