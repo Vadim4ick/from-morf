@@ -61,7 +61,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
         onOpenChange={() => toggleBurgerOpen()}
       >
         <SheetTrigger>
-          <motion.button className="relative h-[10px] w-7">
+          <motion.div className="relative h-[10px] w-7">
             <motion.div
               className={clsx("absolute top-0 h-[2px] w-full", {
                 "bg-white": variant === "white",
@@ -79,7 +79,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               variants={bottomVariants}
               animate={burgerOpen ? "open" : "closed"}
             />
-          </motion.button>
+          </motion.div>
         </SheetTrigger>
 
         <SheetContent

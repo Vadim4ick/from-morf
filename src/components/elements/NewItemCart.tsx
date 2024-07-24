@@ -3,10 +3,9 @@
 import { GetHomePageQuery } from "@/graphql/__generated__";
 import { cn, formatPrice, pathImage } from "@/lib/utils";
 import { sizes } from "@/shared/const";
-import { $favoritesFromLS, toggleFavorite } from "@/shared/context/favorites";
+import { toggleFavorite } from "@/shared/context/favorites";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { Heart } from "@/shared/icons/Heart";
-import { useUnit } from "effector-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";

@@ -50,12 +50,14 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <ProfileIcon
-          className={clsx("cursor-pointer text-transparent", {
-            "stroke-darkGrayColor": variant === "black",
-            "stroke-white": variant === "white",
-          })}
-        />
+        <div>
+          <ProfileIcon
+            className={clsx("cursor-pointer text-transparent", {
+              "stroke-darkGrayColor": variant === "black",
+              "stroke-white": variant === "white",
+            })}
+          />
+        </div>
       </DialogTrigger>
 
       {!isAuth ? (
