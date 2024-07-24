@@ -6,12 +6,15 @@ import { cn } from "@/lib/utils";
 const ButtonAnimate = ({
   children,
   className,
+  onClick,
 }: {
   children: ReactNode;
   className?: string;
+  onClick?: VoidFunction;
 }) => {
   return (
     <Button
+      onClick={onClick}
       className={cn("buttonAnimate w-fit transition-colors hover:text-white", [
         cls.buttonAnimate,
         className,
