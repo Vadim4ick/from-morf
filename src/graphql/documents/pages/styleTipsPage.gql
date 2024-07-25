@@ -1,0 +1,10 @@
+query GetTipsPage {
+  styleTips(sort: ["-date_created"]) {
+    id
+    date_created
+    mainImage {
+      ...MediaFragment
+    }
+    title
+  }
+}

@@ -8,6 +8,7 @@ const StyleAdvice = ({
 }: {
   styleTips: GetLastTwoStyleTipsQuery["styleTips"];
 }) => {
+  // '/style-tips'
   return (
     <section className="bg-[#EDEDED] py-24 max-tabletBig:pt-[48px] max-mobile:pb-[72px]">
       <div className="container">
@@ -29,7 +30,7 @@ const StyleAdvice = ({
               ))}
 
               <ButtonAnimate className="mx-auto self-end max-tabletBig:col-span-2">
-                смотреть еще
+                <Link href={"/style-tips"}>смотреть еще</Link>
               </ButtonAnimate>
             </div>
           </div>

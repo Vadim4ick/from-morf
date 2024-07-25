@@ -1952,6 +1952,11 @@ export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'homePage', readonly id: string, readonly sliderBestsellers: ReadonlyArray<{ readonly __typename?: 'homePage_goods_1', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly newItems: ReadonlyArray<{ readonly __typename?: 'homePage_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }> } };
 
+export type GetTipsPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTipsPageQuery = { readonly __typename?: 'Query', readonly styleTips: ReadonlyArray<{ readonly __typename?: 'styleTips', readonly id: string, readonly date_created: any, readonly title: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+
 export type GetGoodItemsQueryVariables = Exact<{
   directionTitle: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -2118,6 +2123,18 @@ export const GetHomePageDocument = gql`
   }
 }
     ${MediaFragmentFragmentDoc}`;
+export const GetTipsPageDocument = gql`
+    query GetTipsPage {
+  styleTips(sort: ["-date_created"]) {
+    id
+    date_created
+    mainImage {
+      ...MediaFragment
+    }
+    title
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
 export const GetGoodItemsDocument = gql`
     query GetGoodItems($directionTitle: String) {
   goods(filter: {direction: {title: {_eq: $directionTitle}}}) {
@@ -2165,6 +2182,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHomePage', 'query', variables);
+    },
+    GetTipsPage(variables?: GetTipsPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTipsPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetTipsPageQuery>(GetTipsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetTipsPage', 'query', variables);
     },
     GetGoodItems(variables?: GetGoodItemsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodItemsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGoodItemsQuery>(GetGoodItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodItems', 'query', variables);
