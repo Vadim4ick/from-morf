@@ -1,0 +1,8 @@
+query GetTipsItemPage($id: ID!) {
+  styleTips_by_id(id: $id) {
+    id
+    date_created
+    title
+    markdown
+  }
+}

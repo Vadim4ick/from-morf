@@ -1760,6 +1760,7 @@ export type StyleTips = {
   readonly date_created_func: Maybe<Datetime_Functions>;
   readonly id: Scalars['ID']['output'];
   readonly mainImage: Maybe<Directus_Files>;
+  readonly markdown: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
@@ -1792,6 +1793,7 @@ export type StyleTips_Aggregated_Count = {
   readonly date_created: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['Int']['output']>;
   readonly mainImage: Maybe<Scalars['Int']['output']>;
+  readonly markdown: Maybe<Scalars['Int']['output']>;
   readonly title: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1807,6 +1809,7 @@ export type StyleTips_Filter = {
   readonly date_created_func: InputMaybe<Datetime_Function_Filter_Operators>;
   readonly id: InputMaybe<Number_Filter_Operators>;
   readonly mainImage: InputMaybe<Directus_Files_Filter>;
+  readonly markdown: InputMaybe<String_Filter_Operators>;
   readonly title: InputMaybe<String_Filter_Operators>;
 };
 
@@ -1921,6 +1924,7 @@ export type Version_StyleTips = {
   readonly date_created_func: Maybe<Datetime_Functions>;
   readonly id: Scalars['ID']['output'];
   readonly mainImage: Maybe<Scalars['JSON']['output']>;
+  readonly markdown: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
@@ -1956,6 +1960,13 @@ export type GetTipsPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetTipsPageQuery = { readonly __typename?: 'Query', readonly styleTips: ReadonlyArray<{ readonly __typename?: 'styleTips', readonly id: string, readonly date_created: any, readonly title: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+
+export type GetTipsItemPageQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type GetTipsItemPageQuery = { readonly __typename?: 'Query', readonly styleTips_by_id: { readonly __typename?: 'styleTips', readonly id: string, readonly date_created: any, readonly title: string, readonly markdown: string } };
 
 export type GetGoodItemsQueryVariables = Exact<{
   directionTitle: InputMaybe<Scalars['String']['input']>;
@@ -2135,6 +2146,16 @@ export const GetTipsPageDocument = gql`
   }
 }
     ${MediaFragmentFragmentDoc}`;
+export const GetTipsItemPageDocument = gql`
+    query GetTipsItemPage($id: ID!) {
+  styleTips_by_id(id: $id) {
+    id
+    date_created
+    title
+    markdown
+  }
+}
+    `;
 export const GetGoodItemsDocument = gql`
     query GetGoodItems($directionTitle: String) {
   goods(filter: {direction: {title: {_eq: $directionTitle}}}) {
@@ -2185,6 +2206,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetTipsPage(variables?: GetTipsPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTipsPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTipsPageQuery>(GetTipsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetTipsPage', 'query', variables);
+    },
+    GetTipsItemPage(variables: GetTipsItemPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTipsItemPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetTipsItemPageQuery>(GetTipsItemPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetTipsItemPage', 'query', variables);
     },
     GetGoodItems(variables?: GetGoodItemsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodItemsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGoodItemsQuery>(GetGoodItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodItems', 'query', variables);

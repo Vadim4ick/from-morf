@@ -1,5 +1,5 @@
 import { GetLastTwoStyleTipsQuery } from "@/graphql/__generated__";
-import { pathImage } from "@/lib/utils";
+import { formatDate, pathImage } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,11 +25,7 @@ const AdviceCart = (props: Props) => {
 
         <div className="flex flex-col gap-2 pt-4 max-tabletBig:pt-3">
           <p className="text-[14px] text-[#707070]">
-            {new Date(item.date_created).toLocaleDateString("ru-RU", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })}
+            {formatDate(item.date_created)}
           </p>
 
           <p className="text-xl max-mobileSmall:text-base">{item.title}</p>
