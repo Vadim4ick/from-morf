@@ -13,6 +13,8 @@ const Page = async ({
     additionalTitle: decodeURIComponent(params.directionTitle),
   });
 
+  const { styleTips } = await gql.GetLastTwoStyleTips();
+
   if (!goods || !goods.length) {
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center gap-5">
@@ -31,6 +33,7 @@ const Page = async ({
     <AllGoodsPage
       categories={decodeURIComponent(params.directionTitle)}
       sectionGoods={goods}
+      styleTips={styleTips}
     />
   );
 };

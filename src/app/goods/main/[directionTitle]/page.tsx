@@ -12,6 +12,7 @@ const Page = async ({
   const { goods } = await gql.GetGoodItems({
     directionTitle: decodeURIComponent(params.directionTitle),
   });
+  const { styleTips } = await gql.GetLastTwoStyleTips();
 
   if (!goods || !goods.length) {
     return (
@@ -31,6 +32,7 @@ const Page = async ({
     <AllGoodsPage
       categories={decodeURIComponent(params.directionTitle)}
       sectionGoods={goods}
+      styleTips={styleTips}
     />
   );
 };

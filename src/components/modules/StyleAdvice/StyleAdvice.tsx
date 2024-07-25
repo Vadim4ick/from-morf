@@ -1,29 +1,13 @@
 import Link from "next/link";
 import { AdviceCart } from "./AdviceCart";
 import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate";
+import { GetLastTwoStyleTipsQuery } from "@/graphql/__generated__";
 
-const arr = [
-  {
-    id: 1,
-    date: "17.06.24",
-    desc: "Как создать капсульный гардероб: основные принципы и идеи",
-    img: "/advice/1.png",
-  },
-  {
-    id: 2,
-    date: "17.06.24",
-    desc: "Как создать капсульный гардероб: основные принципы и идеи",
-    img: "/advice/1.png",
-  },
-  //   {
-  //     id: 3,
-  //     date: "17.06.24",
-  //     desc: "Как создать капсульный гардероб: основные принципы и идеи",
-  //     img: "/advice/1.png",
-  //   },
-];
-
-const StyleAdvice = () => {
+const StyleAdvice = ({
+  styleTips,
+}: {
+  styleTips: GetLastTwoStyleTipsQuery["styleTips"];
+}) => {
   return (
     <section className="bg-[#EDEDED] py-24 max-tabletBig:pt-[48px] max-mobile:pb-[72px]">
       <div className="container">
@@ -34,7 +18,7 @@ const StyleAdvice = () => {
             </h3>
 
             <div className="grid grid-cols-3 gap-x-[20px] gap-y-[48px] max-tabletBig:grid-cols-2">
-              {arr.map((el) => (
+              {styleTips.map((el) => (
                 <Link
                   className="max-mobileSmall:col-span-2"
                   key={el.id}

@@ -5,9 +5,18 @@ import { MainSlider } from "@/components/modules/HomePage/MainSlider";
 import { NewItems } from "@/components/modules/HomePage/NewItems";
 import { SliderBestsellers } from "@/components/modules/HomePage/SliderBestsellers";
 import { StyleAdvice } from "@/components/modules/StyleAdvice/StyleAdvice";
-import { GetHomePageQuery } from "@/graphql/__generated__";
+import {
+  GetHomePageQuery,
+  GetLastTwoStyleTipsQuery,
+} from "@/graphql/__generated__";
 
-const HomePage = ({ homePage }: { homePage: GetHomePageQuery["homePage"] }) => {
+const HomePage = ({
+  homePage,
+  styleTips,
+}: {
+  homePage: GetHomePageQuery["homePage"];
+  styleTips: GetLastTwoStyleTipsQuery["styleTips"];
+}) => {
   return (
     <>
       <MainSlider />
@@ -45,7 +54,7 @@ const HomePage = ({ homePage }: { homePage: GetHomePageQuery["homePage"] }) => {
         <SliderBestsellers bestseller={homePage.sliderBestsellers} />
       )}
 
-      <StyleAdvice />
+      {styleTips && <StyleAdvice styleTips={styleTips} />}
     </>
   );
 };

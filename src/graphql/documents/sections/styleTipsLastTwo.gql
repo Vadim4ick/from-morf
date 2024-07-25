@@ -1,0 +1,10 @@
+query GetLastTwoStyleTips {
+  styleTips(sort: ["-date_created"], limit: 2) {
+    id
+    date_created
+    mainImage {
+      ...MediaFragment
+    }
+    title
+  }
+}
