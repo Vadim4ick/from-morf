@@ -49,10 +49,6 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
     }
   }, [burgerOpen]);
 
-  if (isLoading) {
-    return <Loader className="" />;
-  }
-
   return (
     <div className="flex w-[100px]">
       <Sheet
@@ -98,39 +94,45 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
             </SheetTitle>
           </SheetHeader>
 
-          <SheetDescription className="flex flex-col pb-16 pt-4 text-darkGrayColor">
-            {data?.additionalSections &&
-              data.additionalSections.map((el) => {
-                return (
-                  <Link
-                    onClick={() => toggleBurgerOpen()}
-                    key={el.id}
-                    href={`/goods/additional/${encodeURIComponent(el.title)}`}
-                    className="flex items-center justify-between px-4 py-[8px] transition-colors hover:bg-[#E1E1E1]"
-                  >
-                    <span className="text-lg font-medium">{el.title}</span>
+          {isLoading ? (
+            <SheetDescription className="flex items-center justify-center py-5">
+              <Loader className="" />
+            </SheetDescription>
+          ) : (
+            <SheetDescription className="flex flex-col pb-16 pt-4 text-darkGrayColor">
+              {data?.additionalSections &&
+                data.additionalSections.map((el) => {
+                  return (
+                    <Link
+                      onClick={() => toggleBurgerOpen()}
+                      key={el.id}
+                      href={`/goods/additional/${encodeURIComponent(el.title)}`}
+                      className="flex items-center justify-between px-4 py-[8px] transition-colors hover:bg-[#E1E1E1]"
+                    >
+                      <span className="text-lg font-medium">{el.title}</span>
 
-                    <Arrow className="rotate-180" />
-                  </Link>
-                );
-              })}
+                      <Arrow className="rotate-180" />
+                    </Link>
+                  );
+                })}
 
-            {data?.sectionsDirections &&
-              data.sectionsDirections.map((el) => {
-                return (
-                  <Link
-                    onClick={() => toggleBurgerOpen()}
-                    key={el.id}
-                    href={`/goods/main/${encodeURIComponent(el.title)}`}
-                    className="flex items-center justify-between px-4 py-[8px] transition-colors hover:bg-[#E1E1E1]"
-                  >
-                    <span className="text-lg font-medium">{el.title}</span>
+              {data?.sectionsDirections &&
+                data.sectionsDirections.map((el) => {
+                  return (
+                    <Link
+                      onClick={() => toggleBurgerOpen()}
+                      key={el.id}
+                      href={`/goods/main/${encodeURIComponent(el.title)}`}
+                      className="flex items-center justify-between px-4 py-[8px] transition-colors hover:bg-[#E1E1E1]"
+                    >
+                      <span className="text-lg font-medium">{el.title}</span>
 
-                    <Arrow className="rotate-180" />
-                  </Link>
-                );
-              })}
-          </SheetDescription>
+                      <Arrow className="rotate-180" />
+                    </Link>
+                  );
+                })}
+            </SheetDescription>
+          )}
 
           <SheetFooter className="flex flex-col gap-2 border-t bg-[#F2F2F2] px-4 py-4">
             <Link
