@@ -76,6 +76,14 @@ export type Query = {
   readonly lookBook_aggregated: ReadonlyArray<LookBook_Aggregated>;
   readonly lookBook_by_id: Maybe<LookBook>;
   readonly lookBook_by_version: Maybe<Version_LookBook>;
+  readonly lookBook_files: ReadonlyArray<LookBook_Files>;
+  readonly lookBook_files_1: ReadonlyArray<LookBook_Files_1>;
+  readonly lookBook_files_1_aggregated: ReadonlyArray<LookBook_Files_1_Aggregated>;
+  readonly lookBook_files_1_by_id: Maybe<LookBook_Files_1>;
+  readonly lookBook_files_1_by_version: Maybe<Version_LookBook_Files_1>;
+  readonly lookBook_files_aggregated: ReadonlyArray<LookBook_Files_Aggregated>;
+  readonly lookBook_files_by_id: Maybe<LookBook_Files>;
+  readonly lookBook_files_by_version: Maybe<Version_LookBook_Files>;
   readonly sectionsDirections: ReadonlyArray<SectionsDirections>;
   readonly sectionsDirections_aggregated: ReadonlyArray<SectionsDirections_Aggregated>;
   readonly sectionsDirections_by_id: Maybe<SectionsDirections>;
@@ -460,6 +468,72 @@ export type QueryLookBook_By_VersionArgs = {
 };
 
 
+export type QueryLookBook_FilesArgs = {
+  filter: InputMaybe<LookBook_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryLookBook_Files_1Args = {
+  filter: InputMaybe<LookBook_Files_1_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryLookBook_Files_1_AggregatedArgs = {
+  filter: InputMaybe<LookBook_Files_1_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryLookBook_Files_1_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryLookBook_Files_1_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
+export type QueryLookBook_Files_AggregatedArgs = {
+  filter: InputMaybe<LookBook_Files_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryLookBook_Files_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryLookBook_Files_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
 export type QuerySectionsDirectionsArgs = {
   filter: InputMaybe<SectionsDirections_Filter>;
   limit: InputMaybe<Scalars['Int']['input']>;
@@ -541,6 +615,8 @@ export type Subscription = {
   readonly homePage_goods_1_mutated: Maybe<HomePage_Goods_1_Mutated>;
   readonly homePage_goods_mutated: Maybe<HomePage_Goods_Mutated>;
   readonly homePage_mutated: Maybe<HomePage_Mutated>;
+  readonly lookBook_files_1_mutated: Maybe<LookBook_Files_1_Mutated>;
+  readonly lookBook_files_mutated: Maybe<LookBook_Files_Mutated>;
   readonly lookBook_mutated: Maybe<LookBook_Mutated>;
   readonly sectionsDirections_mutated: Maybe<SectionsDirections_Mutated>;
   readonly styleTips_mutated: Maybe<StyleTips_Mutated>;
@@ -613,6 +689,16 @@ export type SubscriptionHomePage_Goods_MutatedArgs = {
 
 
 export type SubscriptionHomePage_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionLookBook_Files_1_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionLookBook_Files_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
@@ -1722,7 +1808,9 @@ export type LookBook = {
   readonly img1: Maybe<Directus_Files>;
   readonly img2: Maybe<Directus_Files>;
   readonly img3: Maybe<Directus_Files>;
-  readonly test: Maybe<Scalars['String']['output']>;
+  readonly mainImages: Maybe<ReadonlyArray<Maybe<LookBook_Files_1>>>;
+  readonly mainImages_func: Maybe<Count_Functions>;
+  readonly markdown: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
@@ -1756,6 +1844,16 @@ export type LookBookImg3Args = {
   sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+export type LookBookMainImagesArgs = {
+  filter: InputMaybe<LookBook_Files_1_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type LookBook_Aggregated = {
   readonly __typename?: 'lookBook_aggregated';
   readonly avg: Maybe<LookBook_Aggregated_Fields>;
@@ -1777,13 +1875,132 @@ export type LookBook_Aggregated_Count = {
   readonly img1: Maybe<Scalars['Int']['output']>;
   readonly img2: Maybe<Scalars['Int']['output']>;
   readonly img3: Maybe<Scalars['Int']['output']>;
-  readonly test: Maybe<Scalars['Int']['output']>;
+  readonly mainImages: Maybe<Scalars['Int']['output']>;
+  readonly markdown: Maybe<Scalars['Int']['output']>;
   readonly title: Maybe<Scalars['Int']['output']>;
 };
 
 export type LookBook_Aggregated_Fields = {
   readonly __typename?: 'lookBook_aggregated_fields';
   readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type LookBook_Files = {
+  readonly __typename?: 'lookBook_files';
+  readonly directus_files_id: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly lookBook_id: Maybe<Scalars['Int']['output']>;
+};
+
+export type LookBook_Files_1 = {
+  readonly __typename?: 'lookBook_files_1';
+  readonly directus_files_id: Maybe<Directus_Files>;
+  readonly id: Scalars['ID']['output'];
+  readonly lookBook_id: Maybe<LookBook>;
+};
+
+
+export type LookBook_Files_1Directus_Files_IdArgs = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type LookBook_Files_1LookBook_IdArgs = {
+  filter: InputMaybe<LookBook_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type LookBook_Files_1_Aggregated = {
+  readonly __typename?: 'lookBook_files_1_aggregated';
+  readonly avg: Maybe<LookBook_Files_1_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<LookBook_Files_1_Aggregated_Fields>;
+  readonly count: Maybe<LookBook_Files_1_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<LookBook_Files_1_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<LookBook_Files_1_Aggregated_Fields>;
+  readonly min: Maybe<LookBook_Files_1_Aggregated_Fields>;
+  readonly sum: Maybe<LookBook_Files_1_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<LookBook_Files_1_Aggregated_Fields>;
+};
+
+export type LookBook_Files_1_Aggregated_Count = {
+  readonly __typename?: 'lookBook_files_1_aggregated_count';
+  readonly directus_files_id: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly lookBook_id: Maybe<Scalars['Int']['output']>;
+};
+
+export type LookBook_Files_1_Aggregated_Fields = {
+  readonly __typename?: 'lookBook_files_1_aggregated_fields';
+  readonly id: Maybe<Scalars['Float']['output']>;
+  readonly lookBook_id: Maybe<Scalars['Float']['output']>;
+};
+
+export type LookBook_Files_1_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<LookBook_Files_1_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<LookBook_Files_1_Filter>>>;
+  readonly directus_files_id: InputMaybe<Directus_Files_Filter>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly lookBook_id: InputMaybe<LookBook_Filter>;
+};
+
+export type LookBook_Files_1_Mutated = {
+  readonly __typename?: 'lookBook_files_1_mutated';
+  readonly data: Maybe<LookBook_Files_1>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type LookBook_Files_Aggregated = {
+  readonly __typename?: 'lookBook_files_aggregated';
+  readonly avg: Maybe<LookBook_Files_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<LookBook_Files_Aggregated_Fields>;
+  readonly count: Maybe<LookBook_Files_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<LookBook_Files_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<LookBook_Files_Aggregated_Fields>;
+  readonly min: Maybe<LookBook_Files_Aggregated_Fields>;
+  readonly sum: Maybe<LookBook_Files_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<LookBook_Files_Aggregated_Fields>;
+};
+
+export type LookBook_Files_Aggregated_Count = {
+  readonly __typename?: 'lookBook_files_aggregated_count';
+  readonly directus_files_id: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly lookBook_id: Maybe<Scalars['Int']['output']>;
+};
+
+export type LookBook_Files_Aggregated_Fields = {
+  readonly __typename?: 'lookBook_files_aggregated_fields';
+  readonly id: Maybe<Scalars['Float']['output']>;
+  readonly lookBook_id: Maybe<Scalars['Float']['output']>;
+};
+
+export type LookBook_Files_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<LookBook_Files_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<LookBook_Files_Filter>>>;
+  readonly directus_files_id: InputMaybe<String_Filter_Operators>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly lookBook_id: InputMaybe<Number_Filter_Operators>;
+};
+
+export type LookBook_Files_Mutated = {
+  readonly __typename?: 'lookBook_files_mutated';
+  readonly data: Maybe<LookBook_Files>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
 };
 
 export type LookBook_Filter = {
@@ -1794,7 +2011,9 @@ export type LookBook_Filter = {
   readonly img1: InputMaybe<Directus_Files_Filter>;
   readonly img2: InputMaybe<Directus_Files_Filter>;
   readonly img3: InputMaybe<Directus_Files_Filter>;
-  readonly test: InputMaybe<String_Filter_Operators>;
+  readonly mainImages: InputMaybe<LookBook_Files_1_Filter>;
+  readonly mainImages_func: InputMaybe<Count_Function_Filter_Operators>;
+  readonly markdown: InputMaybe<String_Filter_Operators>;
   readonly title: InputMaybe<String_Filter_Operators>;
 };
 
@@ -2052,8 +2271,24 @@ export type Version_LookBook = {
   readonly img1: Maybe<Scalars['JSON']['output']>;
   readonly img2: Maybe<Scalars['JSON']['output']>;
   readonly img3: Maybe<Scalars['JSON']['output']>;
-  readonly test: Maybe<Scalars['String']['output']>;
+  readonly mainImages: Maybe<Scalars['JSON']['output']>;
+  readonly mainImages_func: Maybe<Count_Functions>;
+  readonly markdown: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
+};
+
+export type Version_LookBook_Files = {
+  readonly __typename?: 'version_lookBook_files';
+  readonly directus_files_id: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly lookBook_id: Maybe<Scalars['Int']['output']>;
+};
+
+export type Version_LookBook_Files_1 = {
+  readonly __typename?: 'version_lookBook_files_1';
+  readonly directus_files_id: Maybe<Scalars['JSON']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly lookBook_id: Maybe<Scalars['JSON']['output']>;
 };
 
 export type Version_SectionsDirections = {
@@ -2105,7 +2340,7 @@ export type GetLookBockByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetLookBockByIdQuery = { readonly __typename?: 'Query', readonly lookBook_by_id: { readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string, readonly test: string } };
+export type GetLookBockByIdQuery = { readonly __typename?: 'Query', readonly lookBook_by_id: { readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string, readonly markdown: string, readonly mainImages: ReadonlyArray<{ readonly __typename?: 'lookBook_files_1', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } };
 
 export type GetLookBockQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2296,10 +2531,16 @@ export const GetLookBockByIdDocument = gql`
     id
     title
     description
-    test
+    markdown
+    mainImages {
+      id
+      directus_files_id {
+        ...MediaFragment
+      }
+    }
   }
 }
-    `;
+    ${MediaFragmentFragmentDoc}`;
 export const GetLookBockDocument = gql`
     query GetLookBock {
   lookBook {

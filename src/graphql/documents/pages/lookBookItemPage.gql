@@ -3,6 +3,14 @@ query GetLookBockById($id: ID!) {
     id
     title
     description
-    test
+    markdown
+
+    mainImages {
+      id
+
+      directus_files_id {
+        ...MediaFragment
+      }
+    }
   }
 }
