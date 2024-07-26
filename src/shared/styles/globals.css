@@ -91,6 +91,10 @@ body {
   font-family: "Kinetika";
 }
 
+.revert {
+  height: revert-layer;
+}
+
 @layer components {
   .custom-shadow-footer {
     @apply after:shadow-[0px_-0.4px_0px_0px_#CDCDCD];

@@ -1,0 +1,7 @@
+query GetLookBock {
+  lookBook {
+    id
+    title
+    description
+  }
+}
