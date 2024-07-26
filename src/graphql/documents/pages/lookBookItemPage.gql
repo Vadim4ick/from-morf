@@ -1,0 +1,7 @@
+query GetLookBockById($id: ID!) {
+  lookBook_by_id(id: $id) {
+    id
+    title
+    description
+  }
+}

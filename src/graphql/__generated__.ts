@@ -2096,6 +2096,18 @@ export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'homePage', readonly id: string, readonly sliderBestsellers: ReadonlyArray<{ readonly __typename?: 'homePage_goods_1', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly newItems: ReadonlyArray<{ readonly __typename?: 'homePage_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }> } };
 
+export type GetLookBockByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type GetLookBockByIdQuery = { readonly __typename?: 'Query', readonly lookBook_by_id: { readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string } };
+
+export type GetLookBockQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLookBockQuery = { readonly __typename?: 'Query', readonly lookBook: ReadonlyArray<{ readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string, readonly img1: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly img2: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly img3: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+
 export type GetTipsPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2121,11 +2133,6 @@ export type GetGoodItemsAdditionalQueryVariables = Exact<{
 
 
 export type GetGoodItemsAdditionalQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
-
-export type GetLookBockQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetLookBockQuery = { readonly __typename?: 'Query', readonly lookBook: ReadonlyArray<{ readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string, readonly img1: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly img2: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly img3: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
 export type GetLastTwoStyleTipsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2279,6 +2286,33 @@ export const GetHomePageDocument = gql`
   }
 }
     ${MediaFragmentFragmentDoc}`;
+export const GetLookBockByIdDocument = gql`
+    query GetLookBockById($id: ID!) {
+  lookBook_by_id(id: $id) {
+    id
+    title
+    description
+  }
+}
+    `;
+export const GetLookBockDocument = gql`
+    query GetLookBock {
+  lookBook {
+    id
+    title
+    description
+    img1 {
+      ...MediaFragment
+    }
+    img2 {
+      ...MediaFragment
+    }
+    img3 {
+      ...MediaFragment
+    }
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
 export const GetTipsPageDocument = gql`
     query GetTipsPage {
   styleTips(sort: ["-date_created"]) {
@@ -2317,24 +2351,6 @@ export const GetGoodItemsAdditionalDocument = gql`
   }
 }
     ${GoodFragmentDoc}`;
-export const GetLookBockDocument = gql`
-    query GetLookBock {
-  lookBook {
-    id
-    title
-    description
-    img1 {
-      ...MediaFragment
-    }
-    img2 {
-      ...MediaFragment
-    }
-    img3 {
-      ...MediaFragment
-    }
-  }
-}
-    ${MediaFragmentFragmentDoc}`;
 export const GetLastTwoStyleTipsDocument = gql`
     query GetLastTwoStyleTips {
   styleTips(sort: ["-date_created"], limit: 2) {
@@ -2367,6 +2383,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GetHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHomePage', 'query', variables);
     },
+    GetLookBockById(variables: GetLookBockByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetLookBockByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetLookBockByIdQuery>(GetLookBockByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetLookBockById', 'query', variables);
+    },
+    GetLookBock(variables?: GetLookBockQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetLookBockQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetLookBockQuery>(GetLookBockDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetLookBock', 'query', variables);
+    },
     GetTipsPage(variables?: GetTipsPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTipsPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTipsPageQuery>(GetTipsPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetTipsPage', 'query', variables);
     },
@@ -2378,9 +2400,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetGoodItemsAdditional(variables?: GetGoodItemsAdditionalQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodItemsAdditionalQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGoodItemsAdditionalQuery>(GetGoodItemsAdditionalDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodItemsAdditional', 'query', variables);
-    },
-    GetLookBock(variables?: GetLookBockQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetLookBockQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetLookBockQuery>(GetLookBockDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetLookBock', 'query', variables);
     },
     GetLastTwoStyleTips(variables?: GetLastTwoStyleTipsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetLastTwoStyleTipsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetLastTwoStyleTipsQuery>(GetLastTwoStyleTipsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetLastTwoStyleTips', 'query', variables);
