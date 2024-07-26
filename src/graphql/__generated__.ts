@@ -1719,7 +1719,40 @@ export type LookBook = {
   readonly __typename?: 'lookBook';
   readonly description: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
+  readonly img1: Maybe<Directus_Files>;
+  readonly img2: Maybe<Directus_Files>;
+  readonly img3: Maybe<Directus_Files>;
   readonly title: Maybe<Scalars['String']['output']>;
+};
+
+
+export type LookBookImg1Args = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type LookBookImg2Args = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type LookBookImg3Args = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type LookBook_Aggregated = {
@@ -1740,6 +1773,9 @@ export type LookBook_Aggregated_Count = {
   readonly __typename?: 'lookBook_aggregated_count';
   readonly description: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['Int']['output']>;
+  readonly img1: Maybe<Scalars['Int']['output']>;
+  readonly img2: Maybe<Scalars['Int']['output']>;
+  readonly img3: Maybe<Scalars['Int']['output']>;
   readonly title: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1753,6 +1789,9 @@ export type LookBook_Filter = {
   readonly _or: InputMaybe<ReadonlyArray<InputMaybe<LookBook_Filter>>>;
   readonly description: InputMaybe<String_Filter_Operators>;
   readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly img1: InputMaybe<Directus_Files_Filter>;
+  readonly img2: InputMaybe<Directus_Files_Filter>;
+  readonly img3: InputMaybe<Directus_Files_Filter>;
   readonly title: InputMaybe<String_Filter_Operators>;
 };
 
@@ -2007,6 +2046,9 @@ export type Version_LookBook = {
   readonly __typename?: 'version_lookBook';
   readonly description: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
+  readonly img1: Maybe<Scalars['JSON']['output']>;
+  readonly img2: Maybe<Scalars['JSON']['output']>;
+  readonly img3: Maybe<Scalars['JSON']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
@@ -2083,7 +2125,7 @@ export type GetGoodItemsAdditionalQuery = { readonly __typename?: 'Query', reado
 export type GetLookBockQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetLookBockQuery = { readonly __typename?: 'Query', readonly lookBook: ReadonlyArray<{ readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string }> };
+export type GetLookBockQuery = { readonly __typename?: 'Query', readonly lookBook: ReadonlyArray<{ readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string, readonly img1: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly img2: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly img3: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
 export type GetLastTwoStyleTipsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2281,9 +2323,18 @@ export const GetLookBockDocument = gql`
     id
     title
     description
+    img1 {
+      ...MediaFragment
+    }
+    img2 {
+      ...MediaFragment
+    }
+    img3 {
+      ...MediaFragment
+    }
   }
 }
-    `;
+    ${MediaFragmentFragmentDoc}`;
 export const GetLastTwoStyleTipsDocument = gql`
     query GetLastTwoStyleTips {
   styleTips(sort: ["-date_created"], limit: 2) {

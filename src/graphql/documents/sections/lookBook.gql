@@ -3,5 +3,15 @@ query GetLookBock {
     id
     title
     description
+
+    img1 {
+      ...MediaFragment
+    }
+    img2 {
+      ...MediaFragment
+    }
+    img3 {
+      ...MediaFragment
+    }
   }
 }

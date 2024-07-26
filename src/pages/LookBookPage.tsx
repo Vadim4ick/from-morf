@@ -7,15 +7,17 @@ const LookBookPage = ({
   lookBook: GetLookBockQuery["lookBook"];
 }) => {
   return (
-    <section className="pb-[86px] pt-[calc(var(--header-height)_+_48px)]">
+    <section className="pb-[130px] pt-[calc(var(--header-height)_+_48px)]">
       <div className="container">
         <h1 className="pb-[32px] text-center text-[32px] font-medium uppercase">
           Look book
         </h1>
 
-        {lookBook.map((el) => {
-          return <LookBookItem key={el.id} lookBook={el} />;
-        })}
+        <div className="flex flex-col gap-32">
+          {lookBook.map((el) => {
+            return <LookBookItem key={el.id} lookBook={el} />;
+          })}
+        </div>
       </div>
     </section>
   );
