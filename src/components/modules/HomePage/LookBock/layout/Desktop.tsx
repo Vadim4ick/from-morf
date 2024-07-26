@@ -15,7 +15,7 @@ const Desktop = () => {
 
           <Link
             className="flex items-center gap-[5px] font-medium underline"
-            href="/"
+            href="/look-bock"
           >
             <span>Смотреть</span>
 

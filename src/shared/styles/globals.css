@@ -99,6 +99,10 @@ body {
   .custom-shadow-footer {
     @apply after:shadow-[0px_-0.4px_0px_0px_#CDCDCD];
   }
+
+  .heading {
+    @apply text-center text-[32px] font-bold uppercase;
+  }
 }
 
 @layer base {

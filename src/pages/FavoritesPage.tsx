@@ -44,9 +44,7 @@ const FavoritesPage = () => {
     <section className="pb-9 pt-[calc(var(--header-height)_+_48px)]">
       <div className="container">
         <div className="flex flex-col pb-[30px]">
-          <h1 className="text-center text-[32px] font-bold uppercase">
-            избранное
-          </h1>
+          <h1 className="heading">избранное</h1>
           {favorites && (
             <p className="text-center text-[#7E7E7E]">
               {favorites.length} {getPluralForm(favorites.length)}

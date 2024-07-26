@@ -9,9 +9,7 @@ const LookBookPage = ({
   return (
     <section className="pb-[130px] pt-[calc(var(--header-height)_+_48px)]">
       <div className="container">
-        <h1 className="pb-[32px] text-center text-[32px] font-medium uppercase">
-          Look book
-        </h1>
+        <h1 className="heading pb-[32px]">Look book</h1>
 
         <div className="flex flex-col gap-32">
           {lookBook.map((el) => {
