@@ -12,7 +12,7 @@ const AdviceCart = (props: Props) => {
 
   return (
     <article>
-      <Link href={"/"}>
+      <Link href={`/style-tips/${item.id}`}>
         <div className="h-full">
           <Image
             src={pathImage(item.mainImage.id)}

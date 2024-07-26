@@ -54,7 +54,9 @@ const HomePage = ({
         <SliderBestsellers bestseller={homePage.sliderBestsellers} />
       )}
 
-      {styleTips && <StyleAdvice styleTips={styleTips} />}
+      {styleTips && (
+        <StyleAdvice className="bg-[#EDEDED]" styleTips={styleTips} />
+      )}
     </>
   );
 };

@@ -7,11 +7,13 @@ const Page = async ({ params }: { params: { id: string } }) => {
     id: params.id,
   });
 
+  const { styleTips } = await gql.GetLastTwoStyleTips();
+
   if (!styleTips_by_id) {
     return notFound();
   }
 
-  return <StyleTipsItemPage item={styleTips_by_id} />;
+  return <StyleTipsItemPage item={styleTips_by_id} styleTwoTips={styleTips} />;
 };
 
 export default Page;

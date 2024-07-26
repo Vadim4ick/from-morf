@@ -20,7 +20,9 @@ const AllGoodsPage = ({
         <AllGoodsHeader categories={categories} sectionGoods={sectionGoods} />
       )}
 
-      {styleTips && <StyleAdvice styleTips={styleTips} />}
+      {styleTips && (
+        <StyleAdvice className="bg-[#EDEDED]" styleTips={styleTips} />
+      )}
     </>
   );
 };
