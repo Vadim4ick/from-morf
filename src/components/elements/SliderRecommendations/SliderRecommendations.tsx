@@ -6,24 +6,35 @@ import { Arrow } from "@/shared/icons/Arrow";
 import { NewItemCart } from "@/components/elements/NewItemCart";
 
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
-import { GetGoodsQuery } from "@/graphql/__generated__";
+import { GetGoodsQuery, GetLookBockByIdQuery } from "@/graphql/__generated__";
+import { cn } from "@/lib/utils";
 
 const SliderRecommendations = ({
-  recomendation,
+  items,
+  title,
+  className,
+  container = true,
 }: {
-  recomendation: GetGoodsQuery["goods_by_id"]["recomendation"];
+  items:
+    | GetGoodsQuery["goods_by_id"]["recomendation"]
+    | GetLookBockByIdQuery["lookBook_by_id"]["slider"];
+  container?: boolean;
+  title: string;
+  className?: string;
 }) => {
   const isTablet600 = useMediaQuery(600);
 
   return (
-    <section className="pb-[128px] max-desktop:pb-[96px]">
-      <div className="container px-[67px] max-tabletSmall:px-[16px]">
+    <section className={cn("pb-[128px] max-desktop:pb-[96px]", [className])}>
+      <div
+        className={cn("", {
+          "container px-[67px] max-tabletSmall:px-[16px]": container,
+        })}
+      >
         {!isTablet600 && (
           <>
             <div className="mb-5 flex items-center justify-between">
-              <h3 className="text-2xl font-bold uppercase">
-                рекомендуем к образу
-              </h3>
+              <h3 className="text-2xl font-bold uppercase">{title}</h3>
 
               <div className="flex items-center gap-2">
                 <button
@@ -62,7 +73,7 @@ const SliderRecommendations = ({
                 },
               }}
             >
-              {recomendation.map((item) => (
+              {items.map((item) => (
                 <SwiperSlide
                   key={item.goods_id.id}
                   className="slide-recommendations"
@@ -80,11 +91,9 @@ const SliderRecommendations = ({
 
         {isTablet600 && (
           <div className="flex flex-col gap-6">
-            <h3 className="text-2xl font-bold uppercase">
-              рекомендуем к образу
-            </h3>
+            <h3 className="text-2xl font-bold uppercase">{title}</h3>
 
-            {recomendation.map((item) => (
+            {items.map((item) => (
               <NewItemCart
                 link={`/goods/${item.goods_id.id}`}
                 key={item.goods_id.id}

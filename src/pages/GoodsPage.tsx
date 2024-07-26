@@ -8,7 +8,10 @@ const GoodsPage = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
       {item && <GoodsItem item={item} />}
 
       {item && item.recomendation.length > 0 && (
-        <SliderRecommendations recomendation={item.recomendation} />
+        <SliderRecommendations
+          title="рекомендуем к образу"
+          items={item.recomendation}
+        />
       )}
     </>
   );

@@ -5,6 +5,12 @@ query GetLookBockById($id: ID!) {
     description
     markdown
 
+    slider {
+      goods_id {
+        ...Good
+      }
+    }
+
     mainImages {
       id
 

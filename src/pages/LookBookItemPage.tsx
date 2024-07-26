@@ -1,3 +1,4 @@
+import { SliderRecommendations } from "@/components/elements/SliderRecommendations";
 import { GetLookBockByIdQuery } from "@/graphql/__generated__";
 import { pathImage } from "@/lib/utils";
 import Image from "next/image";
@@ -90,6 +91,15 @@ const LookBookItemPage = ({
           >
             {lookBookItem.markdown}
           </ReactMarkdown>
+        )}
+
+        {lookBookItem.slider.length > 0 && (
+          <SliderRecommendations
+            className="pt-[150px]"
+            container={false}
+            title="товары из lookbook"
+            items={lookBookItem.slider}
+          />
         )}
       </div>
     </section>
