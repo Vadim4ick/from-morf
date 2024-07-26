@@ -14,7 +14,7 @@ import Link from "next/link";
 import { Lightbox } from "@/components/ui/lightbox";
 import { GetGoodsQuery } from "@/graphql/__generated__";
 import ReactMarkdown from "react-markdown";
-import { formatPrice, pathImage } from "@/lib/utils";
+import { discountPrice, formatPrice, pathImage } from "@/lib/utils";
 import { Fragment } from "react";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
@@ -225,9 +225,17 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                   {item.name}
                 </h1>
 
-                <span className="text-[22px] font-medium max-mobile:text-base">
-                  {formatPrice(item.price)} ₽
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[22px] font-medium max-mobile:text-base">
+                    {formatPrice(item.price)} ₽
+                  </span>
+
+                  {item.discount > 0 && (
+                    <span className="text-lg font-medium text-[#959595] line-through max-mobile:text-sm">
+                      {discountPrice(item.discount, item.price)} ₽
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div className="flex flex-col gap-6">

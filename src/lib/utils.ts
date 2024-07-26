@@ -88,3 +88,7 @@ export const formatDate = (date: string) => {
     year: "numeric",
   });
 };
+
+export const discountPrice = (discount: number, price: number) => {
+  return formatPrice(Math.floor(price * (1 + discount / 100)));
+};

@@ -5,6 +5,7 @@ fragment Good on goods {
   description
   parameters
   select
+  discount
 
   direction {
     id
