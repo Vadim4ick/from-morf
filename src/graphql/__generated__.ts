@@ -1722,6 +1722,7 @@ export type LookBook = {
   readonly img1: Maybe<Directus_Files>;
   readonly img2: Maybe<Directus_Files>;
   readonly img3: Maybe<Directus_Files>;
+  readonly test: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
@@ -1776,6 +1777,7 @@ export type LookBook_Aggregated_Count = {
   readonly img1: Maybe<Scalars['Int']['output']>;
   readonly img2: Maybe<Scalars['Int']['output']>;
   readonly img3: Maybe<Scalars['Int']['output']>;
+  readonly test: Maybe<Scalars['Int']['output']>;
   readonly title: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1792,6 +1794,7 @@ export type LookBook_Filter = {
   readonly img1: InputMaybe<Directus_Files_Filter>;
   readonly img2: InputMaybe<Directus_Files_Filter>;
   readonly img3: InputMaybe<Directus_Files_Filter>;
+  readonly test: InputMaybe<String_Filter_Operators>;
   readonly title: InputMaybe<String_Filter_Operators>;
 };
 
@@ -2049,6 +2052,7 @@ export type Version_LookBook = {
   readonly img1: Maybe<Scalars['JSON']['output']>;
   readonly img2: Maybe<Scalars['JSON']['output']>;
   readonly img3: Maybe<Scalars['JSON']['output']>;
+  readonly test: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
@@ -2101,7 +2105,7 @@ export type GetLookBockByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetLookBockByIdQuery = { readonly __typename?: 'Query', readonly lookBook_by_id: { readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string } };
+export type GetLookBockByIdQuery = { readonly __typename?: 'Query', readonly lookBook_by_id: { readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string, readonly test: string } };
 
 export type GetLookBockQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2292,6 +2296,7 @@ export const GetLookBockByIdDocument = gql`
     id
     title
     description
+    test
   }
 }
     `;

@@ -3,5 +3,6 @@ query GetLookBockById($id: ID!) {
     id
     title
     description
+    test
   }
 }
