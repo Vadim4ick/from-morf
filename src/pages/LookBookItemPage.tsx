@@ -9,11 +9,15 @@ const LookBookItemPage = ({
 }: {
   lookBookItem: GetLookBockByIdQuery["lookBook_by_id"];
 }) => {
-  const first = lookBookItem.mainImages?.[0];
+  const first = lookBookItem && lookBookItem.mainImages?.[0];
 
-  const second = lookBookItem.mainImages?.slice(1, 3);
+  const second = lookBookItem && lookBookItem.mainImages?.slice(1, 3);
 
-  const third = lookBookItem.mainImages?.slice(3, 5);
+  const third = lookBookItem && lookBookItem.mainImages?.slice(3, 5);
+
+  if (!lookBookItem) {
+    return null;
+  }
 
   return (
     <section className="pt-[calc(var(--header-height)_+_48px)]">
@@ -106,4 +110,4 @@ const LookBookItemPage = ({
   );
 };
 
-export { LookBookItemPage };
+export default LookBookItemPage;

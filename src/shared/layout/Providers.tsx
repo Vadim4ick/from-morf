@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Loader } from "@/components/ui/loader";
 
 import "./../../shared/context/user/init";
+import "./../../shared/context/favorites/init";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   const handleLoadUserFx = useUnit(loadUser);

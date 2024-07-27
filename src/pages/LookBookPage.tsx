@@ -12,13 +12,14 @@ const LookBookPage = ({
         <h1 className="heading pb-[32px]">Look book</h1>
 
         <div className="flex flex-col gap-32">
-          {lookBook.map((el) => {
-            return <LookBookItem key={el.id} lookBook={el} />;
-          })}
+          {lookBook &&
+            lookBook.map((el) => {
+              return <LookBookItem key={el.id} lookBook={el} />;
+            })}
         </div>
       </div>
     </section>
   );
 };
 
-export { LookBookPage };
+export default LookBookPage;

@@ -1,5 +1,5 @@
 import { gql } from "@/graphql/client";
-import { StyleTipsItemPage } from "@/pages/StyleTipsItemPage";
+import StyleTipsItemPage from "@/pages/StyleTipsItemPage";
 import { notFound } from "next/navigation";
 
 const Page = async ({ params }: { params: { id: string } }) => {
