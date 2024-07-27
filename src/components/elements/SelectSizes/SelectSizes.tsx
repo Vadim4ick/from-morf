@@ -7,11 +7,19 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { sizes } from "@/shared/const";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-const SelectSizes = ({ currentSizes }: { currentSizes: string[] }) => {
+const SelectSizes = ({
+  currentSizes,
+  setSelectedItem,
+  selectedItem,
+}: {
+  currentSizes: string[];
+  setSelectedItem: Dispatch<SetStateAction<string>>;
+  selectedItem: string;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
+  // const [selectedItem, setSelectedItem] = useState("");
 
   const handleValueChange = (value: string) => {
     setSelectedItem(value);

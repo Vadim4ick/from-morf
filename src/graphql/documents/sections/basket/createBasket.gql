@@ -1,0 +1,24 @@
+mutation CreateBasket($user_id: ID!, $goods_id: Int, $size: String) {
+  create_basket_item(
+    data: {
+      user: { id: $user_id }
+      items: { goods_id: $goods_id, size: $size }
+    }
+  ) {
+    id
+
+    user {
+      id
+      email
+    }
+
+    items {
+      goods_id {
+        id
+        name
+        price
+      }
+      size
+    }
+  }
+}

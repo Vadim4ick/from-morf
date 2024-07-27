@@ -1,0 +1,17 @@
+query GetBasket($user_id: String!) {
+  basket(filter: { user: { id: { _eq: $user_id } } }) {
+    user {
+      id
+      email
+    }
+
+    items {
+      id
+
+      goods_id {
+        name
+        price
+      }
+    }
+  }
+}

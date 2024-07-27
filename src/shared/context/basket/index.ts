@@ -13,3 +13,11 @@ export const $basketOpen = basket
       return true;
     }
   });
+
+// export const $addBasket = basket
+// .createStore<any>(null)
+// // @ts-ignore
+// .on(getFavsFx.done, (_, { result }) => result)
+// .on(toggleFavorite, (state, itemId) => {
+//   return state.filter((item) => item.id !== itemId);
+// });

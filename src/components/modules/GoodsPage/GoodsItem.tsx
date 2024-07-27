@@ -14,8 +14,11 @@ import Link from "next/link";
 import { Lightbox } from "@/components/ui/lightbox";
 import { GetGoodsQuery } from "@/graphql/__generated__";
 import ReactMarkdown from "react-markdown";
-import { discountPrice, formatPrice, pathImage } from "@/lib/utils";
-import { Fragment } from "react";
+import { cn, discountPrice, formatPrice, pathImage } from "@/lib/utils";
+import { Fragment, useState, Dispatch, SetStateAction } from "react";
+import { useCreateBasket } from "@/shared/services/createBasket";
+import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
+import { toggleFavorite } from "@/shared/context/favorites";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -68,17 +71,42 @@ const BottomLinks = () => {
   );
 };
 
-const AddBasket = ({ currentSizes }: { currentSizes: string[] }) => {
+const AddBasket = ({
+  currentSizes,
+  onClick,
+  setSelectedItem,
+  selectedItem,
+  itemId,
+}: {
+  currentSizes: string[];
+  onClick: VoidFunction;
+  setSelectedItem: Dispatch<SetStateAction<string>>;
+  selectedItem: string;
+  itemId: string;
+}) => {
+  const { favoritesFromLs } = useFavorite();
+
+  const isFavorite = favoritesFromLs.includes(itemId);
+
   return (
     <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-2 desktop:border-b">
       <div className="flex items-center justify-between gap-3">
-        <SelectSizes currentSizes={currentSizes} />
+        <SelectSizes
+          setSelectedItem={setSelectedItem}
+          selectedItem={selectedItem}
+          currentSizes={currentSizes}
+        />
 
         <TableSizeModal />
       </div>
 
       <div className="flex items-center justify-between gap-3">
-        <Button size={"sm"} className="w-full" variant={"secondary"}>
+        <Button
+          onClick={onClick}
+          size={"sm"}
+          className="w-full"
+          variant={"secondary"}
+        >
           Добавить в корзину
         </Button>
 
@@ -86,8 +114,14 @@ const AddBasket = ({ currentSizes }: { currentSizes: string[] }) => {
           className="shrink-0 grow-0 basis-auto"
           variant={"outline"}
           size={"icon"}
+          onClick={() => toggleFavorite(itemId)}
         >
-          <Heart className="size-4 text-transparent" stroke="black" />
+          <Heart
+            className={cn("size-4 text-transparent", {
+              "stroke-error text-error": isFavorite,
+            })}
+            stroke={isFavorite ? "text-error" : "#444444"}
+          />
         </Button>
       </div>
     </div>
@@ -96,6 +130,16 @@ const AddBasket = ({ currentSizes }: { currentSizes: string[] }) => {
 
 const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const isDesktop1100 = useMediaQuery(1100);
+  const [selectedItem, setSelectedItem] = useState("");
+
+  const mutation = useCreateBasket();
+
+  const onClick = () => {
+    mutation.mutate({
+      id: item.id,
+      size: selectedItem,
+    });
+  };
 
   return (
     <section className="container pb-[135px] pt-[var(--header-height)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px]">
@@ -269,7 +313,15 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
             {isDesktop1100 && <BottomLinks />}
 
             {/* AddBasket */}
-            {!isDesktop1100 && <AddBasket currentSizes={item.select} />}
+            {!isDesktop1100 && (
+              <AddBasket
+                itemId={item.id}
+                setSelectedItem={setSelectedItem}
+                selectedItem={selectedItem}
+                onClick={onClick}
+                currentSizes={item.select}
+              />
+            )}
 
             {/* BOTTOM */}
             {!isDesktop1100 && <BottomLayout parameters={item.parameters} />}
@@ -280,7 +332,15 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
         </div>
 
         {/* AddBasket */}
-        {isDesktop1100 && <AddBasket currentSizes={item.select} />}
+        {isDesktop1100 && (
+          <AddBasket
+            itemId={item.id}
+            setSelectedItem={setSelectedItem}
+            selectedItem={selectedItem}
+            onClick={onClick}
+            currentSizes={item.select}
+          />
+        )}
       </div>
     </section>
   );
