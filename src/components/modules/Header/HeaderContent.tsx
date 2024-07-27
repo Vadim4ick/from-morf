@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { VariantHeader } from "./Header";
 import { Burger } from "./Burger";
 import { ProfileModal } from "../ProfileModal";
+import { BasketModal } from "../BasketModal/BasketModal";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
   return (
@@ -37,12 +38,7 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
             />
           </Link>
 
-          <BasketIcon
-            className={clsx("text-transparent", {
-              "stroke-darkGrayColor": variant === "black",
-              "stroke-white": variant === "white",
-            })}
-          />
+          <BasketModal variant={variant} />
         </div>
       </div>
     </div>
