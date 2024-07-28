@@ -7,7 +7,6 @@ import { Heart } from "@/shared/icons/Heart";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { SelectSizes } from "@/components/elements/SelectSizes";
-
 import { TableSizeModal } from "./TableSizeModal";
 import { Arrow } from "@/shared/icons/Arrow";
 import Link from "next/link";
@@ -16,13 +15,14 @@ import { GetGoodsQuery } from "@/graphql/__generated__";
 import ReactMarkdown from "react-markdown";
 import { cn, discountPrice, formatPrice, pathImage } from "@/lib/utils";
 import { Fragment, useState, Dispatch, SetStateAction } from "react";
-import { useCreateBasket } from "@/shared/services/createBasket";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { toggleFavorite } from "@/shared/context/favorites";
 import { useUnit } from "effector-react";
 import { $user } from "@/shared/context/user/state";
 import { useAuth } from "@/shared/hooks/useAuth.hooks";
 import { toast } from "sonner";
+import { createBasketFx, updateBasketFx } from "@/shared/context/basket";
+import { $basket } from "@/shared/context/basket/state";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -139,9 +139,9 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const user = useUnit($user);
   const { isAuth } = useAuth();
 
-  const mutation = useCreateBasket();
+  const basket = useUnit($basket);
 
-  const onClick = () => {
+  const onClick = async () => {
     if (!isAuth) {
       return toast.error("Авторизуйтесь!");
     }
@@ -151,18 +151,31 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
     }
 
     if (user) {
-      mutation.mutate(
-        {
+      const findItem = basket?.find((el) => {
+        if (
+          el.good.id === item.id &&
+          el.size === selectedItem &&
+          el.user.id === user.id
+        ) {
+          return true;
+        }
+      });
+
+      if (findItem) {
+        const newCount = findItem.count + 1;
+
+        updateBasketFx({
+          goods_id: findItem.id,
+          count: newCount,
+          user_id: user.id,
+        });
+      } else {
+        createBasketFx({
           id: item.id,
           size: selectedItem,
           user_id: user.id,
-        },
-        {
-          onSuccess: () => {
-            toast.success("Товар успешно добавлен в корзину!");
-          },
-        },
-      );
+        });
+      }
     }
   };
 

@@ -9,6 +9,8 @@ mutation CreateBasket($user_id: ID!, $goods_id: Int, $size: String) {
       email
     }
 
+    count
+
     size
 
     good {

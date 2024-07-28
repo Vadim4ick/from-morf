@@ -42,7 +42,9 @@ const BasketItem = ({ item }: { item: GetBasketQuery["basket"][0] }) => {
           <span className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]">
             -
           </span>
-          <div className="font-medium">1</div>
+
+          <div className="font-medium">{item.count}</div>
+
           <span className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]">
             +
           </span>

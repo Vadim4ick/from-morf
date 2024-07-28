@@ -1,0 +1,28 @@
+query GetGoodsInBasket(
+  $user_id: String!
+  $good_id: GraphQLStringOrFloat
+  $size: String
+) {
+  basket(
+    filter: {
+      user: { id: { _eq: $user_id } }
+      good: { id: { _eq: $good_id } }
+      size: { _eq: $size }
+    }
+  ) {
+    id
+
+    user {
+      id
+      email
+    }
+    count
+
+    good {
+      id
+      name
+    }
+
+    size
+  }
+}

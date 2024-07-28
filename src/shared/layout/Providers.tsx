@@ -9,6 +9,7 @@ import { Loader } from "@/components/ui/loader";
 
 import "./../../shared/context/user/init";
 import "./../../shared/context/favorites/init";
+import "./../../shared/context/basket/init";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   const handleLoadUserFx = useUnit(loadUser);

@@ -916,6 +916,7 @@ export type AdditionalSections_Mutated = {
 
 export type Basket = {
   readonly __typename?: 'basket';
+  readonly count: Maybe<Scalars['Int']['output']>;
   readonly good: Maybe<Goods>;
   readonly id: Scalars['ID']['output'];
   readonly size: Maybe<Scalars['String']['output']>;
@@ -958,6 +959,7 @@ export type Basket_Aggregated = {
 
 export type Basket_Aggregated_Count = {
   readonly __typename?: 'basket_aggregated_count';
+  readonly count: Maybe<Scalars['Int']['output']>;
   readonly good: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['Int']['output']>;
   readonly size: Maybe<Scalars['Int']['output']>;
@@ -966,6 +968,7 @@ export type Basket_Aggregated_Count = {
 
 export type Basket_Aggregated_Fields = {
   readonly __typename?: 'basket_aggregated_fields';
+  readonly count: Maybe<Scalars['Float']['output']>;
   readonly good: Maybe<Scalars['Float']['output']>;
   readonly id: Maybe<Scalars['Float']['output']>;
 };
@@ -973,6 +976,7 @@ export type Basket_Aggregated_Fields = {
 export type Basket_Filter = {
   readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Basket_Filter>>>;
   readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Basket_Filter>>>;
+  readonly count: InputMaybe<Number_Filter_Operators>;
   readonly good: InputMaybe<Goods_Filter>;
   readonly id: InputMaybe<Number_Filter_Operators>;
   readonly size: InputMaybe<String_Filter_Operators>;
@@ -1018,6 +1022,7 @@ export type Count_Functions = {
 };
 
 export type Create_Basket_Input = {
+  readonly count: InputMaybe<Scalars['Int']['input']>;
   readonly good: InputMaybe<Scalars['Int']['input']>;
   readonly id: InputMaybe<Scalars['ID']['input']>;
   readonly size: InputMaybe<Scalars['String']['input']>;
@@ -2548,6 +2553,7 @@ export type StyleTips_Mutated = {
 };
 
 export type Update_Basket_Input = {
+  readonly count: InputMaybe<Scalars['Int']['input']>;
   readonly good: InputMaybe<Scalars['Int']['input']>;
   readonly id: InputMaybe<Scalars['ID']['input']>;
   readonly size: InputMaybe<Scalars['String']['input']>;
@@ -2607,6 +2613,7 @@ export type Version_AdditionalSections = {
 
 export type Version_Basket = {
   readonly __typename?: 'version_basket';
+  readonly count: Maybe<Scalars['Int']['output']>;
   readonly good: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['ID']['output']>;
   readonly size: Maybe<Scalars['String']['output']>;
@@ -2811,14 +2818,31 @@ export type CreateBasketMutationVariables = Exact<{
 }>;
 
 
-export type CreateBasketMutation = { readonly __typename?: 'Mutation', readonly create_basket_item: { readonly __typename?: 'basket', readonly id: string, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string } } };
+export type CreateBasketMutation = { readonly __typename?: 'Mutation', readonly create_basket_item: { readonly __typename?: 'basket', readonly id: string, readonly count: number, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string } } };
 
 export type GetBasketQueryVariables = Exact<{
   user_id: Scalars['String']['input'];
 }>;
 
 
-export type GetBasketQuery = { readonly __typename?: 'Query', readonly basket: ReadonlyArray<{ readonly __typename?: 'basket', readonly id: string, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> } }> };
+export type GetBasketQuery = { readonly __typename?: 'Query', readonly basket: ReadonlyArray<{ readonly __typename?: 'basket', readonly id: string, readonly count: number, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }> };
+
+export type GetGoodsInBasketQueryVariables = Exact<{
+  user_id: Scalars['String']['input'];
+  good_id: InputMaybe<Scalars['GraphQLStringOrFloat']['input']>;
+  size: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetGoodsInBasketQuery = { readonly __typename?: 'Query', readonly basket: ReadonlyArray<{ readonly __typename?: 'basket', readonly id: string, readonly count: number, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string } }> };
+
+export type UpdateBasketMutationVariables = Exact<{
+  goods_id: Scalars['ID']['input'];
+  count: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type UpdateBasketMutation = { readonly __typename?: 'Mutation', readonly update_basket_item: { readonly __typename?: 'basket', readonly id: string, readonly count: number } };
 
 export type GetGoodItemsQueryVariables = Exact<{
   directionTitle: InputMaybe<Scalars['String']['input']>;
@@ -3057,6 +3081,7 @@ export const CreateBasketDocument = gql`
       id
       email
     }
+    count
     size
     good {
       id
@@ -3073,13 +3098,51 @@ export const GetBasketDocument = gql`
       id
       email
     }
+    count
     good {
-      ...Good
+      id
+      name
+      price
+      images {
+        id
+        directus_files_id {
+          id
+          width
+          height
+        }
+      }
     }
     size
   }
 }
-    ${GoodFragmentDoc}`;
+    `;
+export const GetGoodsInBasketDocument = gql`
+    query GetGoodsInBasket($user_id: String!, $good_id: GraphQLStringOrFloat, $size: String) {
+  basket(
+    filter: {user: {id: {_eq: $user_id}}, good: {id: {_eq: $good_id}}, size: {_eq: $size}}
+  ) {
+    id
+    user {
+      id
+      email
+    }
+    count
+    good {
+      id
+      name
+    }
+    size
+  }
+}
+    `;
+export const UpdateBasketDocument = gql`
+    mutation UpdateBasket($goods_id: ID!, $count: Int) {
+  update_basket_item(id: $goods_id, data: {count: $count}) {
+    id
+    count
+  }
+}
+    `;
 export const GetGoodItemsDocument = gql`
     query GetGoodItems($directionTitle: String) {
   goods(filter: {direction: {title: {_eq: $directionTitle}}}) {
@@ -3145,6 +3208,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetBasket(variables: GetBasketQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetBasketQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetBasketQuery>(GetBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetBasket', 'query', variables);
+    },
+    GetGoodsInBasket(variables: GetGoodsInBasketQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodsInBasketQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetGoodsInBasketQuery>(GetGoodsInBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodsInBasket', 'query', variables);
+    },
+    UpdateBasket(variables: UpdateBasketMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateBasketMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateBasketMutation>(UpdateBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateBasket', 'mutation', variables);
     },
     GetGoodItems(variables?: GetGoodItemsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodItemsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGoodItemsQuery>(GetGoodItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodItems', 'query', variables);

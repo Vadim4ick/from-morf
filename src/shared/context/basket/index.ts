@@ -1,23 +1,76 @@
-import { createDomain } from "effector";
+import { gql } from "@/graphql/client";
+import { createDomain, createEffect } from "effector";
+import { toast } from "sonner";
 
-const basket = createDomain();
+export const basket = createDomain();
 
-export const toggleBasketOpen = basket.createEvent();
+export const getBasket = basket.createEvent<{ user_id: string }>();
+export const updateBasket = basket.createEvent<{
+  goods_id: string;
+  count: number;
+}>();
 
-export const $basketOpen = basket
-  .createStore<boolean>(false)
-  .on(toggleBasketOpen, (state) => {
-    if (state) {
-      return false;
-    } else {
-      return true;
+export const getBasketFx = createEffect(
+  async ({ user_id }: { user_id: string }) => {
+    try {
+      const { basket } = await gql.GetBasket({
+        user_id: user_id,
+      });
+
+      return basket;
+    } catch (error) {
+      console.log("err", (error as Error).message);
     }
-  });
+  },
+);
 
-// export const $addBasket = basket
-// .createStore<any>(null)
-// // @ts-ignore
-// .on(getFavsFx.done, (_, { result }) => result)
-// .on(toggleFavorite, (state, itemId) => {
-//   return state.filter((item) => item.id !== itemId);
-// });
+export const createBasketFx = createEffect(
+  async ({
+    id,
+    size,
+    user_id,
+  }: {
+    id: string;
+    size: string;
+    user_id: string;
+  }) => {
+    try {
+      const { create_basket_item } = await gql.CreateBasket({
+        goods_id: typeof id === "number" ? id : parseInt(id),
+
+        size: size,
+
+        user_id,
+      });
+
+      toast.success("Товар успешно добавлен в корзину!");
+
+      return create_basket_item;
+    } catch (error) {
+      console.log("err", (error as Error).message);
+    }
+  },
+);
+
+export const updateBasketFx = createEffect(
+  async ({
+    goods_id,
+    count,
+    user_id,
+  }: {
+    goods_id: string;
+    count: number;
+    user_id: string;
+  }) => {
+    try {
+      const { update_basket_item } = await gql.UpdateBasket({
+        count,
+        goods_id,
+      });
+
+      return update_basket_item;
+    } catch (error) {
+      console.log("err", (error as Error).message);
+    }
+  },
+);

@@ -13,9 +13,12 @@ import { Button } from "@/components/ui/button";
 import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Basket } from "@/shared/icons/Basket";
 import { BasketItem } from "./BasketItem";
-import { useGetBasket } from "@/shared/services/getBasket";
 import { User } from "@/shared/types/authForm";
-import { cn } from "@/lib/utils";
+import { cn, getPluralForm } from "@/lib/utils";
+import { useEffect } from "react";
+import { getBasket, getBasketFx } from "@/shared/context/basket";
+import { useUnit } from "effector-react";
+import { $basket } from "@/shared/context/basket/state";
 
 const BasketModal = ({
   variant,
@@ -24,7 +27,15 @@ const BasketModal = ({
   variant: VariantHeader;
   user: User;
 }) => {
-  const { data, isLoading } = useGetBasket(user.id);
+  const isLoading = useUnit(getBasketFx.pending);
+
+  const basket = useUnit($basket);
+
+  useEffect(() => {
+    getBasket({
+      user_id: user.id,
+    });
+  }, [user.id]);
 
   if (isLoading) {
     return null;
@@ -53,7 +64,9 @@ const BasketModal = ({
               корзина
             </DialogTitle>
 
-            <span className="text-sm text-[#7E7E7E]">2 товара</span>
+            <span className="text-sm text-[#7E7E7E]">
+              {basket && `${basket.length} ${getPluralForm(basket.length)}`}
+            </span>
           </div>
 
           <button className="absolute right-6 top-6">
@@ -65,13 +78,12 @@ const BasketModal = ({
           className={cn(
             "flex flex-grow flex-col gap-8 overflow-scroll px-5 pb-5",
             {
-              "items-center justify-center":
-                !data?.basket || data?.basket.length === 0,
+              "items-center justify-center": !basket || basket.length === 0,
             },
           )}
         >
-          {!data?.basket ||
-            (data?.basket.length === 0 && (
+          {!basket ||
+            (basket.length === 0 && (
               <div className="flex flex-col items-center justify-center gap-8">
                 <Basket />
 
@@ -79,9 +91,10 @@ const BasketModal = ({
               </div>
             ))}
 
-          {data?.basket.map((basket) => {
-            return <BasketItem key={basket.id} item={basket} />;
-          })}
+          {basket &&
+            basket.map((el) => {
+              return <BasketItem key={el.id} item={el} />;
+            })}
         </div>
 
         <DialogFooter className="custom-shadow-footer relative after:h-[1px]">
