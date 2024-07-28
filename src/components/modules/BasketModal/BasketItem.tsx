@@ -1,10 +1,42 @@
 import { GetBasketQuery } from "@/graphql/__generated__";
 import { formatPrice, pathImage } from "@/lib/utils";
+import { updateBasketFx } from "@/shared/context/basket";
+import { $basket } from "@/shared/context/basket/state";
+import { $user } from "@/shared/context/user/state";
 import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Heart } from "@/shared/icons/Heart";
+import { useUnit } from "effector-react";
 import Image from "next/image";
 
 const BasketItem = ({ item }: { item: GetBasketQuery["basket"][0] }) => {
+  const user = useUnit($user);
+
+  const increase = () => {
+    if (user) {
+      const newCount = item.count + 1;
+
+      updateBasketFx({
+        goods_id: item.id,
+        count: newCount,
+        user_id: user.id,
+      });
+    }
+  };
+
+  const decrease = () => {
+    if (user) {
+      const newCount = item.count - 1;
+
+      if (newCount >= 1) {
+        updateBasketFx({
+          goods_id: item.id,
+          count: newCount,
+          user_id: user.id,
+        });
+      }
+    }
+  };
+
   return (
     <article className="grid grid-cols-[74px_1fr_85px] gap-3">
       <div className="relative size-[74px]">
@@ -39,15 +71,21 @@ const BasketItem = ({ item }: { item: GetBasketQuery["basket"][0] }) => {
         <p className="font-medium">{formatPrice(item.good.price)} ₽</p>
 
         <div className="flex w-full items-center justify-between">
-          <span className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]">
+          <button
+            onClick={decrease}
+            className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]"
+          >
             -
-          </span>
+          </button>
 
           <div className="font-medium">{item.count}</div>
 
-          <span className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]">
+          <button
+            onClick={increase}
+            className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]"
+          >
             +
-          </span>
+          </button>
         </div>
       </div>
     </article>

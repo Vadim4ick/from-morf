@@ -22,7 +22,7 @@ import { $user } from "@/shared/context/user/state";
 import { useAuth } from "@/shared/hooks/useAuth.hooks";
 import { toast } from "sonner";
 import { createBasketFx, updateBasketFx } from "@/shared/context/basket";
-import { $basket } from "@/shared/context/basket/state";
+import { $basket, $selectedSize } from "@/shared/context/basket/state";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -78,14 +78,10 @@ const BottomLinks = () => {
 const AddBasket = ({
   currentSizes,
   onClick,
-  setSelectedItem,
-  selectedItem,
   itemId,
 }: {
   currentSizes: string[];
   onClick: VoidFunction;
-  setSelectedItem: Dispatch<SetStateAction<string>>;
-  selectedItem: string;
   itemId: string;
 }) => {
   const { favoritesFromLs } = useFavorite();
@@ -95,11 +91,7 @@ const AddBasket = ({
   return (
     <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-2 desktop:border-b">
       <div className="flex items-center justify-between gap-3">
-        <SelectSizes
-          setSelectedItem={setSelectedItem}
-          selectedItem={selectedItem}
-          currentSizes={currentSizes}
-        />
+        <SelectSizes currentSizes={currentSizes} />
 
         <TableSizeModal />
       </div>
@@ -134,12 +126,10 @@ const AddBasket = ({
 
 const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const isDesktop1100 = useMediaQuery(1100);
-  const [selectedItem, setSelectedItem] = useState("");
 
-  const user = useUnit($user);
+  const [user, selectedItem, basket] = useUnit([$user, $selectedSize, $basket]);
+
   const { isAuth } = useAuth();
-
-  const basket = useUnit($basket);
 
   const onClick = async () => {
     if (!isAuth) {
@@ -354,8 +344,6 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
             {!isDesktop1100 && (
               <AddBasket
                 itemId={item.id}
-                setSelectedItem={setSelectedItem}
-                selectedItem={selectedItem}
                 onClick={onClick}
                 currentSizes={item.select}
               />
@@ -373,8 +361,6 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
         {isDesktop1100 && (
           <AddBasket
             itemId={item.id}
-            setSelectedItem={setSelectedItem}
-            selectedItem={selectedItem}
             onClick={onClick}
             currentSizes={item.select}
           />

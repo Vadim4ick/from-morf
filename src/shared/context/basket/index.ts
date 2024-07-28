@@ -4,6 +4,8 @@ import { toast } from "sonner";
 
 export const basket = createDomain();
 
+export const setSelectedSize = basket.createEvent<string>();
+
 export const getBasket = basket.createEvent<{ user_id: string }>();
 export const updateBasket = basket.createEvent<{
   goods_id: string;

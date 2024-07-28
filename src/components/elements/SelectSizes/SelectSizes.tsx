@@ -7,22 +7,18 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { sizes } from "@/shared/const";
-import { Dispatch, SetStateAction, useState } from "react";
+import { setSelectedSize } from "@/shared/context/basket";
+import { $selectedSize } from "@/shared/context/basket/state";
+import { useUnit } from "effector-react";
+import { useState } from "react";
 
-const SelectSizes = ({
-  currentSizes,
-  setSelectedItem,
-  selectedItem,
-}: {
-  currentSizes: string[];
-  setSelectedItem: Dispatch<SetStateAction<string>>;
-  selectedItem: string;
-}) => {
+const SelectSizes = ({ currentSizes }: { currentSizes: string[] }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [selectedItem, setSelectedItem] = useState("");
+
+  const [selectedItem] = useUnit([$selectedSize]);
 
   const handleValueChange = (value: string) => {
-    setSelectedItem(value);
+    setSelectedSize(value);
   };
 
   const handleOpenChange = (open: boolean) => {
