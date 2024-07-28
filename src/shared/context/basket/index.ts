@@ -76,3 +76,31 @@ export const updateBasketFx = createEffect(
     }
   },
 );
+
+export const deleteBasketByIdFx = createEffect(
+  async ({ id, user_id }: { id: string; user_id: string }) => {
+    try {
+      const { delete_basket_item } = await gql.DeleteBasketById({
+        id,
+      });
+
+      return delete_basket_item;
+    } catch (error) {
+      console.log("err", (error as Error).message);
+    }
+  },
+);
+
+export const deleteAllBasketByIdsFx = createEffect(
+  async ({ ids, user_id }: { ids: string[]; user_id: string }) => {
+    try {
+      const { delete_basket_items } = await gql.DeleteAllBasketByIds({
+        ids,
+      });
+
+      return delete_basket_items;
+    } catch (error) {
+      console.log("err", (error as Error).message);
+    }
+  },
+);

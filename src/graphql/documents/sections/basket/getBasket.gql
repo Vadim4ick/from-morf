@@ -13,6 +13,7 @@ query GetBasket($user_id: String!) {
       id
       name
       price
+      discount
       images {
         id
         directus_files_id {

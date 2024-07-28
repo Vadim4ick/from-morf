@@ -2820,21 +2820,26 @@ export type CreateBasketMutationVariables = Exact<{
 
 export type CreateBasketMutation = { readonly __typename?: 'Mutation', readonly create_basket_item: { readonly __typename?: 'basket', readonly id: string, readonly count: number, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string } } };
 
+export type DeleteAllBasketByIdsMutationVariables = Exact<{
+  ids: ReadonlyArray<InputMaybe<Scalars['ID']['input']>> | InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type DeleteAllBasketByIdsMutation = { readonly __typename?: 'Mutation', readonly delete_basket_items: { readonly __typename?: 'delete_many', readonly ids: ReadonlyArray<string> } };
+
+export type DeleteBasketByIdMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteBasketByIdMutation = { readonly __typename?: 'Mutation', readonly delete_basket_item: { readonly __typename?: 'delete_one', readonly id: string } };
+
 export type GetBasketQueryVariables = Exact<{
   user_id: Scalars['String']['input'];
 }>;
 
 
-export type GetBasketQuery = { readonly __typename?: 'Query', readonly basket: ReadonlyArray<{ readonly __typename?: 'basket', readonly id: string, readonly count: number, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }> };
-
-export type GetGoodsInBasketQueryVariables = Exact<{
-  user_id: Scalars['String']['input'];
-  good_id: InputMaybe<Scalars['GraphQLStringOrFloat']['input']>;
-  size: InputMaybe<Scalars['String']['input']>;
-}>;
-
-
-export type GetGoodsInBasketQuery = { readonly __typename?: 'Query', readonly basket: ReadonlyArray<{ readonly __typename?: 'basket', readonly id: string, readonly count: number, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string } }> };
+export type GetBasketQuery = { readonly __typename?: 'Query', readonly basket: ReadonlyArray<{ readonly __typename?: 'basket', readonly id: string, readonly count: number, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly discount: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }> };
 
 export type UpdateBasketMutationVariables = Exact<{
   goods_id: Scalars['ID']['input'];
@@ -3090,6 +3095,20 @@ export const CreateBasketDocument = gql`
   }
 }
     `;
+export const DeleteAllBasketByIdsDocument = gql`
+    mutation DeleteAllBasketByIds($ids: [ID]!) {
+  delete_basket_items(ids: $ids) {
+    ids
+  }
+}
+    `;
+export const DeleteBasketByIdDocument = gql`
+    mutation DeleteBasketById($id: ID!) {
+  delete_basket_item(id: $id) {
+    id
+  }
+}
+    `;
 export const GetBasketDocument = gql`
     query GetBasket($user_id: String!) {
   basket(filter: {user: {id: {_eq: $user_id}}}) {
@@ -3103,6 +3122,7 @@ export const GetBasketDocument = gql`
       id
       name
       price
+      discount
       images {
         id
         directus_files_id {
@@ -3111,25 +3131,6 @@ export const GetBasketDocument = gql`
           height
         }
       }
-    }
-    size
-  }
-}
-    `;
-export const GetGoodsInBasketDocument = gql`
-    query GetGoodsInBasket($user_id: String!, $good_id: GraphQLStringOrFloat, $size: String) {
-  basket(
-    filter: {user: {id: {_eq: $user_id}}, good: {id: {_eq: $good_id}}, size: {_eq: $size}}
-  ) {
-    id
-    user {
-      id
-      email
-    }
-    count
-    good {
-      id
-      name
     }
     size
   }
@@ -3206,11 +3207,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     CreateBasket(variables: CreateBasketMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateBasketMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateBasketMutation>(CreateBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateBasket', 'mutation', variables);
     },
+    DeleteAllBasketByIds(variables: DeleteAllBasketByIdsMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DeleteAllBasketByIdsMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteAllBasketByIdsMutation>(DeleteAllBasketByIdsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeleteAllBasketByIds', 'mutation', variables);
+    },
+    DeleteBasketById(variables: DeleteBasketByIdMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DeleteBasketByIdMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteBasketByIdMutation>(DeleteBasketByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DeleteBasketById', 'mutation', variables);
+    },
     GetBasket(variables: GetBasketQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetBasketQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetBasketQuery>(GetBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetBasket', 'query', variables);
-    },
-    GetGoodsInBasket(variables: GetGoodsInBasketQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodsInBasketQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetGoodsInBasketQuery>(GetGoodsInBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodsInBasket', 'query', variables);
     },
     UpdateBasket(variables: UpdateBasketMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateBasketMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateBasketMutation>(UpdateBasketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpdateBasket', 'mutation', variables);

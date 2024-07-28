@@ -59,7 +59,7 @@ const FavoritesPage = () => {
                 <NewItemCart
                   sizesImg="goods"
                   key={item.id}
-                  link="/"
+                  link={`/goods/${item.id}`}
                   item={item}
                 />
               );

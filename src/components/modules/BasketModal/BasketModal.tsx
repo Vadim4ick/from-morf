@@ -14,9 +14,18 @@ import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Basket } from "@/shared/icons/Basket";
 import { BasketItem } from "./BasketItem";
 import { User } from "@/shared/types/authForm";
-import { cn, getPluralForm } from "@/lib/utils";
+import {
+  cn,
+  getPluralForm,
+  sumTotalCurrentPriceBasket,
+  sumTotalAllPriceBasket,
+} from "@/lib/utils";
 import { useEffect } from "react";
-import { getBasket, getBasketFx } from "@/shared/context/basket";
+import {
+  deleteAllBasketByIdsFx,
+  getBasket,
+  getBasketFx,
+} from "@/shared/context/basket";
 import { useUnit } from "effector-react";
 import { $basket } from "@/shared/context/basket/state";
 
@@ -37,9 +46,20 @@ const BasketModal = ({
     });
   }, [user.id]);
 
-  // if (isLoading) {
-  //   return null;
-  // }
+  const allDelete = () => {
+    const basketIds = basket?.map((el) => el.id);
+
+    if (user && basketIds) {
+      deleteAllBasketByIdsFx({
+        ids: basketIds,
+        user_id: user.id,
+      });
+    }
+  };
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <Dialog>
@@ -69,7 +89,7 @@ const BasketModal = ({
             </span>
           </div>
 
-          <button className="absolute right-6 top-6">
+          <button onClick={allDelete} className="absolute right-6 top-6">
             <DeleteBasket />
           </button>
         </DialogHeader>
@@ -98,9 +118,33 @@ const BasketModal = ({
         </div>
 
         <DialogFooter className="custom-shadow-footer relative after:h-[1px]">
-          <Button className="m-5" variant={"secondary"}>
-            Перейти к новинкам
-          </Button>
+          <div className="m-5 flex flex-col">
+            <div className="flex flex-col gap-1 pb-3">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-medium">
+                  Скидка <span className="text-[#7E7E7E]">(1 товар)</span>:
+                </p>
+
+                <div className="text-sm font-medium">25%</div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <p className="text-lg font-medium">Общая стоимость:</p>
+
+                <div className="flex items-center justify-center gap-[6px]">
+                  <p className="text-sm font-medium text-[#8B8B8B] line-through">
+                    {basket && sumTotalAllPriceBasket(basket)} ₽
+                  </p>
+
+                  <p className="text-lg font-medium">
+                    {basket && sumTotalCurrentPriceBasket(basket)} ₽
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <Button variant={"secondary"}>Перейти к новинкам</Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

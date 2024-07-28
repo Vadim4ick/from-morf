@@ -104,13 +104,12 @@ const NewItemCart = ({
 
         <div className="absolute -right-[45px] top-0 h-full w-[45px] bg-darkGrayColor p-3 transition-all duration-500 group-hover:right-[0px]">
           <div className="flex h-full flex-col justify-between">
-            <button>
+            <button onClick={() => toggleFavorite(item.id)}>
               <Heart
                 className={cn("", {
                   "stroke-error text-error": isFavorite,
                 })}
                 stroke={isFavorite ? "text-error" : "white"}
-                onClick={() => toggleFavorite(item.id)}
               />
             </button>
 

@@ -1,5 +1,12 @@
 import { sample } from "effector";
-import { createBasketFx, getBasket, getBasketFx, updateBasketFx } from ".";
+import {
+  createBasketFx,
+  deleteAllBasketByIdsFx,
+  deleteBasketByIdFx,
+  getBasket,
+  getBasketFx,
+  updateBasketFx,
+} from ".";
 import { $basket } from "./state";
 
 sample({
@@ -17,6 +24,18 @@ sample({
 
 sample({
   clock: createBasketFx.done,
+  fn: ({ params }) => ({ user_id: params.user_id }),
+  target: getBasket,
+});
+
+sample({
+  clock: deleteBasketByIdFx.done,
+  fn: ({ params }) => ({ user_id: params.user_id }),
+  target: getBasket,
+});
+
+sample({
+  clock: deleteAllBasketByIdsFx.done,
   fn: ({ params }) => ({ user_id: params.user_id }),
   target: getBasket,
 });
