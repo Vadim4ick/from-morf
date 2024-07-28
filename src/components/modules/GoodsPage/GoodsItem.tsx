@@ -19,6 +19,10 @@ import { Fragment, useState, Dispatch, SetStateAction } from "react";
 import { useCreateBasket } from "@/shared/services/createBasket";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { toggleFavorite } from "@/shared/context/favorites";
+import { useUnit } from "effector-react";
+import { $user } from "@/shared/context/user/state";
+import { useAuth } from "@/shared/hooks/useAuth.hooks";
+import { toast } from "sonner";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -132,18 +136,34 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const isDesktop1100 = useMediaQuery(1100);
   const [selectedItem, setSelectedItem] = useState("");
 
+  const user = useUnit($user);
+  const { isAuth } = useAuth();
+
   const mutation = useCreateBasket();
 
   const onClick = () => {
-    if (!selectedItem.trim()) {
-      return null;
+    if (!isAuth) {
+      return toast.error("Авторизуйтесь!");
     }
 
-    mutation.mutate({
-      id: item.id,
-      size: selectedItem,
-      user_id: "1ede5a06-e36e-403a-9584-9860fe19911e",
-    });
+    if (!selectedItem.trim()) {
+      return toast.error("Выберите размер!");
+    }
+
+    if (user) {
+      mutation.mutate(
+        {
+          id: item.id,
+          size: selectedItem,
+          user_id: user.id,
+        },
+        {
+          onSuccess: () => {
+            toast.success("Товар успешно добавлен в корзину!");
+          },
+        },
+      );
+    }
   };
 
   return (

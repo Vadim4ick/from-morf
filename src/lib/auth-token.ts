@@ -20,11 +20,11 @@ export const getRefreshToken = () => {
 };
 
 export const removeAccessToken = () => {
-  destroyCookie(undefined, EnumTokens.ACCESS_TOKEN);
+  destroyCookie(undefined, EnumTokens.ACCESS_TOKEN, { path: "/" });
 };
 
 export const removeRefreshToken = () => {
-  destroyCookie(undefined, EnumTokens.REFRESH_TOKEN);
+  destroyCookie(undefined, EnumTokens.REFRESH_TOKEN, { path: "/" });
 };
 
 export const saveAccessTokenStorage = (accessToken: string) => {
@@ -39,10 +39,6 @@ export const saveRefreshTokenStorage = (refreshToken: string) => {
     maxAge: 900,
     path: "/",
   });
-};
-
-export const removeFromStorage = () => {
-  destroyCookie(undefined, EnumTokens.ACCESS_TOKEN);
 };
 
 export async function generateTokens() {

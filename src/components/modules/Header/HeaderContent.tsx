@@ -1,14 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import { LogoIcon } from "@/shared/icons/LogoIcon";
 import { FavoritesIcon } from "@/shared/icons/header/FavoritesIcon";
-import { BasketIcon } from "@/shared/icons/header/BasketIcon";
 import clsx from "clsx";
 import { VariantHeader } from "./Header";
 import { Burger } from "./Burger";
 import { ProfileModal } from "../ProfileModal";
 import { BasketModal } from "../BasketModal/BasketModal";
+import { useAuth } from "@/shared/hooks/useAuth.hooks";
+import { useUnit } from "effector-react";
+import { getMeFx } from "@/shared/context/user";
+import { Loader } from "@/components/ui/loader";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
+  const { isAuth } = useAuth();
+  const isLoading = useUnit(getMeFx.pending);
+
   return (
     <div className="mx-auto h-full max-w-[1195px] px-[23px]">
       <div className="relative flex h-full items-center justify-between">
@@ -38,7 +46,8 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
             />
           </Link>
 
-          <BasketModal variant={variant} />
+          {isLoading && <Loader />}
+          {isAuth && <BasketModal variant={variant} />}
         </div>
       </div>
     </div>

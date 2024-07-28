@@ -39,7 +39,6 @@ const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
     removeRefreshToken();
 
     clearUser();
-
     protectedPath.map((el) => {
       if (pathname === el) {
         route.push("/");

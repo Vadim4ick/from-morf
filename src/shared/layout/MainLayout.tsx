@@ -5,6 +5,7 @@ import { Header } from "@/components/modules/Header/Header";
 import { useUnit } from "effector-react";
 import { $confirm } from "../context/auth";
 import ConfirmationPage from "@/pages/ConfirmationPage";
+import { Toaster } from "sonner";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [confirm] = useUnit([$confirm]);
@@ -20,6 +21,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="grow">{children}</main>
 
       <Footer />
+
+      <Toaster richColors />
     </div>
   );
 };

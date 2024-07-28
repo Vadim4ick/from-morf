@@ -1,7 +1,6 @@
 import {
   getAccessToken,
   removeAccessToken,
-  removeFromStorage,
   removeRefreshToken,
 } from "@/lib/auth-token";
 import axios from "axios";
