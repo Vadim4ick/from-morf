@@ -12,9 +12,11 @@ import { useAuth } from "@/shared/hooks/useAuth.hooks";
 import { useUnit } from "effector-react";
 import { getMeFx } from "@/shared/context/user";
 import { Loader } from "@/components/ui/loader";
+import { $user } from "@/shared/context/user/state";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
   const { isAuth } = useAuth();
+  const user = useUnit($user);
   const isLoading = useUnit(getMeFx.pending);
 
   return (
@@ -47,7 +49,7 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
           </Link>
 
           {isLoading && <Loader />}
-          {isAuth && <BasketModal variant={variant} />}
+          {isAuth && user && <BasketModal user={user} variant={variant} />}
         </div>
       </div>
     </div>

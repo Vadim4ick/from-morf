@@ -1,20 +1,27 @@
+import { GetBasketQuery } from "@/graphql/__generated__";
+import { formatPrice, pathImage } from "@/lib/utils";
 import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Heart } from "@/shared/icons/Heart";
 import Image from "next/image";
 
-const BasketItem = () => {
+const BasketItem = ({ item }: { item: GetBasketQuery["basket"][0] }) => {
   return (
     <article className="grid grid-cols-[74px_1fr_85px] gap-3">
       <div className="relative size-[74px]">
-        <Image src={"/goods/1.png"} alt="test" fill />
+        <Image
+          src={pathImage(item.good.images[0].directus_files_id.id)}
+          alt="test"
+          fill
+        />
       </div>
 
       <div className="flex flex-col justify-between gap-1">
         <div className="flex flex-col">
-          <p className="font-medium">Повседневная рубашка</p>
+          <p className="font-medium">{item.good.name}</p>
 
           <div className="text-sm text-[#7E7E7E]">
-            Размер: <span className="font-medium text-darkGrayColor">S</span>
+            Размер:{" "}
+            <span className="font-medium text-darkGrayColor">{item.size}</span>
           </div>
         </div>
 
@@ -29,7 +36,7 @@ const BasketItem = () => {
       </div>
 
       <div className="flex flex-col items-center justify-between gap-1">
-        <p className="font-medium">12 540 ₽</p>
+        <p className="font-medium">{formatPrice(item.good.price)} ₽</p>
 
         <div className="flex w-full items-center justify-between">
           <span className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]">

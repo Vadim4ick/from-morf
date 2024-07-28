@@ -4,7 +4,6 @@ import { VariantHeader } from "../Header/Header";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -14,8 +13,23 @@ import { Button } from "@/components/ui/button";
 import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Basket } from "@/shared/icons/Basket";
 import { BasketItem } from "./BasketItem";
+import { useGetBasket } from "@/shared/services/getBasket";
+import { User } from "@/shared/types/authForm";
+import { cn } from "@/lib/utils";
 
-const BasketModal = ({ variant }: { variant: VariantHeader }) => {
+const BasketModal = ({
+  variant,
+  user,
+}: {
+  variant: VariantHeader;
+  user: User;
+}) => {
+  const { data, isLoading } = useGetBasket(user.id);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -47,19 +61,27 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
           </button>
         </DialogHeader>
 
-        <div className="flex flex-grow flex-col gap-8 overflow-scroll px-5 pb-5">
-          {/* <div className="flex flex-col items-center justify-center gap-8">
-            <Basket />
+        <div
+          className={cn(
+            "flex flex-grow flex-col gap-8 overflow-scroll px-5 pb-5",
+            {
+              "items-center justify-center":
+                !data?.basket || data?.basket.length === 0,
+            },
+          )}
+        >
+          {!data?.basket ||
+            (data?.basket.length === 0 && (
+              <div className="flex flex-col items-center justify-center gap-8">
+                <Basket />
 
-            <p>В вашей корзине ничего нет</p>
-          </div> */}
+                <p>В вашей корзине ничего нет</p>
+              </div>
+            ))}
 
-          <BasketItem />
-          <BasketItem />
-          <BasketItem />
-          <BasketItem />
-          {/* <BasketItem />
-          <BasketItem /> */}
+          {data?.basket.map((basket) => {
+            return <BasketItem key={basket.id} item={basket} />;
+          })}
         </div>
 
         <DialogFooter className="custom-shadow-footer relative after:h-[1px]">

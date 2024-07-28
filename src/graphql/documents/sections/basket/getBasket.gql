@@ -1,5 +1,7 @@
 query GetBasket($user_id: String!) {
   basket(filter: { user: { id: { _eq: $user_id } } }) {
+    id
+
     user {
       id
       email
