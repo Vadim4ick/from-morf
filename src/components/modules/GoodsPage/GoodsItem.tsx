@@ -135,9 +135,14 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const mutation = useCreateBasket();
 
   const onClick = () => {
+    if (!selectedItem.trim()) {
+      return null;
+    }
+
     mutation.mutate({
       id: item.id,
       size: selectedItem,
+      user_id: "1ede5a06-e36e-403a-9584-9860fe19911e",
     });
   };
 

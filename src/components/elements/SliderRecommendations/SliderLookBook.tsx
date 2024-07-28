@@ -6,16 +6,16 @@ import { Arrow } from "@/shared/icons/Arrow";
 import { NewItemCart } from "@/components/elements/NewItemCart";
 
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
-import { GetGoodsQuery } from "@/graphql/__generated__";
+import { GetLookBockByIdQuery } from "@/graphql/__generated__";
 import { cn } from "@/lib/utils";
 
-const SliderRecommendations = ({
+const SliderLookBook = ({
   items,
   title,
   className,
   container = true,
 }: {
-  items: GetGoodsQuery["goods_by_id"]["recomendation"];
+  items: GetLookBockByIdQuery["lookBook_by_id"]["slider"];
   container?: boolean;
   title: string;
   className?: string;
@@ -73,13 +73,13 @@ const SliderRecommendations = ({
             >
               {items.map((item, idx) => (
                 <SwiperSlide
-                  key={`${item.related_goods_id.id}_${idx}`}
+                  key={`${item.goods_id.id}_${idx}`}
                   className="slide-recommendations"
                 >
                   <NewItemCart
-                    link={`/goods/${item.related_goods_id.id}`}
+                    link={`/goods/${item.goods_id.id}`}
                     sizesImg="recommended"
-                    item={item.related_goods_id}
+                    item={item.goods_id}
                   />
                 </SwiperSlide>
               ))}
@@ -93,10 +93,10 @@ const SliderRecommendations = ({
 
             {items.map((item, idx) => (
               <NewItemCart
-                link={`/goods/${item.related_goods_id.id}`}
-                key={`${item.related_goods_id.id}_${idx}`}
+                link={`/goods/${item.goods_id.id}`}
+                key={`${item.goods_id.id}_${idx}`}
                 sizesImg="recommended"
-                item={item.related_goods_id}
+                item={item.goods_id}
               />
             ))}
           </div>
@@ -106,4 +106,4 @@ const SliderRecommendations = ({
   );
 };
 
-export { SliderRecommendations };
+export { SliderLookBook };

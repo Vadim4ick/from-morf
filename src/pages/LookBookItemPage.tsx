@@ -1,4 +1,4 @@
-import { SliderRecommendations } from "@/components/elements/SliderRecommendations";
+import { SliderLookBook } from "@/components/elements/SliderRecommendations/SliderLookBook";
 import { GetLookBockByIdQuery } from "@/graphql/__generated__";
 import { pathImage } from "@/lib/utils";
 import Image from "next/image";
@@ -98,7 +98,7 @@ const LookBookItemPage = ({
         )}
 
         {lookBookItem.slider.length > 0 && (
-          <SliderRecommendations
+          <SliderLookBook
             className="pt-[150px]"
             container={false}
             title="товары из lookbook"

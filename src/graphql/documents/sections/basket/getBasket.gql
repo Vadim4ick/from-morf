@@ -5,13 +5,10 @@ query GetBasket($user_id: String!) {
       email
     }
 
-    items {
-      id
-
-      goods_id {
-        name
-        price
-      }
+    good {
+      ...Good
     }
+
+    size
   }
 }

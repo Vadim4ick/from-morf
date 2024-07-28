@@ -1,9 +1,6 @@
 mutation CreateBasket($user_id: ID!, $goods_id: Int, $size: String) {
   create_basket_item(
-    data: {
-      user: { id: $user_id }
-      items: { goods_id: $goods_id, size: $size }
-    }
+    data: { user: { id: $user_id }, good: $goods_id, size: $size }
   ) {
     id
 
@@ -12,13 +9,11 @@ mutation CreateBasket($user_id: ID!, $goods_id: Int, $size: String) {
       email
     }
 
-    items {
-      goods_id {
-        id
-        name
-        price
-      }
-      size
+    size
+
+    good {
+      id
+      name
     }
   }
 }

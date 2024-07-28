@@ -30,36 +30,13 @@ export enum EventEnum {
 
 export type Mutation = {
   readonly __typename?: 'Mutation';
-  readonly create_basket_goods_item: Maybe<Basket_Goods>;
-  readonly create_basket_goods_items: ReadonlyArray<Basket_Goods>;
   readonly create_basket_item: Maybe<Basket>;
   readonly create_basket_items: ReadonlyArray<Basket>;
-  readonly delete_basket_goods_item: Maybe<Delete_One>;
-  readonly delete_basket_goods_items: Maybe<Delete_Many>;
   readonly delete_basket_item: Maybe<Delete_One>;
   readonly delete_basket_items: Maybe<Delete_Many>;
   readonly update_basket_batch: ReadonlyArray<Basket>;
-  readonly update_basket_goods_batch: ReadonlyArray<Basket_Goods>;
-  readonly update_basket_goods_item: Maybe<Basket_Goods>;
-  readonly update_basket_goods_items: ReadonlyArray<Basket_Goods>;
   readonly update_basket_item: Maybe<Basket>;
   readonly update_basket_items: ReadonlyArray<Basket>;
-};
-
-
-export type MutationCreate_Basket_Goods_ItemArgs = {
-  data: Create_Basket_Goods_Input;
-};
-
-
-export type MutationCreate_Basket_Goods_ItemsArgs = {
-  data: InputMaybe<ReadonlyArray<Create_Basket_Goods_Input>>;
-  filter: InputMaybe<Basket_Goods_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -79,16 +56,6 @@ export type MutationCreate_Basket_ItemsArgs = {
 };
 
 
-export type MutationDelete_Basket_Goods_ItemArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDelete_Basket_Goods_ItemsArgs = {
-  ids: ReadonlyArray<InputMaybe<Scalars['ID']['input']>>;
-};
-
-
 export type MutationDelete_Basket_ItemArgs = {
   id: Scalars['ID']['input'];
 };
@@ -102,35 +69,6 @@ export type MutationDelete_Basket_ItemsArgs = {
 export type MutationUpdate_Basket_BatchArgs = {
   data: InputMaybe<ReadonlyArray<Update_Basket_Input>>;
   filter: InputMaybe<Basket_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type MutationUpdate_Basket_Goods_BatchArgs = {
-  data: InputMaybe<ReadonlyArray<Update_Basket_Goods_Input>>;
-  filter: InputMaybe<Basket_Goods_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type MutationUpdate_Basket_Goods_ItemArgs = {
-  data: Update_Basket_Goods_Input;
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationUpdate_Basket_Goods_ItemsArgs = {
-  data: Update_Basket_Goods_Input;
-  filter: InputMaybe<Basket_Goods_Filter>;
-  ids: ReadonlyArray<InputMaybe<Scalars['ID']['input']>>;
   limit: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   page: InputMaybe<Scalars['Int']['input']>;
@@ -166,10 +104,6 @@ export type Query = {
   readonly basket_aggregated: ReadonlyArray<Basket_Aggregated>;
   readonly basket_by_id: Maybe<Basket>;
   readonly basket_by_version: Maybe<Version_Basket>;
-  readonly basket_goods: ReadonlyArray<Basket_Goods>;
-  readonly basket_goods_aggregated: ReadonlyArray<Basket_Goods_Aggregated>;
-  readonly basket_goods_by_id: Maybe<Basket_Goods>;
-  readonly basket_goods_by_version: Maybe<Version_Basket_Goods>;
   readonly goods: ReadonlyArray<Goods>;
   readonly goodsImg: ReadonlyArray<GoodsImg>;
   readonly goodsImg_aggregated: ReadonlyArray<GoodsImg_Aggregated>;
@@ -296,39 +230,6 @@ export type QueryBasket_By_IdArgs = {
 
 
 export type QueryBasket_By_VersionArgs = {
-  id: Scalars['ID']['input'];
-  version: Scalars['String']['input'];
-};
-
-
-export type QueryBasket_GoodsArgs = {
-  filter: InputMaybe<Basket_Goods_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryBasket_Goods_AggregatedArgs = {
-  filter: InputMaybe<Basket_Goods_Filter>;
-  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryBasket_Goods_By_IdArgs = {
-  id: Scalars['ID']['input'];
-  version: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryBasket_Goods_By_VersionArgs = {
   id: Scalars['ID']['input'];
   version: Scalars['String']['input'];
 };
@@ -841,7 +742,6 @@ export type QueryStyleTips_By_VersionArgs = {
 export type Subscription = {
   readonly __typename?: 'Subscription';
   readonly additionalSections_mutated: Maybe<AdditionalSections_Mutated>;
-  readonly basket_goods_mutated: Maybe<Basket_Goods_Mutated>;
   readonly basket_mutated: Maybe<Basket_Mutated>;
   readonly directus_files_mutated: Maybe<Directus_Files_Mutated>;
   readonly directus_roles_mutated: Maybe<Directus_Roles_Mutated>;
@@ -866,11 +766,6 @@ export type Subscription = {
 
 
 export type SubscriptionAdditionalSections_MutatedArgs = {
-  event: InputMaybe<EventEnum>;
-};
-
-
-export type SubscriptionBasket_Goods_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
@@ -1021,15 +916,15 @@ export type AdditionalSections_Mutated = {
 
 export type Basket = {
   readonly __typename?: 'basket';
+  readonly good: Maybe<Goods>;
   readonly id: Scalars['ID']['output'];
-  readonly items: Maybe<ReadonlyArray<Maybe<Basket_Goods>>>;
-  readonly items_func: Maybe<Count_Functions>;
+  readonly size: Maybe<Scalars['String']['output']>;
   readonly user: Maybe<Directus_Users>;
 };
 
 
-export type BasketItemsArgs = {
-  filter: InputMaybe<Basket_Goods_Filter>;
+export type BasketGoodArgs = {
+  filter: InputMaybe<Goods_Filter>;
   limit: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   page: InputMaybe<Scalars['Int']['input']>;
@@ -1063,96 +958,25 @@ export type Basket_Aggregated = {
 
 export type Basket_Aggregated_Count = {
   readonly __typename?: 'basket_aggregated_count';
+  readonly good: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['Int']['output']>;
-  readonly items: Maybe<Scalars['Int']['output']>;
+  readonly size: Maybe<Scalars['Int']['output']>;
   readonly user: Maybe<Scalars['Int']['output']>;
 };
 
 export type Basket_Aggregated_Fields = {
   readonly __typename?: 'basket_aggregated_fields';
+  readonly good: Maybe<Scalars['Float']['output']>;
   readonly id: Maybe<Scalars['Float']['output']>;
 };
 
 export type Basket_Filter = {
   readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Basket_Filter>>>;
   readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Basket_Filter>>>;
-  readonly id: InputMaybe<Number_Filter_Operators>;
-  readonly items: InputMaybe<Basket_Goods_Filter>;
-  readonly items_func: InputMaybe<Count_Function_Filter_Operators>;
-  readonly user: InputMaybe<Directus_Users_Filter>;
-};
-
-export type Basket_Goods = {
-  readonly __typename?: 'basket_goods';
-  readonly basket_id: Maybe<Basket>;
-  readonly goods_id: Maybe<Goods>;
-  readonly id: Scalars['ID']['output'];
-  readonly size: Maybe<Scalars['String']['output']>;
-};
-
-
-export type Basket_GoodsBasket_IdArgs = {
-  filter: InputMaybe<Basket_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type Basket_GoodsGoods_IdArgs = {
-  filter: InputMaybe<Goods_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Basket_Goods_Aggregated = {
-  readonly __typename?: 'basket_goods_aggregated';
-  readonly avg: Maybe<Basket_Goods_Aggregated_Fields>;
-  readonly avgDistinct: Maybe<Basket_Goods_Aggregated_Fields>;
-  readonly count: Maybe<Basket_Goods_Aggregated_Count>;
-  readonly countAll: Maybe<Scalars['Int']['output']>;
-  readonly countDistinct: Maybe<Basket_Goods_Aggregated_Count>;
-  readonly group: Maybe<Scalars['JSON']['output']>;
-  readonly max: Maybe<Basket_Goods_Aggregated_Fields>;
-  readonly min: Maybe<Basket_Goods_Aggregated_Fields>;
-  readonly sum: Maybe<Basket_Goods_Aggregated_Fields>;
-  readonly sumDistinct: Maybe<Basket_Goods_Aggregated_Fields>;
-};
-
-export type Basket_Goods_Aggregated_Count = {
-  readonly __typename?: 'basket_goods_aggregated_count';
-  readonly basket_id: Maybe<Scalars['Int']['output']>;
-  readonly goods_id: Maybe<Scalars['Int']['output']>;
-  readonly id: Maybe<Scalars['Int']['output']>;
-  readonly size: Maybe<Scalars['Int']['output']>;
-};
-
-export type Basket_Goods_Aggregated_Fields = {
-  readonly __typename?: 'basket_goods_aggregated_fields';
-  readonly basket_id: Maybe<Scalars['Float']['output']>;
-  readonly goods_id: Maybe<Scalars['Float']['output']>;
-  readonly id: Maybe<Scalars['Float']['output']>;
-};
-
-export type Basket_Goods_Filter = {
-  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Basket_Goods_Filter>>>;
-  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Basket_Goods_Filter>>>;
-  readonly basket_id: InputMaybe<Basket_Filter>;
-  readonly goods_id: InputMaybe<Goods_Filter>;
+  readonly good: InputMaybe<Goods_Filter>;
   readonly id: InputMaybe<Number_Filter_Operators>;
   readonly size: InputMaybe<String_Filter_Operators>;
-};
-
-export type Basket_Goods_Mutated = {
-  readonly __typename?: 'basket_goods_mutated';
-  readonly data: Maybe<Basket_Goods>;
-  readonly event: Maybe<EventEnum>;
-  readonly key: Scalars['ID']['output'];
+  readonly user: InputMaybe<Directus_Users_Filter>;
 };
 
 export type Basket_Mutated = {
@@ -1193,16 +1017,10 @@ export type Count_Functions = {
   readonly count: Maybe<Scalars['Int']['output']>;
 };
 
-export type Create_Basket_Goods_Input = {
-  readonly basket_id: InputMaybe<Create_Basket_Input>;
-  readonly goods_id: InputMaybe<Scalars['Int']['input']>;
+export type Create_Basket_Input = {
+  readonly good: InputMaybe<Scalars['Int']['input']>;
   readonly id: InputMaybe<Scalars['ID']['input']>;
   readonly size: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Create_Basket_Input = {
-  readonly id: InputMaybe<Scalars['ID']['input']>;
-  readonly items: InputMaybe<ReadonlyArray<InputMaybe<Create_Basket_Goods_Input>>>;
   readonly user: InputMaybe<Create_Directus_Users_Input>;
 };
 
@@ -2729,16 +2547,10 @@ export type StyleTips_Mutated = {
   readonly key: Scalars['ID']['output'];
 };
 
-export type Update_Basket_Goods_Input = {
-  readonly basket_id: InputMaybe<Update_Basket_Input>;
-  readonly goods_id: InputMaybe<Scalars['Int']['input']>;
+export type Update_Basket_Input = {
+  readonly good: InputMaybe<Scalars['Int']['input']>;
   readonly id: InputMaybe<Scalars['ID']['input']>;
   readonly size: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Update_Basket_Input = {
-  readonly id: InputMaybe<Scalars['ID']['input']>;
-  readonly items: InputMaybe<ReadonlyArray<InputMaybe<Update_Basket_Goods_Input>>>;
   readonly user: InputMaybe<Update_Directus_Users_Input>;
 };
 
@@ -2795,17 +2607,10 @@ export type Version_AdditionalSections = {
 
 export type Version_Basket = {
   readonly __typename?: 'version_basket';
-  readonly id: Maybe<Scalars['ID']['output']>;
-  readonly items: Maybe<Scalars['JSON']['output']>;
-  readonly user: Maybe<Scalars['JSON']['output']>;
-};
-
-export type Version_Basket_Goods = {
-  readonly __typename?: 'version_basket_goods';
-  readonly basket_id: Maybe<Scalars['JSON']['output']>;
-  readonly goods_id: Maybe<Scalars['Int']['output']>;
+  readonly good: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['ID']['output']>;
   readonly size: Maybe<Scalars['String']['output']>;
+  readonly user: Maybe<Scalars['JSON']['output']>;
 };
 
 export type Version_Goods = {
@@ -2957,9 +2762,9 @@ export type GetGoodsQueryVariables = Exact<{
 }>;
 
 
-export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods_by_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> } };
+export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods_by_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> } };
 
-export type GoodFragment = { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> };
+export type GoodFragment = { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> };
 
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
@@ -2968,7 +2773,7 @@ export type GetGoodsFavoritesItemsQueryVariables = Exact<{
 }>;
 
 
-export type GetGoodsFavoritesItemsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
+export type GetGoodsFavoritesItemsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
 
 export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2980,7 +2785,7 @@ export type GetLookBockByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetLookBockByIdQuery = { readonly __typename?: 'Query', readonly lookBook_by_id: { readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string, readonly markdown: string, readonly slider: ReadonlyArray<{ readonly __typename?: 'lookBook_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> } }>, readonly mainImages: ReadonlyArray<{ readonly __typename?: 'lookBook_files_1', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } };
+export type GetLookBockByIdQuery = { readonly __typename?: 'Query', readonly lookBook_by_id: { readonly __typename?: 'lookBook', readonly id: string, readonly title: string, readonly description: string, readonly markdown: string, readonly slider: ReadonlyArray<{ readonly __typename?: 'lookBook_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> } }>, readonly mainImages: ReadonlyArray<{ readonly __typename?: 'lookBook_files_1', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } };
 
 export type GetLookBockQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3006,28 +2811,28 @@ export type CreateBasketMutationVariables = Exact<{
 }>;
 
 
-export type CreateBasketMutation = { readonly __typename?: 'Mutation', readonly create_basket_item: { readonly __typename?: 'basket', readonly id: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly items: ReadonlyArray<{ readonly __typename?: 'basket_goods', readonly size: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number } }> } };
+export type CreateBasketMutation = { readonly __typename?: 'Mutation', readonly create_basket_item: { readonly __typename?: 'basket', readonly id: string, readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string } } };
 
 export type GetBasketQueryVariables = Exact<{
   user_id: Scalars['String']['input'];
 }>;
 
 
-export type GetBasketQuery = { readonly __typename?: 'Query', readonly basket: ReadonlyArray<{ readonly __typename?: 'basket', readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly items: ReadonlyArray<{ readonly __typename?: 'basket_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly name: string, readonly price: number } }> }> };
+export type GetBasketQuery = { readonly __typename?: 'Query', readonly basket: ReadonlyArray<{ readonly __typename?: 'basket', readonly size: string, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly email: string }, readonly good: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> } }> };
 
 export type GetGoodItemsQueryVariables = Exact<{
   directionTitle: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetGoodItemsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
+export type GetGoodItemsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
 
 export type GetGoodItemsAdditionalQueryVariables = Exact<{
   additionalTitle: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type GetGoodItemsAdditionalQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
+export type GetGoodItemsAdditionalQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
 
 export type GetLastTwoStyleTipsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3080,7 +2885,7 @@ export const GoodFragmentDoc = gql`
     collection
   }
   recomendation {
-    goods_id {
+    related_goods_id {
       id
       name
       price
@@ -3246,21 +3051,16 @@ export const GetTipsItemPageDocument = gql`
     `;
 export const CreateBasketDocument = gql`
     mutation CreateBasket($user_id: ID!, $goods_id: Int, $size: String) {
-  create_basket_item(
-    data: {user: {id: $user_id}, items: {goods_id: $goods_id, size: $size}}
-  ) {
+  create_basket_item(data: {user: {id: $user_id}, good: $goods_id, size: $size}) {
     id
     user {
       id
       email
     }
-    items {
-      goods_id {
-        id
-        name
-        price
-      }
-      size
+    size
+    good {
+      id
+      name
     }
   }
 }
@@ -3272,16 +3072,13 @@ export const GetBasketDocument = gql`
       id
       email
     }
-    items {
-      id
-      goods_id {
-        name
-        price
-      }
+    good {
+      ...Good
     }
+    size
   }
 }
-    `;
+    ${GoodFragmentDoc}`;
 export const GetGoodItemsDocument = gql`
     query GetGoodItems($directionTitle: String) {
   goods(filter: {direction: {title: {_eq: $directionTitle}}}) {

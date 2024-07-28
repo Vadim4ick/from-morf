@@ -44,7 +44,7 @@ fragment Good on goods {
   }
 
   recomendation {
-    goods_id {
+    related_goods_id {
       id
       name
       price
