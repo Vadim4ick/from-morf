@@ -30,8 +30,9 @@ const SheetOverlay = React.forwardRef<
 ));
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
+// max-mobileSmall:pt-[40px] max-mobileSmall:pl-[16px] max-mobileSmall:pb-[33px]
 const sheetVariants = cva(
-  "fixed z-50 gap-4 bg-background shadow-lg transition max-mobileSmall:pt-[40px] max-mobileSmall:pl-[16px] max-mobileSmall:pb-[33px] rounded-[2px] ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+  "fixed z-50 gap-4 bg-background shadow-lg transition rounded-[2px] ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
   {
     variants: {
       side: {
@@ -61,6 +62,7 @@ const SheetContent = React.forwardRef<
     close?: boolean;
     portal?: boolean;
     open?: boolean;
+    portalElement?: HTMLElement | undefined;
   }
 >(
   (
@@ -70,6 +72,7 @@ const SheetContent = React.forwardRef<
       close = true,
       customOverlay,
       portal = true,
+      portalElement,
       open,
       children,
       ...props
@@ -113,7 +116,7 @@ const SheetContent = React.forwardRef<
     );
 
     if (portal) {
-      return <SheetPortal>{modal}</SheetPortal>;
+      return <SheetPortal container={portalElement}>{modal}</SheetPortal>;
     }
 
     return modal;

@@ -32,7 +32,7 @@ const AllGoodsHeader = ({
         </div>
 
         <div className="flex flex-col items-center justify-center gap-12">
-          <div className="grid w-full grid-cols-2 gap-x-[20px] gap-y-12 max-mobile:grid-cols-1 max-mobile:gap-y-6">
+          <div className="grid w-full grid-cols-2 gap-x-[20px] gap-y-12 max-mobile:grid-cols-1 max-mobile:justify-items-center max-mobile:gap-y-6">
             {sectionGoods.slice(0, visibleItems).map((item) => (
               <NewItemCart
                 key={item.id}

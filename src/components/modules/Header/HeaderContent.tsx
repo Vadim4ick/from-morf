@@ -13,11 +13,14 @@ import { useUnit } from "effector-react";
 import { getMeFx } from "@/shared/context/user";
 import { Loader } from "@/components/ui/loader";
 import { $user } from "@/shared/context/user/state";
+import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
   const { isAuth } = useAuth();
   const user = useUnit($user);
   const isLoading = useUnit(getMeFx.pending);
+
+  const isTablet834 = useMediaQuery(834);
 
   return (
     <div className="mx-auto h-full max-w-[1195px] px-[23px]">
@@ -36,8 +39,8 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
         </Link>
 
         {/* Icons */}
-        <div className="relative flex gap-[20px]">
-          <ProfileModal variant={variant} />
+        <div className="relative flex w-[100px] justify-end gap-[20px]">
+          {!isTablet834 && <ProfileModal variant={variant} />}
 
           <Link href={"/favorites"}>
             <FavoritesIcon
@@ -49,6 +52,7 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
           </Link>
 
           {isLoading && <Loader />}
+
           {isAuth && user && <BasketModal user={user} variant={variant} />}
         </div>
       </div>

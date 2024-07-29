@@ -26,7 +26,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { protectedPath } from "@/shared/const";
 
-const ProfileModal = ({ variant }: { variant: VariantHeader }) => {
+const ProfileModal = ({ variant }: { variant?: VariantHeader }) => {
   const [currentForm, user] = useUnit([$typeForm, $user]);
 
   const { isAuth } = useAuth();

@@ -89,6 +89,7 @@ const config = {
       tabletSmall: "834px",
       tabletBig: "991px",
       desktop: "1100px",
+      desktop1300: "1300px",
     },
   },
   plugins: [require("tailwindcss-animate")],

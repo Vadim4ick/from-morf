@@ -25,6 +25,10 @@ import { ReturnIcon } from "@/shared/icons/ReturnIcon";
 import { DeliveryIcon } from "@/shared/icons/DeliveryIcon";
 import { useGetBurger } from "@/shared/services/getBurger";
 import { Loader } from "@/components/ui/loader";
+import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
+import { ProfileIcon } from "@/shared/icons/header/ProfileIcon";
+import { useAuth } from "@/shared/hooks/useAuth.hooks";
+import { ProfileModal } from "../ProfileModal";
 
 const topVariants = {
   closed: { rotate: 0, translateY: 0 },
@@ -40,6 +44,10 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
   const burgerOpen = useUnit($burgerOpen);
 
   const { data, isLoading } = useGetBurger();
+
+  const { isAuth } = useAuth();
+
+  const isDesktop1100 = useMediaQuery(1100);
 
   useEffect(() => {
     if (burgerOpen) {
@@ -81,11 +89,14 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
         <SheetContent
           customOverlay={true}
           close={false}
-          portal={false}
+          portalElement={
+            isDesktop1100 ? document.querySelector("header")! : undefined
+          }
+          portal={isDesktop1100 ? true : false}
           open={burgerOpen}
           side={"custom"}
           className={cn(
-            "absolute -left-[65px] top-[calc(var(--header-height)_+_4px)] h-fit w-full bg-[#F8F8F8] desktop:max-w-[455px]",
+            "desktop1300:-left-[65px] absolute top-[calc(var(--header-height)_+_4px)] h-fit w-full bg-[#F8F8F8] desktop:max-w-[455px]",
           )}
         >
           <SheetHeader className="border-b border-[#CDCDCD]/50 px-[30px] py-[25px]">
@@ -99,7 +110,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               <Loader className="" />
             </SheetDescription>
           ) : (
-            <SheetDescription className="flex flex-col pb-16 pt-4 text-darkGrayColor">
+            <SheetDescription className="flex h-[320px] flex-col overflow-scroll pt-4 text-darkGrayColor">
               {data?.additionalSections &&
                 data.additionalSections.map((el) => {
                   return (
@@ -134,8 +145,9 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
             </SheetDescription>
           )}
 
-          <SheetFooter className="flex flex-col gap-2 border-t bg-[#F2F2F2] px-4 py-4">
+          <SheetFooter className="mt-12 flex flex-col gap-2 border-t bg-[#F2F2F2] px-4 py-4 max-mobile:mt-3">
             <Link
+              onClick={() => toggleBurgerOpen()}
               href={"/"}
               className="flex justify-between border border-[#E4E4E4] bg-[#eeeeee]"
             >
@@ -155,23 +167,44 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
 
             <div className="flex gap-[10px]">
               <Link
+                onClick={() => toggleBurgerOpen()}
                 href={"/"}
                 className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee]"
               >
                 <DeliveryIcon />
 
-                <p className="text-[15px]">Доставка и оплата</p>
+                <p className="text-[15px] font-medium">Доставка и оплата</p>
               </Link>
 
               <Link
+                onClick={() => toggleBurgerOpen()}
                 href={"/"}
                 className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee]"
               >
                 <ReturnIcon />
 
-                <p className="text-[15px]">Возврат товара</p>
+                <p className="text-[15px] font-medium">Возврат товара</p>
               </Link>
             </div>
+
+            {isDesktop1100 && (
+              <div>
+                <button
+                  // onClick={() => toggleBurgerOpen()}
+                  className="flex h-12 w-full basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee]"
+                >
+                  {/* <ProfileIcon
+                    className={clsx("size-6 cursor-pointer text-transparent", {
+                      "stroke-darkGrayColor": variant === "black",
+                      "stroke-white": variant === "white",
+                    })}
+                  /> */}
+                  <ProfileModal variant="black" />
+
+                  <p className="text-[15px] font-medium">Личный кабинет</p>
+                </button>
+              </div>
+            )}
           </SheetFooter>
         </SheetContent>
       </Sheet>
