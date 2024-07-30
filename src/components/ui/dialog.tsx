@@ -34,37 +34,60 @@ const DialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
     portal?: boolean;
     close?: boolean;
+    closePosition?: "left" | "right";
+    overlay?: boolean;
   }
->(({ className, children, portal = true, close = true, ...props }, ref) => {
-  const content = (
-    <>
-      <DialogOverlay />
+>(
+  (
+    {
+      className,
+      children,
+      portal = true,
+      close = true,
+      closePosition = "left",
+      overlay = true,
+      ...props
+    },
+    ref,
+  ) => {
+    const content = (
+      <>
+        {overlay && <DialogOverlay />}
 
-      <DialogPrimitive.Content
-        ref={ref}
-        className={cn(
-          "fixed top-[calc(var(--header-height)_+_5px)] z-50 h-fit w-full gap-4 bg-white px-[42px] py-[25px]",
-          className,
-        )}
-        {...props}
-      >
-        {children}
+        <DialogPrimitive.Content
+          ref={ref}
+          className={cn(
+            "fixed top-[calc(var(--header-height)_+_5px)] z-50 h-fit w-full gap-4 bg-white px-[42px] py-[25px]",
+            className,
+          )}
+          {...props}
+        >
+          {children}
 
-        {close && (
-          <DialogPrimitive.Close className="absolute left-[25px] top-[25px] rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-            <Close />
-          </DialogPrimitive.Close>
-        )}
-      </DialogPrimitive.Content>
-    </>
-  );
+          {close && (
+            <DialogPrimitive.Close
+              className={cn(
+                "absolute top-[25px] rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+                {
+                  "left-[25px]": closePosition === "left",
+                  "right-[25px] top-[40px]": closePosition === "right",
+                },
+              )}
+            >
+              <Close />
+            </DialogPrimitive.Close>
+          )}
+        </DialogPrimitive.Content>
+      </>
+    );
 
-  if (portal) {
-    return <DialogPortal>{content}</DialogPortal>;
-  }
+    if (portal) {
+      return <DialogPortal>{content}</DialogPortal>;
+    }
 
-  return content;
-});
+    return content;
+  },
+);
 
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 

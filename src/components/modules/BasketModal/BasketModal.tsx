@@ -28,6 +28,7 @@ import {
 } from "@/shared/context/basket";
 import { useUnit } from "effector-react";
 import { $basket } from "@/shared/context/basket/state";
+import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 
 const BasketModal = ({
   variant,
@@ -37,6 +38,8 @@ const BasketModal = ({
   user: User;
 }) => {
   const isLoading = useUnit(getBasketFx.pending);
+
+  const isTablet991 = useMediaQuery(991);
 
   const basket = useUnit($basket);
 
@@ -75,23 +78,33 @@ const BasketModal = ({
       </DialogTrigger>
 
       <DialogContent
-        portal={false}
-        className="flex h-full max-h-[496px] w-full max-w-[430px] flex-col gap-0 bg-[#F8F8F8] p-0"
+        portal={isTablet991}
+        closePosition={isTablet991 ? "right" : "left"}
+        className="flex h-full max-h-[496px] w-full max-w-[430px] flex-col gap-0 bg-[#F8F8F8] p-0 max-tabletBig:top-0 max-tabletBig:max-h-full max-tabletBig:max-w-full"
       >
-        <DialogHeader className="custom-shadow-footer relative py-[20px] after:h-[1px]">
-          <div className="flex flex-col gap-2 pb-2">
-            <DialogTitle className="text-lg font-medium uppercase">
-              корзина
-            </DialogTitle>
+        <DialogHeader className="custom-shadow-footer relative py-[20px] after:h-[1px] max-tabletBig:text-start">
+          <div className="max-tabletBig:flex max-tabletBig:flex-row max-tabletBig:items-center max-tabletBig:justify-between">
+            <div className="flex flex-col gap-2 pb-2 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px]">
+              <DialogTitle className="text-lg font-medium uppercase">
+                корзина
+              </DialogTitle>
 
-            <span className="text-sm text-[#7E7E7E]">
-              {basket && `${basket.length} ${getPluralForm(basket.length)}`}
-            </span>
+              <span className="text-sm text-[#7E7E7E]">
+                {basket && `${basket.length} ${getPluralForm(basket.length)}`}
+              </span>
+            </div>
+
+            <div
+              className={cn("", {
+                "absolute right-6 top-6": !isTablet991,
+                "mr-[60px]": isTablet991,
+              })}
+            >
+              <button onClick={allDelete}>
+                <DeleteBasket />
+              </button>
+            </div>
           </div>
-
-          <button onClick={allDelete} className="absolute right-6 top-6">
-            <DeleteBasket />
-          </button>
         </DialogHeader>
 
         <div
@@ -119,29 +132,31 @@ const BasketModal = ({
 
         <DialogFooter className="custom-shadow-footer relative after:h-[1px]">
           <div className="m-5 flex flex-col">
-            <div className="flex flex-col gap-1 pb-3">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium">
-                  Скидка <span className="text-[#7E7E7E]">(1 товар)</span>:
-                </p>
-
-                <div className="text-sm font-medium">25%</div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <p className="text-lg font-medium">Общая стоимость:</p>
-
-                <div className="flex items-center justify-center gap-[6px]">
-                  <p className="text-sm font-medium text-[#8B8B8B] line-through">
-                    {basket && sumTotalAllPriceBasket(basket)} ₽
+            {basket && Boolean(basket.length > 0) && (
+              <div className="flex flex-col gap-1 pb-3">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium">
+                    Скидка <span className="text-[#7E7E7E]">(1 товар)</span>:
                   </p>
 
-                  <p className="text-lg font-medium">
-                    {basket && sumTotalCurrentPriceBasket(basket)} ₽
-                  </p>
+                  <div className="text-sm font-medium">25%</div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-lg font-medium">Общая стоимость:</p>
+
+                  <div className="flex items-center justify-center gap-[6px]">
+                    <p className="text-sm font-medium text-[#8B8B8B] line-through">
+                      {basket && sumTotalAllPriceBasket(basket)} ₽
+                    </p>
+
+                    <p className="text-lg font-medium">
+                      {basket && sumTotalCurrentPriceBasket(basket)} ₽
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             <Button variant={"secondary"}>Перейти к новинкам</Button>
           </div>
