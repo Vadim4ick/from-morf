@@ -10,6 +10,8 @@ export const toggleConfirmPage = authForm.createEvent<boolean>();
 
 export const toggleAuthForm = authForm.createEvent();
 
+export const toggleAuthFormOpen = authForm.createEvent();
+
 export const $regiterError = authForm
   .createStore<boolean>(false)
   .on(changeRegisterError, (_, value) => value)
@@ -33,3 +35,13 @@ export const $typeForm = authForm
 export const $confirm = authForm
   .createStore<boolean>(false)
   .on(toggleConfirmPage, (_, value) => value);
+
+export const $authFormOpen = authForm
+  .createStore<boolean>(false)
+  .on(toggleAuthFormOpen, (state) => {
+    if (state) {
+      return false;
+    } else {
+      return true;
+    }
+  });

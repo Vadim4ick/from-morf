@@ -40,8 +40,8 @@ const Providers = ({ children }: { children: ReactNode }) => {
   if (loading) {
     return (
       <QueryClientProvider client={queryClient}>
-        <div className="flex h-full w-full items-center justify-center">
-          <Loader className="size-10" />
+        <div className="z-50 h-screen w-full bg-white">
+          <Loader className="absolute left-1/2 top-1/2 size-10" />
         </div>
       </QueryClientProvider>
     );

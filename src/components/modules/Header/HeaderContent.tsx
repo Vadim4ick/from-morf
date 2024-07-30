@@ -6,19 +6,18 @@ import { FavoritesIcon } from "@/shared/icons/header/FavoritesIcon";
 import clsx from "clsx";
 import { VariantHeader } from "./Header";
 import { Burger } from "./Burger";
-import { ProfileModal } from "../ProfileModal";
 import { BasketModal } from "../BasketModal/BasketModal";
 import { useAuth } from "@/shared/hooks/useAuth.hooks";
 import { useUnit } from "effector-react";
-import { getMeFx } from "@/shared/context/user";
-import { Loader } from "@/components/ui/loader";
 import { $user } from "@/shared/context/user/state";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
+import { ProfileIcon } from "@/shared/icons/header/ProfileIcon";
+import { toggleAuthFormOpen } from "@/shared/context/auth";
+import { ProfileModal } from "../ProfileModal";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
   const { isAuth } = useAuth();
   const user = useUnit($user);
-  const isLoading = useUnit(getMeFx.pending);
 
   const isTablet834 = useMediaQuery(834);
 
@@ -39,8 +38,20 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
         </Link>
 
         {/* Icons */}
-        <div className="relative flex w-[100px] justify-end gap-[20px]">
-          {!isTablet834 && <ProfileModal variant={variant} />}
+        <div
+          id="iconsListHeader"
+          className="relative flex w-[100px] justify-end gap-[20px]"
+        >
+          {!isTablet834 && (
+            <button onClick={() => toggleAuthFormOpen()}>
+              <ProfileIcon
+                className={clsx("cursor-pointer text-transparent", {
+                  "stroke-darkGrayColor": variant === "black",
+                  "stroke-white": variant === "white",
+                })}
+              />
+            </button>
+          )}
 
           <Link href={"/favorites"}>
             <FavoritesIcon
@@ -51,10 +62,10 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
             />
           </Link>
 
-          {isLoading && <Loader />}
-
           {isAuth && user && <BasketModal user={user} variant={variant} />}
         </div>
+
+        <ProfileModal />
       </div>
     </div>
   );

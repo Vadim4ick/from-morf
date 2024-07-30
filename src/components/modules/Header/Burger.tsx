@@ -27,8 +27,7 @@ import { useGetBurger } from "@/shared/services/getBurger";
 import { Loader } from "@/components/ui/loader";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { ProfileIcon } from "@/shared/icons/header/ProfileIcon";
-import { useAuth } from "@/shared/hooks/useAuth.hooks";
-import { ProfileModal } from "../ProfileModal";
+import { toggleAuthFormOpen } from "@/shared/context/auth";
 
 const topVariants = {
   closed: { rotate: 0, translateY: 0 },
@@ -44,8 +43,6 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
   const burgerOpen = useUnit($burgerOpen);
 
   const { data, isLoading } = useGetBurger();
-
-  const { isAuth } = useAuth();
 
   const isDesktop1100 = useMediaQuery(1100);
 
@@ -147,7 +144,6 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
 
           <SheetFooter className="mt-12 flex flex-col gap-2 border-t bg-[#F2F2F2] px-4 py-4 max-mobile:mt-3">
             <Link
-              onClick={() => toggleBurgerOpen()}
               href={"/"}
               className="flex justify-between border border-[#E4E4E4] bg-[#eeeeee]"
             >
@@ -167,7 +163,6 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
 
             <div className="flex gap-[10px]">
               <Link
-                onClick={() => toggleBurgerOpen()}
                 href={"/"}
                 className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee]"
               >
@@ -177,7 +172,6 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               </Link>
 
               <Link
-                onClick={() => toggleBurgerOpen()}
                 href={"/"}
                 className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee]"
               >
@@ -190,16 +184,18 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
             {isDesktop1100 && (
               <div>
                 <button
-                  // onClick={() => toggleBurgerOpen()}
+                  onClick={() => {
+                    toggleBurgerOpen();
+                    toggleAuthFormOpen();
+                  }}
                   className="flex h-12 w-full basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee]"
                 >
-                  {/* <ProfileIcon
-                    className={clsx("size-6 cursor-pointer text-transparent", {
+                  <ProfileIcon
+                    className={clsx("cursor-pointer text-transparent", {
                       "stroke-darkGrayColor": variant === "black",
                       "stroke-white": variant === "white",
                     })}
-                  /> */}
-                  <ProfileModal variant="black" />
+                  />
 
                   <p className="text-[15px] font-medium">Личный кабинет</p>
                 </button>

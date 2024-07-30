@@ -100,12 +100,12 @@ const ConfirmationPage = () => {
           <div className="flex flex-col items-center justify-center">
             <LogoIcon className="mb-[36px]" />
 
-            <p className="mb-[14px] text-[32px] font-bold uppercase">
-              Код из СМС
+            <p className="mb-[14px] text-center text-[32px] font-bold uppercase">
+              Подвердите регистрацию
             </p>
 
             <div className="flex flex-col items-center justify-center text-[15px] text-[#939393]">
-              Отправили его на email
+              Отправили код на ваш email
               <span>{email}</span>
             </div>
           </div>
