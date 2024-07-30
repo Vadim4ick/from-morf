@@ -66,20 +66,24 @@ const FavoritesPage = () => {
             })}
           </div>
         ) : (
-          <div className="h-[500px] w-full">
+          <div className="w-full tabletBig:h-[500px]">
             <div className="flex h-full flex-col items-center justify-center gap-[120px]">
-              <div className="relative">
-                <p className="text-2xl">
+              <div className="relative flex max-tabletBig:h-[350px] max-tabletBig:flex-col-reverse max-tabletBig:items-center max-tabletBig:justify-center max-tabletBig:gap-12 max-mobile:gap-8">
+                <p className="text-center text-2xl max-mobile:text-sm">
                   Вы пока не добавили ничего в избранное
                 </p>
 
                 <Heart
-                  className="absolute left-1/2 top-0 -z-[1] size-[120px] -translate-x-1/2 -translate-y-[45%] text-transparent"
+                  className={
+                    "-z-[1] size-[120px] text-transparent max-mobile:size-[80px] tabletBig:absolute tabletBig:left-1/2 tabletBig:top-0 tabletBig:-translate-x-1/2 tabletBig:-translate-y-[45%]"
+                  }
                   stroke="#EBEBEB"
                 />
               </div>
 
-              <Button variant={"secondary"}>Перейти к покупкам</Button>
+              <Button className="max-tabletBig:w-full" variant={"secondary"}>
+                Перейти к покупкам
+              </Button>
             </div>
           </div>
         )}

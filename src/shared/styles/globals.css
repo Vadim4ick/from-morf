@@ -101,7 +101,7 @@ body {
   }
 
   .heading {
-    @apply text-center text-[32px] font-bold uppercase;
+    @apply text-center text-[32px] font-bold uppercase max-mobile:text-[24px];
   }
 }
 
