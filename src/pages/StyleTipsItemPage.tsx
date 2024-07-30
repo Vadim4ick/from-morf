@@ -16,32 +16,36 @@ const StyleTipsItemPage = ({
   return (
     <>
       {item && (
-        <section className="pt-[calc(var(--header-height)_+_68px)]">
+        <section className="pt-[calc(var(--header-height)_+_68px)] max-tabletBig:pt-[calc(var(--header-height)_+_36px)]">
           <div className="container">
             <div className="max-w-[952px]">
-              <p className="pb-[18px] text-[14px] text-[#707070]">
+              <p className="pb-[18px] text-[14px] text-[#707070] max-mobile:pb-2">
                 {formatDate(item.date_created)}
               </p>
 
-              <h1 className="text-4xl">{item.title}</h1>
+              <h1 className="text-4xl leading-8 max-tabletBig:text-[28px] max-mobile:text-2xl">
+                {item.title}
+              </h1>
 
               <ReactMarkdown
                 components={{
                   p: ({ children }) => {
                     return (
-                      <p className="pt-[36px] text-xl text-[#181818]">
+                      <p className="pt-[36px] text-xl text-[#181818] max-tabletBig:pt-[32px] max-mobile:pt-[24px] max-mobile:text-base">
                         {children}
                       </p>
                     );
                   },
                   h2: ({ children }) => {
                     return (
-                      <h2 className="pt-[69px] text-[28px]">{children}</h2>
+                      <h2 className="pt-[69px] text-[28px] font-medium max-mobile:pt-[48px] max-mobile:text-xl">
+                        {children}
+                      </h2>
                     );
                   },
                   ul: ({ children }) => {
                     return (
-                      <ul className="auto-layout grid grid-cols-2 gap-3 pt-12">
+                      <ul className="auto-layout grid grid-cols-2 gap-3 pb-[74px] pt-12 max-tabletBig:pb-[64px] max-tabletBig:pt-[36px] max-mobile:pb-6 max-mobile:pt-[24px]">
                         {children}
                       </ul>
                     );

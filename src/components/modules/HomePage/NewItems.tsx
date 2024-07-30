@@ -4,6 +4,7 @@ import { NewItemCart } from "@/components/elements/NewItemCart";
 import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { GetHomePageQuery } from "@/graphql/__generated__";
+import { useRouter } from "next/navigation";
 
 const NewItems = ({
   newItems,
@@ -12,6 +13,8 @@ const NewItems = ({
 }) => {
   const isTablet991 = useMediaQuery(991);
   const isTablet768 = useMediaQuery(450);
+
+  const router = useRouter();
 
   const first = newItems[0];
   const otherElements = isTablet768
@@ -41,7 +44,10 @@ const NewItems = ({
               ))}
             </div>
 
-            <ButtonAnimate className="ml-auto tabletSmall:mb-12">
+            <ButtonAnimate
+              onClick={() => router.push("/goods/additional/Новинки")}
+              className="ml-auto tabletSmall:mb-12"
+            >
               все новинки
             </ButtonAnimate>
           </div>
