@@ -10,11 +10,14 @@ const LookBookItem = ({
   lookBook: GetLookBockQuery["lookBook"][0];
 }) => {
   return (
-    <div className="grid grid-cols-[432px_1fr] justify-between gap-[105px]">
-      <div className="flex flex-col gap-9">
-        <div className="flex flex-col gap-[19px]">
-          <h2 className="text-[28px]">{lookBook.title}</h2>
-          <p className="text-[#4F4F4F]">{lookBook.description}</p>
+    <div className="max-desktop1300:flex-col max-desktop1300:gap-9 flex max-w-full justify-between gap-2">
+      <div className="flex max-w-[432px] flex-col gap-9 max-mobile:gap-[18px]">
+        <div className="flex flex-col gap-[19px] max-mobile:gap-[6px]">
+          <h2 className="text-[28px] max-mobile:text-lg">{lookBook.title}</h2>
+
+          <p className="text-[#4F4F4F] max-mobile:text-sm">
+            {lookBook.description}
+          </p>
         </div>
 
         <Link
@@ -26,21 +29,21 @@ const LookBookItem = ({
         </Link>
       </div>
 
-      <div className="grid h-full w-full grid-cols-[250px_1fr] gap-[20px]">
-        <div className="flex flex-col justify-between gap-[20px]">
+      <div className="desktop1300:grid-cols-[250px_470px] max-desktop1300:flex desktop1300:grid h-full w-full justify-end gap-[20px] max-mobile:flex-col-reverse max-mobile:gap-4">
+        <div className="grid justify-between gap-[20px] max-mobile:w-full max-mobile:grid-cols-2 max-mobile:gap-4">
           <Image
             width={lookBook.img1.width}
             height={lookBook.img1.height}
             src={pathImage(lookBook.img1.id)}
             alt="Main Look"
-            className="h-full object-cover"
+            className="desktop1300:h-full object-cover max-mobile:w-full"
           />
           <Image
             width={lookBook.img2.width}
             height={lookBook.img2.height}
             src={pathImage(lookBook.img2.id)}
             alt="Main Look"
-            className="h-full object-cover"
+            className="desktop1300:h-full object-cover max-mobile:w-full"
           />
         </div>
 
@@ -49,7 +52,7 @@ const LookBookItem = ({
           height={lookBook.img3.height}
           src={pathImage(lookBook.img3.id)}
           alt="Main Look"
-          className="h-full w-full object-fill"
+          className="desktop1300:h-full w-full object-fill"
         />
       </div>
     </div>
