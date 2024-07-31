@@ -1,0 +1,5 @@
+query GetBasketByIds($ids: [GraphQLStringOrFloat]) {
+  goods(filter: { id: { _in: $ids } }) {
+    ...Good
+  }
+}

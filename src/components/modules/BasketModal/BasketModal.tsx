@@ -9,60 +9,31 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Basket } from "@/shared/icons/Basket";
-import { BasketItem } from "./BasketItem";
-import { User } from "@/shared/types/authForm";
 import {
   cn,
   getPluralForm,
   sumTotalCurrentPriceBasket,
   sumTotalAllPriceBasket,
 } from "@/lib/utils";
-import { useEffect } from "react";
-import {
-  deleteAllBasketByIdsFx,
-  getBasket,
-  getBasketFx,
-} from "@/shared/context/basket";
-import { useUnit } from "effector-react";
-import { $basket } from "@/shared/context/basket/state";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
+import { useEffect } from "react";
+import { deleteAll, getBasket } from "@/shared/context/basket";
+import { useBasket } from "@/shared/hooks/useBasket.hooks";
+import { BasketItem } from "./BasketItem";
+import { Button } from "@/components/ui/button";
 
-const BasketModal = ({
-  variant,
-  user,
-}: {
-  variant: VariantHeader;
-  user: User;
-}) => {
-  const isLoading = useUnit(getBasketFx.pending);
-
+const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const isTablet991 = useMediaQuery(991);
 
-  const basket = useUnit($basket);
+  const { basketIdsAndSizeAndCount: basket, ids, basketItems } = useBasket();
 
   useEffect(() => {
-    getBasket({
-      user_id: user.id,
-    });
-  }, [user.id]);
-
-  const allDelete = () => {
-    const basketIds = basket?.map((el) => el.id);
-
-    if (user && basketIds) {
-      deleteAllBasketByIdsFx({
-        ids: basketIds,
-        user_id: user.id,
-      });
+    if (ids.length > 0) {
+      getBasket({ ids: ids });
     }
-  };
-
-  if (isLoading) {
-    return null;
-  }
+  }, [ids]);
 
   return (
     <Dialog>
@@ -100,7 +71,7 @@ const BasketModal = ({
                 "mr-[60px]": isTablet991,
               })}
             >
-              <button onClick={allDelete}>
+              <button onClick={() => deleteAll()}>
                 <DeleteBasket />
               </button>
             </div>
@@ -125,14 +96,14 @@ const BasketModal = ({
             ))}
 
           {basket &&
-            basket.map((el) => {
-              return <BasketItem key={el.id} item={el} />;
+            basketItems.map((el) => {
+              return <BasketItem key={el.id} item={el} basket={basket} />;
             })}
         </div>
 
         <DialogFooter className="custom-shadow-footer relative after:h-[1px]">
           <div className="m-5 flex flex-col">
-            {basket && Boolean(basket.length > 0) && (
+            {basketItems && Boolean(basketItems.length > 0) && (
               <div className="flex flex-col gap-1 pb-3">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium">
@@ -147,11 +118,11 @@ const BasketModal = ({
 
                   <div className="flex items-center justify-center gap-[6px]">
                     <p className="text-sm font-medium text-[#8B8B8B] line-through">
-                      {basket && sumTotalAllPriceBasket(basket)} ₽
+                      {basket && sumTotalAllPriceBasket(basketItems)} ₽
                     </p>
 
                     <p className="text-lg font-medium">
-                      {basket && sumTotalCurrentPriceBasket(basket)} ₽
+                      {basket && sumTotalCurrentPriceBasket(basketItems)} ₽
                     </p>
                   </div>
                 </div>

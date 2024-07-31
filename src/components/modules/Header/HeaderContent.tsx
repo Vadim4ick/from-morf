@@ -7,18 +7,13 @@ import clsx from "clsx";
 import { VariantHeader } from "./Header";
 import { Burger } from "./Burger";
 import { BasketModal } from "../BasketModal/BasketModal";
-import { useAuth } from "@/shared/hooks/useAuth.hooks";
-import { useUnit } from "effector-react";
-import { $user } from "@/shared/context/user/state";
+
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { ProfileIcon } from "@/shared/icons/header/ProfileIcon";
 import { toggleAuthFormOpen } from "@/shared/context/auth";
 import { ProfileModal } from "../ProfileModal";
 
 const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
-  const { isAuth } = useAuth();
-  const user = useUnit($user);
-
   const isTablet834 = useMediaQuery(834);
 
   return (
@@ -62,7 +57,7 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
             />
           </Link>
 
-          {isAuth && user && <BasketModal user={user} variant={variant} />}
+          <BasketModal variant={variant} />
         </div>
 
         <ProfileModal />

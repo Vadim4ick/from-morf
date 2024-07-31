@@ -1,106 +1,119 @@
-import { gql } from "@/graphql/client";
-import { createDomain, createEffect } from "effector";
-import { toast } from "sonner";
+import { GetBasketByIdsQuery, gql } from "@/graphql/client";
+import { createDomain, createEffect, sample } from "effector";
+
+export interface Basket {
+  id: string;
+  size: {
+    value: string;
+    count: number;
+  }[];
+  totalCount: number;
+}
 
 export const basket = createDomain();
 
 export const setSelectedSize = basket.createEvent<string>();
 
-export const getBasket = basket.createEvent<{ user_id: string }>();
-export const updateBasket = basket.createEvent<{
-  goods_id: string;
-  count: number;
-}>();
+export const addBasketItem = basket.createEvent<{ id: string; size: string }>();
+export const setBasketOnLoad = basket.createEvent();
 
-export const getBasketFx = createEffect(
-  async ({ user_id }: { user_id: string }) => {
+export const deleteAll = basket.createEvent();
+export const deleteById = basket.createEvent<{ id: string }>();
+
+export const getBasket = basket.createEvent<{ ids: string[] }>();
+
+export const getBasketByIdsFx = createEffect(
+  async ({ ids }: { ids: string[] }) => {
     try {
-      const { basket } = await gql.GetBasket({
-        user_id: user_id,
-      });
+      const { goods } = await gql.GetBasketByIds({ ids: ids });
 
-      return basket;
+      return goods;
     } catch (error) {
       console.log("err", (error as Error).message);
     }
   },
 );
 
-export const createBasketFx = createEffect(
-  async ({
-    id,
-    size,
-    user_id,
-  }: {
-    id: string;
-    size: string;
-    user_id: string;
-  }) => {
-    try {
-      const { create_basket_item } = await gql.CreateBasket({
-        goods_id: typeof id === "number" ? id : parseInt(id),
+export const $basket = basket
+  .createStore<Basket[]>([])
+  .on(addBasketItem, (state, newItem) => {
+    let itemExists = false;
 
-        size: size,
+    const newArr = state.map((item) => {
+      if (item.id === newItem.id) {
+        itemExists = true;
+        let sizeExists = false;
 
-        user_id,
+        const updatedSizes = item.size.map((size) => {
+          if (size.value === newItem.size) {
+            sizeExists = true;
+            return { ...size, count: size.count + 1 };
+          }
+          return size;
+        });
+
+        if (!sizeExists) {
+          updatedSizes.push({ value: newItem.size, count: 1 });
+        }
+
+        // Calculate the totalCount
+        const totalCount = updatedSizes.reduce(
+          (total, size) => total + size.count,
+          0,
+        );
+
+        return { ...item, size: updatedSizes, totalCount };
+      }
+      return item;
+    });
+
+    if (!itemExists) {
+      const newItemSizes = [{ value: newItem.size, count: 1 }];
+      newArr.push({
+        id: newItem.id,
+        size: newItemSizes,
+        totalCount: 1, // initial count since we are adding the first size
       });
-
-      toast.success("Товар успешно добавлен в корзину!");
-
-      return create_basket_item;
-    } catch (error) {
-      console.log("err", (error as Error).message);
     }
-  },
-);
 
-export const updateBasketFx = createEffect(
-  async ({
-    goods_id,
-    count,
-    user_id,
-  }: {
-    goods_id: string;
-    count: number;
-    user_id: string;
-  }) => {
-    try {
-      const { update_basket_item } = await gql.UpdateBasket({
-        count,
-        goods_id,
-      });
+    localStorage.setItem("basket", JSON.stringify(newArr));
+    return newArr;
+  })
+  .on(setBasketOnLoad, () => {
+    const items = localStorage.getItem("basket");
 
-      return update_basket_item;
-    } catch (error) {
-      console.log("err", (error as Error).message);
+    if (items) {
+      return JSON.parse(items);
+    } else {
+      return [];
     }
-  },
-);
+  })
+  .on(deleteAll, () => {
+    localStorage.removeItem("basket");
+    return [];
+  })
+  .on(deleteById, (state, props) => {
+    const updatedItems = state.filter((item) => +item.id !== +props.id);
 
-export const deleteBasketByIdFx = createEffect(
-  async ({ id, user_id }: { id: string; user_id: string }) => {
-    try {
-      const { delete_basket_item } = await gql.DeleteBasketById({
-        id,
-      });
+    localStorage.setItem("basket", JSON.stringify(updatedItems));
+    return updatedItems;
+  });
 
-      return delete_basket_item;
-    } catch (error) {
-      console.log("err", (error as Error).message);
-    }
-  },
-);
+export const $basketItems = basket
+  .createStore<GetBasketByIdsQuery["goods"]>([])
+  .on(getBasketByIdsFx.done, (_, { result }) => result)
+  .on(deleteAll, () => {
+    return [];
+  })
+  .on(deleteById, (state, props) => {
+    const updatedItems = state.filter((item) => +item.id !== +props.id);
 
-export const deleteAllBasketByIdsFx = createEffect(
-  async ({ ids, user_id }: { ids: string[]; user_id: string }) => {
-    try {
-      const { delete_basket_items } = await gql.DeleteAllBasketByIds({
-        ids,
-      });
+    return updatedItems;
+  });
 
-      return delete_basket_items;
-    } catch (error) {
-      console.log("err", (error as Error).message);
-    }
-  },
-);
+sample({
+  clock: getBasket,
+  source: $basket,
+  fn: (_, data) => data,
+  target: getBasketByIdsFx,
+});

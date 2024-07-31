@@ -1,6 +1,0 @@
-mutation UpdateBasket($goods_id: ID!, $count: Int) {
-  update_basket_item(id: $goods_id, data: { count: $count }) {
-    id
-    count
-  }
-}

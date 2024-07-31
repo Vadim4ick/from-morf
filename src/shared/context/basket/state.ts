@@ -1,9 +1,11 @@
-import { GetBasketQuery } from "@/graphql/__generated__";
-import { basket, getBasketFx, setSelectedSize } from ".";
+import { basket, setSelectedSize } from ".";
 
-export const $basket = basket
-  .createStore<GetBasketQuery["basket"] | null>(null)
-  .on(getBasketFx.done, (_, { result }) => result);
+// interface Basket {
+//   id: string;
+//   size: string;
+// }
+
+// export const $basket = basket.createStore<Basket | null>(null);
 
 export const $selectedSize = basket
   .createStore<string>("")

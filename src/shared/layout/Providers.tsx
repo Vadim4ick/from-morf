@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { getMeFx, loadUser } from "../context/user/index";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { setBasketOnLoad } from "../context/basket";
 
 import { Loader } from "@/components/ui/loader";
 
@@ -26,6 +27,10 @@ const Providers = ({ children }: { children: ReactNode }) => {
       setLoading(false); // отключаем состояние загрузки, когда эффект завершён
     }
   }, [spinner]);
+
+  useEffect(() => {
+    setBasketOnLoad();
+  }, []);
 
   const [queryClient] = useState(
     new QueryClient({

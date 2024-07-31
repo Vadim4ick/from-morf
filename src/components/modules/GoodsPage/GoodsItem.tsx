@@ -14,15 +14,13 @@ import { Lightbox } from "@/components/ui/lightbox";
 import { GetGoodsQuery } from "@/graphql/__generated__";
 import ReactMarkdown from "react-markdown";
 import { cn, discountPrice, formatPrice, pathImage } from "@/lib/utils";
-import { Fragment, useState, Dispatch, SetStateAction } from "react";
+import { Fragment } from "react";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { toggleFavorite } from "@/shared/context/favorites";
 import { useUnit } from "effector-react";
-import { $user } from "@/shared/context/user/state";
-import { useAuth } from "@/shared/hooks/useAuth.hooks";
+import { $selectedSize } from "@/shared/context/basket/state";
+import { addBasketItem } from "@/shared/context/basket";
 import { toast } from "sonner";
-import { createBasketFx, updateBasketFx } from "@/shared/context/basket";
-import { $basket, $selectedSize } from "@/shared/context/basket/state";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -127,46 +125,19 @@ const AddBasket = ({
 const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const isDesktop1100 = useMediaQuery(1100);
 
-  const [user, selectedItem, basket] = useUnit([$user, $selectedSize, $basket]);
-
-  const { isAuth } = useAuth();
+  const [selectedItem] = useUnit([$selectedSize]);
 
   const onClick = async () => {
-    if (!isAuth) {
-      return toast.error("Авторизуйтесь!");
-    }
-
     if (!selectedItem.trim()) {
       return toast.error("Выберите размер!");
     }
 
-    if (user) {
-      const findItem = basket?.find((el) => {
-        if (
-          el.good.id === item.id &&
-          el.size === selectedItem &&
-          el.user.id === user.id
-        ) {
-          return true;
-        }
-      });
+    addBasketItem({
+      id: item.id,
+      size: selectedItem,
+    });
 
-      if (findItem) {
-        const newCount = findItem.count + 1;
-
-        updateBasketFx({
-          goods_id: findItem.id,
-          count: newCount,
-          user_id: user.id,
-        });
-      } else {
-        createBasketFx({
-          id: item.id,
-          size: selectedItem,
-          user_id: user.id,
-        });
-      }
-    }
+    toast.success("Товар успешно добавлен в корзину!");
   };
 
   return (

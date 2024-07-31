@@ -1,5 +1,0 @@
-mutation DeleteBasketById($id: ID!) {
-  delete_basket_item(id: $id) {
-    id
-  }
-}
