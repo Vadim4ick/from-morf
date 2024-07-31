@@ -20,27 +20,29 @@ const LookBookItemPage = ({
   }
 
   return (
-    <section className="pt-[calc(var(--header-height)_+_48px)]">
+    <section className="pt-[calc(var(--header-height)_+_48px)] max-mobile:pt-[calc(var(--header-height)_+_36px)]">
       <div className="container">
-        <div className="flex max-w-[626px] flex-col gap-[20px] pb-[49px]">
-          <h1 className="text-4xl">{lookBookItem.title}</h1>
+        <div className="flex max-w-[626px] flex-col gap-[20px] pb-[49px] max-tabletBig:gap-4 max-tabletBig:pb-9">
+          <h1 className="text-4xl max-tabletBig:text-[28px]">
+            {lookBookItem.title}
+          </h1>
 
-          <p className="text-[20px] text-[#4F4F4F]">
+          <p className="text-[20px] text-[#4F4F4F] max-tabletBig:text-base">
             {lookBookItem.description}
           </p>
         </div>
 
         {lookBookItem.mainImages.length > 0 && (
-          <div className="grid h-full w-full max-w-[1080px] grid-cols-[1fr_250px_250px] gap-[20px]">
+          <div className="grid h-full w-full max-w-[1080px] gap-[20px] mobile:grid-cols-[2.2fr_0.9fr_0.9fr]">
             <Image
               width={first.directus_files_id.width}
               height={first.directus_files_id.height}
               src={pathImage(first.directus_files_id.id)}
               alt="Main Look"
-              className="h-full w-full object-fill"
+              className="h-full w-full object-cover"
             />
 
-            <div className="flex flex-col justify-between gap-[20px]">
+            <div className="grid gap-[20px] max-mobile:grid-cols-2 mobile:grid-rows-2">
               {second.map((el) => (
                 <Image
                   key={el.id}
@@ -52,7 +54,8 @@ const LookBookItemPage = ({
                 />
               ))}
             </div>
-            <div className="flex flex-col justify-between gap-[20px]">
+
+            <div className="grid gap-[20px] max-mobile:grid-cols-2 mobile:grid-rows-2">
               {third.map((el) => (
                 <Image
                   key={el.id}
@@ -72,21 +75,23 @@ const LookBookItemPage = ({
             components={{
               li: ({ children }) => {
                 return (
-                  <li className="flex gap-[105px] text-[20px] text-[#181818]">
+                  <li className="max-desktop1300:gap-[20px] grid gap-[105px] text-[20px] text-[#181818] max-mobile:gap-9 mobile:grid-cols-2">
                     {children}
                   </li>
                 );
               },
+
               p: ({ children }) => {
                 return (
-                  <p className="pt-[90px] text-[20px] text-[#181818]">
+                  <p className="pt-[90px] text-[20px] text-[#181818] max-tabletBig:pt-9">
                     {children}
                   </p>
                 );
               },
+
               ol: ({ children }) => {
                 return (
-                  <ol className="flex flex-col gap-[170px] pt-[170px]">
+                  <ol className="flex flex-col gap-[170px] pt-[170px] max-tabletBig:pt-24 max-mobile:gap-24 max-mobile:pt-[72px]">
                     {children}
                   </ol>
                 );
@@ -99,7 +104,7 @@ const LookBookItemPage = ({
 
         {lookBookItem.slider.length > 0 && (
           <SliderLookBook
-            className="pt-[150px]"
+            className="pt-[150px] max-tabletBig:pt-[100px] max-mobile:pt-[72px]"
             container={false}
             title="товары из lookbook"
             items={lookBookItem.slider}
