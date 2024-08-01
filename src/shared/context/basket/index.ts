@@ -1,38 +1,28 @@
-import { GetBasketByIdsQuery, gql } from "@/graphql/client";
-import { createDomain, createEffect, sample } from "effector";
+import { createDomain } from "effector";
 
 export interface Basket {
   id: string;
-  size: {
-    value: string;
-    count: number;
-  }[];
-  totalCount: number;
+  size: string;
+  count: number;
+  title: string;
+  price: number;
+  discount: number;
+  images: {
+    id: string;
+    width: number;
+    height: number;
+  };
 }
 
 export const basket = createDomain();
 
 export const setSelectedSize = basket.createEvent<string>();
 
-export const addBasketItem = basket.createEvent<{ id: string; size: string }>();
+export const addBasketItem = basket.createEvent<Omit<Basket, "count">>();
 export const setBasketOnLoad = basket.createEvent();
 
 export const deleteAll = basket.createEvent();
-export const deleteById = basket.createEvent<{ id: string }>();
-
-export const getBasket = basket.createEvent<{ ids: string[] }>();
-
-export const getBasketByIdsFx = createEffect(
-  async ({ ids }: { ids: string[] }) => {
-    try {
-      const { goods } = await gql.GetBasketByIds({ ids: ids });
-
-      return goods;
-    } catch (error) {
-      console.log("err", (error as Error).message);
-    }
-  },
-);
+export const deleteById = basket.createEvent<{ id: string; size: string }>();
 
 export const $basket = basket
   .createStore<Basket[]>([])
@@ -40,40 +30,15 @@ export const $basket = basket
     let itemExists = false;
 
     const newArr = state.map((item) => {
-      if (item.id === newItem.id) {
+      if (item.id === newItem.id && item.size === newItem.size) {
         itemExists = true;
-        let sizeExists = false;
-
-        const updatedSizes = item.size.map((size) => {
-          if (size.value === newItem.size) {
-            sizeExists = true;
-            return { ...size, count: size.count + 1 };
-          }
-          return size;
-        });
-
-        if (!sizeExists) {
-          updatedSizes.push({ value: newItem.size, count: 1 });
-        }
-
-        // Calculate the totalCount
-        const totalCount = updatedSizes.reduce(
-          (total, size) => total + size.count,
-          0,
-        );
-
-        return { ...item, size: updatedSizes, totalCount };
+        return { ...item, count: item.count + 1 };
       }
       return item;
     });
 
     if (!itemExists) {
-      const newItemSizes = [{ value: newItem.size, count: 1 }];
-      newArr.push({
-        id: newItem.id,
-        size: newItemSizes,
-        totalCount: 1, // initial count since we are adding the first size
-      });
+      newArr.push({ ...newItem, count: 1 });
     }
 
     localStorage.setItem("basket", JSON.stringify(newArr));
@@ -93,27 +58,13 @@ export const $basket = basket
     return [];
   })
   .on(deleteById, (state, props) => {
-    const updatedItems = state.filter((item) => +item.id !== +props.id);
+    const id = props.id;
+    const size = props.size;
+
+    const updatedItems = state.filter(
+      (item) => !(item.id === id && item.size === size),
+    );
 
     localStorage.setItem("basket", JSON.stringify(updatedItems));
     return updatedItems;
   });
-
-export const $basketItems = basket
-  .createStore<GetBasketByIdsQuery["goods"]>([])
-  .on(getBasketByIdsFx.done, (_, { result }) => result)
-  .on(deleteAll, () => {
-    return [];
-  })
-  .on(deleteById, (state, props) => {
-    const updatedItems = state.filter((item) => +item.id !== +props.id);
-
-    return updatedItems;
-  });
-
-sample({
-  clock: getBasket,
-  source: $basket,
-  fn: (_, data) => data,
-  target: getBasketByIdsFx,
-});

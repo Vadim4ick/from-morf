@@ -1,4 +1,3 @@
-import { GetBasketByIdsQuery } from "@/graphql/__generated__";
 import { cn, discountPrice, formatPrice, pathImage } from "@/lib/utils";
 import { Basket, deleteById } from "@/shared/context/basket";
 import { toggleFavorite } from "@/shared/context/favorites";
@@ -8,30 +7,13 @@ import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Heart } from "@/shared/icons/Heart";
 import { useUnit } from "effector-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-const BasketItem = ({
-  item,
-  basket,
-}: {
-  item: GetBasketByIdsQuery["goods"][0];
-  basket: Basket[];
-}) => {
+const BasketItem = ({ basket }: { basket: Basket }) => {
   const user = useUnit($user);
-
-  const [el, setEl] = useState<Basket | null>(null);
-
-  useEffect(() => {
-    const currentItem = basket.find((el) => el.id === item.id);
-
-    if (currentItem) {
-      setEl(currentItem);
-    }
-  }, [basket, item.id]);
 
   const { favoritesFromLs } = useFavorite();
 
-  const isFavorite = favoritesFromLs.includes(item.id);
+  const isFavorite = favoritesFromLs.includes(basket.id);
 
   const increase = () => {
     if (user) {
@@ -58,37 +40,31 @@ const BasketItem = ({
   };
 
   const deleteItem = () => {
-    deleteById({ id: item.id });
+    deleteById({ id: basket.id, size: basket.size });
   };
 
   return (
     <article className="grid grid-cols-[74px_1fr_85px] gap-3">
       <div className="relative size-[74px]">
-        <Image
-          src={pathImage(item.images[0].directus_files_id.id)}
-          alt="test"
-          fill
-        />
+        <Image src={pathImage(basket.images.id)} alt="test" fill />
       </div>
 
       <div className="flex flex-col justify-between gap-1">
         <div className="flex flex-col">
-          <p className="font-medium">{item.name}</p>
+          <p className="font-medium">{basket.title}</p>
 
-          {el && (
-            <div className="text-sm text-[#7E7E7E]">
-              Размер:{" "}
-              <span className="font-medium text-darkGrayColor">
-                {el.size.map((el) => el.value).join(" ")}
-              </span>
-            </div>
-          )}
+          <div className="text-sm text-[#7E7E7E]">
+            Размер:{" "}
+            <span className="font-medium text-darkGrayColor">
+              {basket.size}
+            </span>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
-              toggleFavorite(item.id);
+              toggleFavorite(basket.id);
             }}
           >
             <Heart
@@ -107,13 +83,11 @@ const BasketItem = ({
 
       <div className="flex flex-col items-center justify-between gap-1">
         <div className="flex flex-col items-end">
-          <p className="text-lg font-medium">{formatPrice(item.price)} ₽</p>
+          <p className="text-lg font-medium">{formatPrice(basket.price)} ₽</p>
 
-          {item.discount > 0 && (
-            <span className="text-sm font-medium text-[#959595] line-through">
-              {discountPrice(item.discount, item.price)} ₽
-            </span>
-          )}
+          <span className="text-sm font-medium text-[#959595] line-through">
+            {discountPrice(basket.discount, basket.price)} ₽
+          </span>
         </div>
 
         <div className="flex w-full items-center justify-between">
@@ -124,7 +98,7 @@ const BasketItem = ({
             -
           </button>
 
-          {el && <div className="font-medium">{el.totalCount}</div>}
+          <div className="font-medium">{basket.count}</div>
 
           <button
             onClick={increase}

@@ -18,8 +18,7 @@ import {
   sumTotalAllPriceBasket,
 } from "@/lib/utils";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
-import { useEffect } from "react";
-import { deleteAll, getBasket } from "@/shared/context/basket";
+import { deleteAll } from "@/shared/context/basket";
 import { useBasket } from "@/shared/hooks/useBasket.hooks";
 import { BasketItem } from "./BasketItem";
 import { Button } from "@/components/ui/button";
@@ -27,13 +26,7 @@ import { Button } from "@/components/ui/button";
 const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const isTablet991 = useMediaQuery(991);
 
-  const { basketIdsAndSizeAndCount: basket, ids, basketItems } = useBasket();
-
-  useEffect(() => {
-    if (ids.length > 0) {
-      getBasket({ ids: ids });
-    }
-  }, [ids]);
+  const { basketIdsAndSizeAndCount: basket } = useBasket();
 
   return (
     <Dialog>
@@ -96,14 +89,14 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
             ))}
 
           {basket &&
-            basketItems.map((el) => {
-              return <BasketItem key={el.id} item={el} basket={basket} />;
+            basket.map((el) => {
+              return <BasketItem key={`${el.id}_${el.size}`} basket={el} />;
             })}
         </div>
 
         <DialogFooter className="custom-shadow-footer relative after:h-[1px]">
           <div className="m-5 flex flex-col">
-            {basketItems && Boolean(basketItems.length > 0) && (
+            {basket && Boolean(basket.length > 0) && (
               <div className="flex flex-col gap-1 pb-3">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium">
@@ -118,11 +111,11 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
 
                   <div className="flex items-center justify-center gap-[6px]">
                     <p className="text-sm font-medium text-[#8B8B8B] line-through">
-                      {basket && sumTotalAllPriceBasket(basketItems)} ₽
+                      {sumTotalAllPriceBasket(basket)} ₽
                     </p>
 
                     <p className="text-lg font-medium">
-                      {basket && sumTotalCurrentPriceBasket(basketItems)} ₽
+                      {sumTotalCurrentPriceBasket(basket)} ₽
                     </p>
                   </div>
                 </div>

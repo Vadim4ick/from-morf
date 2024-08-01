@@ -2,7 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import { User } from "@/shared/types/authForm";
-import { GetBasketByIdsQuery } from "@/graphql/__generated__";
+import { Basket } from "@/shared/context/basket";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -102,15 +102,11 @@ export const discountPrice = (
   return Math.floor(price * (1 + discount / 100));
 };
 
-export const sumTotalCurrentPriceBasket = (
-  basket: GetBasketByIdsQuery["goods"],
-) => {
+export const sumTotalCurrentPriceBasket = (basket: Basket[]) => {
   return formatPrice(basket.reduce((acc, current) => acc + current.price, 0));
 };
 
-export const sumTotalAllPriceBasket = (
-  basket: GetBasketByIdsQuery["goods"],
-) => {
+export const sumTotalAllPriceBasket = (basket: Basket[]) => {
   const newArr = basket.map((item) => {
     return discountPrice(item.discount, item.price, false);
   });

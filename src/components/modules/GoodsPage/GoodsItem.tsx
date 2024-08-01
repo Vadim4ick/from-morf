@@ -135,6 +135,14 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
     addBasketItem({
       id: item.id,
       size: selectedItem,
+      discount: item.discount,
+      price: item.price,
+      images: {
+        id: item.images[0].directus_files_id.id,
+        width: item.images[0].directus_files_id.width,
+        height: item.images[0].directus_files_id.height,
+      },
+      title: item.name,
     });
 
     toast.success("Товар успешно добавлен в корзину!");
