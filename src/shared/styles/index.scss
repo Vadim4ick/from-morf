@@ -85,3 +85,18 @@ body {
     padding-right: 30px;
   }
 }
+
+.tab-trigger[data-state="active"] {
+  color: #444444;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -10px;
+    left: 0;
+    border-bottom: 1px solid #000000;
+  }
+}
