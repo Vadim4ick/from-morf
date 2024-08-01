@@ -18,8 +18,7 @@ import { Fragment } from "react";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { toggleFavorite } from "@/shared/context/favorites";
 import { useUnit } from "effector-react";
-import { $selectedSize } from "@/shared/context/basket/state";
-import { addBasketItem } from "@/shared/context/basket";
+import { $selectedSize, addBasketItem } from "@/shared/context/basket";
 import { toast } from "sonner";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {

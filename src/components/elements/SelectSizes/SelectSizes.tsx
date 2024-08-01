@@ -7,8 +7,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { sizes } from "@/shared/const";
-import { setSelectedSize } from "@/shared/context/basket";
-import { $selectedSize } from "@/shared/context/basket/state";
+import { $selectedSize, setSelectedSize } from "@/shared/context/basket";
 import { useUnit } from "effector-react";
 import { useState } from "react";
 

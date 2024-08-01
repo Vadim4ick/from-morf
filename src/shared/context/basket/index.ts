@@ -24,6 +24,10 @@ export const setBasketOnLoad = basket.createEvent();
 export const deleteAll = basket.createEvent();
 export const deleteById = basket.createEvent<{ id: string; size: string }>();
 
+export const $selectedSize = basket
+  .createStore<string>("")
+  .on(setSelectedSize, (_, val) => val);
+
 export const $basket = basket
   .createStore<Basket[]>([])
   .on(addBasketItem, (state, newItem) => {

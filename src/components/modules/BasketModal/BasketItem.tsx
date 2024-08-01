@@ -85,9 +85,11 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
         <div className="flex flex-col items-end">
           <p className="text-lg font-medium">{formatPrice(basket.price)} ₽</p>
 
-          <span className="text-sm font-medium text-[#959595] line-through">
-            {discountPrice(basket.discount, basket.price)} ₽
-          </span>
+          {basket.discount > 0 && (
+            <span className="text-sm font-medium text-[#959595] line-through">
+              {discountPrice(basket.discount, basket.price)} ₽
+            </span>
+          )}
         </div>
 
         <div className="flex w-full items-center justify-between">

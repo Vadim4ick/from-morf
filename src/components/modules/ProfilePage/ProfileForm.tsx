@@ -26,7 +26,6 @@ const ProfileForm = ({ user }: { user: User }) => {
   });
 
   const [email, setEmail] = useState(user.email || "");
-  // const [phone, setPhone] = useState(user.phone || "");
   const [surname, setSurname] = useState(user.surname || "");
   const [name, setName] = useState(user.name || "");
   const [address, setAddress] = useState(user.address || "");
@@ -52,7 +51,7 @@ const ProfileForm = ({ user }: { user: User }) => {
 
       <div className="flex flex-col gap-[72px]">
         <div className="flex flex-col gap-5">
-          <div className="flex gap-5">
+          <div className="flex gap-5 max-mobile:flex-col">
             <label className="flex w-full cursor-pointer flex-col gap-[6px]">
               {errors.name && (
                 <div className="text-error">{errors.name.message}</div>

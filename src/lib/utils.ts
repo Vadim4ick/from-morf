@@ -69,6 +69,13 @@ export const formatPrice = (price: number) => {
   return new Intl.NumberFormat("ru-RU").format(price);
 };
 
+export const parsePrice = (formattedPrice: string): number => {
+  // Удаляем все пробелы и заменяем запятую на точку
+  const normalizedPrice = formattedPrice.replace(/\s/g, "").replace(",", ".");
+  // Преобразуем строку в число
+  return parseFloat(normalizedPrice);
+};
+
 export const getPluralForm = (count: number) => {
   if (count % 10 === 1 && count % 100 !== 11) {
     return "товар";
@@ -114,4 +121,13 @@ export const sumTotalAllPriceBasket = (basket: Basket[]) => {
   const totalSum = newArr.reduce((acc, current) => +acc + +current, 0);
 
   return formatPrice(+totalSum);
+};
+
+export const totalDiscount = (basket: Basket[]) => {
+  const priceDiscount = parsePrice(sumTotalAllPriceBasket(basket));
+  const priceCurrent = parsePrice(sumTotalCurrentPriceBasket(basket));
+
+  return formatPrice(
+    Math.round(Math.abs(((priceCurrent - priceDiscount) / priceCurrent) * 100)),
+  );
 };

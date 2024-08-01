@@ -16,6 +16,7 @@ import {
   getPluralForm,
   sumTotalCurrentPriceBasket,
   sumTotalAllPriceBasket,
+  totalDiscount,
 } from "@/lib/utils";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { deleteAll } from "@/shared/context/basket";
@@ -26,7 +27,7 @@ import { Button } from "@/components/ui/button";
 const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const isTablet991 = useMediaQuery(991);
 
-  const { basketIdsAndSizeAndCount: basket } = useBasket();
+  const { basketIdsAndSizeAndCount: basket, discountCount } = useBasket();
 
   return (
     <Dialog>
@@ -98,21 +99,31 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
           <div className="m-5 flex flex-col">
             {basket && Boolean(basket.length > 0) && (
               <div className="flex flex-col gap-1 pb-3">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium">
-                    Скидка <span className="text-[#7E7E7E]">(1 товар)</span>:
-                  </p>
+                {discountCount > 0 && (
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-medium">
+                      Скидка{" "}
+                      <span className="text-[#7E7E7E]">
+                        ({discountCount} {getPluralForm(discountCount)})
+                      </span>
+                      :
+                    </p>
 
-                  <div className="text-sm font-medium">25%</div>
-                </div>
+                    <div className="text-sm font-medium">
+                      {totalDiscount(basket)}%
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex items-center justify-between">
                   <p className="text-lg font-medium">Общая стоимость:</p>
 
                   <div className="flex items-center justify-center gap-[6px]">
-                    <p className="text-sm font-medium text-[#8B8B8B] line-through">
-                      {sumTotalAllPriceBasket(basket)} ₽
-                    </p>
+                    {discountCount > 0 && (
+                      <p className="text-sm font-medium text-[#8B8B8B] line-through">
+                        {sumTotalAllPriceBasket(basket)} ₽
+                      </p>
+                    )}
 
                     <p className="text-lg font-medium">
                       {sumTotalCurrentPriceBasket(basket)} ₽
