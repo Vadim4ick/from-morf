@@ -12,6 +12,7 @@ export interface Basket {
     width: number;
     height: number;
   };
+  totalPrice: number;
 }
 
 export const basket = createDomain();
@@ -24,6 +25,15 @@ export const setBasketOnLoad = basket.createEvent();
 export const deleteAll = basket.createEvent();
 export const deleteById = basket.createEvent<{ id: string; size: string }>();
 
+export const incrementItemCount = basket.createEvent<{
+  id: string;
+  size: string;
+}>();
+export const decrementItemCount = basket.createEvent<{
+  id: string;
+  size: string;
+}>();
+
 export const $selectedSize = basket
   .createStore<string>("")
   .on(setSelectedSize, (_, val) => val);
@@ -35,14 +45,16 @@ export const $basket = basket
 
     const newArr = state.map((item) => {
       if (item.id === newItem.id && item.size === newItem.size) {
+        const newCount = item.count + 1;
+
         itemExists = true;
-        return { ...item, count: item.count + 1 };
+        return { ...item, count: newCount, totalPrice: item.price * newCount };
       }
       return item;
     });
 
     if (!itemExists) {
-      newArr.push({ ...newItem, count: 1 });
+      newArr.push({ ...newItem, count: 1, totalPrice: newItem.price * 1 });
     }
 
     localStorage.setItem("basket", JSON.stringify(newArr));
@@ -71,4 +83,34 @@ export const $basket = basket
 
     localStorage.setItem("basket", JSON.stringify(updatedItems));
     return updatedItems;
+  })
+  .on(incrementItemCount, (state, { id, size }) => {
+    const newArr = state.map((item) => {
+      if (item.id === id && item.size === size) {
+        const newCount = item.count + 1;
+
+        return {
+          ...item,
+          count: newCount,
+          totalPrice: item.price * newCount,
+        };
+      }
+      return item;
+    });
+
+    localStorage.setItem("basket", JSON.stringify(newArr));
+    return newArr;
+  })
+  .on(decrementItemCount, (state, { id, size }) => {
+    const newArr = state.map((item) => {
+      if (item.id === id && item.size === size && item.count > 1) {
+        const newCount = item.count - 1;
+
+        return { ...item, count: newCount, totalPrice: item.price * newCount };
+      }
+      return item;
+    });
+
+    localStorage.setItem("basket", JSON.stringify(newArr));
+    return newArr;
   });

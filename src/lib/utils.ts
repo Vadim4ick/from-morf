@@ -110,12 +110,14 @@ export const discountPrice = (
 };
 
 export const sumTotalCurrentPriceBasket = (basket: Basket[]) => {
-  return formatPrice(basket.reduce((acc, current) => acc + current.price, 0));
+  return formatPrice(
+    basket.reduce((acc, current) => acc + current.totalPrice, 0),
+  );
 };
 
 export const sumTotalAllPriceBasket = (basket: Basket[]) => {
   const newArr = basket.map((item) => {
-    return discountPrice(item.discount, item.price, false);
+    return discountPrice(item.discount, item.totalPrice, false);
   });
 
   const totalSum = newArr.reduce((acc, current) => +acc + +current, 0);

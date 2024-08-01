@@ -136,6 +136,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
       size: selectedItem,
       discount: item.discount,
       price: item.price,
+      totalPrice: item.price,
       images: {
         id: item.images[0].directus_files_id.id,
         width: item.images[0].directus_files_id.width,

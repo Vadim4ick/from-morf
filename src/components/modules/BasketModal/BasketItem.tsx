@@ -1,42 +1,33 @@
 import { cn, discountPrice, formatPrice, pathImage } from "@/lib/utils";
-import { Basket, deleteById } from "@/shared/context/basket";
+import {
+  Basket,
+  decrementItemCount,
+  deleteById,
+  incrementItemCount,
+} from "@/shared/context/basket";
 import { toggleFavorite } from "@/shared/context/favorites";
-import { $user } from "@/shared/context/user/state";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Heart } from "@/shared/icons/Heart";
-import { useUnit } from "effector-react";
 import Image from "next/image";
 
 const BasketItem = ({ basket }: { basket: Basket }) => {
-  const user = useUnit($user);
-
   const { favoritesFromLs } = useFavorite();
 
   const isFavorite = favoritesFromLs.includes(basket.id);
 
   const increase = () => {
-    if (user) {
-      // const newCount = item.count + 1;
-      // updateBasketFx({
-      //   goods_id: item.id,
-      //   count: newCount,
-      //   user_id: user.id,
-      // });
-    }
+    incrementItemCount({
+      id: basket.id,
+      size: basket.size,
+    });
   };
 
   const decrease = () => {
-    if (user) {
-      // const newCount = item.count - 1;
-      // if (newCount >= 1) {
-      //   updateBasketFx({
-      //     goods_id: item.id,
-      //     count: newCount,
-      //     user_id: user.id,
-      //   });
-      // }
-    }
+    decrementItemCount({
+      id: basket.id,
+      size: basket.size,
+    });
   };
 
   const deleteItem = () => {
@@ -83,11 +74,13 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
 
       <div className="flex flex-col items-center justify-between gap-1">
         <div className="flex flex-col items-end">
-          <p className="text-lg font-medium">{formatPrice(basket.price)} ₽</p>
+          <p className="text-lg font-medium">
+            {formatPrice(basket.totalPrice)} ₽
+          </p>
 
           {basket.discount > 0 && (
             <span className="text-sm font-medium text-[#959595] line-through">
-              {discountPrice(basket.discount, basket.price)} ₽
+              {discountPrice(basket.discount, basket.totalPrice)} ₽
             </span>
           )}
         </div>
