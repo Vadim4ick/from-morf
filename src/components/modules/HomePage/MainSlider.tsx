@@ -6,14 +6,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Arrow } from "@/shared/icons/Arrow";
 import { GetHomePageQuery } from "@/graphql/__generated__";
-import { pathImage } from "@/lib/utils";
+import { cn, pathImage } from "@/lib/utils";
 import Link from "next/link";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 
 const MainSlider = ({
   slides,
 }: {
   slides: GetHomePageQuery["homePage"]["mainSlider"];
 }) => {
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
+
   return (
     <section className="relative">
       <Swiper
@@ -40,10 +43,13 @@ const MainSlider = ({
               <div className="bgGradientMainSlider relative h-screen w-full">
                 <Image
                   priority
-                  className="object-cover"
+                  className={cn("object-cover", {
+                    skeleton: imgSpinner,
+                  })}
                   alt="1.png"
                   src={pathImage(el.mainSlider_id.image.id)}
                   fill
+                  onLoad={handleLoadingImageComplete}
                 />
 
                 <div className="container absolute bottom-[160px] left-1/2 z-10 flex -translate-x-1/2 flex-col gap-8 text-white">

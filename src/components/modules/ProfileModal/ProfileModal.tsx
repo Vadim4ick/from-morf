@@ -26,6 +26,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { protectedPath } from "@/shared/const";
 import { Button } from "@/components/ui/button";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 
 const ProfileModal = () => {
   const [currentForm, user, authFormOpen] = useUnit([
@@ -38,6 +39,8 @@ const ProfileModal = () => {
 
   const pathname = usePathname();
   const route = useRouter();
+
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   const onExit = () => {
     removeAccessToken();
@@ -103,7 +106,10 @@ const ProfileModal = () => {
                     src={
                       user?.avatar ? pathImage(user.avatar) : "/no-avatar.png"
                     }
-                    className="size-[52px] rounded-full"
+                    className={cn("size-[52px] rounded-full", {
+                      skeleton: imgSpinner,
+                    })}
+                    onLoad={handleLoadingImageComplete}
                   />
 
                   <div className="flex flex-col items-start">

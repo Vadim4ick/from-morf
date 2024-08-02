@@ -5,6 +5,7 @@ import { cn, formatPrice, pathImage } from "@/lib/utils";
 import { sizes } from "@/shared/const";
 import { toggleFavorite } from "@/shared/context/favorites";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 import { Heart } from "@/shared/icons/Heart";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,6 +42,8 @@ const NewItemCart = ({
     item.select.includes(detail.value),
   );
 
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
+
   return (
     <article className="group overflow-hidden">
       <div className="relative">
@@ -53,6 +56,7 @@ const NewItemCart = ({
               height={
                 sizesImg === "default" ? defaultSize.height : bigSize.height
               }
+              onLoad={handleLoadingImageComplete}
               className={cn(
                 "object-cover transition-all duration-500 group-hover:pr-[45px]",
                 {
@@ -63,6 +67,8 @@ const NewItemCart = ({
                   "aspect-square": sizesImg === "goods",
                   "h-[500px] w-full max-tabletBig:h-[412px] max-mobile:h-[433px]":
                     sizesImg === "recommended",
+
+                  skeleton: imgSpinner,
                 },
               )}
             />

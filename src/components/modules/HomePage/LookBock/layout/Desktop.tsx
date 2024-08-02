@@ -1,11 +1,14 @@
-import { pathImage } from "@/lib/utils";
+import { cn, pathImage } from "@/lib/utils";
 import { ArrowLink } from "@/shared/icons/ArrowLink";
 import Image from "next/image";
 import Link from "next/link";
 import { LookBookDefaultProps } from "./type";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 
 const Desktop = (props: LookBookDefaultProps) => {
   const { description, img1, img2, img3, img4, title } = props;
+
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   return (
     <div className="grid grid-cols-2 gap-[20px]">
@@ -28,6 +31,10 @@ const Desktop = (props: LookBookDefaultProps) => {
           height={img1.height}
           src={pathImage(img1.id)}
           alt="Main Look"
+          className={cn("", {
+            skeleton: imgSpinner,
+          })}
+          onLoad={handleLoadingImageComplete}
         />
       </div>
 
@@ -37,7 +44,10 @@ const Desktop = (props: LookBookDefaultProps) => {
           height={img2.height}
           src={pathImage(img2.id)}
           alt="Main Look"
-          className="h-fit"
+          className={cn("h-fit", {
+            skeleton: imgSpinner,
+          })}
+          onLoad={handleLoadingImageComplete}
         />
 
         <div className="flex gap-[20px]">
@@ -46,7 +56,10 @@ const Desktop = (props: LookBookDefaultProps) => {
             height={img3.height}
             src={pathImage(img3.id)}
             alt="Main Look"
-            className="h-fit"
+            className={cn("h-fit", {
+              skeleton: imgSpinner,
+            })}
+            onLoad={handleLoadingImageComplete}
           />
 
           <Image
@@ -54,7 +67,10 @@ const Desktop = (props: LookBookDefaultProps) => {
             height={img4.height}
             src={pathImage(img4.id)}
             alt="Main Look"
-            className="mt-[100px] h-fit"
+            className={cn("mt-[100px] h-fit", {
+              skeleton: imgSpinner,
+            })}
+            onLoad={handleLoadingImageComplete}
           />
         </div>
       </div>

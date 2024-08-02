@@ -19,6 +19,8 @@ import { toggleFavorite } from "@/shared/context/favorites";
 import { useUnit } from "effector-react";
 import { $selectedSize, addBasketItem } from "@/shared/context/basket";
 import { toast } from "sonner";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -146,6 +148,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
 
     toast.success("Товар успешно добавлен в корзину!");
   };
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   return (
     <section className="container pb-[135px] pt-[calc(var(--header-height)_+_32px)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px] max-mobile:pt-[calc(var(--header-height)_+_24px)]">
@@ -162,10 +165,13 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                   <Lightbox key={el.id} imageUrl={pathImage(el.item.img.id)}>
                     <Image
                       src={pathImage(el.item.img.id)}
-                      className="h-full w-full"
+                      className={cn("h-full w-full", {
+                        skeleton: imgSpinner,
+                      })}
                       alt=""
                       height={el.item.img.height}
                       width={el.item.img.width}
+                      onLoad={handleLoadingImageComplete}
                     />
                   </Lightbox>
                 );
@@ -178,20 +184,26 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                     <Lightbox imageUrl={pathImage(el.item.imgOne.id)}>
                       <Image
                         src={pathImage(el.item.imgOne.id)}
-                        className="h-full w-full object-cover"
+                        className={cn("h-full w-full object-cover", {
+                          skeleton: imgSpinner,
+                        })}
                         alt=""
                         height={el.item.imgOne.height}
                         width={el.item.imgOne.width}
+                        onLoad={handleLoadingImageComplete}
                       />
                     </Lightbox>
 
                     <Lightbox imageUrl={pathImage(el.item.imgTwo.id)}>
                       <Image
-                        className="h-full w-full object-cover"
+                        className={cn("h-full w-full object-cover", {
+                          skeleton: imgSpinner,
+                        })}
                         alt=""
                         src={pathImage(el.item.imgTwo.id)}
                         height={el.item.imgTwo.height}
                         width={el.item.imgTwo.width}
+                        onLoad={handleLoadingImageComplete}
                       />
                     </Lightbox>
                   </div>

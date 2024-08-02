@@ -103,6 +103,10 @@ body {
   .heading {
     @apply text-center text-[32px] font-bold uppercase max-mobile:text-[24px];
   }
+
+  .skeleton {
+    @apply animate-pulse rounded-md bg-muted;
+  }
 }
 
 @layer base {

@@ -2,10 +2,13 @@ import { ArrowLink } from "@/shared/icons/ArrowLink";
 import Image from "next/image";
 import Link from "next/link";
 import { LookBookDefaultProps } from "./type";
-import { pathImage } from "@/lib/utils";
+import { cn, pathImage } from "@/lib/utils";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 
 const Mobile = (props: LookBookDefaultProps) => {
   const { description, img1, img2, img3, img4, title } = props;
+
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   return (
     <div className="flex flex-col gap-[20px]">
@@ -32,7 +35,10 @@ const Mobile = (props: LookBookDefaultProps) => {
             height={img1.height}
             src={pathImage(img1.id)}
             alt="Main Look"
-            className="max-mobileSmall:pl-[135px]"
+            className={cn("max-mobileSmall:pl-[135px]", {
+              skeleton: imgSpinner,
+            })}
+            onLoad={handleLoadingImageComplete}
           />
         </div>
       </div>
@@ -43,7 +49,10 @@ const Mobile = (props: LookBookDefaultProps) => {
           height={img2.height}
           src={pathImage(img2.id)}
           alt="Main Look"
-          className="w-full object-cover"
+          className={cn("w-full object-cover", {
+            skeleton: imgSpinner,
+          })}
+          onLoad={handleLoadingImageComplete}
         />
 
         <div className="flex gap-[20px]">
@@ -52,7 +61,10 @@ const Mobile = (props: LookBookDefaultProps) => {
             height={img4.height}
             src={pathImage(img4.id)}
             alt="Main Look"
-            className="max-h-[400px] w-full object-cover"
+            className={cn("max-h-[400px] w-full object-cover", {
+              skeleton: imgSpinner,
+            })}
+            onLoad={handleLoadingImageComplete}
           />
 
           <Image
@@ -60,7 +72,10 @@ const Mobile = (props: LookBookDefaultProps) => {
             height={img3.height}
             src={pathImage(img3.id)}
             alt="Main Look"
-            className="max-h-[400px] w-full object-cover"
+            className={cn("max-h-[400px] w-full object-cover", {
+              skeleton: imgSpinner,
+            })}
+            onLoad={handleLoadingImageComplete}
           />
         </div>
       </div>

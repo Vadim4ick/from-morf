@@ -2,10 +2,13 @@ import { ArrowLink } from "@/shared/icons/ArrowLink";
 import Image from "next/image";
 import Link from "next/link";
 import { LookBookDefaultProps } from "./type";
-import { pathImage } from "@/lib/utils";
+import { cn, pathImage } from "@/lib/utils";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 
 const Tablet = (props: LookBookDefaultProps) => {
   const { description, img1, img2, img3, img4, title } = props;
+
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   return (
     <div className="flex flex-col gap-[20px]">
@@ -29,7 +32,10 @@ const Tablet = (props: LookBookDefaultProps) => {
           height={img2.height}
           src={pathImage(img2.id)}
           alt="Main Look"
-          className="max-h-[288px] object-cover"
+          className={cn("max-h-[288px] object-cover", {
+            skeleton: imgSpinner,
+          })}
+          onLoad={handleLoadingImageComplete}
         />
       </div>
 
@@ -40,7 +46,10 @@ const Tablet = (props: LookBookDefaultProps) => {
             height={img4.height}
             src={pathImage(img4.id)}
             alt="Main Look"
-            className="h-fit max-h-[283px]"
+            className={cn("h-fit max-h-[283px]", {
+              skeleton: imgSpinner,
+            })}
+            onLoad={handleLoadingImageComplete}
           />
 
           <Image
@@ -48,7 +57,10 @@ const Tablet = (props: LookBookDefaultProps) => {
             height={img3.height}
             src={pathImage(img3.id)}
             alt="Main Look"
-            className="h-fit max-h-[283px]"
+            className={cn("h-fit max-h-[283px]", {
+              skeleton: imgSpinner,
+            })}
+            onLoad={handleLoadingImageComplete}
           />
         </div>
 
@@ -57,6 +69,10 @@ const Tablet = (props: LookBookDefaultProps) => {
           height={img1.height}
           src={pathImage(img1.id)}
           alt="Main Look"
+          className={cn("", {
+            skeleton: imgSpinner,
+          })}
+          onLoad={handleLoadingImageComplete}
         />
       </div>
     </div>
