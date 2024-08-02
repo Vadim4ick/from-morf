@@ -20,7 +20,7 @@ const TableSizeModal = () => {
       <SheetContent
         side={isDesktop1100 ? "bottom" : "right"}
         className={cn(
-          "desktop:max-w-[505px max-mobileSmall:pb-[33px]] w-full max-mobileSmall:pl-[16px] max-mobileSmall:pt-[40px] mobileSmall:p-4",
+          "w-full max-mobileSmall:pb-[33px] max-mobileSmall:pl-[16px] max-mobileSmall:pt-[40px] mobileSmall:p-4 desktop:max-w-[505px]",
         )}
       >
         <div className="max-desktop:px-[50px] max-mobile:px-0">

@@ -65,7 +65,7 @@ const Lightbox = ({ children, imageUrl }: LightboxProps) => {
               <img
                 src={imageUrl}
                 alt="Lightbox"
-                className="max-h-full max-w-full"
+                className="h-full max-h-[880px] w-full max-w-[930px]"
               />
               <button
                 className="absolute -right-[41px] top-0 flex size-9 items-center justify-center text-white max-tabletBig:right-1 max-tabletBig:top-1 tabletBig:bg-[#E4E4E4]"

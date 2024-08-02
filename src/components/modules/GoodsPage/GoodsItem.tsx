@@ -162,7 +162,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                   <Lightbox key={el.id} imageUrl={pathImage(el.item.img.id)}>
                     <Image
                       src={pathImage(el.item.img.id)}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full"
                       alt=""
                       height={el.item.img.height}
                       width={el.item.img.width}
