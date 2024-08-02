@@ -1,16 +1,19 @@
 import { ArrowLink } from "@/shared/icons/ArrowLink";
 import Image from "next/image";
 import Link from "next/link";
+import { LookBookDefaultProps } from "./type";
+import { pathImage } from "@/lib/utils";
 
-const Mobile = () => {
+const Mobile = (props: LookBookDefaultProps) => {
+  const { description, img1, img2, img3, img4, title } = props;
+
   return (
     <div className="flex flex-col gap-[20px]">
       <div className="flex flex-col justify-between gap-[20px]">
         <div className="max-w-[280px]">
-          <h1 className="mb-[12px] text-[28px] font-bold">LOOK BOOK</h1>
+          <h1 className="mb-[12px] text-[28px] font-bold">{title}</h1>
           <p className="mb-4 max-w-[440px] text-[14px] text-[#4F4F4F]">
-            Изысканный костюм и белая рубашка – символы безупречного вкуса.
-            Сумки светлых тонов завершают ваш образ, добавляя нотку роскоши.
+            {description}
           </p>
 
           <Link
@@ -25,9 +28,9 @@ const Mobile = () => {
 
         <div className="flex w-full justify-end">
           <Image
-            width={380}
-            height={586}
-            src="/lookBock/1.png"
+            width={img1.width}
+            height={img1.height}
+            src={pathImage(img1.id)}
             alt="Main Look"
             className="max-mobileSmall:pl-[135px]"
           />
@@ -36,26 +39,26 @@ const Mobile = () => {
 
       <div className="flex flex-col gap-[20px]">
         <Image
-          width={380}
-          height={288}
-          src="/lookBock/2.png"
+          width={img2.width}
+          height={img2.height}
+          src={pathImage(img2.id)}
           alt="Main Look"
           className="w-full object-cover"
         />
 
         <div className="flex gap-[20px]">
           <Image
-            width={307}
-            height={290}
-            src="/lookBock/4.png"
+            width={img4.width}
+            height={img4.height}
+            src={pathImage(img4.id)}
             alt="Main Look"
             className="max-h-[400px] w-full object-cover"
           />
 
           <Image
-            width={307}
-            height={290}
-            src="/lookBock/3.png"
+            width={img3.width}
+            height={img3.height}
+            src={pathImage(img3.id)}
             alt="Main Look"
             className="max-h-[400px] w-full object-cover"
           />

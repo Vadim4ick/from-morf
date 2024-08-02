@@ -4,18 +4,37 @@ import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { Desktop } from "./layout/Desktop";
 import { Tablet } from "./layout/Tablet";
 import { Mobile } from "./layout/Mobile";
+import { GetHomePageLookBookQuery } from "@/graphql/__generated__";
 
-const LookBock = () => {
+const LookBock = ({
+  lookBock,
+}: {
+  lookBock: GetHomePageLookBookQuery["lookBock"];
+}) => {
   const isTablet834 = useMediaQuery(834);
   const isMobile768 = useMediaQuery(768);
 
+  const img1 = lookBock.images[0].directus_files_id;
+  const img2 = lookBock.images[1].directus_files_id;
+  const img3 = lookBock.images[2].directus_files_id;
+  const img4 = lookBock.images[3].directus_files_id;
+
+  const props = {
+    title: lookBock.title,
+    description: lookBock.description,
+    img1: img1,
+    img2: img2,
+    img3: img3,
+    img4: img4,
+  };
+
   return (
     <section className="container my-32 py-4 max-mobileSmall:my-[72px]">
-      {!isTablet834 && <Desktop />}
+      {!isTablet834 && <Desktop {...props} />}
 
-      {isTablet834 && !isMobile768 && <Tablet />}
+      {isTablet834 && !isMobile768 && <Tablet {...props} />}
 
-      {isMobile768 && <Mobile />}
+      {isMobile768 && <Mobile {...props} />}
     </section>
   );
 };

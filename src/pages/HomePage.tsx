@@ -6,6 +6,7 @@ import { NewItems } from "@/components/modules/HomePage/NewItems";
 import { SliderBestsellers } from "@/components/modules/HomePage/SliderBestsellers";
 import { StyleAdvice } from "@/components/modules/StyleAdvice/StyleAdvice";
 import {
+  GetHomePageLookBookQuery,
   GetHomePageQuery,
   GetLastTwoStyleTipsQuery,
 } from "@/graphql/__generated__";
@@ -13,9 +14,11 @@ import {
 const HomePage = ({
   homePage,
   styleTips,
+  lookBock,
 }: {
   homePage: GetHomePageQuery["homePage"];
   styleTips: GetLastTwoStyleTipsQuery["styleTips"];
+  lookBock: GetHomePageLookBookQuery["lookBock"];
 }) => {
   return (
     <>
@@ -23,7 +26,7 @@ const HomePage = ({
         <MainSlider slides={homePage.mainSlider} />
       )}
 
-      <LookBock />
+      {lookBock && <LookBock lookBock={lookBock} />}
 
       <section className="bg-blackColor">
         <div className="container px-[67px] py-[17px] max-tabletSmall:px-4">

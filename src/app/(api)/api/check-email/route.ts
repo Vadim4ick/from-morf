@@ -9,11 +9,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { data } = await axios.get("http://0.0.0.0:8055/users", {
-      params: {
-        "filter[email][_eq]": email,
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
+      {
+        params: {
+          "filter[email][_eq]": email,
+        },
       },
-    });
+    );
 
     if (data.data && data.data.length > 0) {
       return NextResponse.json({ registered: true, status: 200 });

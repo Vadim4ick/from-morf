@@ -1,15 +1,19 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 
-export async function Get() {
+export async function POST() {
+  console.log("123", 123);
+
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/items/homePage`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/items/lookBock`,
     );
 
-    const itemCount = response.data.data.test.length;
+    const itemCount = response.data.data.images.length;
 
-    if (itemCount >= 3) {
+    console.log("itemCount", itemCount);
+
+    if (itemCount < 4) {
       return NextResponse.json(
         {
           error: "Нельзя создавать более 3 элементов в этой коллекции.",
@@ -22,6 +26,7 @@ export async function Get() {
     }
   } catch (error) {
     console.error("Error checking item count:", error);
+
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 },

@@ -1,0 +1,12 @@
+query GetHomePageLookBook {
+  lookBock {
+    id
+    title
+    description
+    images {
+      directus_files_id {
+        ...MediaFragment
+      }
+    }
+  }
+}
