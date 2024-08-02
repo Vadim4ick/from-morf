@@ -19,19 +19,10 @@ const ProfilePage = () => {
   const spinner = useUnit(getMeFx.pending);
   const spinnerUpdate = useUnit(updateUserFx.pending);
 
-  const { favorites, isLoading } = useFavorite();
+  const { favorites, isLoading, loadFavorites } = useFavorite();
 
   useEffect(() => {
-    const data = localStorage.getItem("favs");
-
-    if (data) {
-      const favs = JSON.parse(data);
-
-      if (typeof favs === "object" && favs.length > 0) {
-        setFavoriteOnLoad(favs);
-        getFavs({ ids: favs });
-      }
-    }
+    loadFavorites();
   }, []);
 
   if (spinner || spinnerUpdate || isLoading) {

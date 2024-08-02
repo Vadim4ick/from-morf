@@ -4,27 +4,15 @@ import { NewItemCart } from "@/components/elements/NewItemCart";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/ui/loader";
 import { getPluralForm } from "@/lib/utils";
-import { getFavs, setFavoriteOnLoad } from "@/shared/context/favorites";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { Heart } from "@/shared/icons/Heart";
 import { useEffect } from "react";
 
 const FavoritesPage = () => {
-  const { favorites, isLoading } = useFavorite();
+  const { favorites, isLoading, loadFavorites } = useFavorite();
 
   useEffect(() => {
-    const data = localStorage.getItem("favs");
-
-    if (data) {
-      const favs = JSON.parse(data);
-
-      if (typeof favs === "object" && favs.length > 0) {
-        console.log(data);
-
-        setFavoriteOnLoad(favs);
-        getFavs({ ids: favs });
-      }
-    }
+    loadFavorites();
   }, []);
 
   if (isLoading) {
