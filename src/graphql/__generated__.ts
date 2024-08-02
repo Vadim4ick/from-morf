@@ -72,6 +72,10 @@ export type Query = {
   readonly homePage_goods_aggregated: ReadonlyArray<HomePage_Goods_Aggregated>;
   readonly homePage_goods_by_id: Maybe<HomePage_Goods>;
   readonly homePage_goods_by_version: Maybe<Version_HomePage_Goods>;
+  readonly homePage_mainSlider: ReadonlyArray<HomePage_MainSlider>;
+  readonly homePage_mainSlider_aggregated: ReadonlyArray<HomePage_MainSlider_Aggregated>;
+  readonly homePage_mainSlider_by_id: Maybe<HomePage_MainSlider>;
+  readonly homePage_mainSlider_by_version: Maybe<Version_HomePage_MainSlider>;
   readonly lookBook: ReadonlyArray<LookBook>;
   readonly lookBook_aggregated: ReadonlyArray<LookBook_Aggregated>;
   readonly lookBook_by_id: Maybe<LookBook>;
@@ -88,6 +92,10 @@ export type Query = {
   readonly lookBook_goods_aggregated: ReadonlyArray<LookBook_Goods_Aggregated>;
   readonly lookBook_goods_by_id: Maybe<LookBook_Goods>;
   readonly lookBook_goods_by_version: Maybe<Version_LookBook_Goods>;
+  readonly mainSlider: ReadonlyArray<MainSlider>;
+  readonly mainSlider_aggregated: ReadonlyArray<MainSlider_Aggregated>;
+  readonly mainSlider_by_id: Maybe<MainSlider>;
+  readonly mainSlider_by_version: Maybe<Version_MainSlider>;
   readonly sectionsDirections: ReadonlyArray<SectionsDirections>;
   readonly sectionsDirections_aggregated: ReadonlyArray<SectionsDirections_Aggregated>;
   readonly sectionsDirections_by_id: Maybe<SectionsDirections>;
@@ -439,6 +447,39 @@ export type QueryHomePage_Goods_By_VersionArgs = {
 };
 
 
+export type QueryHomePage_MainSliderArgs = {
+  filter: InputMaybe<HomePage_MainSlider_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryHomePage_MainSlider_AggregatedArgs = {
+  filter: InputMaybe<HomePage_MainSlider_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryHomePage_MainSlider_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryHomePage_MainSlider_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
 export type QueryLookBookArgs = {
   filter: InputMaybe<LookBook_Filter>;
   limit: InputMaybe<Scalars['Int']['input']>;
@@ -571,6 +612,39 @@ export type QueryLookBook_Goods_By_VersionArgs = {
 };
 
 
+export type QueryMainSliderArgs = {
+  filter: InputMaybe<MainSlider_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryMainSlider_AggregatedArgs = {
+  filter: InputMaybe<MainSlider_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryMainSlider_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryMainSlider_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
 export type QuerySectionsDirectionsArgs = {
   filter: InputMaybe<SectionsDirections_Filter>;
   limit: InputMaybe<Scalars['Int']['input']>;
@@ -651,11 +725,13 @@ export type Subscription = {
   readonly goods_mutated: Maybe<Goods_Mutated>;
   readonly homePage_goods_1_mutated: Maybe<HomePage_Goods_1_Mutated>;
   readonly homePage_goods_mutated: Maybe<HomePage_Goods_Mutated>;
+  readonly homePage_mainSlider_mutated: Maybe<HomePage_MainSlider_Mutated>;
   readonly homePage_mutated: Maybe<HomePage_Mutated>;
   readonly lookBook_files_1_mutated: Maybe<LookBook_Files_1_Mutated>;
   readonly lookBook_files_mutated: Maybe<LookBook_Files_Mutated>;
   readonly lookBook_goods_mutated: Maybe<LookBook_Goods_Mutated>;
   readonly lookBook_mutated: Maybe<LookBook_Mutated>;
+  readonly mainSlider_mutated: Maybe<MainSlider_Mutated>;
   readonly sectionsDirections_mutated: Maybe<SectionsDirections_Mutated>;
   readonly styleTips_mutated: Maybe<StyleTips_Mutated>;
 };
@@ -726,6 +802,11 @@ export type SubscriptionHomePage_Goods_MutatedArgs = {
 };
 
 
+export type SubscriptionHomePage_MainSlider_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
 export type SubscriptionHomePage_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
@@ -751,6 +832,11 @@ export type SubscriptionLookBook_MutatedArgs = {
 };
 
 
+export type SubscriptionMainSlider_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
 export type SubscriptionSectionsDirections_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
@@ -763,7 +849,18 @@ export type SubscriptionStyleTips_MutatedArgs = {
 export type AdditionalSections = {
   readonly __typename?: 'additionalSections';
   readonly id: Scalars['ID']['output'];
+  readonly test: Maybe<ReadonlyArray<Maybe<Goods_AdditionalSections>>>;
   readonly title: Maybe<Scalars['String']['output']>;
+};
+
+
+export type AdditionalSectionsTestArgs = {
+  filter: InputMaybe<Goods_AdditionalSections_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type AdditionalSections_Aggregated = {
@@ -795,6 +892,7 @@ export type AdditionalSections_Filter = {
   readonly _and: InputMaybe<ReadonlyArray<InputMaybe<AdditionalSections_Filter>>>;
   readonly _or: InputMaybe<ReadonlyArray<InputMaybe<AdditionalSections_Filter>>>;
   readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly test: InputMaybe<Goods_AdditionalSections_Filter>;
   readonly title: InputMaybe<String_Filter_Operators>;
 };
 
@@ -1665,10 +1763,22 @@ export type Hash_Filter_Operators = {
 export type HomePage = {
   readonly __typename?: 'homePage';
   readonly id: Scalars['ID']['output'];
+  readonly mainSlider: Maybe<ReadonlyArray<Maybe<HomePage_MainSlider>>>;
+  readonly mainSlider_func: Maybe<Count_Functions>;
   readonly newItems: Maybe<ReadonlyArray<Maybe<HomePage_Goods>>>;
   readonly newItems_func: Maybe<Count_Functions>;
   readonly sliderBestsellers: Maybe<ReadonlyArray<Maybe<HomePage_Goods_1>>>;
   readonly sliderBestsellers_func: Maybe<Count_Functions>;
+};
+
+
+export type HomePageMainSliderArgs = {
+  filter: InputMaybe<HomePage_MainSlider_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -1695,6 +1805,8 @@ export type HomePage_Filter = {
   readonly _and: InputMaybe<ReadonlyArray<InputMaybe<HomePage_Filter>>>;
   readonly _or: InputMaybe<ReadonlyArray<InputMaybe<HomePage_Filter>>>;
   readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly mainSlider: InputMaybe<HomePage_MainSlider_Filter>;
+  readonly mainSlider_func: InputMaybe<Count_Function_Filter_Operators>;
   readonly newItems: InputMaybe<HomePage_Goods_Filter>;
   readonly newItems_func: InputMaybe<Count_Function_Filter_Operators>;
   readonly sliderBestsellers: InputMaybe<HomePage_Goods_1_Filter>;
@@ -1837,6 +1949,76 @@ export type HomePage_Goods_Filter = {
 export type HomePage_Goods_Mutated = {
   readonly __typename?: 'homePage_goods_mutated';
   readonly data: Maybe<HomePage_Goods>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type HomePage_MainSlider = {
+  readonly __typename?: 'homePage_mainSlider';
+  readonly homePage_id: Maybe<HomePage>;
+  readonly id: Scalars['ID']['output'];
+  readonly mainSlider_id: Maybe<MainSlider>;
+};
+
+
+export type HomePage_MainSliderHomePage_IdArgs = {
+  filter: InputMaybe<HomePage_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type HomePage_MainSliderMainSlider_IdArgs = {
+  filter: InputMaybe<MainSlider_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type HomePage_MainSlider_Aggregated = {
+  readonly __typename?: 'homePage_mainSlider_aggregated';
+  readonly avg: Maybe<HomePage_MainSlider_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<HomePage_MainSlider_Aggregated_Fields>;
+  readonly count: Maybe<HomePage_MainSlider_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<HomePage_MainSlider_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<HomePage_MainSlider_Aggregated_Fields>;
+  readonly min: Maybe<HomePage_MainSlider_Aggregated_Fields>;
+  readonly sum: Maybe<HomePage_MainSlider_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<HomePage_MainSlider_Aggregated_Fields>;
+};
+
+export type HomePage_MainSlider_Aggregated_Count = {
+  readonly __typename?: 'homePage_mainSlider_aggregated_count';
+  readonly homePage_id: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly mainSlider_id: Maybe<Scalars['Int']['output']>;
+};
+
+export type HomePage_MainSlider_Aggregated_Fields = {
+  readonly __typename?: 'homePage_mainSlider_aggregated_fields';
+  readonly homePage_id: Maybe<Scalars['Float']['output']>;
+  readonly id: Maybe<Scalars['Float']['output']>;
+  readonly mainSlider_id: Maybe<Scalars['Float']['output']>;
+};
+
+export type HomePage_MainSlider_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<HomePage_MainSlider_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<HomePage_MainSlider_Filter>>>;
+  readonly homePage_id: InputMaybe<HomePage_Filter>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly mainSlider_id: InputMaybe<MainSlider_Filter>;
+};
+
+export type HomePage_MainSlider_Mutated = {
+  readonly __typename?: 'homePage_mainSlider_mutated';
+  readonly data: Maybe<HomePage_MainSlider>;
   readonly event: Maybe<EventEnum>;
   readonly key: Scalars['ID']['output'];
 };
@@ -2156,6 +2338,73 @@ export type LookBook_Mutated = {
   readonly key: Scalars['ID']['output'];
 };
 
+export type MainSlider = {
+  readonly __typename?: 'mainSlider';
+  readonly decription: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly image: Maybe<Directus_Files>;
+  readonly linkButton: Maybe<Scalars['String']['output']>;
+  readonly nameButton: Maybe<Scalars['String']['output']>;
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+
+export type MainSliderImageArgs = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MainSlider_Aggregated = {
+  readonly __typename?: 'mainSlider_aggregated';
+  readonly avg: Maybe<MainSlider_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<MainSlider_Aggregated_Fields>;
+  readonly count: Maybe<MainSlider_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<MainSlider_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<MainSlider_Aggregated_Fields>;
+  readonly min: Maybe<MainSlider_Aggregated_Fields>;
+  readonly sum: Maybe<MainSlider_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<MainSlider_Aggregated_Fields>;
+};
+
+export type MainSlider_Aggregated_Count = {
+  readonly __typename?: 'mainSlider_aggregated_count';
+  readonly decription: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly image: Maybe<Scalars['Int']['output']>;
+  readonly linkButton: Maybe<Scalars['Int']['output']>;
+  readonly nameButton: Maybe<Scalars['Int']['output']>;
+  readonly title: Maybe<Scalars['Int']['output']>;
+};
+
+export type MainSlider_Aggregated_Fields = {
+  readonly __typename?: 'mainSlider_aggregated_fields';
+  readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type MainSlider_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<MainSlider_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<MainSlider_Filter>>>;
+  readonly decription: InputMaybe<String_Filter_Operators>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly image: InputMaybe<Directus_Files_Filter>;
+  readonly linkButton: InputMaybe<String_Filter_Operators>;
+  readonly nameButton: InputMaybe<String_Filter_Operators>;
+  readonly title: InputMaybe<String_Filter_Operators>;
+};
+
+export type MainSlider_Mutated = {
+  readonly __typename?: 'mainSlider_mutated';
+  readonly data: Maybe<MainSlider>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
 export type Number_Filter_Operators = {
   readonly _between: InputMaybe<ReadonlyArray<InputMaybe<Scalars['GraphQLStringOrFloat']['input']>>>;
   readonly _eq: InputMaybe<Scalars['GraphQLStringOrFloat']['input']>;
@@ -2307,6 +2556,7 @@ export type StyleTips_Mutated = {
 export type Version_AdditionalSections = {
   readonly __typename?: 'version_additionalSections';
   readonly id: Scalars['ID']['output'];
+  readonly test: Maybe<Scalars['JSON']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
@@ -2377,6 +2627,8 @@ export type Version_Goods_Image_Builder = {
 export type Version_HomePage = {
   readonly __typename?: 'version_homePage';
   readonly id: Scalars['ID']['output'];
+  readonly mainSlider: Maybe<Scalars['JSON']['output']>;
+  readonly mainSlider_func: Maybe<Count_Functions>;
   readonly newItems: Maybe<Scalars['JSON']['output']>;
   readonly newItems_func: Maybe<Count_Functions>;
   readonly sliderBestsellers: Maybe<Scalars['JSON']['output']>;
@@ -2395,6 +2647,13 @@ export type Version_HomePage_Goods_1 = {
   readonly goods_id: Maybe<Scalars['JSON']['output']>;
   readonly homePage_id: Maybe<Scalars['JSON']['output']>;
   readonly id: Scalars['ID']['output'];
+};
+
+export type Version_HomePage_MainSlider = {
+  readonly __typename?: 'version_homePage_mainSlider';
+  readonly homePage_id: Maybe<Scalars['JSON']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly mainSlider_id: Maybe<Scalars['JSON']['output']>;
 };
 
 export type Version_LookBook = {
@@ -2431,6 +2690,16 @@ export type Version_LookBook_Goods = {
   readonly goods_id: Maybe<Scalars['JSON']['output']>;
   readonly id: Scalars['ID']['output'];
   readonly lookBook_id: Maybe<Scalars['JSON']['output']>;
+};
+
+export type Version_MainSlider = {
+  readonly __typename?: 'version_mainSlider';
+  readonly decription: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly image: Maybe<Scalars['JSON']['output']>;
+  readonly linkButton: Maybe<Scalars['String']['output']>;
+  readonly nameButton: Maybe<Scalars['String']['output']>;
+  readonly title: Maybe<Scalars['String']['output']>;
 };
 
 export type Version_SectionsDirections = {
@@ -2475,7 +2744,7 @@ export type GetGoodsFavoritesItemsQuery = { readonly __typename?: 'Query', reado
 export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'homePage', readonly id: string, readonly sliderBestsellers: ReadonlyArray<{ readonly __typename?: 'homePage_goods_1', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly newItems: ReadonlyArray<{ readonly __typename?: 'homePage_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }> } };
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'homePage', readonly id: string, readonly mainSlider: ReadonlyArray<{ readonly __typename?: 'homePage_mainSlider', readonly id: string, readonly mainSlider_id: { readonly __typename?: 'mainSlider', readonly id: string, readonly title: string, readonly decription: string, readonly nameButton: string, readonly linkButton: string, readonly image: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly sliderBestsellers: ReadonlyArray<{ readonly __typename?: 'homePage_goods_1', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly newItems: ReadonlyArray<{ readonly __typename?: 'homePage_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }> } };
 
 export type GetLookBockByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -2500,13 +2769,6 @@ export type GetTipsItemPageQueryVariables = Exact<{
 
 
 export type GetTipsItemPageQuery = { readonly __typename?: 'Query', readonly styleTips_by_id: { readonly __typename?: 'styleTips', readonly id: string, readonly date_created: any, readonly title: string, readonly markdown: string } };
-
-export type GetBasketByIdsQueryVariables = Exact<{
-  ids: InputMaybe<ReadonlyArray<InputMaybe<Scalars['GraphQLStringOrFloat']['input']>> | InputMaybe<Scalars['GraphQLStringOrFloat']['input']>>;
-}>;
-
-
-export type GetBasketByIdsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> }> };
 
 export type GetGoodItemsQueryVariables = Exact<{
   directionTitle: InputMaybe<Scalars['String']['input']>;
@@ -2643,6 +2905,19 @@ export const GetHomePageDocument = gql`
     query GetHomePage {
   homePage {
     id
+    mainSlider {
+      id
+      mainSlider_id {
+        id
+        title
+        decription
+        nameButton
+        linkButton
+        image {
+          ...MediaFragment
+        }
+      }
+    }
     sliderBestsellers {
       id
       goods_id {
@@ -2737,13 +3012,6 @@ export const GetTipsItemPageDocument = gql`
   }
 }
     `;
-export const GetBasketByIdsDocument = gql`
-    query GetBasketByIds($ids: [GraphQLStringOrFloat]) {
-  goods(filter: {id: {_in: $ids}}) {
-    ...Good
-  }
-}
-    ${GoodFragmentDoc}`;
 export const GetGoodItemsDocument = gql`
     query GetGoodItems($directionTitle: String) {
   goods(filter: {direction: {title: {_eq: $directionTitle}}}) {
@@ -2803,9 +3071,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetTipsItemPage(variables: GetTipsItemPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTipsItemPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTipsItemPageQuery>(GetTipsItemPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetTipsItemPage', 'query', variables);
-    },
-    GetBasketByIds(variables?: GetBasketByIdsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetBasketByIdsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetBasketByIdsQuery>(GetBasketByIdsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetBasketByIds', 'query', variables);
     },
     GetGoodItems(variables?: GetGoodItemsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodItemsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGoodItemsQuery>(GetGoodItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodItems', 'query', variables);

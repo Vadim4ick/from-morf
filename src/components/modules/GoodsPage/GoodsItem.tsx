@@ -1,6 +1,5 @@
 "use client";
 
-import { Breadcrumbs } from "@/components/elements/Breadcrumbs";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Heart } from "@/shared/icons/Heart";
@@ -149,10 +148,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   };
 
   return (
-    <section className="container pb-[135px] pt-[var(--header-height)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px]">
-      {/* Breadcrumbs */}
-      <Breadcrumbs className="pb-4 pt-8" />
-
+    <section className="container pb-[135px] pt-[calc(var(--header-height)_+_32px)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px] max-mobile:pt-[calc(var(--header-height)_+_24px)]">
       <div className="relative grid grid-cols-goods gap-[40px] max-desktop:grid-cols-1 max-desktop:gap-[10px]">
         {/* LEFT */}
         {!isDesktop1100 && (

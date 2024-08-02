@@ -19,7 +19,9 @@ const HomePage = ({
 }) => {
   return (
     <>
-      <MainSlider />
+      {homePage.mainSlider.length > 0 && (
+        <MainSlider slides={homePage.mainSlider} />
+      )}
 
       <LookBock />
 

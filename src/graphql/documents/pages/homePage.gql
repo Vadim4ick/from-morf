@@ -2,6 +2,20 @@ query GetHomePage {
   homePage {
     id
 
+    mainSlider {
+      id
+      mainSlider_id {
+        id
+        title
+        decription
+        nameButton
+        linkButton
+        image {
+          ...MediaFragment
+        }
+      }
+    }
+
     sliderBestsellers {
       id
 
