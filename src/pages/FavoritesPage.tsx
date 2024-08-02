@@ -4,20 +4,13 @@ import { NewItemCart } from "@/components/elements/NewItemCart";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/ui/loader";
 import { getPluralForm } from "@/lib/utils";
-import {
-  getFavs,
-  getFavsFx,
-  setFavoriteOnLoad,
-} from "@/shared/context/favorites";
+import { getFavs, setFavoriteOnLoad } from "@/shared/context/favorites";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { Heart } from "@/shared/icons/Heart";
-import { useUnit } from "effector-react";
 import { useEffect } from "react";
 
 const FavoritesPage = () => {
-  const { favorites } = useFavorite();
-
-  const isLoading = useUnit(getFavsFx.pending);
+  const { favorites, isLoading } = useFavorite();
 
   useEffect(() => {
     const data = localStorage.getItem("favs");
@@ -26,6 +19,8 @@ const FavoritesPage = () => {
       const favs = JSON.parse(data);
 
       if (typeof favs === "object" && favs.length > 0) {
+        console.log(data);
+
         setFavoriteOnLoad(favs);
         getFavs({ ids: favs });
       }

@@ -1,13 +1,17 @@
 "use client";
 
+import { NewItemCart } from "@/components/elements/NewItemCart";
 import { ProfileForm } from "@/components/modules/ProfilePage";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/ui/loader";
+import { getFavs, setFavoriteOnLoad } from "@/shared/context/favorites";
 import { getMeFx, updateUserFx } from "@/shared/context/user";
 import { $user } from "@/shared/context/user/state";
+import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useUnit } from "effector-react";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const ProfilePage = () => {
   const user = useUnit($user);
@@ -15,7 +19,22 @@ const ProfilePage = () => {
   const spinner = useUnit(getMeFx.pending);
   const spinnerUpdate = useUnit(updateUserFx.pending);
 
-  if (spinner || spinnerUpdate) {
+  const { favorites, isLoading } = useFavorite();
+
+  useEffect(() => {
+    const data = localStorage.getItem("favs");
+
+    if (data) {
+      const favs = JSON.parse(data);
+
+      if (typeof favs === "object" && favs.length > 0) {
+        setFavoriteOnLoad(favs);
+        getFavs({ ids: favs });
+      }
+    }
+  }, []);
+
+  if (spinner || spinnerUpdate || isLoading) {
     return (
       <div className="z-50 h-screen w-full bg-white">
         <Loader className="absolute left-1/2 top-1/2 size-10" />
@@ -337,7 +356,24 @@ const ProfilePage = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="favourites">Избранное</TabsContent>
+        <TabsContent value="favourites">
+          <div className="container">
+            <div className="mx-auto max-w-[453px]">
+              <div className="flex flex-col gap-6">
+                {favorites.map((item) => {
+                  return (
+                    <NewItemCart
+                      sizesImg="goods"
+                      key={item.id}
+                      link={`/goods/${item.id}`}
+                      item={item}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </TabsContent>
       </Tabs>
     </section>
   );
