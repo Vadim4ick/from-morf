@@ -1,6 +1,9 @@
+"use client";
+
 import { SliderLookBook } from "@/components/elements/SliderRecommendations/SliderLookBook";
 import { GetLookBockByIdQuery } from "@/graphql/__generated__";
-import { pathImage } from "@/lib/utils";
+import { cn, pathImage } from "@/lib/utils";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 
@@ -14,6 +17,8 @@ const LookBookItemPage = ({
   const second = lookBookItem && lookBookItem.mainImages?.slice(1, 3);
 
   const third = lookBookItem && lookBookItem.mainImages?.slice(3, 5);
+
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   if (!lookBookItem) {
     return null;
@@ -39,7 +44,10 @@ const LookBookItemPage = ({
               height={first.directus_files_id.height}
               src={pathImage(first.directus_files_id.id)}
               alt="Main Look"
-              className="h-full w-full object-cover"
+              className={cn("h-full w-full object-cover", {
+                skeleton: imgSpinner,
+              })}
+              onLoad={handleLoadingImageComplete}
             />
 
             <div className="grid gap-[20px] max-mobile:grid-cols-2 mobile:grid-rows-2">
@@ -50,7 +58,10 @@ const LookBookItemPage = ({
                   height={el.directus_files_id.height}
                   src={pathImage(el.directus_files_id.id)}
                   alt="Main Look"
-                  className="h-full object-cover"
+                  className={cn("h-full object-cover", {
+                    skeleton: imgSpinner,
+                  })}
+                  onLoad={handleLoadingImageComplete}
                 />
               ))}
             </div>
@@ -63,7 +74,10 @@ const LookBookItemPage = ({
                   height={el.directus_files_id.height}
                   src={pathImage(el.directus_files_id.id)}
                   alt="Main Look"
-                  className="h-full object-cover"
+                  className={cn("h-full object-cover", {
+                    skeleton: imgSpinner,
+                  })}
+                  onLoad={handleLoadingImageComplete}
                 />
               ))}
             </div>
@@ -75,7 +89,7 @@ const LookBookItemPage = ({
             components={{
               li: ({ children }) => {
                 return (
-                  <li className="max-desktop1300:gap-[20px] grid gap-[105px] text-[20px] text-[#181818] max-mobile:gap-9 mobile:grid-cols-2">
+                  <li className="grid gap-[105px] text-[20px] text-[#181818] max-desktop1300:gap-[20px] max-mobile:gap-9 mobile:grid-cols-2">
                     {children}
                   </li>
                 );

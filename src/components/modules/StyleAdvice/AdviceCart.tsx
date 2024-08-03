@@ -1,5 +1,8 @@
+"use client";
+
 import { GetLastTwoStyleTipsQuery } from "@/graphql/__generated__";
-import { formatDate, pathImage } from "@/lib/utils";
+import { cn, formatDate, pathImage } from "@/lib/utils";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,6 +13,8 @@ interface Props {
 const AdviceCart = (props: Props) => {
   const { item } = props;
 
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
+
   return (
     <article>
       <Link href={`/style-tips/${item.id}`}>
@@ -19,7 +24,10 @@ const AdviceCart = (props: Props) => {
             width={item.mainImage.width}
             height={item.mainImage.height}
             alt={""}
-            className="object-cover"
+            className={cn("object-cover", {
+              skeleton: imgSpinner,
+            })}
+            onLoad={handleLoadingImageComplete}
           />
         </div>
 
