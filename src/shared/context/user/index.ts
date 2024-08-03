@@ -48,7 +48,15 @@ export const updateUserFx = createEffect(
 );
 
 export const loginUserFx = createEffect(
-  async ({ email, password }: { email: string; password: string }) => {
+  async ({
+    email,
+    password,
+    message = "auth",
+  }: {
+    email: string;
+    password: string;
+    message?: "auth" | "register";
+  }) => {
     try {
       const { data } = await axios.post<LoginData>(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
@@ -63,7 +71,11 @@ export const loginUserFx = createEffect(
 
       const dataUser = await getMeFx();
 
-      toast.success("Успешная авторизация!");
+      if (message === "auth") {
+        toast.success("Успешная авторизация!");
+      } else {
+        toast.success("Успешная регистрация!");
+      }
       return dataUser;
     } catch (error) {
       console.log((error as Error).message);
@@ -84,6 +96,7 @@ export const updateUser = authForm.createEvent<{ userData: Partial<User> }>();
 export const loginUser = authForm.createEvent<{
   email: string;
   password: string;
+  message?: "auth" | "register";
 }>();
 
 export const clearUser = authForm.createEvent();

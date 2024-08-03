@@ -6,6 +6,7 @@ import {
 import { $apiBack, $apiFront } from "../api/api";
 import axios from "axios";
 import { toast } from "sonner";
+import { loginUser } from "../context/user";
 
 class AuthQueries {
   async sendMail({ email, password }: { email: string; password: string }) {
@@ -22,14 +23,13 @@ class AuthQueries {
 
   async register({ email, password }: { email: string; password: string }) {
     try {
-      const { data, status } = await $apiBack.post(`/users`, {
+      const { status } = await $apiBack.post(`/users`, {
         email: email,
         password: password,
         role: "7b9561f9-12bf-4b55-b1b3-6c282ded5ab2",
       });
 
-      console.log("data", data);
-      toast.success("Успешная регистрация!");
+      await loginUser({ email, password, message: "register" });
 
       return status;
     } catch (error) {
