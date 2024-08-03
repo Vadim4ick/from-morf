@@ -1,64 +1,48 @@
-"use client";
-
-import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
+import { pathImage } from "@/lib/utils";
 import { Creatin } from "@/shared/icons/Creatin";
+import { useGetFooter } from "@/shared/services/getFooter";
 import Image from "next/image";
 import Link from "next/link";
 
-const footerLinks = [
-  {
-    id: 1,
-    title: "Узнать",
-    items: [
-      { title: "О нас", href: "#" },
-      { title: "Доставка и оплата", href: "#" },
-      { title: "Возврат товара", href: "#" },
-    ],
-  },
-  {
-    id: 2,
-    title: "Связаться",
-    items: [
-      { title: "ВКонтакте", href: "#" },
-      { title: "Телеграм", href: "#" },
-      { title: "YouTube", href: "#" },
-    ],
-  },
-];
-
 const Footer = () => {
-  const isTablet834 = useMediaQuery(834);
+  const { data } = useGetFooter();
 
   return (
     <footer className="bg-[#F8F8F8]">
       {/* 1-й уровень */}
       <div className="container max-tabletSmall:px-[67px]">
-        <div className="flex justify-between pb-[90px] pt-[80px] max-tabletSmall:flex-col max-tabletSmall:items-center max-tabletSmall:justify-center max-tabletSmall:gap-[72px] max-tabletSmall:py-[67px]">
-          <Link href={"/"}>
-            <Image
-              src={"/footer-logo.png"}
-              alt="1"
-              width={!isTablet834 ? 412 : 315}
-              height={!isTablet834 ? 188 : 145}
-            />
-          </Link>
+        <div className="flex justify-between gap-5 pb-[90px] pt-[80px] max-tabletSmall:flex-col max-tabletSmall:items-center max-tabletSmall:justify-center max-tabletSmall:gap-[72px] max-tabletSmall:py-[67px]">
+          {data?.footer && (
+            <Link href={"/"}>
+              <Image
+                src={pathImage(data.footer.logo.id)}
+                alt="1"
+                width={data.footer.logo.width}
+                height={data.footer.logo.height}
+                className="max-w-full"
+              />
+            </Link>
+          )}
 
-          <div className="flex flex-wrap justify-center gap-[109px] max-tabletSmall:gap-[32px] max-mobileSmall:gap-[56px]">
-            {footerLinks.map((el) => (
-              <div key={el.id} className="flex flex-col">
-                <p className="relative mb-5 pb-5 text-center text-[20px] text-blackColor after:absolute after:bottom-0 after:left-1/2 after:h-[1px] after:w-[25px] after:-translate-x-1/2 after:bg-black after:content-['']">
-                  {el.title}
-                </p>
+          <div className="flex justify-center gap-[109px] max-tabletBig:gap-[70px] max-tabletSmall:gap-[32px] max-mobileSmall:gap-[56px]">
+            {data?.footer &&
+              data.footer.links.map((el) => (
+                <div key={el.id} className="flex flex-col">
+                  <p className="relative mb-5 pb-5 text-center text-[20px] text-blackColor after:absolute after:bottom-0 after:left-1/2 after:h-[1px] after:w-[25px] after:-translate-x-1/2 after:bg-black after:content-['']">
+                    {el.footerLinks_id.title}
+                  </p>
 
-                <ul className="text-darkGray flex flex-col items-center justify-center gap-5">
-                  {el.items.map((item) => (
-                    <li key={item.title}>
-                      <Link href={item.href}>{item.title}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+                  <ul className="text-darkGray flex flex-col items-center justify-center gap-5">
+                    {el.footerLinks_id.links.map((item) => (
+                      <li key={item.links_id.id} className="text-center">
+                        <Link href={item.links_id.button_links}>
+                          {item.links_id.button_title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
           </div>
         </div>
       </div>

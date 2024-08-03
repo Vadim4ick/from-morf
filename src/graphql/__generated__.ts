@@ -34,6 +34,20 @@ export type Query = {
   readonly additionalSections_aggregated: ReadonlyArray<AdditionalSections_Aggregated>;
   readonly additionalSections_by_id: Maybe<AdditionalSections>;
   readonly additionalSections_by_version: Maybe<Version_AdditionalSections>;
+  readonly footer: Maybe<Footer>;
+  readonly footerLinks: ReadonlyArray<FooterLinks>;
+  readonly footerLinks_aggregated: ReadonlyArray<FooterLinks_Aggregated>;
+  readonly footerLinks_by_id: Maybe<FooterLinks>;
+  readonly footerLinks_by_version: Maybe<Version_FooterLinks>;
+  readonly footerLinks_links: ReadonlyArray<FooterLinks_Links>;
+  readonly footerLinks_links_aggregated: ReadonlyArray<FooterLinks_Links_Aggregated>;
+  readonly footerLinks_links_by_id: Maybe<FooterLinks_Links>;
+  readonly footerLinks_links_by_version: Maybe<Version_FooterLinks_Links>;
+  readonly footer_by_version: Maybe<Version_Footer>;
+  readonly footer_footerLinks: ReadonlyArray<Footer_FooterLinks>;
+  readonly footer_footerLinks_aggregated: ReadonlyArray<Footer_FooterLinks_Aggregated>;
+  readonly footer_footerLinks_by_id: Maybe<Footer_FooterLinks>;
+  readonly footer_footerLinks_by_version: Maybe<Version_Footer_FooterLinks>;
   readonly goods: ReadonlyArray<Goods>;
   readonly goodsImg: ReadonlyArray<GoodsImg>;
   readonly goodsImg_aggregated: ReadonlyArray<GoodsImg_Aggregated>;
@@ -76,6 +90,10 @@ export type Query = {
   readonly homePage_mainSlider_aggregated: ReadonlyArray<HomePage_MainSlider_Aggregated>;
   readonly homePage_mainSlider_by_id: Maybe<HomePage_MainSlider>;
   readonly homePage_mainSlider_by_version: Maybe<Version_HomePage_MainSlider>;
+  readonly links: ReadonlyArray<Links>;
+  readonly links_aggregated: ReadonlyArray<Links_Aggregated>;
+  readonly links_by_id: Maybe<Links>;
+  readonly links_by_version: Maybe<Version_Links>;
   readonly lookBock: Maybe<LookBock>;
   readonly lookBock_by_version: Maybe<Version_LookBock>;
   readonly lookBock_files: ReadonlyArray<LookBock_Files>;
@@ -141,6 +159,115 @@ export type QueryAdditionalSections_By_IdArgs = {
 
 
 export type QueryAdditionalSections_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
+export type QueryFooterArgs = {
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFooterLinksArgs = {
+  filter: InputMaybe<FooterLinks_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryFooterLinks_AggregatedArgs = {
+  filter: InputMaybe<FooterLinks_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryFooterLinks_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFooterLinks_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
+export type QueryFooterLinks_LinksArgs = {
+  filter: InputMaybe<FooterLinks_Links_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryFooterLinks_Links_AggregatedArgs = {
+  filter: InputMaybe<FooterLinks_Links_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryFooterLinks_Links_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFooterLinks_Links_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
+export type QueryFooter_By_VersionArgs = {
+  version: Scalars['String']['input'];
+};
+
+
+export type QueryFooter_FooterLinksArgs = {
+  filter: InputMaybe<Footer_FooterLinks_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryFooter_FooterLinks_AggregatedArgs = {
+  filter: InputMaybe<Footer_FooterLinks_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryFooter_FooterLinks_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryFooter_FooterLinks_By_VersionArgs = {
   id: Scalars['ID']['input'];
   version: Scalars['String']['input'];
 };
@@ -486,6 +613,39 @@ export type QueryHomePage_MainSlider_By_VersionArgs = {
 };
 
 
+export type QueryLinksArgs = {
+  filter: InputMaybe<Links_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryLinks_AggregatedArgs = {
+  filter: InputMaybe<Links_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryLinks_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryLinks_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
+
 export type QueryLookBockArgs = {
   version: InputMaybe<Scalars['String']['input']>;
 };
@@ -765,6 +925,10 @@ export type Subscription = {
   readonly directus_files_mutated: Maybe<Directus_Files_Mutated>;
   readonly directus_roles_mutated: Maybe<Directus_Roles_Mutated>;
   readonly directus_users_mutated: Maybe<Directus_Users_Mutated>;
+  readonly footerLinks_links_mutated: Maybe<FooterLinks_Links_Mutated>;
+  readonly footerLinks_mutated: Maybe<FooterLinks_Mutated>;
+  readonly footer_footerLinks_mutated: Maybe<Footer_FooterLinks_Mutated>;
+  readonly footer_mutated: Maybe<Footer_Mutated>;
   readonly goodsImg_mutated: Maybe<GoodsImg_Mutated>;
   readonly goodsTwoImages_mutated: Maybe<GoodsTwoImages_Mutated>;
   readonly goods_additionalSections_mutated: Maybe<Goods_AdditionalSections_Mutated>;
@@ -776,6 +940,7 @@ export type Subscription = {
   readonly homePage_goods_mutated: Maybe<HomePage_Goods_Mutated>;
   readonly homePage_mainSlider_mutated: Maybe<HomePage_MainSlider_Mutated>;
   readonly homePage_mutated: Maybe<HomePage_Mutated>;
+  readonly links_mutated: Maybe<Links_Mutated>;
   readonly lookBock_files_mutated: Maybe<LookBock_Files_Mutated>;
   readonly lookBock_mutated: Maybe<LookBock_Mutated>;
   readonly lookBook_files_1_mutated: Maybe<LookBook_Files_1_Mutated>;
@@ -804,6 +969,26 @@ export type SubscriptionDirectus_Roles_MutatedArgs = {
 
 
 export type SubscriptionDirectus_Users_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionFooterLinks_Links_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionFooterLinks_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionFooter_FooterLinks_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionFooter_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
@@ -859,6 +1044,11 @@ export type SubscriptionHomePage_MainSlider_MutatedArgs = {
 
 
 export type SubscriptionHomePage_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionLinks_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
@@ -1271,6 +1461,250 @@ export type Directus_Users_Filter = {
 export type Directus_Users_Mutated = {
   readonly __typename?: 'directus_users_mutated';
   readonly data: Maybe<Directus_Users>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type Footer = {
+  readonly __typename?: 'footer';
+  readonly id: Scalars['ID']['output'];
+  readonly links: Maybe<ReadonlyArray<Maybe<Footer_FooterLinks>>>;
+  readonly links_func: Maybe<Count_Functions>;
+  readonly logo: Maybe<Directus_Files>;
+};
+
+
+export type FooterLinksArgs = {
+  filter: InputMaybe<Footer_FooterLinks_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type FooterLogoArgs = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type FooterLinks = {
+  readonly __typename?: 'footerLinks';
+  readonly id: Scalars['ID']['output'];
+  readonly links: Maybe<ReadonlyArray<Maybe<FooterLinks_Links>>>;
+  readonly links_func: Maybe<Count_Functions>;
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+
+export type FooterLinksLinksArgs = {
+  filter: InputMaybe<FooterLinks_Links_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type FooterLinks_Aggregated = {
+  readonly __typename?: 'footerLinks_aggregated';
+  readonly avg: Maybe<FooterLinks_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<FooterLinks_Aggregated_Fields>;
+  readonly count: Maybe<FooterLinks_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<FooterLinks_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<FooterLinks_Aggregated_Fields>;
+  readonly min: Maybe<FooterLinks_Aggregated_Fields>;
+  readonly sum: Maybe<FooterLinks_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<FooterLinks_Aggregated_Fields>;
+};
+
+export type FooterLinks_Aggregated_Count = {
+  readonly __typename?: 'footerLinks_aggregated_count';
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly links: Maybe<Scalars['Int']['output']>;
+  readonly title: Maybe<Scalars['Int']['output']>;
+};
+
+export type FooterLinks_Aggregated_Fields = {
+  readonly __typename?: 'footerLinks_aggregated_fields';
+  readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type FooterLinks_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<FooterLinks_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<FooterLinks_Filter>>>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly links: InputMaybe<FooterLinks_Links_Filter>;
+  readonly links_func: InputMaybe<Count_Function_Filter_Operators>;
+  readonly title: InputMaybe<String_Filter_Operators>;
+};
+
+export type FooterLinks_Links = {
+  readonly __typename?: 'footerLinks_links';
+  readonly footerLinks_id: Maybe<FooterLinks>;
+  readonly id: Scalars['ID']['output'];
+  readonly links_id: Maybe<Links>;
+};
+
+
+export type FooterLinks_LinksFooterLinks_IdArgs = {
+  filter: InputMaybe<FooterLinks_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type FooterLinks_LinksLinks_IdArgs = {
+  filter: InputMaybe<Links_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type FooterLinks_Links_Aggregated = {
+  readonly __typename?: 'footerLinks_links_aggregated';
+  readonly avg: Maybe<FooterLinks_Links_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<FooterLinks_Links_Aggregated_Fields>;
+  readonly count: Maybe<FooterLinks_Links_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<FooterLinks_Links_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<FooterLinks_Links_Aggregated_Fields>;
+  readonly min: Maybe<FooterLinks_Links_Aggregated_Fields>;
+  readonly sum: Maybe<FooterLinks_Links_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<FooterLinks_Links_Aggregated_Fields>;
+};
+
+export type FooterLinks_Links_Aggregated_Count = {
+  readonly __typename?: 'footerLinks_links_aggregated_count';
+  readonly footerLinks_id: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly links_id: Maybe<Scalars['Int']['output']>;
+};
+
+export type FooterLinks_Links_Aggregated_Fields = {
+  readonly __typename?: 'footerLinks_links_aggregated_fields';
+  readonly footerLinks_id: Maybe<Scalars['Float']['output']>;
+  readonly id: Maybe<Scalars['Float']['output']>;
+  readonly links_id: Maybe<Scalars['Float']['output']>;
+};
+
+export type FooterLinks_Links_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<FooterLinks_Links_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<FooterLinks_Links_Filter>>>;
+  readonly footerLinks_id: InputMaybe<FooterLinks_Filter>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly links_id: InputMaybe<Links_Filter>;
+};
+
+export type FooterLinks_Links_Mutated = {
+  readonly __typename?: 'footerLinks_links_mutated';
+  readonly data: Maybe<FooterLinks_Links>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type FooterLinks_Mutated = {
+  readonly __typename?: 'footerLinks_mutated';
+  readonly data: Maybe<FooterLinks>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type Footer_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Footer_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Footer_Filter>>>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly links: InputMaybe<Footer_FooterLinks_Filter>;
+  readonly links_func: InputMaybe<Count_Function_Filter_Operators>;
+  readonly logo: InputMaybe<Directus_Files_Filter>;
+};
+
+export type Footer_FooterLinks = {
+  readonly __typename?: 'footer_footerLinks';
+  readonly footerLinks_id: Maybe<FooterLinks>;
+  readonly footer_id: Maybe<Footer>;
+  readonly id: Scalars['ID']['output'];
+};
+
+
+export type Footer_FooterLinksFooterLinks_IdArgs = {
+  filter: InputMaybe<FooterLinks_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type Footer_FooterLinksFooter_IdArgs = {
+  filter: InputMaybe<Footer_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Footer_FooterLinks_Aggregated = {
+  readonly __typename?: 'footer_footerLinks_aggregated';
+  readonly avg: Maybe<Footer_FooterLinks_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<Footer_FooterLinks_Aggregated_Fields>;
+  readonly count: Maybe<Footer_FooterLinks_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<Footer_FooterLinks_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<Footer_FooterLinks_Aggregated_Fields>;
+  readonly min: Maybe<Footer_FooterLinks_Aggregated_Fields>;
+  readonly sum: Maybe<Footer_FooterLinks_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<Footer_FooterLinks_Aggregated_Fields>;
+};
+
+export type Footer_FooterLinks_Aggregated_Count = {
+  readonly __typename?: 'footer_footerLinks_aggregated_count';
+  readonly footerLinks_id: Maybe<Scalars['Int']['output']>;
+  readonly footer_id: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+};
+
+export type Footer_FooterLinks_Aggregated_Fields = {
+  readonly __typename?: 'footer_footerLinks_aggregated_fields';
+  readonly footerLinks_id: Maybe<Scalars['Float']['output']>;
+  readonly footer_id: Maybe<Scalars['Float']['output']>;
+  readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type Footer_FooterLinks_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Footer_FooterLinks_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Footer_FooterLinks_Filter>>>;
+  readonly footerLinks_id: InputMaybe<FooterLinks_Filter>;
+  readonly footer_id: InputMaybe<Footer_Filter>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+};
+
+export type Footer_FooterLinks_Mutated = {
+  readonly __typename?: 'footer_footerLinks_mutated';
+  readonly data: Maybe<Footer_FooterLinks>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type Footer_Mutated = {
+  readonly __typename?: 'footer_mutated';
+  readonly data: Maybe<Footer>;
   readonly event: Maybe<EventEnum>;
   readonly key: Scalars['ID']['output'];
 };
@@ -2091,6 +2525,54 @@ export type HomePage_Mutated = {
   readonly key: Scalars['ID']['output'];
 };
 
+export type Links = {
+  readonly __typename?: 'links';
+  readonly button_links: Maybe<Scalars['String']['output']>;
+  readonly button_title: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+};
+
+export type Links_Aggregated = {
+  readonly __typename?: 'links_aggregated';
+  readonly avg: Maybe<Links_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<Links_Aggregated_Fields>;
+  readonly count: Maybe<Links_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<Links_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<Links_Aggregated_Fields>;
+  readonly min: Maybe<Links_Aggregated_Fields>;
+  readonly sum: Maybe<Links_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<Links_Aggregated_Fields>;
+};
+
+export type Links_Aggregated_Count = {
+  readonly __typename?: 'links_aggregated_count';
+  readonly button_links: Maybe<Scalars['Int']['output']>;
+  readonly button_title: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+};
+
+export type Links_Aggregated_Fields = {
+  readonly __typename?: 'links_aggregated_fields';
+  readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type Links_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Links_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Links_Filter>>>;
+  readonly button_links: InputMaybe<String_Filter_Operators>;
+  readonly button_title: InputMaybe<String_Filter_Operators>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+};
+
+export type Links_Mutated = {
+  readonly __typename?: 'links_mutated';
+  readonly data: Maybe<Links>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
 export type LookBock = {
   readonly __typename?: 'lookBock';
   readonly description: Maybe<Scalars['String']['output']>;
@@ -2726,6 +3208,36 @@ export type Version_AdditionalSections = {
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
+export type Version_Footer = {
+  readonly __typename?: 'version_footer';
+  readonly id: Scalars['ID']['output'];
+  readonly links: Maybe<Scalars['JSON']['output']>;
+  readonly links_func: Maybe<Count_Functions>;
+  readonly logo: Maybe<Scalars['JSON']['output']>;
+};
+
+export type Version_FooterLinks = {
+  readonly __typename?: 'version_footerLinks';
+  readonly id: Scalars['ID']['output'];
+  readonly links: Maybe<Scalars['JSON']['output']>;
+  readonly links_func: Maybe<Count_Functions>;
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+export type Version_FooterLinks_Links = {
+  readonly __typename?: 'version_footerLinks_links';
+  readonly footerLinks_id: Maybe<Scalars['JSON']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly links_id: Maybe<Scalars['JSON']['output']>;
+};
+
+export type Version_Footer_FooterLinks = {
+  readonly __typename?: 'version_footer_footerLinks';
+  readonly footerLinks_id: Maybe<Scalars['JSON']['output']>;
+  readonly footer_id: Maybe<Scalars['JSON']['output']>;
+  readonly id: Scalars['ID']['output'];
+};
+
 export type Version_Goods = {
   readonly __typename?: 'version_goods';
   readonly additionalDirection: Maybe<Scalars['JSON']['output']>;
@@ -2820,6 +3332,13 @@ export type Version_HomePage_MainSlider = {
   readonly homePage_id: Maybe<Scalars['JSON']['output']>;
   readonly id: Scalars['ID']['output'];
   readonly mainSlider_id: Maybe<Scalars['JSON']['output']>;
+};
+
+export type Version_Links = {
+  readonly __typename?: 'version_links';
+  readonly button_links: Maybe<Scalars['String']['output']>;
+  readonly button_title: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
 };
 
 export type Version_LookBock = {
@@ -2951,6 +3470,11 @@ export type GetTipsItemPageQueryVariables = Exact<{
 
 
 export type GetTipsItemPageQuery = { readonly __typename?: 'Query', readonly styleTips_by_id: { readonly __typename?: 'styleTips', readonly id: string, readonly date_created: any, readonly title: string, readonly markdown: string } };
+
+export type GetFooterQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFooterQuery = { readonly __typename?: 'Query', readonly footer: { readonly __typename?: 'footer', readonly id: string, readonly logo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly links: ReadonlyArray<{ readonly __typename?: 'footer_footerLinks', readonly id: string, readonly footerLinks_id: { readonly __typename?: 'footerLinks', readonly id: string, readonly title: string, readonly links: ReadonlyArray<{ readonly __typename?: 'footerLinks_links', readonly id: string, readonly links_id: { readonly __typename?: 'links', readonly id: string, readonly button_title: string, readonly button_links: string } }> } }> } };
 
 export type GetGoodItemsQueryVariables = Exact<{
   directionTitle: InputMaybe<Scalars['String']['input']>;
@@ -3199,6 +3723,33 @@ export const GetTipsItemPageDocument = gql`
   }
 }
     `;
+export const GetFooterDocument = gql`
+    query GetFooter {
+  footer {
+    id
+    logo {
+      id
+      width
+      height
+    }
+    links {
+      id
+      footerLinks_id {
+        id
+        title
+        links {
+          id
+          links_id {
+            id
+            button_title
+            button_links
+          }
+        }
+      }
+    }
+  }
+}
+    `;
 export const GetGoodItemsDocument = gql`
     query GetGoodItems($directionTitle: String) {
   goods(filter: {direction: {title: {_eq: $directionTitle}}}) {
@@ -3272,6 +3823,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetTipsItemPage(variables: GetTipsItemPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTipsItemPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTipsItemPageQuery>(GetTipsItemPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetTipsItemPage', 'query', variables);
+    },
+    GetFooter(variables?: GetFooterQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetFooterQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetFooterQuery>(GetFooterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetFooter', 'query', variables);
     },
     GetGoodItems(variables?: GetGoodItemsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodItemsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetGoodItemsQuery>(GetGoodItemsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoodItems', 'query', variables);

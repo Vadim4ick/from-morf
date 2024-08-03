@@ -31,13 +31,9 @@ const StyleAdvice = ({
 
             <div className="grid grid-cols-3 gap-x-[20px] gap-y-[48px] max-tabletBig:grid-cols-2">
               {styleTips.map((el) => (
-                <Link
-                  className="max-mobileSmall:col-span-2"
-                  key={el.id}
-                  href={"/"}
-                >
+                <div className="max-mobileSmall:col-span-2" key={el.id}>
                   <AdviceCart item={el} />
-                </Link>
+                </div>
               ))}
 
               <ButtonAnimate
