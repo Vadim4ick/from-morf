@@ -22,7 +22,6 @@ import { removeAccessToken, removeRefreshToken } from "@/lib/auth-token";
 import { cn, pathImage, visibleNameFn } from "@/lib/utils";
 import { clearUser } from "@/shared/context/user";
 import { Warning } from "@/shared/icons/Warning";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { protectedPath } from "@/shared/const";
 import { Button } from "@/components/ui/button";
@@ -38,7 +37,7 @@ const ProfileModal = () => {
   const { isAuth } = useAuth();
 
   const pathname = usePathname();
-  const route = useRouter();
+  const router = useRouter();
 
   const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
@@ -49,7 +48,7 @@ const ProfileModal = () => {
     clearUser();
     protectedPath.map((el) => {
       if (pathname === el) {
-        route.push("/");
+        router.push("/");
       }
     });
   };
@@ -93,9 +92,11 @@ const ProfileModal = () => {
         ) : (
           <>
             <DialogHeader className="border-b border-[#CDCDCD] py-4">
-              <Link
-                onClick={() => toggleAuthFormOpen()}
-                href={"/profile"}
+              <button
+                onClick={() => {
+                  toggleAuthFormOpen();
+                  router.push("/profile#profile");
+                }}
                 className="flex w-full items-center justify-between"
               >
                 <div className="flex gap-5">
@@ -120,12 +121,14 @@ const ProfileModal = () => {
                 </div>
 
                 <Arrow className="rotate-180 cursor-pointer" />
-              </Link>
+              </button>
             </DialogHeader>
 
-            <Link
-              onClick={() => toggleAuthFormOpen()}
-              href={"/profile"}
+            <button
+              onClick={() => {
+                toggleAuthFormOpen();
+                router.push("/profile#profile");
+              }}
               className="flex w-full items-center justify-between border-b border-[#CDCDCD] py-[20px]"
             >
               <div className="flex flex-col items-start">
@@ -149,23 +152,31 @@ const ProfileModal = () => {
               </div>
 
               <Arrow className="rotate-180 cursor-pointer" />
-            </Link>
+            </button>
 
-            <button className="flex w-full items-center justify-between border-b border-[#CDCDCD] py-[20px]">
+            <button
+              onClick={() => {
+                toggleAuthFormOpen();
+                router.push("/profile#orders");
+              }}
+              className="flex w-full items-center justify-between border-b border-[#CDCDCD] py-[20px]"
+            >
               <p>Заказы:</p>
 
               <Arrow className="rotate-180 cursor-pointer" />
             </button>
 
-            <Link
-              onClick={() => toggleAuthFormOpen()}
-              href={"/favorites"}
+            <button
+              onClick={() => {
+                toggleAuthFormOpen();
+                router.push("/profile#favourites");
+              }}
               className="flex w-full items-center justify-between border-b border-[#CDCDCD] py-[20px]"
             >
               <p>Избранное:</p>
 
               <Arrow className="rotate-180 cursor-pointer" />
-            </Link>
+            </button>
 
             <button
               onClick={onExit}

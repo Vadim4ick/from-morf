@@ -4,14 +4,14 @@ import { NewItemCart } from "@/components/elements/NewItemCart";
 import { ProfileForm } from "@/components/modules/ProfilePage";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/ui/loader";
-import { getFavs, setFavoriteOnLoad } from "@/shared/context/favorites";
 import { getMeFx, updateUserFx } from "@/shared/context/user";
 import { $user } from "@/shared/context/user/state";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useUnit } from "effector-react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const ProfilePage = () => {
   const user = useUnit($user);
@@ -19,11 +19,36 @@ const ProfilePage = () => {
   const spinner = useUnit(getMeFx.pending);
   const spinnerUpdate = useUnit(updateUserFx.pending);
 
+  const router = useRouter();
+
   const { favorites, isLoading, loadFavorites } = useFavorite();
 
   useEffect(() => {
     loadFavorites();
   }, []);
+
+  const [hash, setHash] = useState("");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    // Функция для обновления хеша
+    const updateHash = () => {
+      const currentHash = window.location.hash.substring(1);
+      setHash(currentHash);
+    };
+
+    // Обновляем хеш при монтировании
+    updateHash();
+
+    // Слушаем изменения хеша
+    window.addEventListener("hashchange", updateHash);
+
+    // Убираем слушатель при размонтировании
+    return () => {
+      window.removeEventListener("hashchange", updateHash);
+    };
+  }, [pathname, searchParams]);
 
   if (spinner || spinnerUpdate || isLoading) {
     return (
@@ -35,7 +60,10 @@ const ProfilePage = () => {
 
   return (
     <section className="pb-[86px] pt-[calc(var(--header-height)_+_48px)]">
-      <Tabs defaultValue="profile">
+      <Tabs
+        value={hash}
+        defaultValue={hash && hash.length > 0 ? hash : "profile"}
+      >
         <TabsList>
           <div className="mx-auto max-w-[520px] px-4">
             <div className="grid grid-cols-3 gap-9 pb-[60px] max-tabletBig:gap-6 max-mobile:grid-cols-[1fr_0.8fr_1fr] max-mobile:gap-2 max-mobile:pb-[40px]">

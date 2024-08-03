@@ -7,6 +7,7 @@ import {
 } from "@/shared/context/basket";
 import { toggleFavorite } from "@/shared/context/favorites";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 import { DeleteBasket } from "@/shared/icons/DeleteBasket";
 import { Heart } from "@/shared/icons/Heart";
 import Image from "next/image";
@@ -15,6 +16,8 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
   const { favoritesFromLs } = useFavorite();
 
   const isFavorite = favoritesFromLs.includes(basket.id);
+
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   const increase = () => {
     incrementItemCount({
@@ -37,7 +40,15 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
   return (
     <article className="grid grid-cols-[74px_1fr_85px] gap-3">
       <div className="relative size-[74px]">
-        <Image src={pathImage(basket.images.id)} alt="test" fill />
+        <Image
+          className={cn("", {
+            skeleton: imgSpinner,
+          })}
+          onLoad={handleLoadingImageComplete}
+          src={pathImage(basket.images.id)}
+          alt="test"
+          fill
+        />
       </div>
 
       <div className="flex flex-col justify-between gap-1">

@@ -10,6 +10,7 @@ import {
   GetHomePageQuery,
   GetLastTwoStyleTipsQuery,
 } from "@/graphql/__generated__";
+import Link from "next/link";
 
 const HomePage = ({
   homePage,
@@ -30,7 +31,10 @@ const HomePage = ({
 
       <section className="bg-blackColor">
         <div className="container px-[67px] py-[17px] max-tabletSmall:px-4">
-          <button className="flex flex-col gap-[9px] text-white">
+          <Link
+            href={"/goods/additional/Новинки"}
+            className="flex flex-col gap-[9px] text-white"
+          >
             <p className="uppercase">Новая коллекция уже в продаже</p>
 
             <svg
@@ -49,7 +53,7 @@ const HomePage = ({
                 fillRule="nonzero"
               />
             </svg>
-          </button>
+          </Link>
         </div>
       </section>
 
