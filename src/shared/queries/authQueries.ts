@@ -5,6 +5,7 @@ import {
 } from "@/lib/auth-token";
 import { $apiBack, $apiFront } from "../api/api";
 import axios from "axios";
+import { toast } from "sonner";
 
 class AuthQueries {
   async sendMail({ email, password }: { email: string; password: string }) {
@@ -27,7 +28,8 @@ class AuthQueries {
         role: "7b9561f9-12bf-4b55-b1b3-6c282ded5ab2",
       });
 
-      console.log(data);
+      console.log("data", data);
+      toast.success("Успешная регистрация!");
 
       return status;
     } catch (error) {

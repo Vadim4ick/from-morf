@@ -22,7 +22,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
       <Footer />
 
-      <Toaster richColors />
+      <Toaster richColors duration={2000} />
     </div>
   );
 };

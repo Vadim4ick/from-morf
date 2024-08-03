@@ -9,6 +9,7 @@ import { LoginData, User } from "@/shared/types/authForm";
 import axios from "axios";
 import { createDomain, createEffect } from "effector";
 import { changeLoginError } from "../auth";
+import { toast } from "sonner";
 
 export const getMeFx = createEffect(async () => {
   try {
@@ -37,6 +38,8 @@ export const updateUserFx = createEffect(
         },
       );
 
+      toast.success("Данные успешно обновлены!");
+
       return data.data;
     } catch (error) {
       console.log("err", (error as Error).message);
@@ -60,6 +63,7 @@ export const loginUserFx = createEffect(
 
       const dataUser = await getMeFx();
 
+      toast.success("Успешная авторизация!");
       return dataUser;
     } catch (error) {
       console.log((error as Error).message);

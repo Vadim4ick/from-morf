@@ -13,6 +13,13 @@ import { User } from "@/shared/types/authForm";
 import { Avatar } from "./Avatar";
 import MaskInput from "react-maskinput";
 
+const formatPhoneNumber = (phone: string) => {
+  if (!phone) return "";
+  const phoneStr = phone.toString();
+
+  return `+7 (${phoneStr.slice(1, 4)}) ${phoneStr.slice(4, 7)}-${phoneStr.slice(7, 9)}-${phoneStr.slice(9, 11)}`;
+};
+
 const ProfileForm = ({ user }: { user: User }) => {
   const {
     register,
@@ -140,8 +147,10 @@ const ProfileForm = ({ user }: { user: User }) => {
             <Controller
               name="phone"
               control={control}
-              defaultValue={user.phone || ""}
+              defaultValue={formatPhoneNumber(user.phone) || ""}
               render={({ field: { onChange, value } }) => {
+                console.log(value);
+
                 return (
                   <MaskInput
                     alwaysShowMask

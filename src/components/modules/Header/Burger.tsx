@@ -93,7 +93,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
           open={burgerOpen}
           side={"custom"}
           className={cn(
-            "desktop1300:-left-[65px] absolute top-[calc(var(--header-height)_+_4px)] h-fit w-full bg-[#F8F8F8] desktop:max-w-[455px]",
+            "absolute top-[calc(var(--header-height)_+_4px)] h-fit w-full bg-[#F8F8F8] desktop:max-w-[455px] desktop1300:-left-[65px]",
           )}
         >
           <SheetHeader className="border-b border-[#CDCDCD]/50 px-[30px] py-[25px]">
@@ -131,7 +131,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                       onClick={() => toggleBurgerOpen()}
                       key={el.id}
                       href={`/goods/main/${encodeURIComponent(el.title)}`}
-                      className="flex items-center justify-between px-4 py-[8px] transition-colors hover:bg-[#E1E1E1]"
+                      className="flex items-center justify-between px-4 py-[8px] transition-colors hover:bg-[#EBEBEB]"
                     >
                       <span className="text-lg font-medium">{el.title}</span>
 
@@ -145,7 +145,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
           <SheetFooter className="mt-12 flex flex-col gap-2 border-t bg-[#F2F2F2] px-4 py-4 max-mobile:mt-3">
             <Link
               href={"/"}
-              className="flex justify-between border border-[#E4E4E4] bg-[#eeeeee]"
+              className="flex justify-between border border-[#E4E4E4] bg-[#eeeeee] transition-colors hover:border-[#9C9C9C]"
             >
               <div className="flex h-fit items-center gap-2 py-[13px] pl-[20px]">
                 <p className="text-[22px]">О нас</p>
@@ -164,7 +164,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
             <div className="flex gap-[10px]">
               <Link
                 href={"/"}
-                className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee]"
+                className="bg-[#eeeeee ] flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] transition-colors hover:border-[#9C9C9C]"
               >
                 <DeliveryIcon />
 
@@ -173,7 +173,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
 
               <Link
                 href={"/"}
-                className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee]"
+                className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee] transition-colors hover:border-[#9C9C9C]"
               >
                 <ReturnIcon />
 
