@@ -1,11 +1,14 @@
-import { pathImage } from "@/lib/utils";
+import { cn, pathImage } from "@/lib/utils";
 import { $apiBack } from "@/shared/api/api";
 import { updateUser } from "@/shared/context/user";
+import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 import Image from "next/image";
 import { useRef } from "react";
 
 const Avatar = ({ avatar, id }: { avatar: string | null; id: string }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   const handleClick = () => {
     inputRef.current?.click();
@@ -45,7 +48,10 @@ const Avatar = ({ avatar, id }: { avatar: string | null; id: string }) => {
           src={avatar ? pathImage(avatar) : "/no-avatar.png"}
           width={60}
           height={60}
-          className="size-[60px] rounded-full object-cover"
+          className={cn("size-[60px] rounded-full object-cover", {
+            skeleton: imgSpinner,
+          })}
+          onLoad={handleLoadingImageComplete}
         />
       </div>
 

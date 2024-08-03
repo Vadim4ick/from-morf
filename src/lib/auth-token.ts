@@ -36,7 +36,7 @@ export const saveAccessTokenStorage = (accessToken: string) => {
 
 export const saveRefreshTokenStorage = (refreshToken: string) => {
   setCookie(null, EnumTokens.REFRESH_TOKEN, refreshToken, {
-    maxAge: 900,
+    maxAge: 86400,
     path: "/",
   });
 };
