@@ -17,8 +17,6 @@ const useFavorite = () => {
       const favs = JSON.parse(data);
 
       if (typeof favs === "object" && favs.length > 0) {
-        console.log(data);
-
         setFavoriteOnLoad(favs);
         getFavs({ ids: favs });
       }

@@ -2,16 +2,12 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  console.log("123", 123);
-
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/items/lookBock`,
     );
 
     const itemCount = response.data.data.images.length;
-
-    console.log("itemCount", itemCount);
 
     if (itemCount < 4) {
       return NextResponse.json(

@@ -54,8 +54,6 @@ class AuthQueries {
 
       saveAccessTokenStorage(data.data.access_token);
       saveRefreshTokenStorage(data.data.refresh_token);
-
-      console.log("data", data);
     } catch (error) {
       console.log((error as Error).message);
     }

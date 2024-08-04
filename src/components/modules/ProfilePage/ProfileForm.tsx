@@ -149,8 +149,6 @@ const ProfileForm = ({ user }: { user: User }) => {
               control={control}
               defaultValue={formatPhoneNumber(user.phone) || ""}
               render={({ field: { onChange, value } }) => {
-                console.log(value);
-
                 return (
                   <MaskInput
                     alwaysShowMask
