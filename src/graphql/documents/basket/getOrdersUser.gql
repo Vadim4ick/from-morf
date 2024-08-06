@@ -1,0 +1,26 @@
+query GetOrdersUser($user_id: String) {
+  orders(
+    filter: { user: { id: { _eq: $user_id } }, status: { _eq: "SUCCESS" } }
+  ) {
+    id
+    totalPrice
+    created_at
+    discountPrice
+    discount
+
+    items {
+      id
+      size
+      count
+      discount
+      good {
+        ...Good
+      }
+    }
+    user {
+      name
+      surname
+      id
+    }
+  }
+}

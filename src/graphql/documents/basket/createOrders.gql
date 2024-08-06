@@ -1,0 +1,22 @@
+mutation CreateOrder(
+  $total_price: Float
+  $discountPrice: Float
+  $discount: Float
+  $user_id: ID
+) {
+  create_orders_item(
+    data: {
+      totalPrice: $total_price
+      user: { id: $user_id }
+      discountPrice: $discountPrice
+      discount: $discount
+    }
+  ) {
+    id
+    totalPrice
+    user {
+      id
+      name
+    }
+  }
+}

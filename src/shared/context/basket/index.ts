@@ -1,4 +1,7 @@
+import { PaymentDetails } from "@/lib/create-payment";
+import axios, { AxiosError } from "axios";
 import { createDomain } from "effector";
+import { toast } from "sonner";
 
 export interface Basket {
   id: string;
@@ -17,10 +20,44 @@ export interface Basket {
 
 export const basket = createDomain();
 
+export const makePaymentFx = basket.createEffect(
+  async ({ amount, description, orderId }: PaymentDetails) => {
+    try {
+      const { data } = await axios.post("/api/create-payment", {
+        description: description,
+        orderId: orderId,
+        amount: amount,
+      });
+
+      localStorage.setItem("paymentId", JSON.stringify(data.result.data.id));
+      window.location.href = data.result.data.confirmation.confirmation_url;
+    } catch (error) {
+      const err =
+        // @ts-ignore
+        (error as AxiosError).response?.data.error || (error as Error).message;
+
+      toast.error(err);
+    }
+  },
+);
+
+export const checkPaymentFx = basket.createEffect(
+  async ({ paymentId }: { paymentId: string }) => {
+    try {
+      const { data } = await axios.post("/api/check-payment", { paymentId });
+
+      return data;
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
+  },
+);
+
 export const setSelectedSize = basket.createEvent<string>();
 
 export const addBasketItem = basket.createEvent<Omit<Basket, "count">>();
 export const setBasketOnLoad = basket.createEvent();
+export const deleteBasket = basket.createEvent();
 
 export const deleteAll = basket.createEvent();
 export const deleteById = basket.createEvent<{ id: string; size: string }>();
@@ -83,6 +120,11 @@ export const $basket = basket
 
     localStorage.setItem("basket", JSON.stringify(updatedItems));
     return updatedItems;
+  })
+  .on(deleteBasket, () => {
+    localStorage.removeItem("basket");
+
+    return [];
   })
   .on(incrementItemCount, (state, { id, size }) => {
     const newArr = state.map((item) => {

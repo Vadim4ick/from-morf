@@ -17,17 +17,88 @@ import {
   sumTotalCurrentPriceBasket,
   sumTotalAllPriceBasket,
   totalDiscount,
+  parsePrice,
 } from "@/lib/utils";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
-import { deleteAll } from "@/shared/context/basket";
+import {
+  checkPaymentFx,
+  deleteAll,
+  deleteBasket,
+  makePaymentFx,
+} from "@/shared/context/basket";
 import { useBasket } from "@/shared/hooks/useBasket.hooks";
 import { BasketItem } from "./BasketItem";
 import { Button } from "@/components/ui/button";
+import { useUnit } from "effector-react";
+import { $user } from "@/shared/context/user/state";
+import { processOrder, updateStatus } from "@/shared/services/processOreder";
+import { useAuth } from "@/shared/hooks/useAuth.hooks";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const isTablet991 = useMediaQuery(991);
+  const user = useUnit($user);
+  const { isAuth } = useAuth();
 
   const { basketIdsAndSizeAndCount: basket, discountCount } = useBasket();
+
+  const onPayment = async () => {
+    // // const description = `
+    // //   Иия получателя - ${user?.name + " " + user?.surname},
+    // //   Адрес - ${user?.address},
+    // //   Email - ${user?.email},
+    // //   Номер телефона - ${user?.phone},
+    // // `;
+    const price = parsePrice(sumTotalCurrentPriceBasket(basket));
+    const discountPrice = parsePrice(sumTotalAllPriceBasket(basket));
+    const discount = +totalDiscount(basket);
+
+    if (!user) {
+      return;
+    }
+
+    const { success, orderId } = await processOrder({
+      user_id: user.id,
+      totalPrice: price,
+      basket: basket,
+      discount: discount,
+      discountPrice: discountPrice,
+    });
+    const description = `Адрес - ${user.address}`;
+
+    if (success && orderId) {
+      makePaymentFx({
+        description: description.trim(),
+        orderId: orderId,
+        amount: price,
+      });
+    }
+  };
+
+  useEffect(() => {
+    clearCartByPayment();
+  }, [isAuth]);
+
+  const clearCartByPayment = async () => {
+    const paymentId = JSON.parse(localStorage.getItem("paymentId") as string);
+
+    if (!isAuth || !paymentId) {
+      return;
+    }
+
+    const data = await checkPaymentFx({ paymentId });
+
+    if (data) {
+      if (data.result.status === "succeeded") {
+        deleteBasket();
+        await updateStatus(data.result.metadata.order_id, "SUCCESS");
+        toast.success("Успешная оплата");
+      }
+    }
+
+    localStorage.removeItem("paymentId");
+  };
 
   return (
     <Dialog>
@@ -133,7 +204,10 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
               </div>
             )}
 
-            <Button variant={"secondary"}>Перейти к новинкам</Button>
+            <Button onClick={onPayment} variant={"secondary"}>
+              Перейти к оплате
+            </Button>
+            {/* <Button variant={"secondary"}>Перейти к новинкам</Button> */}
           </div>
         </DialogFooter>
       </DialogContent>

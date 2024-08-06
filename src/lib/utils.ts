@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import { User } from "@/shared/types/authForm";
 import { Basket } from "@/shared/context/basket";
+import { Order_Items } from "@/graphql/__generated__";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -109,15 +110,40 @@ export const discountPrice = (
   return Math.floor(price * (1 + discount / 100));
 };
 
-export const sumTotalCurrentPriceBasket = (basket: Basket[]) => {
+type BasketItem = {
+  totalPrice: number;
+  discount: number;
+};
+
+type OrderItem = {
+  good: {
+    price: number;
+  };
+  discount: number;
+};
+
+type Item = BasketItem | OrderItem;
+
+const isOrderItem = (item: Item): item is OrderItem => {
+  return (item as OrderItem).good !== undefined;
+};
+
+const getItemPrice = (item: Item) => {
+  if (isOrderItem(item)) {
+    return item.good.price;
+  }
+  return item.totalPrice;
+};
+
+export const sumTotalCurrentPriceBasket = (basket: readonly Item[]) => {
   return formatPrice(
-    basket.reduce((acc, current) => acc + current.totalPrice, 0),
+    basket.reduce((acc, current) => acc + getItemPrice(current), 0),
   );
 };
 
-export const sumTotalAllPriceBasket = (basket: Basket[]) => {
+export const sumTotalAllPriceBasket = (basket: readonly Item[]) => {
   const newArr = basket.map((item) => {
-    return discountPrice(item.discount, item.totalPrice, false);
+    return discountPrice(item.discount, getItemPrice(item), false);
   });
 
   const totalSum = newArr.reduce((acc, current) => +acc + +current, 0);
@@ -125,7 +151,7 @@ export const sumTotalAllPriceBasket = (basket: Basket[]) => {
   return formatPrice(+totalSum);
 };
 
-export const totalDiscount = (basket: Basket[]) => {
+export const totalDiscount = (basket: readonly Item[]) => {
   const priceDiscount = parsePrice(sumTotalAllPriceBasket(basket));
   const priceCurrent = parsePrice(sumTotalCurrentPriceBasket(basket));
 
@@ -133,3 +159,55 @@ export const totalDiscount = (basket: Basket[]) => {
     Math.round(Math.abs(((priceCurrent - priceDiscount) / priceCurrent) * 100)),
   );
 };
+
+// export const sumTotalCurrentPriceBasket = (basket: Basket[]) => {
+//   return formatPrice(
+//     basket.reduce((acc, current) => acc + current.totalPrice, 0),
+//   );
+// };
+
+// export const sumTotalAllPriceBasket = (basket: Basket[]) => {
+//   const newArr = basket.map((item) => {
+//     return discountPrice(item.discount, item.totalPrice, false);
+//   });
+
+//   const totalSum = newArr.reduce((acc, current) => +acc + +current, 0);
+
+//   return formatPrice(+totalSum);
+// };
+
+// export const totalDiscount = (basket: Basket[]) => {
+//   const priceDiscount = parsePrice(sumTotalAllPriceBasket(basket));
+//   const priceCurrent = parsePrice(sumTotalCurrentPriceBasket(basket));
+
+//   return formatPrice(
+//     Math.round(Math.abs(((priceCurrent - priceDiscount) / priceCurrent) * 100)),
+//   );
+// };
+
+// =====
+
+// export const sumTotalCurrentPriceBasket2 = (basket: readonly Order_Items[]) => {
+//   return formatPrice(
+//     basket.reduce((acc, current) => acc + current.good.price, 0),
+//   );
+// };
+
+// export const sumTotalAllPriceBasket2 = (basket: readonly Order_Items[]) => {
+//   const newArr = basket.map((item) => {
+//     return discountPrice(item.discount, item.good.price, false);
+//   });
+
+//   const totalSum = newArr.reduce((acc, current) => +acc + +current, 0);
+
+//   return formatPrice(+totalSum);
+// };
+
+// export const totalDiscount2 = (basket: readonly Order_Items[]) => {
+//   const priceDiscount = parsePrice(sumTotalAllPriceBasket2(basket));
+//   const priceCurrent = parsePrice(sumTotalCurrentPriceBasket2(basket));
+
+//   return formatPrice(
+//     Math.round(Math.abs(((priceCurrent - priceDiscount) / priceCurrent) * 100)),
+//   );
+// };

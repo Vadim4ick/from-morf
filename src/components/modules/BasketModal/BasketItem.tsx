@@ -41,7 +41,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
     <article className="grid grid-cols-[74px_1fr_85px] gap-3">
       <div className="relative size-[74px]">
         <Image
-          className={cn("", {
+          className={cn("object-cover", {
             skeleton: imgSpinner,
           })}
           onLoad={handleLoadingImageComplete}
