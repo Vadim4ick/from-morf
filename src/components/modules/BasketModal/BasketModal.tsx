@@ -204,10 +204,13 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
               </div>
             )}
 
-            <Button onClick={onPayment} variant={"secondary"}>
-              Перейти к оплате
-            </Button>
-            {/* <Button variant={"secondary"}>Перейти к новинкам</Button> */}
+            {basket.length > 0 ? (
+              <Button onClick={onPayment} variant={"secondary"}>
+                Перейти к оплате
+              </Button>
+            ) : (
+              <Button variant={"secondary"}>Перейти к новинкам</Button>
+            )}
           </div>
         </DialogFooter>
       </DialogContent>
