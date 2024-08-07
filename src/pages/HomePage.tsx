@@ -23,7 +23,7 @@ const HomePage = ({
 }) => {
   return (
     <>
-      {homePage.mainSlider.length > 0 && (
+      {homePage && homePage.mainSlider.length > 0 && (
         <MainSlider slides={homePage.mainSlider} />
       )}
 
