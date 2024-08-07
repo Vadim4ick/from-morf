@@ -107,7 +107,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               <Loader className="" />
             </SheetDescription>
           ) : (
-            <SheetDescription className="flex h-[320px] flex-col overflow-scroll pt-4 text-darkGrayColor">
+            <SheetDescription className="flex h-[320px] flex-col overflow-scroll pt-4 text-darkGrayColor max-mobile:h-[230px]">
               {data?.additionalSections &&
                 data.additionalSections.map((el) => {
                   return (
@@ -148,7 +148,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               className="flex justify-between border border-[#E4E4E4] bg-[#eeeeee] transition-colors hover:border-[#9C9C9C]"
             >
               <div className="flex h-fit items-center gap-2 py-[13px] pl-[20px]">
-                <p className="text-[22px]">О нас</p>
+                <p className="whitespace-nowrap text-[22px]">О нас</p>
 
                 <ArrowLink />
               </div>
