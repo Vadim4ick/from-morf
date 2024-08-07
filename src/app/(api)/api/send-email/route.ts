@@ -5,6 +5,8 @@ import nodemailer from "nodemailer";
 export async function POST(request: Request) {
   const formData = await request.json();
 
+  console.log("Start");
+
   const email = formData.email;
   const password = formData.password;
 
@@ -18,11 +20,15 @@ export async function POST(request: Request) {
     },
   });
 
+  console.log("transporter", transporter);
+
   try {
     const { token, activationCode } = await createActivationToken(
       email,
       password,
     );
+
+    console.log("activationCode", activationCode);
 
     await transporter.sendMail({
       from: "Message bot", // sender address
@@ -35,6 +41,8 @@ export async function POST(request: Request) {
        Code ${activationCode}
       `, // html body
     });
+
+    console.log("End");
 
     return NextResponse.json({ status: 200, activationToken: token });
   } catch (err) {
