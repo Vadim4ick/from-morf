@@ -132,6 +132,8 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
       return toast.error("Выберите размер!");
     }
 
+    console.log(123);
+
     addBasketItem({
       id: item.id,
       size: selectedItem,
