@@ -11,7 +11,12 @@ const nextConfig = {
         hostname: "87.249.49.78",
         port: "8055",
         pathname: "/**",
-      }, // Added entry
+      },
+      {
+        protocol: "https",
+        hostname: "admin.frommorf.ru",
+        pathname: "/**",
+      },
     ],
   },
 };
