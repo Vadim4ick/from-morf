@@ -155,6 +155,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
 
               <Image
                 src={"/burger/imges.png"}
+                className="overflow-hidden"
                 alt=" "
                 width={276}
                 height={106}

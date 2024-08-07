@@ -93,14 +93,11 @@ const AuthForm = () => {
         </div>
       )}
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[10px]"
-      >
+      <div className="flex flex-col gap-[10px]">
         <Input
           {...register("email")}
           placeholder="Email"
-          className="rounded-[2px] bg-[#E2E2E2F]"
+          className="rounded-[2px] bg-[#E2E2E2F] text-base"
           onFocus={() =>
             currentForm === "register" && changeRegisterError(false)
           }
@@ -111,7 +108,7 @@ const AuthForm = () => {
             {...register("password")}
             type={visiblePass ? "text" : "password"}
             placeholder="Пароль"
-            className="rounded-[2px] bg-[#E2E2E2F]"
+            className="rounded-[2px] bg-[#E2E2E2F] text-base"
           />
 
           <Eye
@@ -120,10 +117,14 @@ const AuthForm = () => {
           />
         </div>
 
-        <Button className="w-full" variant={"secondary"}>
+        <Button
+          onClick={() => handleSubmit(onSubmit)}
+          className="w-full"
+          variant={"secondary"}
+        >
           Продолжить
         </Button>
-      </form>
+      </div>
     </>
   );
 };
