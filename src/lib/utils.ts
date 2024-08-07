@@ -52,7 +52,7 @@ export async function verifyActivationToken(token: string) {
 }
 
 export const pathImage = (img: string) => {
-  return `http://localhost:8055/assets/${img}`;
+  return `${process.env.NEXT_PUBLIC_SERVER_URL}/assets/${img}`;
 };
 
 export const parseJwt = (token: string) =>
