@@ -53,7 +53,8 @@ const FavoritesPage = () => {
             <div className="flex h-full flex-col items-center justify-center gap-[120px]">
               <div className="relative flex max-tabletBig:h-[350px] max-tabletBig:flex-col-reverse max-tabletBig:items-center max-tabletBig:justify-center max-tabletBig:gap-12 max-mobile:gap-8">
                 <p className="text-center text-2xl font-medium max-mobile:text-sm">
-                  Вы пока не добавили ничего <br /> в избранное
+                  Вы пока не добавили ничего <br className="mobile:hidden" /> в
+                  избранное
                 </p>
 
                 <Heart
