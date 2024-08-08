@@ -7,22 +7,22 @@ export async function POST(request: Request) {
 
   console.log("Start");
 
+  const email = formData.email;
+  const password = formData.password;
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: process.env.SMTP_HOST,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: process.env.SMTP_MAIL,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  console.log("transporter", transporter);
+
   return NextResponse.json({ status: 200, body: formData });
-
-  // const email = formData.email;
-  // const password = formData.password;
-
-  // const transporter = nodemailer.createTransport({
-  //   service: "gmail",
-  //   host: process.env.SMTP_HOST,
-  //   secure: true, // true for 465, false for other ports
-  //   auth: {
-  //     user: process.env.SMTP_MAIL,
-  //     pass: process.env.SMTP_PASS,
-  //   },
-  // });
-
-  // console.log("transporter", transporter);
 
   // try {
   //   const { token, activationCode } = await createActivationToken(
