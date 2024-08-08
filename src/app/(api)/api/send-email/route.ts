@@ -24,17 +24,17 @@ export async function POST(request: Request) {
       password,
     );
 
-    // await transporter.sendMail({
-    //   from: "Message bot", // sender address
-    //   to: email, // list of receivers
-    //   subject: `Сообщение от From-Morf`, // Subject line
-    //   // text: JSON.stringify(message), // plain text body
-    //   html: `
-    //    Код будет действителен в течении 5 минут.
+    await transporter.sendMail({
+      from: "Message bot", // sender address
+      to: email, // list of receivers
+      subject: `Сообщение от From-Morf`, // Subject line
+      // text: JSON.stringify(message), // plain text body
+      html: `
+       Код будет действителен в течении 5 минут.
 
-    //    Code ${activationCode}
-    //   `, // html body
-    // });
+       Code ${activationCode}
+      `, // html body
+    });
 
     return NextResponse.json({ status: 200, activationToken: token });
   } catch (err) {
