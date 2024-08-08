@@ -36,7 +36,7 @@ const BottomLayout = ({ parameters }: { parameters: string }) => {
           },
           ol: ({ children }) => {
             return (
-              <ol className="flex flex-col gap-3 border-b border-[#D1D1D1] py-6">
+              <ol className="flex flex-col gap-3 border-b border-[#D1D1D1] py-6 max-mobile:py-4">
                 {children}
               </ol>
             );
@@ -51,21 +51,21 @@ const BottomLayout = ({ parameters }: { parameters: string }) => {
 
 const BottomLinks = () => {
   return (
-    <div className="pt-[34px] max-tabletBig:pt-[16px]">
+    <div className="pt-[24px] max-tabletBig:pt-[16px]">
       <Link
         href={"/"}
-        className="flex items-center justify-between gap-3 py-[10px]"
+        className="flex items-center justify-between gap-3 py-[10px] max-mobile:py-[9px]"
       >
-        <p>Доставка и оплата</p>
+        <p className="leading-[20px] max-mobile:text-sm">Доставка и оплата</p>
 
         <Arrow className="rotate-180" />
       </Link>
 
       <Link
         href={"/"}
-        className="flex items-center justify-between gap-3 py-[10px]"
+        className="flex items-center justify-between gap-3 py-[10px] max-mobile:py-[9px]"
       >
-        <p>Возврат</p>
+        <p className="leading-[20px] max-mobile:text-sm">Возврат</p>
 
         <Arrow className="rotate-180" />
       </Link>
@@ -280,14 +280,14 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
         <div className="relative">
           <div className="top-[calc(var(--header-height)_+_20px)] desktop:sticky">
             {/* TOP */}
-            <div className="flex flex-col gap-9 border-b border-[#D1D1D1] pb-9 max-desktop:pb-8">
-              <div className="flex flex-col gap-2">
-                <h1 className="text-[28px] font-medium uppercase max-mobile:text-lg">
+            <div className="flex flex-col gap-9 border-b border-[#D1D1D1] pb-9 max-desktop:pb-8 max-mobile:gap-6 max-mobile:pb-6">
+              <div className="flex flex-col gap-2 max-mobile:gap-[2px]">
+                <h1 className="text-[28px] font-semibold uppercase leading-[34px] max-mobile:text-lg max-mobile:leading-[22px]">
                   {item.name}
                 </h1>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-[22px] font-medium max-mobile:text-base">
+                  <span className="text-[22px] font-medium leading-[27px] max-mobile:text-base">
                     {formatPrice(item.price)} ₽
                   </span>
 
@@ -299,7 +299,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 max-mobile:gap-4">
                 <ReactMarkdown
                   components={{
                     li: ({ children }) => {
@@ -308,6 +308,9 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                           {children}
                         </li>
                       );
+                    },
+                    p: ({ children }) => {
+                      return <p className="max-mobile:text-sm">{children}</p>;
                     },
                     ol: ({ children }) => {
                       return (

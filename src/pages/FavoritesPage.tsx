@@ -65,7 +65,7 @@ const FavoritesPage = () => {
               </div>
 
               <Button
-                className="min-h-[50px] min-w-[312px] uppercase max-tabletBig:w-full"
+                className="min-h-[50px] min-w-[312px] font-normal uppercase max-tabletBig:w-full"
                 variant={"secondary"}
               >
                 Перейти к покупкам

@@ -19,11 +19,11 @@ const StyleTipsItemPage = ({
         <section className="pt-[calc(var(--header-height)_+_68px)] max-tabletBig:pt-[calc(var(--header-height)_+_36px)]">
           <div className="container">
             <div className="max-w-[952px]">
-              <p className="pb-[18px] text-[14px] text-[#707070] max-mobile:pb-2">
+              <p className="pb-[18px] font-medium text-[#707070] max-mobile:pb-2 mobile:text-[18px] mobile:leading-[22px]">
                 {formatDate(item.date_created)}
               </p>
 
-              <h1 className="text-4xl leading-8 max-tabletBig:text-[28px] max-mobile:text-2xl">
+              <h1 className="text-4xl font-medium max-desktop:leading-[44px] max-tabletBig:text-[28px] max-mobile:text-2xl">
                 {item.title}
               </h1>
 

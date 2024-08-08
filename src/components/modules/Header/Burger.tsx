@@ -171,7 +171,9 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               >
                 <DeliveryIcon />
 
-                <p className="text-[15px] font-medium">Доставка и оплата</p>
+                <p className="text-[15px] font-medium max-mobile:text-[13px]">
+                  Доставка и оплата
+                </p>
               </Link>
 
               <Link
@@ -180,7 +182,9 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               >
                 <ReturnIcon />
 
-                <p className="text-[15px] font-medium">Возврат товара</p>
+                <p className="text-[15px] font-medium max-mobile:text-[13px]">
+                  Возврат товара
+                </p>
               </Link>
             </div>
 
@@ -200,7 +204,9 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                     })}
                   />
 
-                  <p className="text-[15px] font-medium">Личный кабинет</p>
+                  <p className="text-[15px] font-medium max-mobile:text-[13px]">
+                    Личный кабинет
+                  </p>
                 </button>
               </div>
             )}
