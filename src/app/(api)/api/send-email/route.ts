@@ -24,10 +24,8 @@ export async function POST(request: Request) {
   // SMTP_PASS=xvqu iyta qlxv ogle
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    requireTLS: true,
-    port: 587,
-    secure: false, // true для 465 (SSL), false для 587 (TLS)
+    // host: "smtp.gmail.com",
+    service: "gmail",
     logger: true, // Включает логирование
     debug: true, // Включает отладочные сообщения
     auth: {
@@ -37,22 +35,32 @@ export async function POST(request: Request) {
   });
 
   try {
+    const testResult = await transporter.verify();
+    console.log(testResult);
+  } catch (error) {
+    console.error({ error });
+    return;
+  }
+
+  try {
     const { token, activationCode } = await createActivationToken(
       email,
       password,
     );
 
-    await transporter.sendMail({
+    const sendResult = await transporter.sendMail({
       from: "Message bot", // sender address
       to: email, // list of receivers
       subject: `Сообщение от From-Morf`, // Subject line
-      // text: JSON.stringify(message), // plain text body
-      html: `
-       Код будет действителен в течении 5 минут.
+      text: "Привет", // plain text body
+      // html: `
+      //  Код будет действителен в течении 5 минут.
 
-       Code ${activationCode}
-      `, // html body
+      //  Code ${activationCode}
+      // `, // html body
     });
+
+    console.log("sendResult", sendResult);
 
     return NextResponse.json({ status: 200, activationToken: token });
   } catch (err) {
