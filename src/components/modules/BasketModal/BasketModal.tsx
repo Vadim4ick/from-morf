@@ -65,7 +65,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
       discount: discount,
       discountPrice: discountPrice,
     });
-    const description = `Адрес - ${user.address}`;
+    const description = `Адрес - ${user.user_address}`;
 
     if (success && orderId) {
       makePaymentFx({

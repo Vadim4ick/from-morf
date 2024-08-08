@@ -29,11 +29,11 @@ export const updateUserFx = createEffect(
       const { data } = await $apiBack.patch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${userData.id}`,
         {
-          name: userData.name,
-          surname: userData.surname,
+          first_name: userData.first_name,
+          last_name: userData.last_name,
           email: userData.email,
-          address: userData.address,
-          phone: userData.phone,
+          user_address: userData.user_address,
+          phone_number: userData.phone_number,
           avatar: userData.avatar,
         },
       );

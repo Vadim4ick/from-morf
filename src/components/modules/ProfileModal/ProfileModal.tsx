@@ -136,12 +136,12 @@ const ProfileModal = () => {
 
                 <div
                   className={cn("text-[15px]", {
-                    "text-[#939393]": user?.address,
-                    "text-error": !user?.address,
+                    "text-[#939393]": user?.user_address,
+                    "text-error": !user?.user_address,
                   })}
                 >
-                  {user?.address ? (
-                    user.address
+                  {user?.user_address ? (
+                    user.user_address
                   ) : (
                     <p className="flex items-center justify-center gap-2">
                       <span className="pt-[4px]">Добавьте адрес доставки!</span>

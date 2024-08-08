@@ -12,8 +12,8 @@ export interface User {
   id: string;
   avatar: string | null;
   email: string;
-  surname: string;
-  address: string;
-  name: string;
-  phone: string;
+  last_name: string;
+  user_address: string;
+  first_name: string;
+  phone_number: string;
 }

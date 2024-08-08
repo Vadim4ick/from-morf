@@ -59,8 +59,10 @@ export const parseJwt = (token: string) =>
   JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
 
 export const visibleNameFn = (user: User | null) => {
-  if (user?.name) {
-    return user.surname ? `${user.name} ${user.surname}` : user.name;
+  if (user?.first_name) {
+    return user.last_name
+      ? `${user.first_name} ${user.last_name}`
+      : user.first_name;
   }
 
   return user?.email;

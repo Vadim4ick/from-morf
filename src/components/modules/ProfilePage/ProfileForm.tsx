@@ -33,19 +33,19 @@ const ProfileForm = ({ user }: { user: User }) => {
   });
 
   const [email, setEmail] = useState(user.email || "");
-  const [surname, setSurname] = useState(user.surname || "");
-  const [name, setName] = useState(user.name || "");
-  const [address, setAddress] = useState(user.address || "");
+  const [surname, setSurname] = useState(user.last_name || "");
+  const [name, setName] = useState(user.first_name || "");
+  const [address, setAddress] = useState(user.user_address || "");
 
   const onSubmit: SubmitHandler<FormProfileSchema> = async (data) => {
-    const phone = data.phone.replace(/\D/g, "");
+    const phone = data.phone_number.replace(/\D/g, "");
 
     if (user) {
       updateUser({
         userData: {
           id: user.id,
           ...data,
-          phone: String(phone),
+          phone_number: String(phone),
         },
       });
     }
@@ -60,19 +60,19 @@ const ProfileForm = ({ user }: { user: User }) => {
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 max-mobile:flex-col">
             <label className="flex w-full cursor-pointer flex-col gap-[6px]">
-              {errors.name && (
-                <div className="text-error">{errors.name.message}</div>
+              {errors.first_name && (
+                <div className="text-error">{errors.first_name.message}</div>
               )}
 
               <div className="flex items-center gap-3">
                 <p className="text-sm">Имя*</p>
 
-                {!user?.name && <Warning className="size-6" />}
-                {user?.name && <SuccessInput />}
+                {!user?.first_name && <Warning className="size-6" />}
+                {user?.first_name && <SuccessInput />}
               </div>
 
               <Input
-                {...register("name")}
+                {...register("first_name")}
                 className="h-12 rounded-[2px] bg-[#EBEBEB]"
                 value={name || ""}
                 onChange={(e) => setName(e.target.value)}
@@ -80,19 +80,19 @@ const ProfileForm = ({ user }: { user: User }) => {
             </label>
 
             <label className="flex w-full cursor-pointer flex-col gap-[6px]">
-              {errors.surname && (
-                <div className="text-error">{errors.surname.message}</div>
+              {errors.last_name && (
+                <div className="text-error">{errors.last_name.message}</div>
               )}
 
               <div className="flex items-center gap-3">
                 <p className="text-sm"> Фамилия*</p>
 
-                {!user?.surname && <Warning className="size-6" />}
-                {user?.surname && <SuccessInput />}
+                {!user?.last_name && <Warning className="size-6" />}
+                {user?.last_name && <SuccessInput />}
               </div>
 
               <Input
-                {...register("surname")}
+                {...register("last_name")}
                 className="h-12 rounded-[2px] bg-[#EBEBEB]"
                 value={surname || ""}
                 onChange={(e) => setSurname(e.target.value)}
@@ -134,20 +134,20 @@ const ProfileForm = ({ user }: { user: User }) => {
           <h2 className="text-lg font-medium uppercase">Номер телефона</h2>
 
           <label className="flex w-full cursor-pointer flex-col gap-[6px]">
-            {errors.phone && (
-              <div className="text-error">{errors.phone.message}</div>
+            {errors.phone_number && (
+              <div className="text-error">{errors.phone_number.message}</div>
             )}
             <div className="flex items-center gap-3">
               <p className="text-sm">Введите номер телефона (+7)</p>
 
-              {!user?.phone && <Warning className="size-6" />}
-              {user?.phone && <SuccessInput />}
+              {!user?.phone_number && <Warning className="size-6" />}
+              {user?.phone_number && <SuccessInput />}
             </div>
 
             <Controller
-              name="phone"
+              name="phone_number"
               control={control}
-              defaultValue={formatPhoneNumber(user.phone) || ""}
+              defaultValue={formatPhoneNumber(user.phone_number) || ""}
               render={({ field: { onChange, value } }) => {
                 return (
                   <MaskInput
@@ -170,19 +170,19 @@ const ProfileForm = ({ user }: { user: User }) => {
           <h2 className="text-lg font-medium uppercase">Адрес</h2>
 
           <label className="flex w-full cursor-pointer flex-col gap-[6px]">
-            {errors.address && (
-              <div className="text-error">{errors.address.message}</div>
+            {errors.user_address && (
+              <div className="text-error">{errors.user_address.message}</div>
             )}
 
             <div className="flex items-center gap-3">
               <p className="text-sm">Введите адрес доставки</p>
 
-              {!user?.address && <Warning className="size-6" />}
-              {user?.address && <SuccessInput />}
+              {!user?.user_address && <Warning className="size-6" />}
+              {user?.user_address && <SuccessInput />}
             </div>
 
             <Input
-              {...register("address")}
+              {...register("user_address")}
               value={address || ""}
               onChange={(e) => setAddress(e.target.value)}
               className="h-12 rounded-[2px] bg-[#EBEBEB]"

@@ -16,7 +16,7 @@ mutation CreateOrder(
     totalPrice
     user {
       id
-      name
+      first_name
     }
   }
 }
