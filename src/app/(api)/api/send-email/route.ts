@@ -16,6 +16,7 @@ export async function POST(request: Request) {
       user: process.env.SMTP_MAIL,
       pass: process.env.SMTP_PASS,
     },
+    logger: true,
   });
 
   try {
