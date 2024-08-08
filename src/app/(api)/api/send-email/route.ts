@@ -24,8 +24,7 @@ export async function POST(request: Request) {
   // SMTP_PASS=xvqu iyta qlxv ogle
 
   const transporter = nodemailer.createTransport({
-    // host: "smtp.gmail.com",
-    service: "gmail",
+    host: "smtp.gmail.com",
     logger: true, // Включает логирование
     debug: true, // Включает отладочные сообщения
     auth: {
@@ -52,12 +51,11 @@ export async function POST(request: Request) {
       from: "Message bot", // sender address
       to: email, // list of receivers
       subject: `Сообщение от From-Morf`, // Subject line
-      text: "Привет", // plain text body
-      // html: `
-      //  Код будет действителен в течении 5 минут.
+      html: `
+       Код будет действителен в течении 5 минут.
 
-      //  Code ${activationCode}
-      // `, // html body
+       Code ${activationCode}
+      `, // html body
     });
 
     console.log("sendResult", sendResult);
