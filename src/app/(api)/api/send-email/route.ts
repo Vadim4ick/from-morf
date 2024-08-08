@@ -21,14 +21,15 @@ export async function POST(request: Request) {
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
+    requireTLS: true,
     port: 587,
     secure: false, // true для 465 (SSL), false для 587 (TLS)
+    logger: true, // Включает логирование
+    debug: true, // Включает отладочные сообщения
     auth: {
       user: process.env.SMTP_MAIL,
       pass: process.env.SMTP_PASS,
     },
-    logger: true, // Включает логирование
-    debug: true, // Включает отладочные сообщения
   });
 
   try {
