@@ -93,7 +93,10 @@ const AuthForm = () => {
         </div>
       )}
 
-      <div className="flex flex-col gap-[10px]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-[10px]"
+      >
         <Input
           {...register("email")}
           placeholder="Email"
@@ -117,14 +120,10 @@ const AuthForm = () => {
           />
         </div>
 
-        <Button
-          onClick={() => handleSubmit(onSubmit)}
-          className="w-full"
-          variant={"secondary"}
-        >
+        <Button className="w-full" variant={"secondary"}>
           Продолжить
         </Button>
-      </div>
+      </form>
     </>
   );
 };
