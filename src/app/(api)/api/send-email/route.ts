@@ -19,6 +19,10 @@ export async function POST(request: Request) {
   //   logger: true,
   // });
 
+  //   SMTP_HOST=smtp.gmail.com
+  // SMTP_MAIL=firulvv@gmail.com
+  // SMTP_PASS=xvqu iyta qlxv ogle
+
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     requireTLS: true,
@@ -27,8 +31,8 @@ export async function POST(request: Request) {
     logger: true, // Включает логирование
     debug: true, // Включает отладочные сообщения
     auth: {
-      user: process.env.SMTP_MAIL,
-      pass: process.env.SMTP_PASS,
+      user: "firulvv@gmail.com",
+      pass: "xvqu iyta qlxv ogle",
     },
   });
 
