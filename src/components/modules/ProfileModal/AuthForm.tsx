@@ -16,7 +16,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormAuthSchema, formAuthSchema } from "./model/formSchemas";
 import { loginUser } from "@/shared/context/user";
-import { sendMail } from "@/shared/queries/sendMail";
 
 const AuthForm = () => {
   const [visiblePass, setVisiblePass] = useState(false);
@@ -60,19 +59,12 @@ const AuthForm = () => {
         return;
       }
 
-      await sendMail({
-        body: "Привет",
-        name: "test",
-        subject: "Активация аккаунта",
-        to: "firulvv@mail.ru",
-      });
+      const { status, data } = await authQuery.sendMail({ email, password });
 
-      // const { status, data } = await authQuery.sendMail({ email, password });
-
-      // if (status === 200) {
-      //   localStorage.setItem("activateToken", data.activationToken);
-      //   toggleConfirmPage(true);
-      // }
+      if (status === 200) {
+        localStorage.setItem("activateToken", data.activationToken);
+        toggleConfirmPage(true);
+      }
     }
   };
 

@@ -34,8 +34,8 @@ export async function POST(request: Request) {
   });
 
   try {
-    const testResult = await transporter.verify();
-    console.log(testResult);
+    const res = await transporter.verify();
+    console.log("res", res);
   } catch (error) {
     console.error({ error });
     return;
