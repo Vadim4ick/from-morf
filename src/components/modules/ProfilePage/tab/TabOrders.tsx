@@ -4,20 +4,30 @@ import {
   discountPrice,
   formatPrice,
   getPluralForm,
+  parsePrice,
   sumTotalAllPriceBasket,
   sumTotalCurrentPriceBasket,
   totalDiscount,
 } from "@/lib/utils";
+import { makePaymentFx } from "@/shared/context/basket";
 import {
   $orederHistory,
   getOrdersHistoryFx,
 } from "@/shared/context/orderHistory";
 import { $user } from "@/shared/context/user/state";
+import { processOrder } from "@/shared/services/processOreder";
+import { User } from "@/shared/types/authForm";
 import { useUnit } from "effector-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const OrderItem = ({ order }: { order: GetOrdersUserQuery["orders"][0] }) => {
+const OrderItem = ({
+  order,
+  user,
+}: {
+  order: GetOrdersUserQuery["orders"][0];
+  user: User;
+}) => {
   const [discountCount, setDiscountCount] = useState(0);
 
   useEffect(() => {
@@ -25,6 +35,33 @@ const OrderItem = ({ order }: { order: GetOrdersUserQuery["orders"][0] }) => {
 
     setDiscountCount(res.length);
   }, [order.items]);
+
+  const onPayment = async () => {
+    const price = parsePrice(sumTotalCurrentPriceBasket(order.items));
+    const discountPrice = parsePrice(sumTotalAllPriceBasket(order.items));
+    const discount = +totalDiscount(order.items);
+
+    const basket = order.items.map((el) => el.good);
+
+    const { success, orderId } = await processOrder({
+      user_id: user.id,
+      totalPrice: price,
+      // @ts-ignore
+      basket: basket,
+      discount: discount,
+      discountPrice: discountPrice,
+    });
+
+    const description = `Адрес - ${user.user_address}`;
+
+    if (success && orderId) {
+      makePaymentFx({
+        description: description.trim(),
+        orderId: orderId,
+        amount: price,
+      });
+    }
+  };
 
   return (
     <div>
@@ -114,7 +151,8 @@ const OrderItem = ({ order }: { order: GetOrdersUserQuery["orders"][0] }) => {
           </div>
 
           <Button
-            className="h-[50px] bg-[#E3E3E3] text-sm font-medium uppercase"
+            onClick={onPayment}
+            className="h-[50px] bg-[#E3E3E3] text-sm font-semibold uppercase"
             variant={"outline"}
           >
             Повторить заказ
@@ -139,8 +177,9 @@ const TabOrders = () => {
       <div className="mx-auto max-w-[453px]">
         <div className="flex flex-col gap-9">
           {oredersHistory.length > 0 &&
+            user &&
             oredersHistory.map((order) => {
-              return <OrderItem key={order.id} order={order} />;
+              return <OrderItem key={order.id} user={user} order={order} />;
             })}
         </div>
       </div>
