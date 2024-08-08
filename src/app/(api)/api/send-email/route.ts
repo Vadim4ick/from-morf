@@ -7,46 +7,48 @@ export async function POST(request: Request) {
 
   console.log("Start");
 
-  const email = formData.email;
-  const password = formData.password;
+  return NextResponse.json({ status: 200, body: formData });
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    host: process.env.SMTP_HOST,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_MAIL,
-      pass: process.env.SMTP_PASS,
-    },
-  });
+  // const email = formData.email;
+  // const password = formData.password;
 
-  console.log("transporter", transporter);
+  // const transporter = nodemailer.createTransport({
+  //   service: "gmail",
+  //   host: process.env.SMTP_HOST,
+  //   secure: true, // true for 465, false for other ports
+  //   auth: {
+  //     user: process.env.SMTP_MAIL,
+  //     pass: process.env.SMTP_PASS,
+  //   },
+  // });
 
-  try {
-    const { token, activationCode } = await createActivationToken(
-      email,
-      password,
-    );
+  // console.log("transporter", transporter);
 
-    console.log("activationCode", activationCode);
+  // try {
+  //   const { token, activationCode } = await createActivationToken(
+  //     email,
+  //     password,
+  //   );
 
-    await transporter.sendMail({
-      from: "Message bot", // sender address
-      to: email, // list of receivers
-      subject: `Сообщение от From-Morf`, // Subject line
-      // text: JSON.stringify(message), // plain text body
-      html: `
-       Код будет действителен в течении 5 минут. 
-       
-       Code ${activationCode}
-      `, // html body
-    });
+  //   console.log("activationCode", activationCode);
 
-    console.log("End");
+  //   await transporter.sendMail({
+  //     from: "Message bot", // sender address
+  //     to: email, // list of receivers
+  //     subject: `Сообщение от From-Morf`, // Subject line
+  //     // text: JSON.stringify(message), // plain text body
+  //     html: `
+  //      Код будет действителен в течении 5 минут.
 
-    return NextResponse.json({ status: 200, activationToken: token });
-  } catch (err) {
-    console.log(err);
-    return NextResponse.json({ status: 500 });
-  }
+  //      Code ${activationCode}
+  //     `, // html body
+  //   });
+
+  //   console.log("End");
+
+  //   return NextResponse.json({ status: 200, activationToken: token });
+  // } catch (err) {
+  //   console.log(err);
+  //   return NextResponse.json({ status: 500 });
+  // }
 }
