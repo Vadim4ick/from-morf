@@ -55,7 +55,18 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
     const discount = +totalDiscount(basket);
 
     if (!user) {
-      return;
+      return toast.error("Авторизуйтесь, прежде чем сделать заказ");
+    }
+
+    if (
+      !user.first_name ||
+      !user.last_name ||
+      !user.phone_number ||
+      !user.user_address
+    ) {
+      return toast.error(
+        "Полностью заполните свой профиль прежде чем сделать заказ",
+      );
     }
 
     const { success, orderId } = await processOrder({
