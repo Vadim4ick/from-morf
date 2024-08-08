@@ -8,15 +8,27 @@ export async function POST(request: Request) {
   const email = formData.email;
   const password = formData.password;
 
+  // const transporter = nodemailer.createTransport({
+  //   service: "gmail",
+  //   host: process.env.SMTP_HOST,
+  //   secure: false, // true for 465, false for other ports
+  //   auth: {
+  //     user: process.env.SMTP_MAIL,
+  //     pass: process.env.SMTP_PASS,
+  //   },
+  //   logger: true,
+  // });
+
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    host: process.env.SMTP_HOST,
-    secure: false, // true for 465, false for other ports
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true для 465 (SSL), false для 587 (TLS)
     auth: {
       user: process.env.SMTP_MAIL,
       pass: process.env.SMTP_PASS,
     },
-    logger: true,
+    logger: true, // Включает логирование
+    debug: true, // Включает отладочные сообщения
   });
 
   try {
