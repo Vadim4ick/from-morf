@@ -52,10 +52,12 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
       </div>
 
       <div className="flex flex-col justify-between gap-1">
-        <div className="flex flex-col">
-          <p className="font-medium">{basket.title}</p>
+        <div className="flex max-w-[204px] flex-col gap-1">
+          <p className="overflow-hidden text-ellipsis whitespace-nowrap font-medium leading-[19px]">
+            {basket.title}
+          </p>
 
-          <div className="text-sm text-[#7E7E7E]">
+          <div className="text-sm leading-[17px] text-[#7E7E7E]">
             Размер:{" "}
             <span className="font-medium text-darkGrayColor">
               {basket.size}
@@ -85,12 +87,12 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
 
       <div className="flex flex-col items-center justify-between gap-1">
         <div className="flex flex-col items-end">
-          <p className="text-lg font-medium">
+          <p className="text-lg font-medium leading-[22px]">
             {formatPrice(basket.totalPrice)} ₽
           </p>
 
           {basket.discount > 0 && (
-            <span className="text-sm font-medium text-[#959595] line-through">
+            <span className="text-sm font-medium leading-[17px] text-[#959595] line-through">
               {discountPrice(basket.discount, basket.totalPrice)} ₽
             </span>
           )}
