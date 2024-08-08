@@ -35,7 +35,9 @@ const HomePage = ({
             href={"/goods/additional/Новинки"}
             className="flex flex-col gap-[9px] text-white"
           >
-            <p className="uppercase">Новая коллекция уже в продаже</p>
+            <p className="font-semibold uppercase">
+              Новая коллекция уже в продаже
+            </p>
 
             <svg
               width="41.000000"

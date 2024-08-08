@@ -46,7 +46,7 @@ const NewItems = ({
 
             <ButtonAnimate
               onClick={() => router.push("/goods/additional/Новинки")}
-              className="ml-auto tabletSmall:mb-12"
+              className="ml-auto font-semibold tabletSmall:mb-12"
             >
               все новинки
             </ButtonAnimate>

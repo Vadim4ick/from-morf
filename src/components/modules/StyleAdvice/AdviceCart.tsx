@@ -32,11 +32,13 @@ const AdviceCart = (props: Props) => {
         </div>
 
         <div className="flex flex-col gap-2 pt-4 max-tabletBig:pt-3">
-          <p className="text-[14px] text-[#707070]">
+          <p className="text-[14px] leading-[18px] text-[#707070]">
             {formatDate(item.date_created)}
           </p>
 
-          <p className="text-xl max-mobileSmall:text-base">{item.title}</p>
+          <p className="text-[20px] leading-[25px] max-mobileSmall:text-base">
+            {item.title}
+          </p>
         </div>
       </Link>
     </article>

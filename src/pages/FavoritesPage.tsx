@@ -52,7 +52,7 @@ const FavoritesPage = () => {
           <div className="w-full tabletBig:h-[500px]">
             <div className="flex h-full flex-col items-center justify-center gap-[120px]">
               <div className="relative flex max-tabletBig:h-[350px] max-tabletBig:flex-col-reverse max-tabletBig:items-center max-tabletBig:justify-center max-tabletBig:gap-12 max-mobile:gap-8">
-                <p className="text-center text-2xl max-mobile:text-sm">
+                <p className="text-center text-2xl font-medium max-mobile:text-sm">
                   Вы пока не добавили ничего в избранное
                 </p>
 
@@ -64,7 +64,10 @@ const FavoritesPage = () => {
                 />
               </div>
 
-              <Button className="max-tabletBig:w-full" variant={"secondary"}>
+              <Button
+                className="min-h-[50px] min-w-[312px] uppercase max-tabletBig:w-full"
+                variant={"secondary"}
+              >
                 Перейти к покупкам
               </Button>
             </div>

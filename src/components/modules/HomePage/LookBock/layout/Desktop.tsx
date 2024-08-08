@@ -14,7 +14,7 @@ const Desktop = (props: LookBookDefaultProps) => {
     <div className="grid grid-cols-2 gap-[20px]">
       <div>
         <div className="mb-32">
-          <h1 className="mb-[18px] text-3xl font-bold">{title}</h1>
+          <h1 className="mb-[18px] text-[48px] font-bold uppercase">{title}</h1>
           <p className="mb-9 max-w-[440px] text-[#4F4F4F]">{description}</p>
 
           <Link

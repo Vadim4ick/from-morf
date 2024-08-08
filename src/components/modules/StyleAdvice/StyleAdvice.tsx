@@ -38,7 +38,7 @@ const StyleAdvice = ({
 
               <ButtonAnimate
                 onClick={() => router.push("/style-tips")}
-                className="mx-auto self-end max-tabletBig:col-span-2"
+                className="mx-auto self-end font-semibold max-tabletBig:col-span-2"
               >
                 смотреть еще
               </ButtonAnimate>

@@ -128,10 +128,12 @@ const NewItemCart = ({
         </div>
       </div>
 
-      <div className="mt-[12px] flex flex-col gap-1">
-        <p className="font-medium text-blackColor">{item.name}</p>
+      <div className="mt-[12px] flex flex-col gap-[2px]">
+        <p className="font-medium leading-[20px] text-blackColor">
+          {item.name}
+        </p>
 
-        <p className="font-bold"> {formatPrice(item.price)} ₽</p>
+        <p className="font-bold leading-[20px]"> {formatPrice(item.price)} ₽</p>
       </div>
     </article>
   );
