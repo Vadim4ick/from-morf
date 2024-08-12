@@ -1,6 +1,10 @@
 import { gql } from "@/graphql/client";
 import HomePage from "@/pages/HomePage";
 
+export const metadata = {
+  title: "Главная",
+};
+
 export default async function Home() {
   const { homePage } = await gql.GetHomePage();
   const { styleTips } = await gql.GetLastTwoStyleTips();
