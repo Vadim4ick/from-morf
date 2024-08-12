@@ -132,7 +132,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
         <DialogHeader className="custom-shadow-footer relative py-[20px] after:h-[1px] max-tabletBig:text-start">
           <div className="max-tabletBig:flex max-tabletBig:flex-row max-tabletBig:items-center max-tabletBig:justify-between">
             <div className="flex flex-col gap-2 pb-2 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px]">
-              <DialogTitle className="text-lg font-medium uppercase">
+              <DialogTitle className="text-lg font-medium uppercase max-mobile:font-semibold">
                 корзина
               </DialogTitle>
 
@@ -167,7 +167,9 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
               <div className="flex flex-col items-center justify-center gap-8">
                 <Basket />
 
-                <p>В вашей корзине ничего нет</p>
+                <p className="max-mobile:text-[14px] max-mobile:leading-[18px]">
+                  В вашей корзине ничего нет
+                </p>
               </div>
             ))}
 
@@ -226,7 +228,12 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
                 Оформить заказ
               </Button>
             ) : (
-              <Button variant={"secondary"}>Перейти к новинкам</Button>
+              <Button
+                className="h-[50px] uppercase max-mobile:h-[46px]"
+                variant={"secondary"}
+              >
+                Перейти к новинкам
+              </Button>
             )}
           </div>
         </DialogFooter>

@@ -86,6 +86,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  :root {
+    --header-height: 62px;
+  }
+}
+
 body {
   color: #444444;
   font-family: "Kinetika";

@@ -53,12 +53,14 @@ const BottomLayout = ({ parameters }: { parameters: string }) => {
 
 const BottomLinks = () => {
   return (
-    <div className="pt-[24px] max-tabletBig:pt-[16px]">
+    <div className="pt-[24px] max-tabletBig:pt-[16px] max-mobile:pt-[12px]">
       <Link
         href={"/"}
         className="flex items-center justify-between gap-3 py-[10px] max-mobile:py-[9px]"
       >
-        <p className="leading-[20px] max-mobile:text-sm">Доставка и оплата</p>
+        <p className="leading-[20px] max-mobile:text-[14px] max-mobile:leading-[17px]">
+          Доставка и оплата
+        </p>
 
         <Arrow className="rotate-180" />
       </Link>
@@ -67,7 +69,9 @@ const BottomLinks = () => {
         href={"/"}
         className="flex items-center justify-between gap-3 py-[10px] max-mobile:py-[9px]"
       >
-        <p className="leading-[20px] max-mobile:text-sm">Возврат</p>
+        <p className="leading-[20px] max-mobile:text-[14px] max-mobile:leading-[17px]">
+          Возврат
+        </p>
 
         <Arrow className="rotate-180" />
       </Link>
