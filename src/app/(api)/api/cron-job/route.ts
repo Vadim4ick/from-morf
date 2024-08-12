@@ -1,7 +1,7 @@
 import { ordersQueries } from "@/shared/queries/ordersQueries";
 import cron from "node-cron";
 
-cron.schedule("0 0 * * *", async () => {
+cron.schedule("20 0 * * *", async () => {
   console.log("Выполняю задание в 00:00 местного времени");
 
   const arrIds = await ordersQueries.fetchGraphQLData();
