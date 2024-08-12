@@ -42,7 +42,7 @@ const LookBock = ({
       animate={
         inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
       }
-      className="container my-32 py-4 max-mobileSmall:my-[72px]"
+      className="container my-32 py-4 max-mobile:my-[72px]"
     >
       {!isTablet834 && <Desktop {...props} />}
 

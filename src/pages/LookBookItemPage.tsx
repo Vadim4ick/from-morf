@@ -40,11 +40,11 @@ const LookBookItemPage = ({
       >
         <div className="container">
           <div className="flex max-w-[626px] flex-col gap-[20px] pb-[49px] max-tabletBig:gap-4 max-tabletBig:pb-9">
-            <h1 className="text-4xl max-tabletBig:text-[28px]">
+            <h1 className="text-4xl font-medium max-tabletBig:text-[28px] max-mobile:text-[24px] max-mobile:leading-[30px]">
               {lookBookItem.title}
             </h1>
 
-            <p className="text-[20px] text-[#4F4F4F] max-tabletBig:text-base">
+            <p className="text-[20px] text-[#4F4F4F] max-tabletBig:text-base max-mobile:text-[14px] max-mobile:leading-[19px]">
               {lookBookItem.description}
             </p>
           </div>
@@ -101,7 +101,7 @@ const LookBookItemPage = ({
               components={{
                 li: ({ children }) => {
                   return (
-                    <li className="grid gap-[105px] text-[20px] text-[#181818] max-desktop1300:gap-[20px] max-mobile:gap-9 mobile:grid-cols-2">
+                    <li className="grid gap-[105px] text-[20px] text-[#181818] max-desktop1300:gap-[20px] max-mobile:gap-9 max-mobile:text-[16px] max-mobile:leading-[24px] mobile:grid-cols-2">
                       {children}
                     </li>
                   );
@@ -109,7 +109,7 @@ const LookBookItemPage = ({
 
                 p: ({ children }) => {
                   return (
-                    <p className="pt-[90px] text-[20px] text-[#181818] max-tabletBig:pt-9">
+                    <p className="pt-[90px] text-[20px] text-[#181818] max-tabletBig:pt-9 max-mobile:text-[16px] max-mobile:leading-[24px]">
                       {children}
                     </p>
                   );

@@ -131,12 +131,12 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
       >
         <DialogHeader className="custom-shadow-footer relative py-[20px] after:h-[1px] max-tabletBig:text-start">
           <div className="max-tabletBig:flex max-tabletBig:flex-row max-tabletBig:items-center max-tabletBig:justify-between">
-            <div className="flex flex-col gap-2 pb-2 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px]">
-              <DialogTitle className="text-lg font-medium uppercase max-mobile:font-semibold">
+            <div className="flex flex-col gap-2 pb-2 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px] max-mobile:pb-[12px]">
+              <DialogTitle className="text-lg font-medium uppercase leading-[22px] max-mobile:font-semibold">
                 корзина
               </DialogTitle>
 
-              <span className="text-sm text-[#7E7E7E]">
+              <span className="text-[14px] leading-[18px] text-[#7E7E7E]">
                 {basket && `${basket.length} ${getPluralForm(basket.length)}`}
               </span>
             </div>
@@ -156,7 +156,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
 
         <div
           className={cn(
-            "flex flex-grow flex-col gap-8 overflow-scroll px-5 pb-5",
+            "flex flex-grow flex-col gap-8 overflow-scroll px-5 pb-5 max-mobile:px-4 max-mobile:pb-[32px]",
             {
               "items-center justify-center": !basket || basket.length === 0,
             },
@@ -185,7 +185,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
               <div className="flex flex-col gap-1 pb-3">
                 {discountCount > 0 && (
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium leading-[17px]">
+                    <p className="text-[14px] font-medium leading-[17px] max-mobile:text-[12px] max-mobile:leading-[14px]">
                       Скидка{" "}
                       <span className="text-[#7E7E7E]">
                         ({discountCount} {getPluralForm(discountCount)})
@@ -193,25 +193,25 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
                       :
                     </p>
 
-                    <div className="text-sm font-medium leading-[17px]">
+                    <div className="text-[14px] font-medium leading-[17px] max-mobile:text-[12px] max-mobile:leading-[14px]">
                       {totalDiscount(basket)}%
                     </div>
                   </div>
                 )}
 
                 <div className="flex items-center justify-between">
-                  <p className="text-lg font-medium leading-[22px]">
+                  <p className="text-lg font-medium leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px]">
                     Общая стоимость:
                   </p>
 
                   <div className="flex items-center justify-center gap-[6px]">
                     {discountCount > 0 && (
-                      <p className="text-sm font-medium leading-[17px] text-[#8B8B8B] line-through">
+                      <p className="text-[14px] font-medium leading-[17px] text-[#8B8B8B] line-through max-mobile:text-[12px] max-mobile:leading-[14px]">
                         {sumTotalAllPriceBasket(basket)} ₽
                       </p>
                     )}
 
-                    <p className="text-lg font-medium leading-[22px]">
+                    <p className="text-[18px] font-medium leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px]">
                       {sumTotalCurrentPriceBasket(basket)} ₽
                     </p>
                   </div>
@@ -221,7 +221,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
 
             {basket.length > 0 ? (
               <Button
-                className="h-[50px] uppercase max-mobile:h-[46px]"
+                className="h-[50px] uppercase max-mobile:h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
                 onClick={onPayment}
                 variant={"secondary"}
               >
@@ -229,7 +229,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
               </Button>
             ) : (
               <Button
-                className="h-[50px] uppercase max-mobile:h-[46px]"
+                className="h-[50px] uppercase max-mobile:h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
                 variant={"secondary"}
               >
                 Перейти к новинкам

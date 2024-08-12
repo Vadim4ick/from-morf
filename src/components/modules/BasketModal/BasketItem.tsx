@@ -38,7 +38,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
   };
 
   return (
-    <article className="grid grid-cols-[74px_1fr_85px] gap-3">
+    <article className="grid grid-cols-[74px_1fr_85px] gap-3 max-mobile:gap-[10px]">
       <div className="relative size-[74px]">
         <Image
           className={cn("object-cover", {
@@ -52,7 +52,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
       </div>
 
       <div className="flex flex-col justify-between gap-1">
-        <div className="flex max-w-[204px] flex-col gap-1">
+        <div className="flex max-w-[204px] flex-col gap-1 max-mobile:max-w-[177px]">
           <p className="overflow-hidden text-ellipsis whitespace-nowrap font-medium leading-[19px]">
             {basket.title}
           </p>
@@ -72,7 +72,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
             }}
           >
             <Heart
-              className={cn("size-5 text-transparent", {
+              className={cn("size-5 text-transparent max-mobile:size-4", {
                 "stroke-error text-error": isFavorite,
               })}
               stroke={isFavorite ? "text-error" : "#444444"}
@@ -80,7 +80,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
           </button>
 
           <button onClick={deleteItem}>
-            <DeleteBasket className="size-5" />
+            <DeleteBasket className="size-5 max-mobile:size-4" />
           </button>
         </div>
       </div>
@@ -101,7 +101,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
         <div className="flex w-full items-center justify-between">
           <button
             onClick={decrease}
-            className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]"
+            className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181] max-mobile:size-[20px] max-mobile:text-lg"
           >
             -
           </button>
@@ -110,7 +110,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
 
           <button
             onClick={increase}
-            className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181]"
+            className="flex size-6 items-center justify-center bg-white text-2xl font-bold text-[#818181] max-mobile:size-[20px] max-mobile:text-lg"
           >
             +
           </button>
