@@ -8,6 +8,9 @@ import { NewItemCart } from "@/components/elements/NewItemCart";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { GetGoodsQuery } from "@/graphql/__generated__";
 import { cn } from "@/lib/utils";
+import { motionConfigAnimate } from "@/shared/const";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
 
 const SliderRecommendations = ({
   items,
@@ -22,8 +25,18 @@ const SliderRecommendations = ({
 }) => {
   const isTablet600 = useMediaQuery(600);
 
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   return (
-    <section className={cn("pb-[128px] max-desktop:pb-[96px]", [className])}>
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className={cn("pb-[128px] max-desktop:pb-[96px]", [className])}
+    >
       <div
         className={cn("", {
           "container px-[67px] max-tabletSmall:px-[16px]": container,
@@ -102,7 +115,7 @@ const SliderRecommendations = ({
           </div>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

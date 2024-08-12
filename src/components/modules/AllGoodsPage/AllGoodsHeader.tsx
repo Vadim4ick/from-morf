@@ -3,7 +3,9 @@
 import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate";
 import { NewItemCart } from "@/components/elements/NewItemCart";
 import { GetGoodItemsQuery } from "@/graphql/__generated__";
-import { useState } from "react";
+import { motionConfigAnimate } from "@/shared/const";
+import { useInView, motion } from "framer-motion";
+import { useRef, useState } from "react";
 
 const VISIBLE_ITEMS = 6;
 
@@ -16,12 +18,23 @@ const AllGoodsHeader = ({
 }) => {
   const [visibleItems, setVisibleItems] = useState(VISIBLE_ITEMS);
 
+  const ref = useRef(null);
+
+  const inView = useInView(ref);
+
   const showMoreItems = () => {
     setVisibleItems((prevCount) => prevCount + VISIBLE_ITEMS);
   };
 
   return (
-    <section className="pb-32 pt-[var(--header-height)] max-mobile:pb-[72px]">
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="pb-32 pt-[var(--header-height)] max-mobile:pb-[72px]"
+    >
       <div className="container">
         <div className="mb-8 flex flex-col items-center justify-center">
           <h1 className="pt-[48px] text-[32px] font-medium uppercase">
@@ -50,7 +63,7 @@ const AllGoodsHeader = ({
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

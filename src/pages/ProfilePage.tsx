@@ -6,12 +6,17 @@ import { getMeFx, updateUserFx } from "@/shared/context/user";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { useUnit } from "effector-react";
 import { useEffect } from "react";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const";
 
 const ProfilePage = () => {
   const spinner = useUnit(getMeFx.pending);
   const spinnerUpdate = useUnit(updateUserFx.pending);
 
   const { isLoading, loadFavorites } = useFavorite();
+  const ref = useRef(null);
+  const inView = useInView(ref);
 
   useEffect(() => {
     loadFavorites();
@@ -26,9 +31,16 @@ const ProfilePage = () => {
   }
 
   return (
-    <section className="pb-[86px] pt-[calc(var(--header-height)_+_48px)]">
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="pb-[86px] pt-[calc(var(--header-height)_+_48px)]"
+    >
       <ProfileTabs />
-    </section>
+    </motion.section>
   );
 };
 

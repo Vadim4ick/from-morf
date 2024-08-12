@@ -20,7 +20,9 @@ import { useUnit } from "effector-react";
 import { $selectedSize, addBasketItem } from "@/shared/context/basket";
 import { toast } from "sonner";
 import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
-import { Skeleton } from "@/components/ui/skeleton";
+import { motionConfigAnimate } from "@/shared/const";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -132,8 +134,6 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
       return toast.error("Выберите размер!");
     }
 
-    console.log(123);
-
     addBasketItem({
       id: item.id,
       size: selectedItem,
@@ -152,8 +152,18 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   };
   const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   return (
-    <section className="container pb-[135px] pt-[calc(var(--header-height)_+_32px)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px] max-mobile:pt-[calc(var(--header-height)_+_24px)]">
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="container pb-[135px] pt-[calc(var(--header-height)_+_32px)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px] max-mobile:pt-[calc(var(--header-height)_+_24px)]"
+    >
       <div className="relative grid grid-cols-goods gap-[40px] max-desktop:grid-cols-1 max-desktop:gap-[10px]">
         {/* LEFT */}
         {!isDesktop1100 && (
@@ -358,7 +368,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
           />
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

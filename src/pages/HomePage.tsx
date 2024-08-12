@@ -11,6 +11,9 @@ import {
   GetLastTwoStyleTipsQuery,
 } from "@/graphql/__generated__";
 import Link from "next/link";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const";
 
 const HomePage = ({
   homePage,
@@ -21,6 +24,9 @@ const HomePage = ({
   styleTips: GetLastTwoStyleTipsQuery["styleTips"];
   lookBock: GetHomePageLookBookQuery["lookBock"];
 }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   return (
     <>
       {homePage && homePage.mainSlider.length > 0 && (
@@ -29,7 +35,14 @@ const HomePage = ({
 
       {lookBock && <LookBock lookBock={lookBock} />}
 
-      <section className="bg-blackColor">
+      <motion.section
+        ref={ref}
+        {...motionConfigAnimate}
+        animate={
+          inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+        }
+        className="bg-blackColor"
+      >
         <div className="container px-[67px] py-[17px] max-tabletSmall:px-4">
           <Link
             href={"/goods/additional/Новинки"}
@@ -57,7 +70,7 @@ const HomePage = ({
             </svg>
           </Link>
         </div>
-      </section>
+      </motion.section>
 
       {homePage && <NewItems newItems={homePage.newItems} />}
 

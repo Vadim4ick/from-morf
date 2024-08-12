@@ -7,9 +7,15 @@ import { getPluralForm } from "@/lib/utils";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { Heart } from "@/shared/icons/Heart";
 import { useEffect } from "react";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const";
 
 const FavoritesPage = () => {
   const { favorites, isLoading, loadFavorites } = useFavorite();
+
+  const ref = useRef(null);
+  const inView = useInView(ref);
 
   useEffect(() => {
     loadFavorites();
@@ -24,7 +30,14 @@ const FavoritesPage = () => {
   }
 
   return (
-    <section className="pb-9 pt-[calc(var(--header-height)_+_48px)]">
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="pb-9 pt-[calc(var(--header-height)_+_48px)]"
+    >
       <div className="container">
         <div className="flex flex-col pb-[30px]">
           <h1 className="heading">избранное</h1>
@@ -75,7 +88,7 @@ const FavoritesPage = () => {
           </div>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

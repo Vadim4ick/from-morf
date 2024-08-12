@@ -5,12 +5,19 @@ import { ButtonAnimate } from "@/components/elements/ButtonAnimate/ButtonAnimate
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { GetHomePageQuery } from "@/graphql/__generated__";
 import { useRouter } from "next/navigation";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const";
 
 const NewItems = ({
   newItems,
 }: {
   newItems: GetHomePageQuery["homePage"]["newItems"];
 }) => {
+  const ref = useRef(null);
+
+  const inView = useInView(ref);
+
   const isTablet991 = useMediaQuery(991);
   const isTablet768 = useMediaQuery(450);
 
@@ -22,7 +29,14 @@ const NewItems = ({
     : newItems.slice(!isTablet991 ? 1 : 2);
 
   return (
-    <section className="pt-16">
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="pt-16"
+    >
       <div className="container px-[67px] max-tabletSmall:px-4">
         <h3 className="mb-5 text-2xl font-bold uppercase">новинки</h3>
 
@@ -53,7 +67,7 @@ const NewItems = ({
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

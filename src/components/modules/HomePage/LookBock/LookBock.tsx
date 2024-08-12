@@ -5,12 +5,19 @@ import { Desktop } from "./layout/Desktop";
 import { Tablet } from "./layout/Tablet";
 import { Mobile } from "./layout/Mobile";
 import { GetHomePageLookBookQuery } from "@/graphql/__generated__";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const";
 
 const LookBock = ({
   lookBock,
 }: {
   lookBock: GetHomePageLookBookQuery["lookBock"];
 }) => {
+  const ref = useRef(null);
+
+  const inView = useInView(ref);
+
   const isTablet834 = useMediaQuery(834);
   const isMobile768 = useMediaQuery(768);
 
@@ -29,13 +36,20 @@ const LookBock = ({
   };
 
   return (
-    <section className="container my-32 py-4 max-mobileSmall:my-[72px]">
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="container my-32 py-4 max-mobileSmall:my-[72px]"
+    >
       {!isTablet834 && <Desktop {...props} />}
 
       {isTablet834 && !isMobile768 && <Tablet {...props} />}
 
       {isMobile768 && <Mobile {...props} />}
-    </section>
+    </motion.section>
   );
 };
 

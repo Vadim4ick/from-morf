@@ -1,3 +1,5 @@
+"use client";
+
 import { StyleAdvice } from "@/components/modules/StyleAdvice/StyleAdvice";
 import {
   GetLastTwoStyleTipsQuery,
@@ -5,6 +7,9 @@ import {
 } from "@/graphql/__generated__";
 import { formatDate } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const";
 
 const StyleTipsItemPage = ({
   item,
@@ -13,10 +18,20 @@ const StyleTipsItemPage = ({
   item: GetTipsItemPageQuery["styleTips_by_id"];
   styleTwoTips: GetLastTwoStyleTipsQuery["styleTips"];
 }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   return (
     <>
       {item && (
-        <section className="pt-[calc(var(--header-height)_+_68px)] max-tabletBig:pt-[calc(var(--header-height)_+_36px)]">
+        <motion.section
+          ref={ref}
+          {...motionConfigAnimate}
+          animate={
+            inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+          }
+          className="pt-[calc(var(--header-height)_+_68px)] max-tabletBig:pt-[calc(var(--header-height)_+_36px)]"
+        >
           <div className="container">
             <div className="max-w-[952px]">
               <p className="pb-[18px] font-medium text-[#707070] max-mobile:pb-2 mobile:text-[18px] mobile:leading-[22px]">
@@ -56,7 +71,7 @@ const StyleTipsItemPage = ({
               </ReactMarkdown>
             </div>
           </div>
-        </section>
+        </motion.section>
       )}
 
       {styleTwoTips && (
