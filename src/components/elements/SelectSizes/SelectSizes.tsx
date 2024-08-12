@@ -47,10 +47,13 @@ const SelectSizes = ({ currentSizes }: { currentSizes: string[] }) => {
       onOpenChange={handleOpenChange}
     >
       <SelectTrigger
-        className={cn("w-full bg-[#F4F4F4] text-[16px]", {
-          "border border-[#B5B5B5]": !isOpen,
-          "border-b border-[#B5B5B5]": isOpen,
-        })}
+        className={cn(
+          "w-full bg-[#F4F4F4] text-[16px] max-mobile:text-[14px] max-mobile:leading-[18px]",
+          {
+            "border border-[#B5B5B5]": !isOpen,
+            "border-b border-[#B5B5B5]": isOpen,
+          },
+        )}
       >
         <SelectValue placeholder="Выбрать размер" />
       </SelectTrigger>

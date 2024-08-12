@@ -89,7 +89,7 @@ const AddBasket = ({
   const isFavorite = favoritesFromLs.includes(itemId);
 
   return (
-    <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-2 desktop:border-b">
+    <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-2 max-mobile:gap-4 max-mobile:py-[24px] desktop:border-b">
       <div className="flex items-center justify-between gap-3">
         <SelectSizes currentSizes={currentSizes} />
 
@@ -164,7 +164,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
       }
       className="container pb-[135px] pt-[calc(var(--header-height)_+_32px)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px] max-mobile:pt-[calc(var(--header-height)_+_24px)]"
     >
-      <div className="relative grid grid-cols-goods gap-[40px] max-desktop:grid-cols-1 max-desktop:gap-[10px]">
+      <div className="relative grid grid-cols-goods gap-[40px] max-desktop:grid-cols-1 max-desktop:gap-[16px]">
         {/* LEFT */}
         {!isDesktop1100 && (
           <div className="relative flex flex-col gap-5">
@@ -297,12 +297,12 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 </h1>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-[22px] font-medium leading-[27px] max-mobile:text-base">
+                  <span className="text-[22px] font-medium leading-[27px] max-mobile:text-[16px] max-mobile:leading-[20px]">
                     {formatPrice(item.price)} ₽
                   </span>
 
                   {item.discount > 0 && (
-                    <span className="text-lg font-medium text-[#959595] line-through max-mobile:text-sm">
+                    <span className="text-lg font-medium text-[#959595] line-through max-mobile:text-[14px] max-mobile:leading-[18px]">
                       {discountPrice(item.discount, item.price)} ₽
                     </span>
                   )}
@@ -314,13 +314,17 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                   components={{
                     li: ({ children }) => {
                       return (
-                        <li className="flex items-center gap-[6px] max-mobile:text-sm">
+                        <li className="flex items-center gap-[6px] max-mobile:text-[14px] max-mobile:leading-[18px]">
                           {children}
                         </li>
                       );
                     },
                     p: ({ children }) => {
-                      return <p className="max-mobile:text-sm">{children}</p>;
+                      return (
+                        <p className="max-mobile:text-[14px] max-mobile:leading-[18px]">
+                          {children}
+                        </p>
+                      );
                     },
                     ol: ({ children }) => {
                       return (
