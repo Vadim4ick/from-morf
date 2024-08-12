@@ -36,7 +36,7 @@ const AdviceCart = (props: Props) => {
             {formatDate(item.date_created)}
           </p>
 
-          <p className="text-[20px] leading-[25px] max-mobileSmall:text-base">
+          <p className="text-[20px] leading-[25px] max-mobileSmall:text-[16px] max-mobileSmall:leading-[19px]">
             {item.title}
           </p>
         </div>

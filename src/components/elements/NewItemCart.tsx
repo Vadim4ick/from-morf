@@ -10,6 +10,9 @@ import { Heart } from "@/shared/icons/Heart";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useInView, motion } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const";
 
 type SizesImg =
   | "default"
@@ -51,9 +54,18 @@ const NewItemCart = ({
   );
 
   const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
+  const ref = useRef(null);
+  const inView = useInView(ref);
 
   return (
-    <article className="group overflow-hidden">
+    <motion.article
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="group overflow-hidden"
+    >
       <div className="relative">
         <div className="relative">
           <Link href={link}>
@@ -147,7 +159,7 @@ const NewItemCart = ({
           {formatPrice(item.price)} ₽
         </p>
       </div>
-    </article>
+    </motion.article>
   );
 };
 

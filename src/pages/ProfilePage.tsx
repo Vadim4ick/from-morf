@@ -31,16 +31,16 @@ const ProfilePage = () => {
   }
 
   return (
-    <motion.section
-      ref={ref}
-      {...motionConfigAnimate}
-      animate={
-        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
-      }
+    <section
+      // ref={ref}
+      // {...motionConfigAnimate}
+      // animate={
+      //   inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      // }
       className="pb-[86px] pt-[calc(var(--header-height)_+_48px)]"
     >
       <ProfileTabs />
-    </motion.section>
+    </section>
   );
 };
 

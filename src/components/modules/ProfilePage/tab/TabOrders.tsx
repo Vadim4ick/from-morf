@@ -9,6 +9,7 @@ import {
   sumTotalCurrentPriceBasket,
   totalDiscount,
 } from "@/lib/utils";
+import { motionConfigAnimate } from "@/shared/const";
 import { makePaymentFx } from "@/shared/context/basket";
 import {
   $orederHistory,
@@ -18,8 +19,9 @@ import { $user } from "@/shared/context/user/state";
 import { processOrder } from "@/shared/services/processOreder";
 import { User } from "@/shared/types/authForm";
 import { useUnit } from "effector-react";
+import { useInView, motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const OrderItem = ({
   order,
@@ -29,6 +31,9 @@ const OrderItem = ({
   user: User;
 }) => {
   const [discountCount, setDiscountCount] = useState(0);
+
+  const ref = useRef(null);
+  const inView = useInView(ref);
 
   useEffect(() => {
     const res = order.items.filter((el) => el.discount && el.discount > 0);
@@ -64,7 +69,13 @@ const OrderItem = ({
   };
 
   return (
-    <div>
+    <motion.div
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+    >
       <div className="bg-[#F6F6F6] px-[21px] pt-[23px]">
         <div className="flex justify-between pb-[27px]">
           <p className="text-lg font-medium uppercase">Заказ №{order.id}</p>
@@ -159,7 +170,7 @@ const OrderItem = ({
           </Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
