@@ -62,7 +62,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
         onOpenChange={() => toggleBurgerOpen()}
       >
         <SheetTrigger>
-          <motion.div className="relative h-[10px] w-7">
+          <motion.div className="relative h-[10px] w-7 max-mobile:w-[23px]">
             <motion.div
               className={clsx("absolute top-0 h-[2px] w-full", {
                 "bg-white": variant === "white",

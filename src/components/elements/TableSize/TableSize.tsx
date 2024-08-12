@@ -13,11 +13,21 @@ const TableSize = () => {
     <Table className="bg-[#EEEEEE] text-[12px] text-[#666666] max-mobileSmall:w-[467px] desktop:max-w-[467px]">
       <TableHeader>
         <TableRow style={{ boxShadow: "0px 0.6px 0px 0px #CDCDCD" }}>
-          <TableHead className="font-bold uppercase">INT</TableHead>
-          <TableHead className="font-bold uppercase">ru</TableHead>
-          <TableHead className="font-bold uppercase">Обхват груди</TableHead>
-          <TableHead className="font-bold uppercase">Обхват талии</TableHead>
-          <TableHead className="font-bold uppercase">Обхват бедер</TableHead>
+          <TableHead className="font-bold uppercase text-[#666666]">
+            INT
+          </TableHead>
+          <TableHead className="font-bold uppercase text-[#666666]">
+            ru
+          </TableHead>
+          <TableHead className="font-bold uppercase text-[#666666]">
+            Обхват груди
+          </TableHead>
+          <TableHead className="font-bold uppercase text-[#666666]">
+            Обхват талии
+          </TableHead>
+          <TableHead className="font-bold uppercase text-[#666666]">
+            Обхват бедер
+          </TableHead>
         </TableRow>
       </TableHeader>
 

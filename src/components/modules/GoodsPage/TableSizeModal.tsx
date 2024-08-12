@@ -24,10 +24,10 @@ const TableSizeModal = () => {
         )}
       >
         <div className="max-desktop:px-[50px] max-mobile:px-0">
-          <div className="flex flex-col gap-8 pb-[25px] max-desktop:gap-4 max-mobileSmall:pr-4">
+          <div className="flex flex-col gap-8 pb-[25px] max-desktop:gap-4 max-mobile:items-start max-mobileSmall:pr-4">
             <h2
               className={cn(
-                "pl-[44px] text-lg font-medium uppercase max-desktop:text-center",
+                "text-[18px] font-semibold uppercase leading-[22px] max-desktop:text-center mobile:pl-[44px]",
               )}
             >
               Таблица размеров
@@ -35,7 +35,7 @@ const TableSizeModal = () => {
 
             <p
               className={cn(
-                "w-full max-desktop:text-center desktop:max-w-[323px]",
+                "w-full leading-[19px] max-desktop:text-center max-mobile:text-start desktop:max-w-[323px]",
               )}
             >
               Найдите в таблице параметры, близкие к вашим, чтобы определить

@@ -116,10 +116,13 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
       <DialogTrigger asChild>
         <div>
           <BasketIcon
-            className={clsx("cursor-pointer text-transparent", {
-              "stroke-darkGrayColor": variant === "black",
-              "stroke-white": variant === "white",
-            })}
+            className={clsx(
+              "cursor-pointer text-transparent max-mobile:size-4",
+              {
+                "stroke-darkGrayColor": variant === "black",
+                "stroke-white": variant === "white",
+              },
+            )}
           />
         </div>
       </DialogTrigger>

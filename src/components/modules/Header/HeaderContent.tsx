@@ -25,7 +25,7 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
         {/* Logo */}
         <Link href={"/"}>
           <LogoIcon
-            className={clsx("", {
+            className={clsx("max-mobile:h-[28px]", {
               "text-white": variant === "white",
               "text-darkGrayColor": variant === "black",
             })}
@@ -35,7 +35,7 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
         {/* Icons */}
         <div
           id="iconsListHeader"
-          className="relative flex w-[100px] justify-end gap-[20px]"
+          className="relative flex w-[100px] justify-end gap-[20px] max-mobile:gap-4"
         >
           {!isTablet834 && (
             <button onClick={() => toggleAuthFormOpen()}>
@@ -50,7 +50,7 @@ const HeaderContent = ({ variant }: { variant: VariantHeader }) => {
 
           <Link href={"/favorites"}>
             <FavoritesIcon
-              className={clsx("text-transparent", {
+              className={clsx("text-transparent max-mobile:size-4", {
                 "stroke-darkGrayColor": variant === "black",
                 "stroke-white": variant === "white",
               })}
