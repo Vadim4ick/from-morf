@@ -9,7 +9,7 @@ const ProfileTabs = () => {
     <Tabs value={hash} defaultValue={"orders"}>
       <TabsList>
         <div className="mx-auto max-w-[520px] px-4">
-          <div className="grid grid-cols-3 gap-9 pb-[60px] max-tabletBig:gap-6 max-mobile:grid-cols-[1fr_0.8fr_1fr] max-mobile:gap-2 max-mobile:pb-[40px]">
+          <div className="grid grid-cols-3 gap-9 pb-[60px] max-tabletBig:gap-6 max-mobile:grid-cols-[1fr_0.8fr_1fr] max-mobile:gap-2 max-mobile:pb-[42px]">
             {tabs.map((tab) => {
               return (
                 <TabsTrigger

@@ -52,7 +52,10 @@ const ProfileForm = ({ user }: { user: User }) => {
   };
 
   return (
-    <form className="flex flex-col gap-16" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-16 max-mobile:gap-[32px]"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {/* Avatar */}
       <Avatar avatar={user.avatar} id={user.id} />
 
@@ -65,7 +68,7 @@ const ProfileForm = ({ user }: { user: User }) => {
               )}
 
               <div className="flex items-center gap-3">
-                <p className="text-sm">Имя*</p>
+                <p className="text-sm font-medium">Имя*</p>
 
                 {!user?.first_name && <Warning className="size-6" />}
                 {user?.first_name && <SuccessInput />}
@@ -85,7 +88,7 @@ const ProfileForm = ({ user }: { user: User }) => {
               )}
 
               <div className="flex items-center gap-3">
-                <p className="text-sm"> Фамилия*</p>
+                <p className="text-sm font-medium"> Фамилия*</p>
 
                 {!user?.last_name && <Warning className="size-6" />}
                 {user?.last_name && <SuccessInput />}
@@ -100,14 +103,14 @@ const ProfileForm = ({ user }: { user: User }) => {
             </label>
           </div>
 
-          <p className="text-sm text-[#939393]">
+          <p className="text-sm leading-[18px] text-[#939393] max-mobile:max-w-[287px]">
             Проверьте правильность ввода личных данных, они необходимы для
             получения и оформления заказа
           </p>
         </div>
 
         <div className="flex flex-col gap-6">
-          <h2 className="text-lg font-medium uppercase">Электронная почта</h2>
+          <h2 className="text-lg font-semibold uppercase">Электронная почта</h2>
 
           <label className="flex w-full cursor-pointer flex-col gap-[6px]">
             {errors.email && (
@@ -115,7 +118,7 @@ const ProfileForm = ({ user }: { user: User }) => {
             )}
 
             <div className="flex items-center gap-3">
-              <p className="text-sm">Введите вашу почту</p>
+              <p className="text-sm font-semibold">Введите вашу почту</p>
 
               {!user?.email && <Warning className="size-6" />}
               {user?.email && <SuccessInput />}
@@ -131,14 +134,14 @@ const ProfileForm = ({ user }: { user: User }) => {
         </div>
 
         <div className="flex flex-col gap-6">
-          <h2 className="text-lg font-medium uppercase">Номер телефона</h2>
+          <h2 className="text-lg font-semibold uppercase">Номер телефона</h2>
 
           <label className="flex w-full cursor-pointer flex-col gap-[6px]">
             {errors.phone_number && (
               <div className="text-error">{errors.phone_number.message}</div>
             )}
             <div className="flex items-center gap-3">
-              <p className="text-sm">Введите номер телефона (+7)</p>
+              <p className="text-sm font-medium">Введите номер телефона (+7)</p>
 
               {!user?.phone_number && <Warning className="size-6" />}
               {user?.phone_number && <SuccessInput />}
@@ -167,7 +170,7 @@ const ProfileForm = ({ user }: { user: User }) => {
         </div>
 
         <div className="flex flex-col gap-6">
-          <h2 className="text-lg font-medium uppercase">Адрес</h2>
+          <h2 className="text-lg font-semibold uppercase">Адрес</h2>
 
           <label className="flex w-full cursor-pointer flex-col gap-[6px]">
             {errors.user_address && (
@@ -175,7 +178,7 @@ const ProfileForm = ({ user }: { user: User }) => {
             )}
 
             <div className="flex items-center gap-3">
-              <p className="text-sm">Введите адрес доставки</p>
+              <p className="text-sm font-medium">Введите адрес доставки</p>
 
               {!user?.user_address && <Warning className="size-6" />}
               {user?.user_address && <SuccessInput />}
@@ -190,7 +193,7 @@ const ProfileForm = ({ user }: { user: User }) => {
           </label>
         </div>
 
-        <Button variant={"secondary"} className="w-full">
+        <Button variant={"secondary"} className="h-[50px] w-full uppercase">
           Сохранить изменения
         </Button>
       </div>
