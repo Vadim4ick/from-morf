@@ -42,7 +42,7 @@ const FavoritesPage = () => {
         <div className="flex flex-col pb-[30px]">
           <h1 className="heading">избранное</h1>
           {favorites && (
-            <p className="text-center text-[#7E7E7E]">
+            <p className="text-center text-[#7E7E7E] max-mobile:text-[12px] max-mobile:leading-[16px]">
               {favorites.length} {getPluralForm(favorites.length)}
             </p>
           )}
@@ -72,14 +72,14 @@ const FavoritesPage = () => {
 
                 <Heart
                   className={
-                    "-z-[1] size-[120px] text-transparent max-mobile:size-[80px] tabletBig:absolute tabletBig:left-1/2 tabletBig:top-0 tabletBig:-translate-x-1/2 tabletBig:-translate-y-[45%]"
+                    "-z-[1] size-[120px] text-transparent max-mobile:size-[94px] tabletBig:absolute tabletBig:left-1/2 tabletBig:top-0 tabletBig:-translate-x-1/2 tabletBig:-translate-y-[45%]"
                   }
                   stroke="#EBEBEB"
                 />
               </div>
 
               <Button
-                className="min-h-[50px] min-w-[312px] font-normal uppercase max-tabletBig:w-full"
+                className="min-h-[50px] min-w-[312px] font-normal uppercase max-tabletBig:w-full max-mobile:min-h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
                 variant={"secondary"}
               >
                 Перейти к покупкам

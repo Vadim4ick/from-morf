@@ -11,10 +11,10 @@ const Mobile = (props: LookBookDefaultProps) => {
   const { handleLoadingImageComplete, imgSpinner } = useImagePreloader();
 
   return (
-    <div className="flex flex-col gap-[20px]">
-      <div className="flex flex-col justify-between gap-[20px]">
+    <div className="flex flex-col gap-[16px]">
+      <div className="flex flex-col justify-between gap-[16px]">
         <div className="max-w-[280px]">
-          <h1 className="mb-[12px] text-[28px] font-bold">{title}</h1>
+          <h1 className="mb-[12px] text-[28px] font-bold uppercase">{title}</h1>
           <p className="mb-4 max-w-[440px] text-[14px] text-[#4F4F4F]">
             {description}
           </p>
@@ -43,7 +43,7 @@ const Mobile = (props: LookBookDefaultProps) => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-[20px]">
+      <div className="flex flex-col gap-[16px]">
         <Image
           width={img2.width}
           height={img2.height}
@@ -55,7 +55,7 @@ const Mobile = (props: LookBookDefaultProps) => {
           onLoad={handleLoadingImageComplete}
         />
 
-        <div className="flex gap-[20px]">
+        <div className="flex gap-[16px]">
           <Image
             width={img4.width}
             height={img4.height}

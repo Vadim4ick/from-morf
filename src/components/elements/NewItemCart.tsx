@@ -11,7 +11,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-type SizesImg = "default" | "big" | "slider" | "goods" | "recommended";
+type SizesImg =
+  | "default"
+  | "big"
+  | "slider"
+  | "goods"
+  | "recommended"
+  | "reset";
 
 const defaultSize = {
   width: 305,
@@ -27,10 +33,12 @@ const NewItemCart = ({
   item,
   sizesImg = "default",
   link,
+  className = "",
 }: {
   item: GetHomePageQuery["homePage"]["newItems"][0]["goods_id"];
   sizesImg?: SizesImg;
   link: string;
+  className?: string;
 }) => {
   const { favoritesFromLs } = useFavorite();
 
@@ -60,6 +68,7 @@ const NewItemCart = ({
               className={cn(
                 "object-cover transition-all duration-500 group-hover:pr-[45px]",
                 {
+                  "": sizesImg === "reset",
                   "h-[430px] max-tabletBig:h-[310px] max-mobile:h-[240px]":
                     sizesImg === "default",
                   "h-[676px] max-tabletBig:h-[494px]": sizesImg === "big",
@@ -70,6 +79,7 @@ const NewItemCart = ({
 
                   skeleton: imgSpinner,
                 },
+                [className],
               )}
             />
 
@@ -129,11 +139,13 @@ const NewItemCart = ({
       </div>
 
       <div className="mt-[12px] flex flex-col gap-[2px]">
-        <p className="font-medium leading-[20px] text-blackColor">
+        <p className="overflow-hidden text-ellipsis whitespace-nowrap font-medium leading-[20px] text-blackColor max-mobile:text-[12px] max-mobile:leading-[14px]">
           {item.name}
         </p>
 
-        <p className="font-bold leading-[20px]"> {formatPrice(item.price)} ₽</p>
+        <p className="font-bold leading-[20px] max-mobile:text-[12px] max-mobile:leading-[14px]">
+          {formatPrice(item.price)} ₽
+        </p>
       </div>
     </article>
   );
