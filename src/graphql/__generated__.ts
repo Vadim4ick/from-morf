@@ -4222,7 +4222,10 @@ export const CreateOrderDocument = gql`
     `;
 export const GetOrdersUserDocument = gql`
     query GetOrdersUser($user_id: String) {
-  orders(filter: {user: {id: {_eq: $user_id}}, status: {_eq: "SUCCESS"}}) {
+  orders(
+    filter: {user: {id: {_eq: $user_id}}, status: {_eq: "SUCCESS"}}
+    sort: ["-created_at"]
+  ) {
     id
     totalPrice
     created_at
