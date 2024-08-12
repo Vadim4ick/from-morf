@@ -66,10 +66,10 @@ const Footer = () => {
               </a>
             </div>
 
-            <div className="flex items-center gap-[39px] max-tabletSmall:gap-2 max-tabletSmall:rounded-3xl max-tabletSmall:bg-white max-tabletSmall:pb-[3px] max-tabletSmall:pl-[16px] max-tabletSmall:pr-[3px] max-tabletSmall:pt-[3px]">
-              <span>разработано</span>
+            <div className="flex items-center gap-2 rounded-3xl bg-white pb-[3px] pl-[16px] pr-[3px] pt-[3px]">
+              <span className="font-medium text-[#636363]">разработано</span>
 
-              <div className="max-tabletSmall:rounded-full max-tabletSmall:bg-[#EDEDED] max-tabletSmall:px-[18px] max-tabletSmall:py-[10px]">
+              <div className="rounded-full bg-[#EDEDED] px-[18px] py-[10px]">
                 <Creatin />
               </div>
             </div>
