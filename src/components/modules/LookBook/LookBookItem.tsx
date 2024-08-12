@@ -39,36 +39,30 @@ const LookBookItem = ({
       <div className="w-full justify-end gap-[20px] max-desktop1300:flex max-mobile:flex-col-reverse max-mobile:gap-4 desktop1300:grid desktop1300:grid-cols-[250px_470px]">
         <div className="grid justify-between gap-[20px] max-mobile:w-full max-mobile:grid-cols-2 max-mobile:gap-4">
           <Image
-            width={lookBook.img1.width}
-            height={lookBook.img1.height}
+            width={250}
+            height={275}
             src={pathImage(lookBook.img1.id)}
             alt="Main Look"
-            className={cn(
-              "object-cover max-mobile:h-full max-mobile:w-full desktop1300:h-full",
-              {
-                skeleton: imgSpinner,
-              },
-            )}
+            className={cn("h-full w-full object-cover max-mobile:h-full", {
+              skeleton: imgSpinner,
+            })}
             onLoad={handleLoadingImageComplete}
           />
           <Image
-            width={lookBook.img2.width}
-            height={lookBook.img2.height}
+            width={250}
+            height={275}
             src={pathImage(lookBook.img2.id)}
             alt="Main Look"
-            className={cn(
-              "object-cover max-mobile:h-full max-mobile:w-full desktop1300:h-full",
-              {
-                skeleton: imgSpinner,
-              },
-            )}
+            className={cn("h-full w-full object-cover max-mobile:h-full", {
+              skeleton: imgSpinner,
+            })}
             onLoad={handleLoadingImageComplete}
           />
         </div>
 
         <Image
-          width={lookBook.img3.width}
-          height={lookBook.img3.height}
+          width={470}
+          height={570}
           src={pathImage(lookBook.img3.id)}
           alt="Main Look"
           className={cn("w-full object-fill desktop1300:h-full", {
