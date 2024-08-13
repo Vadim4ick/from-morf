@@ -159,7 +159,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
 
         <div
           className={cn(
-            "flex flex-grow flex-col gap-8 overflow-scroll px-5 pb-5 max-mobile:px-4 max-mobile:pb-[32px]",
+            "scroll-basket mr-[2px] flex flex-grow flex-col gap-8 overflow-y-scroll px-5 pb-5 max-mobile:px-4 max-mobile:pb-[32px]",
             {
               "items-center justify-center": !basket || basket.length === 0,
             },
