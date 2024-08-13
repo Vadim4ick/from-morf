@@ -135,7 +135,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
         <DialogHeader className="custom-shadow-footer relative py-[20px] after:h-[1px] max-tabletBig:text-start">
           <div className="max-tabletBig:flex max-tabletBig:flex-row max-tabletBig:items-center max-tabletBig:justify-between">
             <div className="flex flex-col gap-2 pb-2 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px] max-mobile:pb-[12px]">
-              <DialogTitle className="text-lg font-medium uppercase leading-[22px] max-mobile:font-semibold">
+              <DialogTitle className="text-lg font-semibold uppercase leading-[22px]">
                 корзина
               </DialogTitle>
 
@@ -224,7 +224,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
 
             {basket.length > 0 ? (
               <Button
-                className="h-[50px] uppercase max-mobile:h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
+                className="h-[50px] font-semibold uppercase max-mobile:h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
                 onClick={onPayment}
                 variant={"secondary"}
               >
@@ -232,7 +232,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
               </Button>
             ) : (
               <Button
-                className="h-[50px] uppercase max-mobile:h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
+                className="h-[50px] font-semibold uppercase max-mobile:h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
                 variant={"secondary"}
               >
                 Перейти к новинкам
