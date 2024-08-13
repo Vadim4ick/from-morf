@@ -14,10 +14,12 @@ body {
 .scroll-basket {
   &::-webkit-scrollbar {
     width: 4px;
+    scrollbar-width: 4px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #a6a6a6;
     border-radius: 7px;
+    scrollbar-color: #a6a6a6 transparent;
   }
 }
 .table-scroll {
