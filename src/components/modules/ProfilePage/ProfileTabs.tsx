@@ -14,7 +14,7 @@ const ProfileTabs = () => {
               return (
                 <TabsTrigger
                   key={tab.value}
-                  className="tab-trigger text-[15px] font-medium uppercase text-[#7D7D7D] max-mobile:text-[13px]"
+                  className="tab-trigger text-[15px] font-semibold uppercase text-[#7D7D7D] max-mobile:text-[13px]"
                   value={tab.value}
                   onClick={() => handleTabChange(tab.value)}
                 >

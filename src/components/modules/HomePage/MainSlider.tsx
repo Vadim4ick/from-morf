@@ -65,7 +65,7 @@ const MainSlider = ({
 
                   <Link
                     href={el.mainSlider_id.linkButton}
-                    className="relative mx-auto h-[42px] w-full max-w-[185px] border border-[#8D8D8D] before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-[#2C2C2C] before:opacity-60 max-tabletSmall:h-[36px] max-tabletSmall:max-w-[175px]"
+                    className="relative mx-auto h-[42px] w-full max-w-[185px] border border-[#8D8D8D] font-semibold before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-[#2C2C2C] before:opacity-60 max-tabletSmall:h-[36px] max-tabletSmall:max-w-[175px]"
                   >
                     <p className="relative flex h-full w-full items-center justify-center text-sm uppercase text-white">
                       {el.mainSlider_id.nameButton}

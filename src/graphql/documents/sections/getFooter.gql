@@ -2,12 +2,6 @@ query GetFooter {
   footer {
     id
 
-    logo {
-      id
-      width
-      height
-    }
-
     links {
       id
 

@@ -118,7 +118,7 @@ const ProfileForm = ({ user }: { user: User }) => {
             )}
 
             <div className="flex items-center gap-3">
-              <p className="text-sm font-semibold">Введите вашу почту</p>
+              <p className="text-sm font-medium">Введите вашу почту</p>
 
               {!user?.email && <Warning className="size-6" />}
               {user?.email && <SuccessInput />}
@@ -193,7 +193,10 @@ const ProfileForm = ({ user }: { user: User }) => {
           </label>
         </div>
 
-        <Button variant={"secondary"} className="h-[50px] w-full uppercase">
+        <Button
+          variant={"secondary"}
+          className="h-[50px] w-full font-semibold uppercase"
+        >
           Сохранить изменения
         </Button>
       </div>

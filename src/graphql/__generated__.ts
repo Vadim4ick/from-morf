@@ -1783,22 +1783,11 @@ export type Footer = {
   readonly id: Scalars['ID']['output'];
   readonly links: Maybe<ReadonlyArray<Maybe<Footer_FooterLinks>>>;
   readonly links_func: Maybe<Count_Functions>;
-  readonly logo: Maybe<Directus_Files>;
 };
 
 
 export type FooterLinksArgs = {
   filter: InputMaybe<Footer_FooterLinks_Filter>;
-  limit: InputMaybe<Scalars['Int']['input']>;
-  offset: InputMaybe<Scalars['Int']['input']>;
-  page: InputMaybe<Scalars['Int']['input']>;
-  search: InputMaybe<Scalars['String']['input']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type FooterLogoArgs = {
-  filter: InputMaybe<Directus_Files_Filter>;
   limit: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   page: InputMaybe<Scalars['Int']['input']>;
@@ -1942,7 +1931,6 @@ export type Footer_Filter = {
   readonly id: InputMaybe<Number_Filter_Operators>;
   readonly links: InputMaybe<Footer_FooterLinks_Filter>;
   readonly links_func: InputMaybe<Count_Function_Filter_Operators>;
-  readonly logo: InputMaybe<Directus_Files_Filter>;
 };
 
 export type Footer_FooterLinks = {
@@ -3761,7 +3749,6 @@ export type Version_Footer = {
   readonly id: Scalars['ID']['output'];
   readonly links: Maybe<Scalars['JSON']['output']>;
   readonly links_func: Maybe<Count_Functions>;
-  readonly logo: Maybe<Scalars['JSON']['output']>;
 };
 
 export type Version_FooterLinks = {
@@ -4080,7 +4067,7 @@ export type GetTipsItemPageQuery = { readonly __typename?: 'Query', readonly sty
 export type GetFooterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetFooterQuery = { readonly __typename?: 'Query', readonly footer: { readonly __typename?: 'footer', readonly id: string, readonly logo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly links: ReadonlyArray<{ readonly __typename?: 'footer_footerLinks', readonly id: string, readonly footerLinks_id: { readonly __typename?: 'footerLinks', readonly id: string, readonly title: string, readonly links: ReadonlyArray<{ readonly __typename?: 'footerLinks_links', readonly id: string, readonly links_id: { readonly __typename?: 'links', readonly id: string, readonly button_title: string, readonly button_links: string } }> } }> } };
+export type GetFooterQuery = { readonly __typename?: 'Query', readonly footer: { readonly __typename?: 'footer', readonly id: string, readonly links: ReadonlyArray<{ readonly __typename?: 'footer_footerLinks', readonly id: string, readonly footerLinks_id: { readonly __typename?: 'footerLinks', readonly id: string, readonly title: string, readonly links: ReadonlyArray<{ readonly __typename?: 'footerLinks_links', readonly id: string, readonly links_id: { readonly __typename?: 'links', readonly id: string, readonly button_title: string, readonly button_links: string } }> } }> } };
 
 export type GetGoodItemsQueryVariables = Exact<{
   directionTitle: InputMaybe<Scalars['String']['input']>;
@@ -4397,11 +4384,6 @@ export const GetFooterDocument = gql`
     query GetFooter {
   footer {
     id
-    logo {
-      id
-      width
-      height
-    }
     links {
       id
       footerLinks_id {

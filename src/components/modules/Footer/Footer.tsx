@@ -1,7 +1,6 @@
-import { pathImage } from "@/lib/utils";
 import { Creatin } from "@/shared/icons/Creatin";
+import { FooterLogo } from "@/shared/icons/FooterLogo";
 import { useGetFooter } from "@/shared/services/getFooter";
-import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
@@ -12,17 +11,13 @@ const Footer = () => {
       {/* 1-й уровень */}
       <div className="container">
         <div className="flex justify-between gap-5 pb-[90px] pt-[80px] max-tabletSmall:flex-col max-tabletSmall:items-center max-tabletSmall:justify-center max-tabletSmall:gap-[72px] max-tabletSmall:py-[72px]">
-          {data?.footer && (
-            <Link href={"/"}>
-              <Image
-                src={pathImage(data.footer.logo.id)}
-                alt="1"
-                width={412}
-                height={188}
-                className="max-w-full max-mobile:px-[48px]"
-              />
-            </Link>
-          )}
+          <Link href={"/"}>
+            <FooterLogo
+              width={412}
+              height={188}
+              className="max-w-full max-mobile:px-[48px]"
+            />
+          </Link>
 
           <div className="flex justify-center gap-[109px] max-tabletBig:gap-[70px] max-tabletSmall:gap-[32px] max-mobile:flex-col max-mobile:gap-[56px] max-mobileSmall:gap-[56px]">
             {data?.footer &&
@@ -66,9 +61,10 @@ const Footer = () => {
               </a>
             </div>
 
-            <div className="flex items-center gap-2 rounded-3xl bg-white pb-[3px] pl-[16px] pr-[3px] pt-[3px]">
-              <span className="font-medium text-[#636363]">разработано</span>
-
+            <div className="flex items-center gap-2 rounded-3xl bg-white pb-[3px] pl-[16px] pr-[3px] pt-[3px] text-[12px]">
+              <span className="font-['Jeko'] font-semibold text-[#636363]">
+                разработано
+              </span>
               <div className="rounded-full bg-[#EDEDED] px-[18px] py-[10px]">
                 <Creatin />
               </div>

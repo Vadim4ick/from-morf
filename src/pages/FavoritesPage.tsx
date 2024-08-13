@@ -7,8 +7,7 @@ import { getPluralForm } from "@/lib/utils";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { Heart } from "@/shared/icons/Heart";
 import { useEffect } from "react";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 const FavoritesPage = () => {
   const { favorites, isLoading, loadFavorites } = useFavorite();
@@ -16,6 +15,8 @@ const FavoritesPage = () => {
   useEffect(() => {
     loadFavorites();
   }, []);
+
+  const router = useRouter();
 
   if (isLoading) {
     return (
@@ -26,14 +27,7 @@ const FavoritesPage = () => {
   }
 
   return (
-    <section
-      // ref={ref}
-      // {...motionConfigAnimate}
-      // animate={
-      //   inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
-      // }
-      className="pb-9 pt-[calc(var(--header-height)_+_48px)]"
-    >
+    <section className="pb-9 pt-[calc(var(--header-height)_+_48px)]">
       <div className="container">
         <div className="flex flex-col pb-[30px]">
           <h1 className="heading">избранное</h1>
@@ -75,7 +69,8 @@ const FavoritesPage = () => {
               </div>
 
               <Button
-                className="min-h-[50px] min-w-[312px] font-normal uppercase max-tabletBig:w-full max-mobile:min-h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
+                onClick={() => router.push("/goods/additional/Новинки")}
+                className="min-h-[50px] min-w-[312px] font-semibold uppercase max-tabletBig:w-full max-mobile:min-h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
                 variant={"secondary"}
               >
                 Перейти к покупкам
