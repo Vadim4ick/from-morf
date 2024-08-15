@@ -2,6 +2,8 @@ import { gql } from "@/graphql/client";
 import AllGoodsPage from "@/pages/AllGoodsPage";
 import Link from "next/link";
 
+export const revalidate = 60;
+
 const Page = async ({
   params,
 }: {

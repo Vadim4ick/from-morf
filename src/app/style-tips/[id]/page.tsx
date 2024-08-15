@@ -2,6 +2,8 @@ import { gql } from "@/graphql/client";
 import StyleTipsItemPage from "@/pages/StyleTipsItemPage";
 import { notFound } from "next/navigation";
 
+export const revalidate = 60;
+
 const Page = async ({ params }: { params: { id: string } }) => {
   const { styleTips_by_id } = await gql.GetTipsItemPage({
     id: params.id,

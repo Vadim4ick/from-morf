@@ -1,6 +1,8 @@
 import { gql } from "@/graphql/client";
 import LookBookPage from "@/pages/LookBookPage";
 
+export const revalidate = 60;
+
 const Page = async () => {
   const { lookBook } = await gql.GetLookBock();
 
