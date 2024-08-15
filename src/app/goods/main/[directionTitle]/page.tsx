@@ -1,6 +1,12 @@
 import { gql } from "@/graphql/client";
 import AllGoodsPage from "@/pages/AllGoodsPage";
 import Link from "next/link";
+import { Meta_SEO } from "@/shared/const/metadata";
+
+export const metadata = {
+  title: "Товары",
+  description: Meta_SEO.description,
+};
 
 export const revalidate = 60;
 
