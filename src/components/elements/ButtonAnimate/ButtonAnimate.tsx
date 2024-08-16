@@ -21,7 +21,9 @@ const ButtonAnimate = ({
       ])}
       variant={"default"}
     >
-      <span className="z-20">{children}</span>
+      <span className="z-20 max-mobile:text-[12px] max-mobile:leading-[14px]">
+        {children}
+      </span>
     </Button>
   );
 };

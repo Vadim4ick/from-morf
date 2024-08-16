@@ -27,7 +27,7 @@ const FavoritesPage = () => {
   }
 
   return (
-    <section className="pb-9 pt-[calc(var(--header-height)_+_48px)]">
+    <section className="pb-9 pt-[calc(var(--header-height)_+_48px)] max-mobile:pb-[16px] max-mobile:pt-[calc(var(--header-height)_+_36px)]">
       <div className="container">
         <div className="flex flex-col pb-[30px]">
           <h1 className="heading">избранное</h1>
@@ -53,8 +53,8 @@ const FavoritesPage = () => {
           </div>
         ) : (
           <div className="w-full tabletBig:h-[500px]">
-            <div className="flex h-full flex-col items-center justify-center gap-[120px]">
-              <div className="relative flex max-tabletBig:h-[350px] max-tabletBig:flex-col-reverse max-tabletBig:items-center max-tabletBig:justify-center max-tabletBig:gap-12 max-mobile:gap-8">
+            <div className="flex h-full flex-col items-center justify-center gap-[120px] max-mobile:gap-[280px]">
+              <div className="relative flex max-tabletBig:flex-col-reverse max-tabletBig:items-center max-tabletBig:justify-center max-tabletBig:gap-12 max-mobile:gap-8 max-mobile:pt-[170px]">
                 <p className="text-center text-2xl font-medium max-mobile:text-sm">
                   Вы пока не добавили ничего <br className="mobile:hidden" /> в
                   избранное

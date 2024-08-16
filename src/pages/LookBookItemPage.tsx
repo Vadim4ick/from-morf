@@ -39,7 +39,7 @@ const LookBookItemPage = ({
         className="pt-[calc(var(--header-height)_+_48px)] max-mobile:pt-[calc(var(--header-height)_+_36px)]"
       >
         <div className="container">
-          <div className="flex max-w-[626px] flex-col gap-[20px] pb-[49px] max-tabletBig:gap-4 max-tabletBig:pb-9">
+          <div className="flex max-w-[626px] flex-col gap-[20px] pb-[49px] max-tabletBig:gap-4 max-tabletBig:pb-9 max-mobile:max-w-[281px]">
             <h1 className="text-4xl font-medium max-tabletBig:text-[28px] max-mobile:text-[24px] max-mobile:leading-[30px]">
               {lookBookItem.title}
             </h1>

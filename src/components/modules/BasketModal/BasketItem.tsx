@@ -57,7 +57,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
             {basket.title}
           </p>
 
-          <div className="text-sm leading-[17px] text-[#7E7E7E]">
+          <div className="text-sm leading-[17px] text-[#7E7E7E] max-mobile:text-[12px] max-mobile:leading-[14.5px]">
             Размер:{" "}
             <span className="font-medium text-darkGrayColor">
               {basket.size}
@@ -87,12 +87,12 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
 
       <div className="flex flex-col items-center justify-between gap-1">
         <div className="flex flex-col items-end">
-          <p className="text-lg font-medium leading-[22px]">
+          <p className="text-lg font-semibold leading-[22px] max-mobile:text-[16px] max-mobile:leading-[20px]">
             {formatPrice(basket.totalPrice)} ₽
           </p>
 
           {basket.discount > 0 && (
-            <span className="text-sm font-medium leading-[17px] text-[#959595] line-through">
+            <span className="text-sm font-medium leading-[17px] text-[#959595] line-through max-mobile:text-[12px] max-mobile:leading-[16px]">
               {discountPrice(basket.discount, basket.totalPrice)} ₽
             </span>
           )}
@@ -106,7 +106,9 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
             -
           </button>
 
-          <div className="font-medium">{basket.count}</div>
+          <div className="font-medium max-mobile:text-[14px] max-mobile:leading-[18px]">
+            {basket.count}
+          </div>
 
           <button
             onClick={increase}

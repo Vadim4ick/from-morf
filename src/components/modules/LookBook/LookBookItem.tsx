@@ -17,7 +17,7 @@ const LookBookItem = ({
   return (
     <div className="flex max-w-full justify-between gap-2 max-desktop1300:flex-col max-desktop1300:gap-9">
       <div className="flex max-w-[432px] flex-col gap-9 max-mobile:gap-[18px]">
-        <div className="flex flex-col gap-[19px] max-mobile:gap-[6px]">
+        <div className="flex flex-col gap-[19px] max-mobile:max-w-[281px] max-mobile:gap-[6px]">
           <h2 className="text-[28px] font-medium max-mobile:text-lg">
             {lookBook.title}
           </h2>

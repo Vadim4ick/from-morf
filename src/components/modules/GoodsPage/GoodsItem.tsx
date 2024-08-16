@@ -53,12 +53,12 @@ const BottomLayout = ({ parameters }: { parameters: string }) => {
 
 const BottomLinks = () => {
   return (
-    <div className="pt-[24px] max-tabletBig:pt-[16px] max-mobile:pt-[12px]">
+    <div className="pt-[24px] max-tabletBig:pt-[16px] max-mobile:py-[12px]">
       <Link
         href={"/"}
         className="flex items-center justify-between gap-3 py-[10px] max-mobile:py-[9px]"
       >
-        <p className="leading-[20px] max-mobile:text-[14px] max-mobile:leading-[17px]">
+        <p className="leading-[20px] max-mobile:text-[14px] max-mobile:leading-[17.5px]">
           Доставка и оплата
         </p>
 
@@ -69,7 +69,7 @@ const BottomLinks = () => {
         href={"/"}
         className="flex items-center justify-between gap-3 py-[10px] max-mobile:py-[9px]"
       >
-        <p className="leading-[20px] max-mobile:text-[14px] max-mobile:leading-[17px]">
+        <p className="leading-[20px] max-mobile:text-[14px] max-mobile:leading-[17.5px]">
           Возврат
         </p>
 
@@ -93,7 +93,7 @@ const AddBasket = ({
   const isFavorite = favoritesFromLs.includes(itemId);
 
   return (
-    <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:mt-10 max-desktop:border-t max-desktop:pb-2 max-mobile:gap-4 max-mobile:py-[24px] desktop:border-b">
+    <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:border-t max-desktop:pb-2 max-mobile:gap-4 max-mobile:py-[24px] desktop:border-b">
       <div className="flex items-center justify-between gap-3">
         <SelectSizes currentSizes={currentSizes} />
 
@@ -166,9 +166,9 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
       animate={
         inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
       }
-      className="container pb-[135px] pt-[calc(var(--header-height)_+_32px)] max-desktop:pb-[48px] max-tabletSmall:pb-[42px] max-mobile:pt-[calc(var(--header-height)_+_24px)]"
+      className="container pb-[135px] pt-[calc(var(--header-height)_+_32px)] max-desktop:pb-[48px] max-tabletSmall:pb-[72px] max-mobile:pt-[calc(var(--header-height)_+_24px)]"
     >
-      <div className="relative grid grid-cols-goods gap-[40px] max-desktop:grid-cols-1 max-desktop:gap-[16px]">
+      <div className="relative grid grid-cols-goods gap-[40px] max-desktop:grid-cols-1 max-desktop:gap-[0px]">
         {/* LEFT */}
         {!isDesktop1100 && (
           <div className="relative flex flex-col gap-5">
@@ -292,7 +292,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
 
         {/* Right */}
         <div className="relative">
-          <div className="top-[calc(var(--header-height)_+_20px)] desktop:sticky">
+          <div className="top-[calc(var(--header-height)_+_20px)] max-mobile:pt-[16px] desktop:sticky">
             {/* TOP */}
             <div className="flex flex-col gap-9 border-b border-[#D1D1D1] pb-9 max-desktop:pb-8 max-mobile:gap-6 max-mobile:pb-6">
               <div className="flex flex-col gap-2 max-mobile:gap-[2px]">

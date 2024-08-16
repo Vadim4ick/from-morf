@@ -195,7 +195,7 @@ const ProfileForm = ({ user }: { user: User }) => {
 
         <Button
           variant={"secondary"}
-          className="h-[50px] w-full font-semibold uppercase"
+          className="h-[50px] w-full text-[14px] font-semibold uppercase leading-[17px]"
         >
           Сохранить изменения
         </Button>

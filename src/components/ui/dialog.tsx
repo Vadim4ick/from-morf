@@ -70,7 +70,7 @@ const DialogContent = React.forwardRef<
                 "absolute top-[25px] rounded-sm ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
                 {
                   "left-[25px]": closePosition === "left",
-                  "right-[25px] top-[40px]": closePosition === "right",
+                  "right-[25px] top-[38px]": closePosition === "right",
                 },
               )}
             >

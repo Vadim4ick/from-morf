@@ -134,7 +134,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
       >
         <DialogHeader className="custom-shadow-footer relative py-[20px] after:h-[1px] max-tabletBig:text-start">
           <div className="max-tabletBig:flex max-tabletBig:flex-row max-tabletBig:items-center max-tabletBig:justify-between">
-            <div className="flex flex-col gap-2 pb-2 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px] max-mobile:pb-[12px]">
+            <div className="flex flex-col gap-1 pb-2 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px] max-mobile:pb-[12px]">
               <DialogTitle className="text-lg font-semibold uppercase leading-[22px]">
                 корзина
               </DialogTitle>
@@ -214,7 +214,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
                       </p>
                     )}
 
-                    <p className="text-[18px] font-medium leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px]">
+                    <p className="text-[18px] font-semibold leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px]">
                       {sumTotalCurrentPriceBasket(basket)} ₽
                     </p>
                   </div>
