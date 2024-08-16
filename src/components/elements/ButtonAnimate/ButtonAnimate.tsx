@@ -15,13 +15,13 @@ const ButtonAnimate = ({
   return (
     <Button
       onClick={onClick}
-      className={cn("buttonAnimate w-fit transition-colors hover:text-white", [
-        cls.buttonAnimate,
-        className,
-      ])}
+      className={cn(
+        "buttonAnimate h-[42px] w-fit pb-[11px] pt-[13px] transition-colors hover:text-white max-mobile:h-[36px] max-mobile:pb-[9px] max-mobile:pt-[11px]",
+        [cls.buttonAnimate, className],
+      )}
       variant={"default"}
     >
-      <span className="z-20 max-mobile:text-[12px] max-mobile:leading-[14px]">
+      <span className="z-20 text-[14px] leading-[18px] max-mobile:text-[12px] max-mobile:leading-[16px]">
         {children}
       </span>
     </Button>
