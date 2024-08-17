@@ -63,40 +63,40 @@ const AuthForm = () => {
         return;
       }
 
-      const { token, activationCode } = await createActivationToken(
-        email,
-        password,
-      );
+      // const { token, activationCode } = await createActivationToken(
+      //   email,
+      //   password,
+      // );
 
-      emailjs
-        .send(
-          process.env.NEXT_PUBLIC_EMAILJS_serviceID as string,
-          process.env.NEXT_PUBLIC_EMAILJS_templateID as string,
-          {
-            to_email: email,
-            activationCode,
-          },
-          {
-            publicKey: process.env.NEXT_PUBLIC_EMAILJS_publicKey as string,
-          },
-        )
-        .then(
-          () => {
-            console.log("SUCCESS!");
-            localStorage.setItem("activateToken", token);
-            toggleConfirmPage(true);
-          },
-          (error) => {
-            console.log("FAILED...", error.text);
-          },
-        );
+      // emailjs
+      //   .send(
+      //     process.env.NEXT_PUBLIC_EMAILJS_serviceID as string,
+      //     process.env.NEXT_PUBLIC_EMAILJS_templateID as string,
+      //     {
+      //       to_email: email,
+      //       activationCode,
+      //     },
+      //     {
+      //       publicKey: process.env.NEXT_PUBLIC_EMAILJS_publicKey as string,
+      //     },
+      //   )
+      //   .then(
+      //     () => {
+      //       console.log("SUCCESS!");
+      //       localStorage.setItem("activateToken", token);
+      //       toggleConfirmPage(true);
+      //     },
+      //     (error) => {
+      //       console.log("FAILED...", error.text);
+      //     },
+      //   );
 
-      // const { status, data } = await authQuery.sendMail({ email, password });
+      const { status, data } = await authQuery.sendMail({ email, password });
 
-      // if (status === 200) {
-      // localStorage.setItem("activateToken", data.activationToken);
-      // toggleConfirmPage(true);
-      // }
+      if (status === 200) {
+        localStorage.setItem("activateToken", data.activationToken);
+        toggleConfirmPage(true);
+      }
     }
   };
 
