@@ -35,6 +35,8 @@ import { processOrder, updateStatus } from "@/shared/services/processOreder";
 import { useAuth } from "@/shared/hooks/useAuth.hooks";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { gql } from "@/graphql/client";
+import { authQuery } from "@/shared/queries/authQueries";
 
 const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const isTablet991 = useMediaQuery(991);
@@ -44,12 +46,6 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const { basketIdsAndSizeAndCount: basket, discountCount } = useBasket();
 
   const onPayment = async () => {
-    // // const description = `
-    // //   Иия получателя - ${user?.name + " " + user?.surname},
-    // //   Адрес - ${user?.address},
-    // //   Email - ${user?.email},
-    // //   Номер телефона - ${user?.phone},
-    // // `;
     const price = parsePrice(sumTotalCurrentPriceBasket(basket));
     const discountPrice = parsePrice(sumTotalAllPriceBasket(basket));
     const discount = +totalDiscount(basket);
@@ -76,11 +72,14 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
       discount: discount,
       discountPrice: discountPrice,
     });
-    const description = `Адрес - ${user.user_address}`;
 
     if (success && orderId) {
       makePaymentFx({
-        description: description.trim(),
+        description: JSON.stringify({
+          address: user.user_address,
+          name: user.first_name,
+          lastName: user.last_name,
+        }),
         orderId: orderId,
         amount: price,
       });
@@ -105,6 +104,20 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
         deleteBasket();
         await updateStatus(data.result.metadata.order_id, "SUCCESS");
         toast.success("Успешная оплата");
+
+        const orderId = await data.orderId;
+
+        const { orders_by_id } = await gql.GetOrderById({ id: orderId });
+
+        const orderItems = orders_by_id.items;
+        const totalPrice = orders_by_id.totalPrice;
+
+        authQuery.sendMailSuccessOrder({
+          orderId,
+          totalPrice,
+          items: orderItems,
+          user: user!,
+        });
       }
     }
 

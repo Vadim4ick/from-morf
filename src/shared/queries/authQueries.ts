@@ -5,8 +5,12 @@ import {
 } from "@/lib/auth-token";
 import { $apiBack, $apiFront } from "../api/api";
 import axios from "axios";
-import { toast } from "sonner";
 import { loginUser } from "../context/user";
+import { User } from "../types/authForm";
+import {
+  OrderItemFragmentFragment,
+  Order_Items,
+} from "@/graphql/__generated__";
 
 class AuthQueries {
   async sendMail({ email, password }: { email: string; password: string }) {
@@ -16,6 +20,29 @@ class AuthQueries {
     }>("/api/send-email", {
       email: email,
       password: password,
+    });
+
+    return { data, status };
+  }
+  async sendMailSuccessOrder({
+    user,
+    totalPrice,
+    orderId,
+    items,
+  }: {
+    user: User;
+    totalPrice: string | number;
+    orderId: string;
+    items: readonly OrderItemFragmentFragment[];
+  }) {
+    const { data, status } = await $apiFront.post<{
+      status: number;
+      activationToken: string;
+    }>("/api/send-order-success", {
+      user: user,
+      totalPrice: totalPrice,
+      orderId: orderId,
+      items: items,
     });
 
     return { data, status };

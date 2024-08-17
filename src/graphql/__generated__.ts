@@ -3997,6 +3997,13 @@ export type CreateOrderMutationVariables = Exact<{
 
 export type CreateOrderMutation = { readonly __typename?: 'Mutation', readonly create_orders_item: { readonly __typename?: 'orders', readonly id: string, readonly totalPrice: number, readonly user: { readonly __typename?: 'directus_users', readonly id: string, readonly first_name: string } } };
 
+export type GetOrderByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type GetOrderByIdQuery = { readonly __typename?: 'Query', readonly orders_by_id: { readonly __typename?: 'orders', readonly id: string, readonly totalPrice: number, readonly created_at: any, readonly items: ReadonlyArray<{ readonly __typename?: 'order_items', readonly id: string, readonly size: string, readonly count: number, readonly good: { readonly __typename?: 'goods', readonly name: string, readonly id: string, readonly price: number } }> } };
+
 export type GetOrdersUserQueryVariables = Exact<{
   user_id: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -4027,6 +4034,8 @@ export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods_by_i
 export type GoodFragment = { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly discount: number, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly recomendation: ReadonlyArray<{ readonly __typename?: 'goods_goods', readonly related_goods_id: { readonly __typename?: 'goods', readonly id: string, readonly name: string, readonly price: number, readonly description: string, readonly parameters: string, readonly select: any, readonly direction: { readonly __typename?: 'sectionsDirections', readonly id: string, readonly title: string }, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }>, readonly image_builder: ReadonlyArray<{ readonly __typename?: 'goods_image_builder', readonly id: string, readonly collection: string, readonly item: { readonly __typename: 'goodsImg', readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } | { readonly __typename: 'goodsTwoImages', readonly imgOne: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number }, readonly imgTwo: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }> } }> };
 
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
+
+export type OrderItemFragmentFragment = { readonly __typename?: 'order_items', readonly id: string, readonly size: string, readonly count: number, readonly good: { readonly __typename?: 'goods', readonly name: string, readonly id: string, readonly price: number } };
 
 export type GetGoodsFavoritesItemsQueryVariables = Exact<{
   ids: InputMaybe<ReadonlyArray<Scalars['GraphQLStringOrFloat']['input']> | Scalars['GraphQLStringOrFloat']['input']>;
@@ -4179,6 +4188,18 @@ export const GoodFragmentDoc = gql`
   }
 }
     ${MediaFragmentFragmentDoc}`;
+export const OrderItemFragmentFragmentDoc = gql`
+    fragment OrderItemFragment on order_items {
+  id
+  size
+  count
+  good {
+    name
+    id
+    price
+  }
+}
+    `;
 export const CreateOrderItemDocument = gql`
     mutation CreateOrderItem($order_id: ID, $good_id: Int, $count: Int, $discount: Int, $size: String) {
   create_order_items_items(
@@ -4207,6 +4228,18 @@ export const CreateOrderDocument = gql`
   }
 }
     `;
+export const GetOrderByIdDocument = gql`
+    query GetOrderById($id: ID!) {
+  orders_by_id(id: $id) {
+    id
+    totalPrice
+    created_at
+    items {
+      ...OrderItemFragment
+    }
+  }
+}
+    ${OrderItemFragmentFragmentDoc}`;
 export const GetOrdersUserDocument = gql`
     query GetOrdersUser($user_id: String) {
   orders(
@@ -4457,6 +4490,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     CreateOrder(variables?: CreateOrderMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateOrderMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateOrderMutation>(CreateOrderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateOrder', 'mutation', variables);
+    },
+    GetOrderById(variables: GetOrderByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetOrderByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetOrderByIdQuery>(GetOrderByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetOrderById', 'query', variables);
     },
     GetOrdersUser(variables?: GetOrdersUserQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetOrdersUserQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetOrdersUserQuery>(GetOrdersUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetOrdersUser', 'query', variables);

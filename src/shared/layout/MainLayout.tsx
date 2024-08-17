@@ -6,16 +6,9 @@ import { useUnit } from "effector-react";
 import { $confirm } from "../context/auth";
 import ConfirmationPage from "@/pages/ConfirmationPage";
 import { Toaster } from "sonner";
-import { useEffect } from "react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [confirm] = useUnit([$confirm]);
-
-  useEffect(() => {
-    fetch("/api/cron-job")
-      .then((response) => response.text())
-      .then((data) => console.log(data));
-  }, []);
 
   if (confirm) {
     return <ConfirmationPage />;

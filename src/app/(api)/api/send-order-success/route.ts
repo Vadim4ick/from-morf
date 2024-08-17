@@ -1,13 +1,9 @@
-import { createActivationToken } from "@/lib/utils";
-import { createEmailTemplate } from "@/shared/template/verificationCode";
+import { sendOrderSuccess } from "@/shared/template/sendOrderSuccess";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   const formData = await request.json();
-
-  const email = formData.email;
-  const password = formData.password;
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -27,21 +23,19 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { token, activationCode } = await createActivationToken(
-      email,
-      password,
-    );
-
     const sendResult = await transporter.sendMail({
-      from: '"Message bot" <noreply@yourdomain.com>', // sender address
-      to: email, // list of receivers
-      subject: `From-Morf / 📝 Подтверждение регистрации`, // Subject line
-      html: createEmailTemplate(activationCode), // html body
+      from: '"From-Morf" <noreply@yourdomain.com>',
+      to: process.env.SEND_EMAIL_SUCCESS_INFO,
+      subject: `From-Morf / 📝 Оплатили заказ!`,
+      html: sendOrderSuccess({
+        user: formData.user,
+        totalPrice: formData.totalPrice,
+        orderId: formData.orderId,
+        items: formData.items,
+      }),
     });
 
-    // console.log("sendResult", sendResult);
-
-    return NextResponse.json({ status: 200, activationToken: token });
+    return NextResponse.json({ status: 200 });
   } catch (err) {
     console.log(err);
     return NextResponse.json({ status: 500 });

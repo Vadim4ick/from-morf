@@ -14,7 +14,22 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ result: data });
+    const orderId = await data.metadata.order_id;
+
+    // ====
+    // const { data: dataOrder } = await axios.get(
+    //   `${process.env.NEXT_PUBLIC_SERVER_URL}/items/${orderId}`,
+    // );
+
+    // const itemIds = dataOrder.data.items;
+
+    // const userInfo = JSON.parse(data.description) as {
+    //   address: string;
+    //   name: string;
+    //   lastName: string;
+    // };
+
+    return NextResponse.json({ result: data, orderId: orderId });
   } catch (error) {
     throw new Error((error as Error).message);
   }

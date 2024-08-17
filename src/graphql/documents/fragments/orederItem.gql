@@ -1,0 +1,10 @@
+fragment OrderItemFragment on order_items {
+  id
+  size
+  count
+  good {
+    name
+    id
+    price
+  }
+}
