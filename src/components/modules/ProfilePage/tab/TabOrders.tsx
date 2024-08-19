@@ -76,49 +76,73 @@ const OrderItem = ({
         inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
       }
     >
-      <div className="bg-[#F6F6F6] px-[21px] pt-[23px]">
-        <div className="flex justify-between pb-[27px]">
-          <p className="text-lg font-medium uppercase">Заказ №{order.id}</p>
+      <div className="bg-[#F6F6F6] px-[21px] pt-[23px] max-mobile:px-[14px] max-mobile:pt-[24px]">
+        <div className="flex justify-between pb-[27px] max-mobile:pb-[22px]">
+          <p className="text-[18px] font-semibold uppercase leading-[22px]">
+            Заказ №{order.id}
+          </p>
 
-          <p className="text-sm text-[#787878]">
+          <p className="text-[14px] font-medium leading-[17px] text-[#787878]">
             {new Date(order.created_at).toLocaleDateString()}
           </p>
         </div>
 
-        <div className="flex flex-col gap-8 pb-9">
+        <div className="flex flex-col gap-8 pb-9 max-mobile:pb-[32px]">
           {order.items.map((el) => {
             return (
               <article
                 key={`orderId-${order.id}_elId-${el.id}`}
-                className="grid grid-cols-[74px_1fr_85px] gap-3"
+                className="grid grid-cols-[74px_1fr_85px] gap-3 max-mobile:gap-[10px]"
               >
                 <div className="relative size-[74px]">
-                  <Image src={"/newItem/1.png"} alt="test" fill />
+                  <Image
+                    src={"/newItem/1.png"}
+                    className="object-cover"
+                    alt="test"
+                    fill
+                  />
                 </div>
 
                 <div className="flex flex-col justify-between gap-1">
-                  <div className="flex flex-col">
-                    <p>{el.good.name}</p>
+                  <div className="flex w-full max-w-[145px] flex-shrink flex-grow flex-col gap-1">
+                    <p className="overflow-hidden text-ellipsis whitespace-nowrap font-medium leading-[19px]">
+                      {el.good.name}
+                    </p>
 
-                    <div className="text-sm text-[#7E7E7E]">
+                    <div className="text-[14px] leading-[17px] text-[#7E7E7E]">
                       Размер:{" "}
-                      <span className="text-darkGrayColor">{el.size}</span>
+                      <span className="font-medium text-darkGrayColor">
+                        {el.size}
+                      </span>
                     </div>
                   </div>
+
+                  {/* <div className="flex w-full max-w-[162px] flex-col gap-1">
+                    <p className="overflow-hidden text-ellipsis whitespace-nowrap font-medium leading-[19px]">
+                      {el.good.name}
+                    </p>
+
+                    <div className="text-[14px] leading-[17px] text-[#7E7E7E]">
+                      Размер:{" "}
+                      <span className="font-medium text-darkGrayColor">
+                        {el.size}
+                      </span>
+                    </div>
+                  </div> */}
                 </div>
 
                 <div className="flex flex-col items-end justify-between gap-1">
                   <div className="flex flex-col items-end">
-                    <p className="text-lg font-medium">
+                    <p className="text-[18px] font-semibold leading-[22px]">
                       {formatPrice(el.good.price)} ₽
                     </p>
 
-                    <span className="text-sm font-medium text-[#959595] line-through">
+                    <span className="text-[14px] font-medium leading-[17px] text-[#959595] line-through">
                       {discountPrice(el.good.discount, el.good.price)}₽
                     </span>
                   </div>
 
-                  <div>{el.count} ед.</div>
+                  <div className="font-medium">{el.count} ед.</div>
                 </div>
               </article>
             );
@@ -127,34 +151,36 @@ const OrderItem = ({
       </div>
 
       <div className="custom-shadow-footer relative flex flex-col bg-[#F8F8F8] after:absolute after:top-0 after:block after:h-[1px] after:w-full">
-        <div className="flex flex-col px-5 py-5">
+        <div className="flex flex-col px-[20px] pb-[20px] pt-[18px] max-mobile:px-[14px]">
           <div className="flex flex-col gap-1 pb-3">
             {discountCount > 0 && (
               <div className="flex items-center justify-between">
-                <p className="text-sm">
+                <p className="text-[14px] font-medium leading-[17px]">
                   Скидка{" "}
                   <span className="text-[#7E7E7E]">
                     ({discountCount} {getPluralForm(discountCount)})
                   </span>
                 </p>
 
-                <div className="text-sm font-medium">
+                <div className="text-[14px] font-medium leading-[17px]">
                   {totalDiscount(order.items)}%
                 </div>
               </div>
             )}
 
             <div className="flex items-center justify-between">
-              <p className="text-lg">Общая стоимость:</p>
+              <p className="text-[18px] font-medium leading-[22px]">
+                Общая стоимость:
+              </p>
 
               <div className="flex items-center justify-center gap-[6px]">
                 {discountCount > 0 && (
-                  <p className="text-sm font-medium text-[#8B8B8B] line-through">
+                  <p className="text-[14px] font-medium leading-[17px] text-[#8B8B8B] line-through">
                     {sumTotalAllPriceBasket(order.items)} ₽
                   </p>
                 )}
 
-                <p className="text-lg font-medium">
+                <p className="text-[18px] font-semibold leading-[22px]">
                   {sumTotalCurrentPriceBasket(order.items)} ₽
                 </p>
               </div>
@@ -186,7 +212,7 @@ const TabOrders = () => {
   return (
     <div className="container">
       <div className="mx-auto max-w-[453px]">
-        <div className="flex flex-col gap-9">
+        <div className="flex flex-col gap-9 max-mobile:gap-[32px]">
           {oredersHistory.length > 0 &&
             user &&
             oredersHistory.map((order) => {

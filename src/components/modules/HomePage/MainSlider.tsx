@@ -40,7 +40,7 @@ const MainSlider = ({
         {slides.map((el) => {
           return (
             <SwiperSlide key={el.id}>
-              <div className="bgGradientMainSlider relative h-screen w-full">
+              <div className="bgGradientMainSlider relative h-[100dvh] w-full">
                 <Image
                   priority
                   className={cn("object-cover", {

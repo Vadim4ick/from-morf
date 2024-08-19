@@ -146,8 +146,8 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
         className="flex h-full max-h-[496px] w-full max-w-[430px] flex-col gap-0 bg-[#F8F8F8] p-0 max-tabletBig:top-0 max-tabletBig:max-h-full max-tabletBig:max-w-full"
       >
         <DialogHeader className="custom-shadow-footer relative py-[20px] after:h-[1px] max-tabletBig:text-start">
-          <div className="max-tabletBig:flex max-tabletBig:flex-row max-tabletBig:items-center max-tabletBig:justify-between">
-            <div className="flex flex-col gap-1 pb-2 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px] max-mobile:pb-[12px]">
+          <div className="pb-2 max-tabletBig:flex max-tabletBig:flex-row max-tabletBig:items-center max-tabletBig:justify-between max-mobile:pb-[12px]">
+            <div className="flex flex-col gap-1 max-tabletBig:ml-[80px] max-tabletBig:gap-1 max-mobile:ml-[22px]">
               <DialogTitle className="text-lg font-semibold uppercase leading-[22px]">
                 корзина
               </DialogTitle>
@@ -160,7 +160,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
             <div
               className={cn("", {
                 "absolute right-6 top-6": !isTablet991,
-                "mr-[60px]": isTablet991,
+                "mr-[60px] flex items-center justify-center": isTablet991,
               })}
             >
               <button onClick={() => deleteAll()}>

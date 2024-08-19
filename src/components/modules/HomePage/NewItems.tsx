@@ -48,7 +48,7 @@ const NewItems = ({
             item={first.goods_id}
           />
 
-          <div className="flex flex-col justify-between max-mobile:gap-[36px]">
+          <div className="flex flex-col justify-between max-mobile:w-full max-mobile:gap-[36px]">
             <div className="grid w-full grid-cols-2 gap-5 max-tabletBig:grid-cols-1 max-mobile:grid-cols-2 max-mobileSmall:gap-4">
               {otherElements.map((item) => (
                 <NewItemCart
