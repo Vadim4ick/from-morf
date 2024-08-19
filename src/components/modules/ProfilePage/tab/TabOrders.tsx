@@ -105,7 +105,7 @@ const OrderItem = ({
 
                 <div className="flex flex-col justify-between gap-1">
                   <div className="flex w-full max-w-[145px] flex-shrink flex-grow flex-col gap-1">
-                    <p className="overflow-hidden text-ellipsis whitespace-nowrap font-medium leading-[19px]">
+                    <p className="h-[38px] overflow-hidden text-ellipsis font-medium leading-[19px]">
                       {el.good.name}
                     </p>
 
@@ -116,8 +116,7 @@ const OrderItem = ({
                       </span>
                     </div>
                   </div>
-
-                  {/* <div className="flex w-full max-w-[162px] flex-col gap-1">
+                  {/* <div className="flex w-full max-w-[145px] flex-shrink flex-grow flex-col gap-1">
                     <p className="overflow-hidden text-ellipsis whitespace-nowrap font-medium leading-[19px]">
                       {el.good.name}
                     </p>
