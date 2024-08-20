@@ -104,7 +104,7 @@ const OrderItem = ({
                 </div>
 
                 <div className="flex flex-col justify-between gap-1">
-                  <div className="flex w-full max-w-[145px] flex-shrink flex-grow flex-col gap-1">
+                  <div className="flex w-full max-w-[204px] flex-shrink flex-grow flex-col gap-1 max-mobile:max-w-[145px]">
                     <p className="line-clamp-2 h-[38px] overflow-hidden text-ellipsis font-medium leading-[19px]">
                       {el.good.name}
                     </p>
