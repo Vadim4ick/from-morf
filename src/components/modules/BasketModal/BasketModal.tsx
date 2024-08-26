@@ -37,11 +37,13 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { gql } from "@/graphql/client";
 import { authQuery } from "@/shared/queries/authQueries";
+import { useRouter } from "next/navigation";
 
 const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const isTablet991 = useMediaQuery(991);
   const user = useUnit($user);
   const { isAuth } = useAuth();
+  const router = useRouter();
 
   const { basketIdsAndSizeAndCount: basket, discountCount } = useBasket();
 
@@ -245,6 +247,11 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
               </Button>
             ) : (
               <Button
+                onClick={() =>
+                  router.push(
+                    "/goods/additional/%D0%9D%D0%BE%D0%B2%D0%B8%D0%BD%D0%BA%D0%B8",
+                  )
+                }
                 className="h-[50px] font-semibold uppercase max-mobile:h-[46px] max-mobile:text-[12px] max-mobile:leading-[16px]"
                 variant={"secondary"}
               >

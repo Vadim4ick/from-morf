@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -5,13 +6,13 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProfileSchema, formProfileSchema } from "./model/formSchemas";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
 import { SuccessInput } from "@/shared/icons/SuccessInput";
 import { Warning } from "@/shared/icons/Warning";
 import { updateUser } from "@/shared/context/user";
 import { User } from "@/shared/types/authForm";
 import { Avatar } from "./Avatar";
 import MaskInput from "react-maskinput";
+import { memo, useMemo } from "react";
 
 const formatPhoneNumber = (phone: string) => {
   if (!phone) return "";
@@ -20,7 +21,7 @@ const formatPhoneNumber = (phone: string) => {
   return `+7 (${phoneStr.slice(1, 4)}) ${phoneStr.slice(4, 7)}-${phoneStr.slice(7, 9)}-${phoneStr.slice(9, 11)}`;
 };
 
-const ProfileForm = ({ user }: { user: User }) => {
+const ProfileForm = memo(({ user }: { user: User }) => {
   const {
     register,
     handleSubmit,
@@ -30,12 +31,38 @@ const ProfileForm = ({ user }: { user: User }) => {
     control,
   } = useForm<FormProfileSchema>({
     resolver: zodResolver(formProfileSchema),
+    defaultValues: {
+      first_name: user.first_name || "",
+      last_name: user.last_name || "",
+      phone_number: formatPhoneNumber(user.phone_number) || "",
+      email: user.email || "",
+      user_address: user.user_address || "",
+    },
   });
 
-  const [email, setEmail] = useState(user.email || "");
-  const [surname, setSurname] = useState(user.last_name || "");
-  const [name, setName] = useState(user.first_name || "");
-  const [address, setAddress] = useState(user.user_address || "");
+  // Оптимизация перерисовок через useMemo
+  const validationResults = useMemo(() => {
+    return {
+      first_name: formProfileSchema.shape.first_name.safeParse(
+        watch("first_name"),
+      ).success,
+      last_name: formProfileSchema.shape.last_name.safeParse(watch("last_name"))
+        .success,
+      email: formProfileSchema.shape.email.safeParse(watch("email")).success,
+      phone_number: formProfileSchema.shape.phone_number.safeParse(
+        watch("phone_number"),
+      ).success,
+      user_address: formProfileSchema.shape.user_address.safeParse(
+        watch("user_address"),
+      ).success,
+    };
+  }, [
+    watch("first_name"),
+    watch("last_name"),
+    watch("email"),
+    watch("phone_number"),
+    watch("user_address"),
+  ]);
 
   const onSubmit: SubmitHandler<FormProfileSchema> = async (data) => {
     const phone = data.phone_number.replace(/\D/g, "");
@@ -70,15 +97,15 @@ const ProfileForm = ({ user }: { user: User }) => {
               <div className="flex items-center gap-3">
                 <p className="text-sm font-medium">Имя*</p>
 
-                {!user?.first_name && <Warning className="size-6" />}
-                {user?.first_name && <SuccessInput />}
+                {!validationResults.first_name && (
+                  <Warning className="size-6" />
+                )}
+                {validationResults.first_name && <SuccessInput />}
               </div>
 
               <Input
                 {...register("first_name")}
                 className="h-12 rounded-[2px] bg-[#EBEBEB]"
-                value={name || ""}
-                onChange={(e) => setName(e.target.value)}
               />
             </label>
 
@@ -90,15 +117,13 @@ const ProfileForm = ({ user }: { user: User }) => {
               <div className="flex items-center gap-3">
                 <p className="text-sm font-medium"> Фамилия*</p>
 
-                {!user?.last_name && <Warning className="size-6" />}
-                {user?.last_name && <SuccessInput />}
+                {!validationResults.last_name && <Warning className="size-6" />}
+                {validationResults.last_name && <SuccessInput />}
               </div>
 
               <Input
                 {...register("last_name")}
                 className="h-12 rounded-[2px] bg-[#EBEBEB]"
-                value={surname || ""}
-                onChange={(e) => setSurname(e.target.value)}
               />
             </label>
           </div>
@@ -120,15 +145,13 @@ const ProfileForm = ({ user }: { user: User }) => {
             <div className="flex items-center gap-3">
               <p className="text-sm font-medium">Введите вашу почту</p>
 
-              {!user?.email && <Warning className="size-6" />}
-              {user?.email && <SuccessInput />}
+              {!validationResults.email && <Warning className="size-6" />}
+              {validationResults.email && <SuccessInput />}
             </div>
 
             <Input
               {...register("email")}
               className="h-12 rounded-[2px] bg-[#EBEBEB]"
-              value={email || ""}
-              onChange={(e) => setEmail(e.target.value)}
             />
           </label>
         </div>
@@ -143,8 +166,10 @@ const ProfileForm = ({ user }: { user: User }) => {
             <div className="flex items-center gap-3">
               <p className="text-sm font-medium">Введите номер телефона (+7)</p>
 
-              {!user?.phone_number && <Warning className="size-6" />}
-              {user?.phone_number && <SuccessInput />}
+              {!validationResults.phone_number && (
+                <Warning className="size-6" />
+              )}
+              {validationResults.phone_number && <SuccessInput />}
             </div>
 
             <Controller
@@ -180,14 +205,14 @@ const ProfileForm = ({ user }: { user: User }) => {
             <div className="flex items-center gap-3">
               <p className="text-sm font-medium">Введите адрес доставки</p>
 
-              {!user?.user_address && <Warning className="size-6" />}
-              {user?.user_address && <SuccessInput />}
+              {!validationResults.user_address && (
+                <Warning className="size-6" />
+              )}
+              {validationResults.user_address && <SuccessInput />}
             </div>
 
             <Input
               {...register("user_address")}
-              value={address || ""}
-              onChange={(e) => setAddress(e.target.value)}
               className="h-12 rounded-[2px] bg-[#EBEBEB]"
             />
           </label>
@@ -202,6 +227,6 @@ const ProfileForm = ({ user }: { user: User }) => {
       </div>
     </form>
   );
-};
+});
 
 export { ProfileForm };
