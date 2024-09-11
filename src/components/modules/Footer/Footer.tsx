@@ -4,7 +4,7 @@ import { useGetFooter } from "@/shared/services/getFooter";
 import Link from "next/link";
 
 const Footer = () => {
-  const { data } = useGetFooter();
+  // const { data } = useGetFooter();
 
   return (
     <footer className="bg-[#F8F8F8]">
@@ -20,7 +20,7 @@ const Footer = () => {
           </Link>
 
           <div className="flex justify-center gap-[109px] max-tabletBig:gap-[70px] max-tabletSmall:gap-[32px] max-mobile:flex-col max-mobile:gap-[56px] max-mobileSmall:gap-[56px]">
-            {data?.footer &&
+            {/* {data?.footer &&
               data.footer.links.map((el) => (
                 <div key={el.id} className="flex flex-col">
                   <p className="relative mb-5 pb-5 text-center text-[20px] font-semibold leading-[25px] text-blackColor after:absolute after:bottom-0 after:left-1/2 after:h-[1px] after:w-[25px] after:-translate-x-1/2 after:bg-black after:content-['']">
@@ -43,7 +43,55 @@ const Footer = () => {
                     ))}
                   </ul>
                 </div>
-              ))}
+              ))} */}
+
+            <div className="flex flex-col">
+              <p className="relative mb-5 pb-5 text-center text-[20px] font-semibold leading-[25px] text-blackColor after:absolute after:bottom-0 after:left-1/2 after:h-[1px] after:w-[25px] after:-translate-x-1/2 after:bg-black after:content-['']">
+                Узнать
+              </p>
+
+              <ul className="text-darkGray flex flex-col items-center justify-center gap-[24px]">
+                <li className="text-center text-base leading-[20px]">
+                  <Link className="leading-[20px]" href={"/"}>
+                    О нас
+                  </Link>
+                </li>
+                <li className="text-center text-base leading-[20px]">
+                  <Link className="leading-[20px]" href={"/"}>
+                    Доставка и оплата
+                  </Link>
+                </li>
+                <li className="text-center text-base leading-[20px]">
+                  <Link className="leading-[20px]" href={"/"}>
+                    Возврат товара
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col">
+              <p className="relative mb-5 pb-5 text-center text-[20px] font-semibold leading-[25px] text-blackColor after:absolute after:bottom-0 after:left-1/2 after:h-[1px] after:w-[25px] after:-translate-x-1/2 after:bg-black after:content-['']">
+                Связаться
+              </p>
+
+              <ul className="text-darkGray flex flex-col items-center justify-center gap-[24px]">
+                <li className="text-center text-base leading-[20px]">
+                  <Link className="leading-[20px]" href={"/"}>
+                    ВКонтакте
+                  </Link>
+                </li>
+                <li className="text-center text-base leading-[20px]">
+                  <Link className="leading-[20px]" href={"/"}>
+                    Телеграм
+                  </Link>
+                </li>
+                <li className="text-center text-base leading-[20px]">
+                  <Link className="leading-[20px]" href={"/"}>
+                    YouTube
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
