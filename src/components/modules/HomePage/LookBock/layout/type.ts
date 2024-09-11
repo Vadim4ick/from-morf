@@ -1,11 +1,11 @@
-import { GetHomePageLookBookQuery } from "@/graphql/__generated__";
+import { GetHomePageQuery } from "@/graphql/__generated__";
 
 export interface LookBookDefaultProps {
   title: string;
   description: string;
 
-  img1: GetHomePageLookBookQuery["lookBock"]["images"][0]["directus_files_id"];
-  img2: GetHomePageLookBookQuery["lookBock"]["images"][1]["directus_files_id"];
-  img3: GetHomePageLookBookQuery["lookBock"]["images"][2]["directus_files_id"];
-  img4: GetHomePageLookBookQuery["lookBock"]["images"][3]["directus_files_id"];
+  img1: GetHomePageQuery["homePage"]["images"][0]["directus_files_id"];
+  img2: GetHomePageQuery["homePage"]["images"][1]["directus_files_id"];
+  img3: GetHomePageQuery["homePage"]["images"][2]["directus_files_id"];
+  img4: GetHomePageQuery["homePage"]["images"][3]["directus_files_id"];
 }
