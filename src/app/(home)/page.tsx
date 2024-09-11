@@ -27,9 +27,6 @@ export const revalidate = 60;
 export default async function Home() {
   const { homePage } = await gql.GetHomePage();
   const { styleTips } = await gql.GetLastTwoStyleTips();
-  const { lookBock } = await gql.GetHomePageLookBook();
 
-  return (
-    <HomePage styleTips={styleTips} homePage={homePage} lookBock={lookBock} />
-  );
+  return <HomePage styleTips={styleTips} homePage={homePage} />;
 }

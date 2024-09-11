@@ -6,7 +6,6 @@ import { NewItems } from "@/components/modules/HomePage/NewItems";
 import { SliderBestsellers } from "@/components/modules/HomePage/SliderBestsellers";
 import { StyleAdvice } from "@/components/modules/StyleAdvice/StyleAdvice";
 import {
-  GetHomePageLookBookQuery,
   GetHomePageQuery,
   GetLastTwoStyleTipsQuery,
 } from "@/graphql/__generated__";
@@ -18,11 +17,9 @@ import { motionConfigAnimate } from "@/shared/const";
 const HomePage = ({
   homePage,
   styleTips,
-  lookBock,
 }: {
   homePage: GetHomePageQuery["homePage"];
   styleTips: GetLastTwoStyleTipsQuery["styleTips"];
-  lookBock: GetHomePageLookBookQuery["lookBock"];
 }) => {
   const ref = useRef(null);
   const inView = useInView(ref);
@@ -33,7 +30,13 @@ const HomePage = ({
         <MainSlider slides={homePage.mainSlider} />
       )}
 
-      {lookBock && <LookBock lookBock={lookBock} />}
+      {homePage && (
+        <LookBock
+          title={homePage.title}
+          desc={homePage.description}
+          images={homePage.images}
+        />
+      )}
 
       <motion.section
         ref={ref}

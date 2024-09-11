@@ -4,15 +4,19 @@ import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import { Desktop } from "./layout/Desktop";
 import { Tablet } from "./layout/Tablet";
 import { Mobile } from "./layout/Mobile";
-import { GetHomePageLookBookQuery } from "@/graphql/__generated__";
 import { useInView, motion } from "framer-motion";
 import { useRef } from "react";
 import { motionConfigAnimate } from "@/shared/const";
+import { MediaFragmentFragment } from "@/graphql/__generated__";
 
 const LookBock = ({
-  lookBock,
+  title,
+  desc,
+  images,
 }: {
-  lookBock: GetHomePageLookBookQuery["lookBock"];
+  title: string;
+  desc: string;
+  images: readonly { readonly directus_files_id: MediaFragmentFragment }[];
 }) => {
   const ref = useRef(null);
 
@@ -21,14 +25,14 @@ const LookBock = ({
   const isTablet834 = useMediaQuery(834);
   const isMobile768 = useMediaQuery(768);
 
-  const img1 = lookBock.images[0].directus_files_id;
-  const img2 = lookBock.images[1].directus_files_id;
-  const img3 = lookBock.images[2].directus_files_id;
-  const img4 = lookBock.images[3].directus_files_id;
+  const img1 = images[0].directus_files_id;
+  const img2 = images[1].directus_files_id;
+  const img3 = images[2].directus_files_id;
+  const img4 = images[3].directus_files_id;
 
   const props = {
-    title: lookBock.title,
-    description: lookBock.description,
+    title: title,
+    description: desc,
     img1: img1,
     img2: img2,
     img3: img3,
