@@ -56,12 +56,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
       return toast.error("Авторизуйтесь, прежде чем сделать заказ");
     }
 
-    if (
-      !user.first_name ||
-      !user.last_name ||
-      !user.phone_number ||
-      !user.user_address
-    ) {
+    if (!user.first_name || !user.last_name || !user.number || !user.address) {
       return toast.error(
         "Полностью заполните свой профиль прежде чем сделать заказ",
       );
@@ -78,7 +73,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
     if (success && orderId) {
       makePaymentFx({
         description: JSON.stringify({
-          address: user.user_address,
+          address: user.address,
           name: user.first_name,
           lastName: user.last_name,
         }),

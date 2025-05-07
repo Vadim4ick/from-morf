@@ -32,8 +32,8 @@ export const updateUserFx = createEffect(
           first_name: userData.first_name,
           last_name: userData.last_name,
           email: userData.email,
-          user_address: userData.user_address,
-          phone_number: userData.phone_number,
+          address: userData.address,
+          number: userData.number,
           avatar: userData.avatar,
         },
       );

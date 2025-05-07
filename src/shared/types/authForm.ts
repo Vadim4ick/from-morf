@@ -13,7 +13,7 @@ export interface User {
   avatar: string | null;
   email: string;
   last_name: string;
-  user_address: string;
+  address: string;
   first_name: string;
-  phone_number: string;
+  number: string;
 }

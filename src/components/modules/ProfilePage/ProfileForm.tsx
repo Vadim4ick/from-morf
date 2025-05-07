@@ -34,9 +34,9 @@ const ProfileForm = memo(({ user }: { user: User }) => {
     defaultValues: {
       first_name: user.first_name || "",
       last_name: user.last_name || "",
-      phone_number: formatPhoneNumber(user.phone_number) || "",
+      number: formatPhoneNumber(user.number) || "",
       email: user.email || "",
-      user_address: user.user_address || "",
+      address: user.address || "",
     },
   });
 
@@ -49,30 +49,27 @@ const ProfileForm = memo(({ user }: { user: User }) => {
       last_name: formProfileSchema.shape.last_name.safeParse(watch("last_name"))
         .success,
       email: formProfileSchema.shape.email.safeParse(watch("email")).success,
-      phone_number: formProfileSchema.shape.phone_number.safeParse(
-        watch("phone_number"),
-      ).success,
-      user_address: formProfileSchema.shape.user_address.safeParse(
-        watch("user_address"),
-      ).success,
+      number: formProfileSchema.shape.number.safeParse(watch("number")).success,
+      address: formProfileSchema.shape.address.safeParse(watch("address"))
+        .success,
     };
   }, [
     watch("first_name"),
     watch("last_name"),
     watch("email"),
-    watch("phone_number"),
-    watch("user_address"),
+    watch("number"),
+    watch("address"),
   ]);
 
   const onSubmit: SubmitHandler<FormProfileSchema> = async (data) => {
-    const phone = data.phone_number.replace(/\D/g, "");
+    const phone = data.number.replace(/\D/g, "");
 
     if (user) {
       updateUser({
         userData: {
           id: user.id,
           ...data,
-          phone_number: String(phone),
+          number: String(phone),
         },
       });
     }
@@ -160,22 +157,20 @@ const ProfileForm = memo(({ user }: { user: User }) => {
           <h2 className="text-lg font-semibold uppercase">Номер телефона</h2>
 
           <label className="flex w-full cursor-pointer flex-col gap-[6px]">
-            {errors.phone_number && (
-              <div className="text-error">{errors.phone_number.message}</div>
+            {errors.number && (
+              <div className="text-error">{errors.number.message}</div>
             )}
             <div className="flex items-center gap-3">
               <p className="text-sm font-medium">Введите номер телефона (+7)</p>
 
-              {!validationResults.phone_number && (
-                <Warning className="size-6" />
-              )}
-              {validationResults.phone_number && <SuccessInput />}
+              {!validationResults.number && <Warning className="size-6" />}
+              {validationResults.number && <SuccessInput />}
             </div>
 
             <Controller
-              name="phone_number"
+              name="number"
               control={control}
-              defaultValue={formatPhoneNumber(user.phone_number) || ""}
+              defaultValue={formatPhoneNumber(user.number) || ""}
               render={({ field: { onChange, value } }) => {
                 return (
                   <MaskInput
@@ -198,21 +193,19 @@ const ProfileForm = memo(({ user }: { user: User }) => {
           <h2 className="text-lg font-semibold uppercase">Адрес</h2>
 
           <label className="flex w-full cursor-pointer flex-col gap-[6px]">
-            {errors.user_address && (
-              <div className="text-error">{errors.user_address.message}</div>
+            {errors.address && (
+              <div className="text-error">{errors.address.message}</div>
             )}
 
             <div className="flex items-center gap-3">
               <p className="text-sm font-medium">Введите адрес доставки</p>
 
-              {!validationResults.user_address && (
-                <Warning className="size-6" />
-              )}
-              {validationResults.user_address && <SuccessInput />}
+              {!validationResults.address && <Warning className="size-6" />}
+              {validationResults.address && <SuccessInput />}
             </div>
 
             <Input
-              {...register("user_address")}
+              {...register("address")}
               className="h-12 rounded-[2px] bg-[#EBEBEB]"
             />
           </label>

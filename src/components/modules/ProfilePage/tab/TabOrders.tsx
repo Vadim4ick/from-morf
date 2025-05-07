@@ -57,7 +57,7 @@ const OrderItem = ({
       discountPrice: discountPrice,
     });
 
-    const description = `Адрес - ${user.user_address}`;
+    const description = `Адрес - ${user.address}`;
 
     if (success && orderId) {
       makePaymentFx({

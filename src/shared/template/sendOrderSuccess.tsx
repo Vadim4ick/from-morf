@@ -23,8 +23,8 @@ export const sendOrderSuccess = ({
       </p>
 
       <p style="font-size: 16px; margin-top: 10px;">
-        Адрес: <b>${user.user_address}</b><br>
-        Номер телефона пользователя: <b>${user.phone_number}</b>
+        Адрес: <b>${user.address}</b><br>
+        Номер телефона пользователя: <b>${user.number}</b>
       </p>
 
       <hr style="border: 0; height: 1px; background-color: #ddd; margin: 20px 0;" />
