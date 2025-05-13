@@ -38,8 +38,8 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
   };
 
   return (
-    <article className="grid grid-cols-[74px_1fr_85px] gap-3 max-mobile:gap-[10px]">
-      <div className="relative size-[74px]">
+    <article className="grid grid-cols-[85px_1fr_85px] gap-3 max-mobile:gap-[10px]">
+      <div className="relative size-[85px]">
         <Image
           className={cn("object-cover", {
             skeleton: imgSpinner,
@@ -57,11 +57,29 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
             {basket.title}
           </p>
 
-          <div className="text-sm leading-[17px] text-[#7E7E7E] max-mobile:text-[12px] max-mobile:leading-[14.5px]">
-            Размер:{" "}
-            <span className="font-medium text-darkGrayColor">
-              {basket.size}
-            </span>
+          <div className="flex flex-col gap-0.5 text-sm leading-[17px] text-[#7E7E7E] max-mobile:text-[12px] max-mobile:leading-[14.5px]">
+            <div className="flex gap-1">
+              Размер:
+              <span className="font-medium text-darkGrayColor">
+                {basket.size}
+              </span>
+            </div>
+
+            {basket?.color && (
+              <div className="flex gap-1">
+                Цвет:
+                <div className="flex items-center gap-1">
+                  <div
+                    className="size-2 shrink-0 rounded-full"
+                    style={{ backgroundColor: basket.color.color }}
+                  />
+
+                  <span className="line-clamp-1 font-medium text-darkGrayColor">
+                    {basket.color.title}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

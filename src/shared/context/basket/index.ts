@@ -16,6 +16,10 @@ export interface Basket {
     height: number;
   };
   totalPrice: number;
+  color?: {
+    title: string;
+    color: string;
+  };
 }
 
 export const basket = createDomain();
@@ -54,6 +58,10 @@ export const checkPaymentFx = basket.createEffect(
 );
 
 export const setSelectedSize = basket.createEvent<string>();
+export const setSelectedColor = basket.createEvent<{
+  title: string;
+  color: string;
+}>();
 
 export const addBasketItem = basket.createEvent<Omit<Basket, "count">>();
 export const setBasketOnLoad = basket.createEvent();
@@ -74,6 +82,16 @@ export const decrementItemCount = basket.createEvent<{
 export const $selectedSize = basket
   .createStore<string>("")
   .on(setSelectedSize, (_, val) => val);
+
+export const $selectedColor = basket
+  .createStore<{
+    title: string;
+    color: string;
+  }>({
+    title: "",
+    color: "",
+  })
+  .on(setSelectedColor, (_, val) => val);
 
 export const $basket = basket
   .createStore<Basket[]>([])

@@ -26,8 +26,6 @@ const SelectTrigger = React.forwardRef<
     isOpen: boolean;
   }
 >(({ className, children, isOpen, ...props }, ref) => {
-  console.log(isOpen);
-
   return (
     <SelectPrimitive.Trigger
       ref={ref}

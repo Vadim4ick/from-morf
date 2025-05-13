@@ -26,6 +26,7 @@ export const processOrder = async (props: Props) => {
       await gql.CreateOrderItem({
         count: item.count,
         size: item.size,
+        color: `${item.color?.title} ${item.color?.color}`,
         good_id: Number(item.id),
         order_id: orderId.create_orders_item.id,
         discount: item.discount,

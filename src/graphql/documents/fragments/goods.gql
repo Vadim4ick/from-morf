@@ -43,6 +43,14 @@ fragment Good on goods {
     collection
   }
 
+  available_colors {
+    colors_id {
+      id
+      title
+      color
+    }
+  }
+
   recomendation {
     related_goods_id {
       id

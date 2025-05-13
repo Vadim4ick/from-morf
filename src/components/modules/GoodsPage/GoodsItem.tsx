@@ -17,12 +17,17 @@ import { Fragment } from "react";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { toggleFavorite } from "@/shared/context/favorites";
 import { useUnit } from "effector-react";
-import { $selectedSize, addBasketItem } from "@/shared/context/basket";
+import {
+  $selectedColor,
+  $selectedSize,
+  addBasketItem,
+} from "@/shared/context/basket";
 import { toast } from "sonner";
 import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 import { motionConfigAnimate } from "@/shared/const";
 import { useInView, motion } from "framer-motion";
 import { useRef } from "react";
+import { SelectColors } from "@/components/elements/SelectColors";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -81,9 +86,11 @@ const BottomLinks = () => {
 
 const AddBasket = ({
   currentSizes,
+  currentColors,
   onClick,
   itemId,
 }: {
+  currentColors: GetGoodsQuery["goods_by_id"]["available_colors"];
   currentSizes: string[];
   onClick: VoidFunction;
   itemId: string;
@@ -94,10 +101,18 @@ const AddBasket = ({
 
   return (
     <div className="sticky bottom-0 z-10 flex flex-col gap-6 border-[#D1D1D1] bg-white py-9 max-desktop:border-t max-desktop:pb-2 max-mobile:gap-4 max-mobile:py-[24px] desktop:border-b">
-      <div className="flex items-center justify-between gap-3">
-        <SelectSizes currentSizes={currentSizes} />
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex w-full flex-col gap-2">
+          <SelectSizes currentSizes={currentSizes} />
 
-        <TableSizeModal />
+          {currentColors.length > 0 && (
+            <SelectColors currentColors={currentColors} />
+          )}
+        </div>
+
+        <div className="mt-2 w-full">
+          <TableSizeModal />
+        </div>
       </div>
 
       <div className="flex items-center justify-between gap-3">
@@ -132,10 +147,14 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const isDesktop1100 = useMediaQuery(1100);
 
   const [selectedItem] = useUnit([$selectedSize]);
+  const [selectedColor] = useUnit([$selectedColor]);
 
   const onClick = async () => {
     if (!selectedItem.trim()) {
       return toast.error("Выберите размер!");
+    }
+    if (!selectedColor.title.trim()) {
+      return toast.error("Выберите цвет!");
     }
 
     addBasketItem({
@@ -150,6 +169,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
         height: item.images[0].directus_files_id.height,
       },
       title: item.name,
+      color: selectedColor,
     });
 
     toast.success("Товар успешно добавлен в корзину!");
@@ -356,6 +376,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 itemId={item.id}
                 onClick={onClick}
                 currentSizes={item.select}
+                currentColors={item.available_colors}
               />
             )}
 
@@ -373,6 +394,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
             itemId={item.id}
             onClick={onClick}
             currentSizes={item.select}
+            currentColors={item.available_colors}
           />
         )}
       </div>

@@ -2,6 +2,7 @@ fragment OrderItemFragment on order_items {
   id
   size
   count
+  color
   good {
     name
     id

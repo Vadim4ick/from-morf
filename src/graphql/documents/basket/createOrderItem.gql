@@ -4,10 +4,12 @@ mutation CreateOrderItem(
   $count: Int
   $discount: Int
   $size: String
+  $color: String
 ) {
   create_order_items_items(
     data: {
       size: $size
+      color: $color
       count: $count
       good: $good_id
       discount: $discount

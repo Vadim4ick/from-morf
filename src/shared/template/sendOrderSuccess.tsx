@@ -35,6 +35,7 @@ export const sendOrderSuccess = ({
             <th style="text-align: left; padding: 8px; background-color: #f4f4f4; border: 1px solid #ddd;">Товар</th>
             <th style="text-align: left; padding: 8px; background-color: #f4f4f4; border: 1px solid #ddd;">Кол-во штук</th>
             <th style="text-align: left; padding: 8px; background-color: #f4f4f4; border: 1px solid #ddd;">Размер</th>
+            <th style="text-align: left; padding: 8px; background-color: #f4f4f4; border: 1px solid #ddd;">Цвет</th>
             <th style="text-align: left; padding: 8px; background-color: #f4f4f4; border: 1px solid #ddd;">Цена (1 шт.)</th>
           </tr>
         </thead>
@@ -46,6 +47,7 @@ export const sendOrderSuccess = ({
                   <td style="padding: 8px; border: 1px solid #ddd;">${item.good.name}</td>
                   <td style="padding: 8px; border: 1px solid #ddd;">${item.count}</td>
                   <td style="padding: 8px; border: 1px solid #ddd;">${item.size}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;">${item?.color}</td>
                   <td style="padding: 8px; border: 1px solid #ddd;">${item.good.price} Р</td>
                 </tr>
               `,
