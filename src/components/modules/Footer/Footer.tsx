@@ -24,7 +24,7 @@ const Footer = () => {
 
               <ul className="text-darkGray flex flex-col items-center justify-center gap-[24px]">
                 <li className="text-center text-base leading-[20px]">
-                  <Link className="leading-[20px]" href={"/"}>
+                  <Link className="leading-[20px]" href={"/about"}>
                     О нас
                   </Link>
                 </li>

@@ -5,13 +5,14 @@ import { Providers } from "@/shared/layout/Providers";
 
 import "@/shared/styles/globals.css";
 import "@/shared/styles/index.scss";
+import { Meta_SEO } from "@/shared/const/metadata";
 
 export const metadata: Metadata = {
   title: {
     default: "From Morf",
     template: "%s | From Morf",
   },
-  description: "From Morf",
+  description: Meta_SEO.description,
   icons: {
     icon: {
       url: "/favicon.ico",

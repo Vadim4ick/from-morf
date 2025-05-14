@@ -1,6 +1,5 @@
 import { gql } from "@/graphql/client";
 import LookBookItemPage from "@/pages/LookBookItemPage";
-import { Meta_SEO } from "@/shared/const/metadata";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -12,7 +11,6 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
   const metadata = {
     title: lookBook_by_id.title,
-    description: Meta_SEO.description,
   };
 
   return metadata;

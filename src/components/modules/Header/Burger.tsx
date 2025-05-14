@@ -144,7 +144,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
 
           <SheetFooter className="mt-12 flex flex-col gap-2 border-t bg-[#F2F2F2] px-4 py-4 max-mobile:mt-3">
             <Link
-              href={"/"}
+              href={"/about"}
               className="flex justify-between border border-[#E4E4E4] bg-[#eeeeee] transition-colors hover:border-[#9C9C9C]"
             >
               <div className="flex h-fit items-center gap-2 py-[13px] pl-[20px]">
