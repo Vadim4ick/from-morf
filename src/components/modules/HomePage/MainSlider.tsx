@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -41,14 +41,12 @@ const MainSlider = ({
           return (
             <SwiperSlide key={el.id}>
               <div className="bgGradientMainSlider relative h-[100svh] w-full">
-                <Image
-                  priority
+                <img
                   className={cn("object-cover", {
                     skeleton: imgSpinner,
                   })}
                   alt="1.png"
                   src={pathImage(el.mainSlider_id.image.id)}
-                  fill
                   onLoad={handleLoadingImageComplete}
                 />
 
