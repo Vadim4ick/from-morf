@@ -71,6 +71,7 @@ const NewItemCart = ({
           <Link href={link}>
             <Image
               src={pathImage(item.images[currentImageIdx].directus_files_id.id)}
+              unoptimized
               alt="1.png"
               width={sizesImg === "default" ? defaultSize.width : bigSize.width}
               height={

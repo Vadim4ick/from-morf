@@ -29,9 +29,10 @@ const Desktop = (props: LookBookDefaultProps) => {
         <Image
           width={img1.width}
           height={img1.height}
+          unoptimized
           src={pathImage(img1.id)}
           alt="Main Look"
-          className={cn("", {
+          className={cn("w-full", {
             skeleton: imgSpinner,
           })}
           onLoad={handleLoadingImageComplete}

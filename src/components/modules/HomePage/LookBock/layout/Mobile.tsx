@@ -32,10 +32,11 @@ const Mobile = (props: LookBookDefaultProps) => {
         <div className="flex w-full justify-end">
           <Image
             width={img1.width}
+            unoptimized
             height={img1.height}
             src={pathImage(img1.id)}
             alt="Main Look"
-            className={cn("max-mobileSmall:pl-[135px]", {
+            className={cn("w-full max-mobileSmall:pl-[135px]", {
               skeleton: imgSpinner,
             })}
             onLoad={handleLoadingImageComplete}

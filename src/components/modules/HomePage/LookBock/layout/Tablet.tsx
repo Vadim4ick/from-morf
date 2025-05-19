@@ -29,10 +29,11 @@ const Tablet = (props: LookBookDefaultProps) => {
 
         <Image
           width={img2.width}
+          unoptimized
           height={img2.height}
           src={pathImage(img2.id)}
           alt="Main Look"
-          className={cn("max-h-[288px] object-cover", {
+          className={cn("max-h-[288px] w-full object-cover", {
             skeleton: imgSpinner,
           })}
           onLoad={handleLoadingImageComplete}
