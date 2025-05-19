@@ -34,6 +34,8 @@ export type Mutation = {
   readonly create_order_items_items: ReadonlyArray<Order_Items>;
   readonly create_orders_item: Maybe<Orders>;
   readonly create_orders_items: ReadonlyArray<Orders>;
+  readonly delete_lookBook_goods_item: Maybe<Delete_One>;
+  readonly delete_lookBook_goods_items: Maybe<Delete_Many>;
   readonly delete_order_items_item: Maybe<Delete_One>;
   readonly delete_order_items_items: Maybe<Delete_Many>;
   readonly delete_orders_item: Maybe<Delete_One>;
@@ -76,6 +78,16 @@ export type MutationCreate_Orders_ItemsArgs = {
   page: InputMaybe<Scalars['Int']['input']>;
   search: InputMaybe<Scalars['String']['input']>;
   sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MutationDelete_LookBook_Goods_ItemArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDelete_LookBook_Goods_ItemsArgs = {
+  ids: ReadonlyArray<InputMaybe<Scalars['ID']['input']>>;
 };
 
 
@@ -3005,14 +3017,14 @@ export type MainSlider = {
   readonly __typename?: 'mainSlider';
   readonly decription: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
-  readonly image: Maybe<Directus_Files>;
   readonly linkButton: Maybe<Scalars['String']['output']>;
+  readonly media: Maybe<Directus_Files>;
   readonly nameButton: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
 
 
-export type MainSliderImageArgs = {
+export type MainSliderMediaArgs = {
   filter: InputMaybe<Directus_Files_Filter>;
   limit: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
@@ -3039,8 +3051,8 @@ export type MainSlider_Aggregated_Count = {
   readonly __typename?: 'mainSlider_aggregated_count';
   readonly decription: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['Int']['output']>;
-  readonly image: Maybe<Scalars['Int']['output']>;
   readonly linkButton: Maybe<Scalars['Int']['output']>;
+  readonly media: Maybe<Scalars['Int']['output']>;
   readonly nameButton: Maybe<Scalars['Int']['output']>;
   readonly title: Maybe<Scalars['Int']['output']>;
 };
@@ -3055,8 +3067,8 @@ export type MainSlider_Filter = {
   readonly _or: InputMaybe<ReadonlyArray<InputMaybe<MainSlider_Filter>>>;
   readonly decription: InputMaybe<String_Filter_Operators>;
   readonly id: InputMaybe<Number_Filter_Operators>;
-  readonly image: InputMaybe<Directus_Files_Filter>;
   readonly linkButton: InputMaybe<String_Filter_Operators>;
+  readonly media: InputMaybe<Directus_Files_Filter>;
   readonly nameButton: InputMaybe<String_Filter_Operators>;
   readonly title: InputMaybe<String_Filter_Operators>;
 };
@@ -3625,8 +3637,8 @@ export type Version_MainSlider = {
   readonly __typename?: 'version_mainSlider';
   readonly decription: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
-  readonly image: Maybe<Scalars['JSON']['output']>;
   readonly linkButton: Maybe<Scalars['String']['output']>;
+  readonly media: Maybe<Scalars['JSON']['output']>;
   readonly nameButton: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
 };
@@ -3742,7 +3754,7 @@ export type GetGoodsFavoritesItemsQuery = { readonly __typename?: 'Query', reado
 export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'homePage', readonly id: string, readonly title: string, readonly description: string, readonly mainSlider: ReadonlyArray<{ readonly __typename?: 'homePage_mainSlider', readonly id: string, readonly mainSlider_id: { readonly __typename?: 'mainSlider', readonly id: string, readonly title: string, readonly decription: string, readonly nameButton: string, readonly linkButton: string, readonly image: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } } }>, readonly sliderBestsellers: ReadonlyArray<{ readonly __typename?: 'homePage_goods_1', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly newItems: ReadonlyArray<{ readonly __typename?: 'homePage_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly images: ReadonlyArray<{ readonly __typename?: 'homePage_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } };
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'homePage', readonly id: string, readonly title: string, readonly description: string, readonly mainSlider: ReadonlyArray<{ readonly __typename?: 'homePage_mainSlider', readonly id: string, readonly mainSlider_id: { readonly __typename?: 'mainSlider', readonly id: string, readonly title: string, readonly decription: string, readonly nameButton: string, readonly linkButton: string, readonly media: { readonly __typename?: 'directus_files', readonly id: string, readonly title: string, readonly type: string, readonly filename_disk: string } } }>, readonly sliderBestsellers: ReadonlyArray<{ readonly __typename?: 'homePage_goods_1', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly id: string, readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly newItems: ReadonlyArray<{ readonly __typename?: 'homePage_goods', readonly id: string, readonly goods_id: { readonly __typename?: 'goods', readonly id: string, readonly select: any, readonly name: string, readonly price: number, readonly images: ReadonlyArray<{ readonly __typename?: 'goods_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } }>, readonly images: ReadonlyArray<{ readonly __typename?: 'homePage_files', readonly directus_files_id: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> } };
 
 export type GetLookBockByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -4007,8 +4019,11 @@ export const GetHomePageDocument = gql`
         decription
         nameButton
         linkButton
-        image {
-          ...MediaFragment
+        media {
+          id
+          title
+          type
+          filename_disk
         }
       }
     }

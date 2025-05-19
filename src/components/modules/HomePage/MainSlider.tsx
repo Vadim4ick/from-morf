@@ -27,10 +27,10 @@ const MainSlider = ({
           nextEl: "#mainSlider-next",
           prevEl: "#mainSlider-prev",
         }}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false,
+        // }}
         allowTouchMove={false}
         loop={true}
         modules={[Navigation, Pagination, Autoplay]}
@@ -38,21 +38,35 @@ const MainSlider = ({
         slidesPerView={1}
       >
         {slides.map((el) => {
-          console.log(pathImage(el.mainSlider_id.image.id));
+          const media = el.mainSlider_id.media;
+          const type = media.type;
 
           return (
             <SwiperSlide key={el.id}>
               <div className="bgGradientMainSlider relative h-[100svh] w-full">
-                <Image
-                  fill
-                  unoptimized
-                  className={cn("object-cover", {
-                    skeleton: imgSpinner,
-                  })}
-                  alt="1.png"
-                  src={pathImage(el.mainSlider_id.image.id)}
-                  onLoad={handleLoadingImageComplete}
-                />
+                {type.startsWith("image") && (
+                  <Image
+                    fill
+                    unoptimized
+                    className={cn("object-cover", {
+                      skeleton: imgSpinner,
+                    })}
+                    alt={media.title}
+                    src={pathImage(media.filename_disk)}
+                    onLoad={handleLoadingImageComplete}
+                  />
+                )}
+
+                {type.startsWith("video") && (
+                  <video
+                    className="h-full w-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    src={pathImage(media.filename_disk)}
+                  />
+                )}
 
                 <div className="container absolute bottom-[160px] left-1/2 z-10 flex -translate-x-1/2 flex-col gap-8 text-white">
                   <div className="flex flex-col items-center justify-center gap-[10px] max-tabletSmall:gap-[6px]">

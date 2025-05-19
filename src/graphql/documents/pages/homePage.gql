@@ -10,8 +10,11 @@ query GetHomePage {
         decription
         nameButton
         linkButton
-        image {
-          ...MediaFragment
+        media {
+          id
+          title
+          type
+          filename_disk
         }
       }
     }
