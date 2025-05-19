@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +8,7 @@ import { GetHomePageQuery } from "@/graphql/__generated__";
 import { cn, pathImage } from "@/lib/utils";
 import Link from "next/link";
 import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
+import Image from "next/image";
 
 const MainSlider = ({
   slides,
@@ -38,10 +38,14 @@ const MainSlider = ({
         slidesPerView={1}
       >
         {slides.map((el) => {
+          console.log(pathImage(el.mainSlider_id.image.id));
+
           return (
             <SwiperSlide key={el.id}>
               <div className="bgGradientMainSlider relative h-[100svh] w-full">
-                <img
+                <Image
+                  fill
+                  unoptimized
                   className={cn("object-cover", {
                     skeleton: imgSpinner,
                   })}

@@ -5,6 +5,7 @@ import { GetLookBockQuery } from "@/graphql/__generated__";
 import { cn, pathImage } from "@/lib/utils";
 import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
 import { ArrowLink } from "@/shared/icons/ArrowLink";
+import Image from "next/image";
 import Link from "next/link";
 
 const LookBookItem = ({
@@ -38,7 +39,8 @@ const LookBookItem = ({
 
       <div className="w-full justify-end gap-[20px] max-desktop1300:flex max-mobile:flex-col-reverse max-mobile:gap-4 desktop1300:grid desktop1300:grid-cols-[250px_470px]">
         <div className="grid justify-between gap-[20px] max-mobile:w-full max-mobile:grid-cols-2 max-mobile:gap-4">
-          <img
+          <Image
+            unoptimized
             width={250}
             height={275}
             src={pathImage(lookBook.img1.id)}
@@ -48,7 +50,8 @@ const LookBookItem = ({
             })}
             onLoad={handleLoadingImageComplete}
           />
-          <img
+          <Image
+            unoptimized
             width={250}
             height={275}
             src={pathImage(lookBook.img2.id)}
@@ -60,7 +63,8 @@ const LookBookItem = ({
           />
         </div>
 
-        <img
+        <Image
+          unoptimized
           width={470}
           height={570}
           src={pathImage(lookBook.img3.id)}
