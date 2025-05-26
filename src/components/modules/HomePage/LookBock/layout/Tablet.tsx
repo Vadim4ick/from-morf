@@ -47,7 +47,7 @@ const Tablet = (props: LookBookDefaultProps) => {
             height={img4.height}
             src={pathImage(img4.id)}
             alt="Main Look"
-            className={cn("h-fit max-h-[283px]", {
+            className={cn("h-fit max-h-[283px] object-cover", {
               skeleton: imgSpinner,
             })}
             onLoad={handleLoadingImageComplete}
@@ -58,7 +58,7 @@ const Tablet = (props: LookBookDefaultProps) => {
             height={img3.height}
             src={pathImage(img3.id)}
             alt="Main Look"
-            className={cn("h-fit max-h-[283px]", {
+            className={cn("h-fit max-h-[283px] object-cover", {
               skeleton: imgSpinner,
             })}
             onLoad={handleLoadingImageComplete}

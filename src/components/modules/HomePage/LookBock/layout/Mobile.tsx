@@ -56,28 +56,30 @@ const Mobile = (props: LookBookDefaultProps) => {
           onLoad={handleLoadingImageComplete}
         />
 
-        <div className="flex gap-[16px]">
-          <Image
-            width={img4.width}
-            height={img4.height}
-            src={pathImage(img4.id)}
-            alt="Main Look"
-            className={cn("max-h-[400px] w-full object-cover", {
-              skeleton: imgSpinner,
-            })}
-            onLoad={handleLoadingImageComplete}
-          />
+        <div className="flex h-[320px] gap-[16px]">
+          <div className="relative w-full">
+            <Image
+              fill
+              src={pathImage(img4.id)}
+              alt="Main Look"
+              className={cn("w-full object-cover", {
+                skeleton: imgSpinner,
+              })}
+              onLoad={handleLoadingImageComplete}
+            />
+          </div>
 
-          <Image
-            width={img3.width}
-            height={img3.height}
-            src={pathImage(img3.id)}
-            alt="Main Look"
-            className={cn("max-h-[400px] w-full object-cover", {
-              skeleton: imgSpinner,
-            })}
-            onLoad={handleLoadingImageComplete}
-          />
+          <div className="relative w-full">
+            <Image
+              fill
+              src={pathImage(img3.id)}
+              alt="Main Look"
+              className={cn("w-full object-cover", {
+                skeleton: imgSpinner,
+              })}
+              onLoad={handleLoadingImageComplete}
+            />
+          </div>
         </div>
       </div>
     </div>

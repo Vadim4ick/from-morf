@@ -39,43 +39,46 @@ const Desktop = (props: LookBookDefaultProps) => {
         />
       </div>
 
-      <div className="flex flex-col gap-[20px]">
-        <Image
-          width={img2.width}
-          height={img2.height}
-          unoptimized
-          src={pathImage(img2.id)}
-          alt="Main Look"
-          className={cn("h-full max-h-[482px] w-full object-cover", {
-            skeleton: imgSpinner,
-          })}
-          onLoad={handleLoadingImageComplete}
-        />
-
-        <div className="flex gap-[20px]">
+      <div className="relative flex flex-col gap-[20px]">
+        <div className="relative h-full max-h-[482px] w-full">
           <Image
-            width={img3.width}
-            height={img3.height}
+            fill
             unoptimized
-            src={pathImage(img3.id)}
+            src={pathImage(img2.id)}
             alt="Main Look"
-            className={cn("h-full max-h-[390px] object-cover", {
+            className={cn("h-full w-full object-cover", {
               skeleton: imgSpinner,
             })}
             onLoad={handleLoadingImageComplete}
           />
+        </div>
 
-          <Image
-            width={img4.width}
-            height={img4.height}
-            unoptimized
-            src={pathImage(img4.id)}
-            alt="Main Look"
-            className={cn("mt-[100px] h-full max-h-[390px] object-cover", {
-              skeleton: imgSpinner,
-            })}
-            onLoad={handleLoadingImageComplete}
-          />
+        <div className="flex h-full w-full gap-[20px]">
+          <div className="relative h-full max-h-[390px] w-full">
+            <Image
+              fill
+              unoptimized
+              src={pathImage(img3.id)}
+              alt="Main Look"
+              className={cn("object-cover", {
+                skeleton: imgSpinner,
+              })}
+              onLoad={handleLoadingImageComplete}
+            />
+          </div>
+
+          <div className="relative h-full max-h-[390px] w-full">
+            <Image
+              fill
+              unoptimized
+              src={pathImage(img4.id)}
+              alt="Main Look"
+              className={cn("mt-[100px] object-cover", {
+                skeleton: imgSpinner,
+              })}
+              onLoad={handleLoadingImageComplete}
+            />
+          </div>
         </div>
       </div>
     </div>
