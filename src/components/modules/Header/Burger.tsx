@@ -165,8 +165,9 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
             </Link>
 
             <div className="flex gap-[10px]">
-              <Link
-                href={"/"}
+              <a
+                href={"/docs/доставка.docx"}
+                download
                 className="bg-[#eeeeee ] flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] transition-colors hover:border-[#9C9C9C]"
               >
                 <DeliveryIcon />
@@ -174,10 +175,11 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                 <p className="text-[15px] font-medium max-mobile:text-[13px]">
                   Доставка и оплата
                 </p>
-              </Link>
+              </a>
 
-              <Link
-                href={"/"}
+              <a
+                href={"/docs/возврат.docx"}
+                download
                 className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee] transition-colors hover:border-[#9C9C9C]"
               >
                 <ReturnIcon />
@@ -185,7 +187,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                 <p className="text-[15px] font-medium max-mobile:text-[13px]">
                   Возврат товара
                 </p>
-              </Link>
+              </a>
             </div>
 
             {isDesktop1100 && (

@@ -29,14 +29,22 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li className="text-center text-base leading-[20px]">
-                  <Link className="leading-[20px]" href={"/"}>
+                  <a
+                    download
+                    className="leading-[20px]"
+                    href={"/docs/доставка.docx"}
+                  >
                     Доставка и оплата
-                  </Link>
+                  </a>
                 </li>
                 <li className="text-center text-base leading-[20px]">
-                  <Link className="leading-[20px]" href={"/"}>
+                  <a
+                    download
+                    className="leading-[20px]"
+                    href={"/docs/возврат.docx"}
+                  >
                     Возврат товара
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -71,14 +79,30 @@ const Footer = () => {
       {/* 2-й уровень */}
       <div className="custom-shadow-footer relative after:absolute after:top-0 after:h-[1px] after:w-full after:bg-[#CDCDCD] after:content-['']">
         <div className="container">
-          <div className="flex items-center justify-between gap-4 py-4 text-[13px] max-tabletSmall:flex-col">
-            <div className="flex items-center gap-[39px] max-tabletSmall:gap-4">
-              <a href="#" className="font-medium">
-                Публичная оферта
-              </a>
-              <a href="/policy.docx" download className="font-medium">
-                Пользовательское соглашение
-              </a>
+          <div className="flex items-end justify-between gap-4 py-4 text-[13px] max-tabletSmall:flex-col max-mobile:items-center">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-4 max-tabletSmall:gap-2 max-mobile:flex-col">
+                <a href="/docs/политика.docx" download className="font-medium">
+                  Политика обработки персональных данных
+                </a>
+
+                <a href="/docs/оферта.docx" download className="font-medium">
+                  Публичная оферта
+                </a>
+              </div>
+
+              <div className="flex items-center gap-4 max-tabletSmall:gap-2 max-mobile:flex-col">
+                <a href="/docs/согласие.docx" download className="font-medium">
+                  Электронное согласие
+                </a>
+                <a
+                  href="/docs/соглашение.docx"
+                  download
+                  className="font-medium"
+                >
+                  Пользовательское соглашение
+                </a>
+              </div>
             </div>
 
             <div className="flex items-center gap-2 rounded-3xl bg-white pb-[3px] pl-[16px] pr-[3px] pt-[3px] text-[12px]">
