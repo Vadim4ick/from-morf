@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { GetLastTwoStyleTipsQuery } from "@/graphql/__generated__";
 import { cn, formatDate, pathImage } from "@/lib/utils";
 import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
-import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
@@ -18,13 +18,11 @@ const AdviceCart = (props: Props) => {
   return (
     <article>
       <Link href={`/style-tips/${item.id}`}>
-        <div className="h-full">
-          <Image
+        <div className="h-[500px]">
+          <img
             src={pathImage(item.mainImage.id)}
-            width={item.mainImage.width}
-            height={item.mainImage.height}
             alt={""}
-            className={cn("object-cover", {
+            className={cn("h-full w-full object-cover", {
               skeleton: imgSpinner,
             })}
             onLoad={handleLoadingImageComplete}

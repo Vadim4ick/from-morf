@@ -38,13 +38,13 @@ const MainSlider = ({
         slidesPerView={1}
       >
         {slides.map((el) => {
-          const media = el.mainSlider_id.media;
-          const type = media.type;
+          const media = el.mainSlider_id?.media;
+          const type = media?.type;
 
           return (
             <SwiperSlide key={el.id}>
               <div className="bgGradientMainSlider relative h-[100svh] w-full">
-                {type.startsWith("image") && (
+                {type?.startsWith("image") && (
                   <Image
                     fill
                     unoptimized
@@ -57,7 +57,7 @@ const MainSlider = ({
                   />
                 )}
 
-                {type.startsWith("video") && (
+                {type?.startsWith("video") && (
                   <video
                     className="h-full w-full object-cover"
                     autoPlay

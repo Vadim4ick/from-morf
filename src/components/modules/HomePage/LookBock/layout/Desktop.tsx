@@ -32,7 +32,7 @@ const Desktop = (props: LookBookDefaultProps) => {
           unoptimized
           src={pathImage(img1.id)}
           alt="Main Look"
-          className={cn("w-full", {
+          className={cn("h-full max-h-[790px] w-full object-cover", {
             skeleton: imgSpinner,
           })}
           onLoad={handleLoadingImageComplete}
@@ -43,9 +43,10 @@ const Desktop = (props: LookBookDefaultProps) => {
         <Image
           width={img2.width}
           height={img2.height}
+          unoptimized
           src={pathImage(img2.id)}
           alt="Main Look"
-          className={cn("h-fit", {
+          className={cn("h-full max-h-[482px] w-full object-cover", {
             skeleton: imgSpinner,
           })}
           onLoad={handleLoadingImageComplete}
@@ -55,9 +56,10 @@ const Desktop = (props: LookBookDefaultProps) => {
           <Image
             width={img3.width}
             height={img3.height}
+            unoptimized
             src={pathImage(img3.id)}
             alt="Main Look"
-            className={cn("h-fit", {
+            className={cn("h-full max-h-[390px] object-cover", {
               skeleton: imgSpinner,
             })}
             onLoad={handleLoadingImageComplete}
@@ -66,9 +68,10 @@ const Desktop = (props: LookBookDefaultProps) => {
           <Image
             width={img4.width}
             height={img4.height}
+            unoptimized
             src={pathImage(img4.id)}
             alt="Main Look"
-            className={cn("mt-[100px] h-fit", {
+            className={cn("mt-[100px] h-full max-h-[390px] object-cover", {
               skeleton: imgSpinner,
             })}
             onLoad={handleLoadingImageComplete}
