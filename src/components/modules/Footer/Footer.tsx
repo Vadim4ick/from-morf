@@ -76,7 +76,7 @@ const Footer = () => {
               <a href="#" className="font-medium">
                 Публичная оферта
               </a>
-              <a href="#" className="font-medium">
+              <a href="/policy.docx" download className="font-medium">
                 Пользовательское соглашение
               </a>
             </div>
