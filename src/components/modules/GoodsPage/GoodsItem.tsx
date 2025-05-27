@@ -59,9 +59,8 @@ const BottomLayout = ({ parameters }: { parameters: string }) => {
 const BottomLinks = () => {
   return (
     <div className="pt-[24px] max-tabletBig:pt-[16px] max-mobile:py-[12px]">
-      <a
-        download
-        href={"/docs/доставка.docx"}
+      <Link
+        href={"/delivery"}
         className="flex items-center justify-between gap-3 py-[10px] max-mobile:py-[9px]"
       >
         <p className="leading-[20px] max-mobile:text-[14px] max-mobile:leading-[17.5px]">
@@ -69,11 +68,10 @@ const BottomLinks = () => {
         </p>
 
         <Arrow className="rotate-180" />
-      </a>
+      </Link>
 
-      <a
-        href={"/docs/возврат.docx"}
-        download
+      <Link
+        href={"/returns"}
         className="flex items-center justify-between gap-3 py-[10px] max-mobile:py-[9px]"
       >
         <p className="leading-[20px] max-mobile:text-[14px] max-mobile:leading-[17.5px]">
@@ -81,7 +79,7 @@ const BottomLinks = () => {
         </p>
 
         <Arrow className="rotate-180" />
-      </a>
+      </Link>
     </div>
   );
 };
@@ -202,6 +200,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 return (
                   <Lightbox key={el.id} imageUrl={pathImage(el.item.img.id)}>
                     <Image
+                      unoptimized
                       src={pathImage(el.item.img.id)}
                       className={cn("h-full w-full", {
                         skeleton: imgSpinner,
@@ -221,6 +220,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                   <div key={el.id} className="flex gap-5">
                     <Lightbox imageUrl={pathImage(el.item.imgOne.id)}>
                       <Image
+                        unoptimized
                         src={pathImage(el.item.imgOne.id)}
                         className={cn("h-full w-full object-cover", {
                           skeleton: imgSpinner,
@@ -234,6 +234,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
 
                     <Lightbox imageUrl={pathImage(el.item.imgTwo.id)}>
                       <Image
+                        unoptimized
                         className={cn("h-full w-full object-cover", {
                           skeleton: imgSpinner,
                         })}
