@@ -13,7 +13,7 @@ import { Lightbox } from "@/components/ui/lightbox";
 import { GetGoodsQuery } from "@/graphql/__generated__";
 import ReactMarkdown from "react-markdown";
 import { cn, discountPrice, formatPrice, pathImage } from "@/lib/utils";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useFavorite } from "@/shared/hooks/useFavorite.hooks";
 import { toggleFavorite } from "@/shared/context/favorites";
 import { useUnit } from "effector-react";
@@ -28,6 +28,8 @@ import { motionConfigAnimate } from "@/shared/const";
 import { useInView, motion } from "framer-motion";
 import { useRef } from "react";
 import { SelectColors } from "@/components/elements/SelectColors";
+import { Navigation } from "swiper/modules";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const BottomLayout = ({ parameters }: { parameters: string }) => {
   return (
@@ -179,6 +181,12 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
   const ref = useRef(null);
   const inView = useInView(ref);
 
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
   return (
     <motion.section
       ref={ref}
@@ -254,7 +262,23 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
 
         {isDesktop1100 && (
           <div className="w-full">
-            <Swiper spaceBetween={20} slidesPerView={1}>
+            <Swiper
+              spaceBetween={20}
+              modules={[Navigation]}
+              slidesPerView={1}
+              navigation={{
+                prevEl: prevRef.current,
+                nextEl: nextRef.current,
+              }}
+              onInit={(swiper) => {
+                setIsBeginning(swiper.isBeginning);
+                setIsEnd(swiper.isEnd);
+              }}
+              onSlideChange={(swiper) => {
+                setIsBeginning(swiper.isBeginning);
+                setIsEnd(swiper.isEnd);
+              }}
+            >
               {item.image_builder.map((el) => {
                 if (
                   el.collection === "goodsImg" &&
@@ -310,6 +334,23 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 }
               })}
             </Swiper>
+
+            <div className="flex justify-between gap-4 pt-2">
+              <button
+                ref={prevRef}
+                disabled={isBeginning}
+                className="flex size-[42px] items-center justify-center rounded-full border border-gray-300 text-sm hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <ArrowLeft className="size-4" />
+              </button>
+              <button
+                ref={nextRef}
+                disabled={isEnd}
+                className="flex size-[42px] items-center justify-center rounded-full border border-gray-300 text-sm hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <ArrowRight className="size-4" />
+              </button>
+            </div>
           </div>
         )}
 
