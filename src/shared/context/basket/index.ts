@@ -68,15 +68,21 @@ export const setBasketOnLoad = basket.createEvent();
 export const deleteBasket = basket.createEvent();
 
 export const deleteAll = basket.createEvent();
-export const deleteById = basket.createEvent<{ id: string; size: string }>();
+export const deleteById = basket.createEvent<{
+  id: string;
+  size: string;
+  color: string;
+}>();
 
 export const incrementItemCount = basket.createEvent<{
   id: string;
   size: string;
+  color: string;
 }>();
 export const decrementItemCount = basket.createEvent<{
   id: string;
   size: string;
+  color: string;
 }>();
 
 export const $selectedSize = basket
@@ -99,7 +105,11 @@ export const $basket = basket
     let itemExists = false;
 
     const newArr = state.map((item) => {
-      if (item.id === newItem.id && item.size === newItem.size) {
+      if (
+        item.id === newItem.id &&
+        item.size === newItem.size &&
+        item.color?.color === newItem.color?.color
+      ) {
         const newCount = item.count + 1;
 
         itemExists = true;
@@ -131,9 +141,11 @@ export const $basket = basket
   .on(deleteById, (state, props) => {
     const id = props.id;
     const size = props.size;
+    const color = props.color;
 
     const updatedItems = state.filter(
-      (item) => !(item.id === id && item.size === size),
+      (item) =>
+        !(item.id === id && item.size === size && item.color?.color === color),
     );
 
     localStorage.setItem("basket", JSON.stringify(updatedItems));
@@ -144,9 +156,9 @@ export const $basket = basket
 
     return [];
   })
-  .on(incrementItemCount, (state, { id, size }) => {
+  .on(incrementItemCount, (state, { id, size, color }) => {
     const newArr = state.map((item) => {
-      if (item.id === id && item.size === size) {
+      if (item.id === id && item.size === size && item.color?.color === color) {
         const newCount = item.count + 1;
 
         return {
@@ -161,9 +173,14 @@ export const $basket = basket
     localStorage.setItem("basket", JSON.stringify(newArr));
     return newArr;
   })
-  .on(decrementItemCount, (state, { id, size }) => {
+  .on(decrementItemCount, (state, { id, size, color }) => {
     const newArr = state.map((item) => {
-      if (item.id === id && item.size === size && item.count > 1) {
+      if (
+        item.id === id &&
+        item.size === size &&
+        item.color?.color === color &&
+        item.count > 1
+      ) {
         const newCount = item.count - 1;
 
         return { ...item, count: newCount, totalPrice: item.price * newCount };

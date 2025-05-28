@@ -23,6 +23,7 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
     incrementItemCount({
       id: basket.id,
       size: basket.size,
+      color: basket.color?.color || "",
     });
   };
 
@@ -30,11 +31,16 @@ const BasketItem = ({ basket }: { basket: Basket }) => {
     decrementItemCount({
       id: basket.id,
       size: basket.size,
+      color: basket.color?.color || "",
     });
   };
 
   const deleteItem = () => {
-    deleteById({ id: basket.id, size: basket.size });
+    deleteById({
+      id: basket.id,
+      size: basket.size,
+      color: basket.color?.color || "",
+    });
   };
 
   return (

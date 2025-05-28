@@ -139,7 +139,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
 
           {basket.length > 0 && (
             <span className="absolute -bottom-2 -right-2 flex size-[16px] items-center justify-center rounded-full bg-red-500 text-[10px] font-bold leading-none text-white">
-              {basket.length}
+              {basket.map((item) => item.count).reduce((a, b) => a + b, 0)}
             </span>
           )}
         </div>
@@ -196,7 +196,12 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
 
           {basket &&
             basket.map((el) => {
-              return <BasketItem key={`${el.id}_${el.size}`} basket={el} />;
+              return (
+                <BasketItem
+                  key={`${el.id}_${el.size}_${el.color?.color}`}
+                  basket={el}
+                />
+              );
             })}
         </div>
 
