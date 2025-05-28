@@ -217,6 +217,12 @@ const TabOrders = () => {
             oredersHistory.map((order) => {
               return <OrderItem key={order.id} user={user} order={order} />;
             })}
+
+          {oredersHistory.length === 0 && (
+            <p className="py-4 text-center text-[24px] font-medium leading-[17px]">
+              У вас пока нет заказов
+            </p>
+          )}
         </div>
       </div>
     </div>

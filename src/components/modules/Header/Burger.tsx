@@ -145,6 +145,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
           <SheetFooter className="mt-12 flex flex-col gap-2 border-t bg-[#F2F2F2] px-4 py-4 max-mobile:mt-3">
             <Link
               href={"/about"}
+              onClick={() => toggleBurgerOpen()}
               className="flex justify-between border border-[#E4E4E4] bg-[#eeeeee] transition-colors hover:border-[#9C9C9C]"
             >
               <div className="flex h-fit items-center gap-2 py-[13px] pl-[20px]">
@@ -167,6 +168,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
             <div className="flex gap-[10px]">
               <Link
                 href={"/delivery"}
+                onClick={() => toggleBurgerOpen()}
                 download
                 className="bg-[#eeeeee ] flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] transition-colors hover:border-[#9C9C9C]"
               >
@@ -178,6 +180,7 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
               </Link>
 
               <Link
+                onClick={() => toggleBurgerOpen()}
                 href={"/returns"}
                 className="flex h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee] transition-colors hover:border-[#9C9C9C]"
               >
@@ -188,6 +191,16 @@ const Burger = ({ variant }: { variant: VariantHeader }) => {
                 </p>
               </Link>
             </div>
+
+            <Link
+              onClick={() => toggleBurgerOpen()}
+              href={"/details"}
+              className="flex min-h-12 basis-1/2 items-center justify-center gap-2 border border-[#E4E4E4] bg-[#eeeeee] transition-colors hover:border-[#9C9C9C] mobile:hidden"
+            >
+              <p className="text-[15px] font-medium max-mobile:text-[13px]">
+                Реквизиты
+              </p>
+            </Link>
 
             {isDesktop1100 && (
               <div>

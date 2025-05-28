@@ -38,6 +38,7 @@ import { toast } from "sonner";
 import { gql } from "@/graphql/client";
 import { authQuery } from "@/shared/queries/authQueries";
 import { useRouter } from "next/navigation";
+import { toggleAuthFormOpen } from "@/shared/context/auth";
 
 const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const isTablet991 = useMediaQuery(991);
@@ -53,6 +54,7 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
     const discount = +totalDiscount(basket);
 
     if (!user) {
+      toggleAuthFormOpen();
       return toast.error("Авторизуйтесь, прежде чем сделать заказ");
     }
 
@@ -134,6 +136,12 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
               },
             )}
           />
+
+          {basket.length > 0 && (
+            <span className="absolute -bottom-2 -right-2 flex size-[16px] items-center justify-center rounded-full bg-red-500 text-[10px] font-bold leading-none text-white">
+              {basket.length}
+            </span>
+          )}
         </div>
       </DialogTrigger>
 

@@ -38,6 +38,11 @@ const Footer = () => {
                     Возврат товара
                   </Link>
                 </li>
+                <li className="text-center text-base leading-[20px]">
+                  <Link className="leading-[20px]" href={"/details"}>
+                    Реквизиты
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -72,19 +77,6 @@ const Footer = () => {
       <div className="custom-shadow-footer relative after:absolute after:top-0 after:h-[1px] after:w-full after:bg-[#CDCDCD] after:content-['']">
         <div className="container">
           <div className="flex flex-col gap-4 py-4">
-            <div className="flex flex-col items-end justify-end gap-1 text-[13px] font-medium max-mobile:items-center max-mobile:text-center">
-              <p>ИП Луговской А.В.</p>
-              <p>
-                Юридический адрес: г. Краснодар, ул. им. Василия Гассия, 6/1,
-                кв. 37
-              </p>
-              <p>ИНН 231216119975</p>
-              <p>ОГРНИП 324237500160113</p>
-              <p>
-                <a href="tel:+79883609506">+7 988 360-95-06</a>
-              </p>
-            </div>
-
             <div className="flex items-end justify-between gap-4 text-[13px] max-tabletSmall:flex-col max-mobile:items-center">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-4 max-tabletSmall:gap-2 max-mobile:flex-col">

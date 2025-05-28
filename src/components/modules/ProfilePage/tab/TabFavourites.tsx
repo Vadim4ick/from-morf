@@ -18,6 +18,12 @@ const TabFavourites = () => {
               />
             );
           })}
+
+          {favorites.length === 0 && (
+            <p className="py-4 text-center text-[24px] font-medium leading-[17px]">
+              У вас пока нет избранных товаров
+            </p>
+          )}
         </div>
       </div>
     </div>
