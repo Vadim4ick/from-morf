@@ -205,6 +205,26 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 el.collection === "goodsImg" &&
                 el.item.__typename === "goodsImg"
               ) {
+                if (el.item.img.type?.includes("video")) {
+                  return (
+                    <video
+                      key={el.id}
+                      autoPlay
+                      muted
+                      playsInline
+                      loop
+                      className="w-full object-cover"
+                      poster=""
+                    >
+                      <source
+                        src={pathImage(el.item.img.id)}
+                        type={el.item.img.type}
+                      />
+                      Ваш браузер не поддерживает видео.
+                    </video>
+                  );
+                }
+
                 return (
                   <Lightbox key={el.id} imageUrl={pathImage(el.item.img.id)}>
                     <Image
@@ -225,34 +245,76 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 el.item.__typename === "goodsTwoImages"
               ) {
                 return (
-                  <div key={el.id} className="flex gap-5">
-                    <Lightbox imageUrl={pathImage(el.item.imgOne.id)}>
-                      <Image
-                        unoptimized
-                        src={pathImage(el.item.imgOne.id)}
-                        className={cn("h-full w-full object-cover", {
-                          skeleton: imgSpinner,
-                        })}
-                        alt=""
-                        height={el.item.imgOne.height}
-                        width={el.item.imgOne.width}
-                        onLoad={handleLoadingImageComplete}
-                      />
-                    </Lightbox>
+                  <div key={el.id} className="grid grid-cols-2 gap-5">
+                    {/* Левая часть (imgOne) */}
+                    {el.item.imgOne.type?.includes("video") ? (
+                      <video
+                        autoPlay
+                        muted
+                        playsInline
+                        loop
+                        className="max-h-[535px] w-full rounded-lg object-cover"
+                        poster=""
+                      >
+                        <source
+                          src={pathImage(el.item.imgOne.id)}
+                          type={el.item.imgOne.type}
+                        />
+                        Ваш браузер не поддерживает видео.
+                      </video>
+                    ) : (
+                      <Lightbox imageUrl={pathImage(el.item.imgOne.id)}>
+                        <Image
+                          unoptimized
+                          src={pathImage(el.item.imgOne.id)}
+                          className={cn(
+                            "h-full max-h-[535px] w-full object-cover",
+                            {
+                              skeleton: imgSpinner,
+                            },
+                          )}
+                          alt=""
+                          height={el.item.imgOne.height}
+                          width={el.item.imgOne.width}
+                          onLoad={handleLoadingImageComplete}
+                        />
+                      </Lightbox>
+                    )}
 
-                    <Lightbox imageUrl={pathImage(el.item.imgTwo.id)}>
-                      <Image
-                        unoptimized
-                        className={cn("h-full w-full object-cover", {
-                          skeleton: imgSpinner,
-                        })}
-                        alt=""
-                        src={pathImage(el.item.imgTwo.id)}
-                        height={el.item.imgTwo.height}
-                        width={el.item.imgTwo.width}
-                        onLoad={handleLoadingImageComplete}
-                      />
-                    </Lightbox>
+                    {/* Правая часть (imgTwo) */}
+                    {el.item.imgTwo.type?.includes("video") ? (
+                      <video
+                        autoPlay
+                        muted
+                        playsInline
+                        loop
+                        className="max-h-[535px] w-full rounded-lg object-cover"
+                        poster=""
+                      >
+                        <source
+                          src={pathImage(el.item.imgTwo.id)}
+                          type={el.item.imgTwo.type}
+                        />
+                        Ваш браузер не поддерживает видео.
+                      </video>
+                    ) : (
+                      <Lightbox imageUrl={pathImage(el.item.imgTwo.id)}>
+                        <Image
+                          unoptimized
+                          src={pathImage(el.item.imgTwo.id)}
+                          className={cn(
+                            "h-full max-h-[535px] w-full object-cover",
+                            {
+                              skeleton: imgSpinner,
+                            },
+                          )}
+                          alt=""
+                          height={el.item.imgTwo.height}
+                          width={el.item.imgTwo.width}
+                          onLoad={handleLoadingImageComplete}
+                        />
+                      </Lightbox>
+                    )}
                   </div>
                 );
               }
@@ -266,6 +328,7 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
               spaceBetween={20}
               modules={[Navigation]}
               slidesPerView={1}
+              autoHeight={true}
               navigation={{
                 prevEl: prevRef.current,
                 nextEl: nextRef.current,
@@ -286,16 +349,33 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 ) {
                   return (
                     <SwiperSlide key={el.id}>
-                      <Lightbox imageUrl={pathImage(el.item.img.id)}>
-                        <Image
-                          src={pathImage(el.item.img.id)}
-                          className="aspect-square h-full w-full object-cover"
-                          alt=""
-                          objectFit="cover"
-                          height={el.item.img.height}
-                          width={el.item.img.width}
-                        />
-                      </Lightbox>
+                      {el.item.img.type?.includes("video") ? (
+                        <video
+                          autoPlay
+                          muted
+                          playsInline
+                          loop
+                          className="max-h-[535px] w-full rounded-lg object-cover"
+                          poster=""
+                        >
+                          <source
+                            src={pathImage(el.item.img.id)}
+                            type={el.item.img.type}
+                          />
+                          Ваш браузер не поддерживает видео.
+                        </video>
+                      ) : (
+                        <Lightbox imageUrl={pathImage(el.item.img.id)}>
+                          <Image
+                            src={pathImage(el.item.img.id)}
+                            className="aspect-square h-full w-full object-cover"
+                            alt=""
+                            objectFit="cover"
+                            height={el.item.img.height}
+                            width={el.item.img.width}
+                          />
+                        </Lightbox>
+                      )}
                     </SwiperSlide>
                   );
                 } else if (
@@ -304,30 +384,72 @@ const GoodsItem = ({ item }: { item: GetGoodsQuery["goods_by_id"] }) => {
                 ) {
                   return (
                     <Fragment key={el.id}>
-                      <SwiperSlide>
-                        <Lightbox imageUrl={pathImage(el.item.imgOne.id)}>
-                          <Image
-                            src={pathImage(el.item.imgOne.id)}
-                            className="aspect-square h-full w-full object-cover"
-                            alt=""
-                            objectFit="cover"
-                            height={el.item.imgOne.height}
-                            width={el.item.imgOne.width}
-                          />
-                        </Lightbox>
+                      {/* Левая часть (imgOne) */}
+                      <SwiperSlide key={`${el.id}-imgOne`}>
+                        {el.item.imgOne.type?.includes("video") ? (
+                          <video
+                            autoPlay
+                            muted
+                            playsInline
+                            loop
+                            className="max-h-[535px] w-full rounded-lg object-cover"
+                            poster=""
+                          >
+                            <source
+                              src={pathImage(el.item.imgOne.id)}
+                              type={el.item.imgOne.type}
+                            />
+                            Ваш браузер не поддерживает видео.
+                          </video>
+                        ) : (
+                          <Lightbox imageUrl={pathImage(el.item.imgOne.id)}>
+                            <Image
+                              unoptimized
+                              src={pathImage(el.item.imgOne.id)}
+                              className={cn(
+                                "h-full max-h-[535px] w-full object-cover",
+                                {
+                                  skeleton: imgSpinner,
+                                },
+                              )}
+                              alt=""
+                              height={el.item.imgOne.height}
+                              width={el.item.imgOne.width}
+                              onLoad={handleLoadingImageComplete}
+                            />
+                          </Lightbox>
+                        )}
                       </SwiperSlide>
 
-                      <SwiperSlide>
-                        <Lightbox imageUrl={pathImage(el.item.imgTwo.id)}>
-                          <Image
-                            src={pathImage(el.item.imgTwo.id)}
-                            className="aspect-square h-full w-full object-cover"
-                            alt=""
-                            objectFit="cover"
-                            height={el.item.imgTwo.height}
-                            width={el.item.imgTwo.width}
-                          />
-                        </Lightbox>
+                      {/* Правая часть (imgTwo) */}
+                      <SwiperSlide key={`${el.id}-imgTwo`}>
+                        {el.item.imgTwo.type?.includes("video") ? (
+                          <video
+                            autoPlay
+                            muted
+                            playsInline
+                            loop
+                            className="max-h-[535px] w-full rounded-lg object-cover"
+                            poster=""
+                          >
+                            <source
+                              src={pathImage(el.item.imgTwo.id)}
+                              type={el.item.imgTwo.type}
+                            />
+                            Ваш браузер не поддерживает видео.
+                          </video>
+                        ) : (
+                          <Lightbox imageUrl={pathImage(el.item.imgTwo.id)}>
+                            <Image
+                              src={pathImage(el.item.imgTwo.id)}
+                              className="aspect-square h-full w-full object-cover"
+                              alt=""
+                              objectFit="cover"
+                              height={el.item.imgTwo.height}
+                              width={el.item.imgTwo.width}
+                            />
+                          </Lightbox>
+                        )}
                       </SwiperSlide>
                     </Fragment>
                   );
