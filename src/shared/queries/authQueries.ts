@@ -24,29 +24,6 @@ class AuthQueries {
 
     return { data, status };
   }
-  async sendMailSuccessOrder({
-    user,
-    totalPrice,
-    orderId,
-    items,
-  }: {
-    user: UserPaymentSuccess;
-    totalPrice: string | number;
-    orderId: string;
-    items: readonly OrderItemFragmentFragment[];
-  }) {
-    const { data, status } = await $apiFront.post<{
-      status: number;
-      activationToken: string;
-    }>("/api/send-order-success", {
-      user: user,
-      totalPrice: totalPrice,
-      orderId: orderId,
-      items: items,
-    });
-
-    return { data, status };
-  }
 
   async register({ email, password }: { email: string; password: string }) {
     try {

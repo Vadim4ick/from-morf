@@ -21,7 +21,6 @@ import {
 } from "@/lib/utils";
 import { useMediaQuery } from "@/shared/hooks/useMedia.hooks";
 import {
-  checkPaymentFx,
   deleteAll,
   deleteBasket,
   makePaymentFx,
@@ -31,19 +30,16 @@ import { BasketItem } from "./BasketItem";
 import { Button } from "@/components/ui/button";
 import { useUnit } from "effector-react";
 import { $user } from "@/shared/context/user/state";
-import { processOrder, updateStatus } from "@/shared/services/processOreder";
-import { useAuth } from "@/shared/hooks/useAuth.hooks";
-import { useEffect } from "react";
+import { processOrder } from "@/shared/services/processOreder";
 import { toast } from "sonner";
-import { gql } from "@/graphql/client";
-import { authQuery } from "@/shared/queries/authQueries";
 import { useRouter } from "next/navigation";
 import { toggleAuthFormOpen } from "@/shared/context/auth";
+import { useEffect } from "react";
+import { gql } from "@/graphql/client";
 
 const BasketModal = ({ variant }: { variant: VariantHeader }) => {
   const isTablet991 = useMediaQuery(991);
   const user = useUnit($user);
-  const { isAuth } = useAuth();
   const router = useRouter();
 
   const { basketIdsAndSizeAndCount: basket, discountCount } = useBasket();
@@ -85,45 +81,23 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
     }
   };
 
-  // useEffect(() => {
-  //   clearCartByPayment();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isAuth]);
+  useEffect(() => {
+    const paymentId = localStorage.getItem("paymentId");
+    const orderId = localStorage.getItem("orderId");
 
-  const clearCartByPayment = async () => {
-    const paymentId = JSON.parse(localStorage.getItem("paymentId") as string);
+    if (!paymentId || !orderId) return;
 
-    if (!isAuth || !paymentId) {
-      return;
-    }
+    (async () => {
+      const { orders_by_id } = await gql.GetOrderById({ id: orderId });
 
-    const data = await checkPaymentFx({ paymentId });
-
-    if (data) {
-      if (data.Status === "CONFIRMED") {
-        deleteBasket();
-        await updateStatus(data.OrderId, "SUCCESS");
-        toast.success("Успешная оплата");
-
-        const orderId = data.OrderId;
-
-        const { orders_by_id } = await gql.GetOrderById({ id: orderId });
-        const orderItems = orders_by_id.items;
-        const totalPrice = orders_by_id.totalPrice;
-
-        authQuery.sendMailSuccessOrder({
-          orderId,
-          totalPrice,
-          items: orderItems,
-          user: user!,
-        });
-      } else if (data.Status === "CANCELED" || data.Status === "REJECTED") {
-        toast.error("Платёж отклонён или отменён");
+      if (orders_by_id.status === "SUCCESS") {
+        deleteBasket(); // очистка localStorage корзины
+        localStorage.removeItem("paymentId");
+        localStorage.removeItem("orderId");
+        toast.success("Успешная оплата!");
       }
-    }
-
-    localStorage.removeItem("paymentId");
-  };
+    })();
+  }, []);
 
   return (
     <Dialog>

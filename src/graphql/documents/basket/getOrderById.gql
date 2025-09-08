@@ -7,6 +7,8 @@ query GetOrderById($id: ID!) {
       ...OrderItemFragment
     }
 
+    status
+
     user {
       first_name
       last_name

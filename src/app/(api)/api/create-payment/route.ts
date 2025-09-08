@@ -33,6 +33,7 @@ export async function POST(req: Request) {
       Amount: amountInKopecks,
       OrderId: String(body.orderId),
       Description: body.description?.slice(0, 140) || "Test order",
+      NotificationURL: `${process.env.NEXT_PUBLIC_WEBHOOK_URL}/api/webhook`,
     };
 
     if (body.successURL) payload.SuccessURL = body.successURL;

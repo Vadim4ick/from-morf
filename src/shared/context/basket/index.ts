@@ -43,6 +43,8 @@ export const makePaymentFx = basket.createEffect(
       if (data.Success && data.PaymentURL) {
         // сохраняем PaymentId для дальнейшей проверки статуса
         localStorage.setItem("paymentId", data.PaymentId);
+        localStorage.setItem("orderId", orderId);
+
         // редиректим на форму оплаты
         window.location.href = data.PaymentURL;
       } else {

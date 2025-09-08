@@ -83,15 +83,19 @@ export async function POST(req: NextRequest) {
       const totalPrice = orders_by_id.totalPrice;
       const user = orders_by_id.user;
 
-      // письмо — с данными из заказа (не user!):
-      await authQuery
-        .sendMailSuccessOrder({
-          orderId,
-          totalPrice: totalPrice,
-          items: orderItems,
-          user: user, // <-- из заказа
-        })
-        .catch(() => {});
+      await fetch(
+        `${process.env.NEXT_PUBLIC_FRONT_URL}/api/send-order-success`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user,
+            totalPrice,
+            orderId,
+            items: orderItems,
+          }),
+        },
+      );
     } else if (
       ["REFUNDED", "REVERSED", "CANCELED", "REJECTED"].includes(Status)
     ) {

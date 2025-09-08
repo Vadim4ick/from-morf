@@ -3709,7 +3709,7 @@ export type GetOrderByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetOrderByIdQuery = { readonly __typename?: 'Query', readonly orders_by_id: { readonly __typename?: 'orders', readonly id: string, readonly totalPrice: number, readonly created_at: any, readonly items: ReadonlyArray<{ readonly __typename?: 'order_items', readonly id: string, readonly size: string, readonly count: number, readonly color: string, readonly good: { readonly __typename?: 'goods', readonly name: string, readonly id: string, readonly price: number } }>, readonly user: { readonly __typename?: 'directus_users', readonly first_name: string, readonly last_name: string, readonly id: string } } };
+export type GetOrderByIdQuery = { readonly __typename?: 'Query', readonly orders_by_id: { readonly __typename?: 'orders', readonly id: string, readonly totalPrice: number, readonly created_at: any, readonly status: string, readonly items: ReadonlyArray<{ readonly __typename?: 'order_items', readonly id: string, readonly size: string, readonly count: number, readonly color: string, readonly good: { readonly __typename?: 'goods', readonly name: string, readonly id: string, readonly price: number } }>, readonly user: { readonly __typename?: 'directus_users', readonly first_name: string, readonly last_name: string, readonly id: string } } };
 
 export type GetOrdersUserQueryVariables = Exact<{
   user_id: InputMaybe<Scalars['String']['input']>;
@@ -3943,6 +3943,7 @@ export const GetOrderByIdDocument = gql`
     items {
       ...OrderItemFragment
     }
+    status
     user {
       first_name
       last_name
