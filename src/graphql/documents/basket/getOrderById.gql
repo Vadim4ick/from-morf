@@ -6,5 +6,11 @@ query GetOrderById($id: ID!) {
     items {
       ...OrderItemFragment
     }
+
+    user {
+      first_name
+      last_name
+      id
+    }
   }
 }

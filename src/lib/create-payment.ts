@@ -1,39 +1,22 @@
-import axios from "axios";
+import crypto from "crypto";
 
-export interface PaymentDetails {
-  description: string;
-  orderId: string | number;
-  amount: number;
-}
+export type Primitive = string | number | boolean | null | undefined;
 
-export async function createPayment(details: PaymentDetails) {
-  const { data } = await axios({
-    method: "post",
-    url: "https://api.yookassa.ru/v3/payments",
-    headers: {
-      "Content-Type": "application/json",
-      "Idempotence-Key": Date.now(),
-    },
-    auth: {
-      username: process.env.YOOKASSA_STORE_ID as string,
-      password: process.env.YOOKASSA_API_KEY as string,
-    },
-    data: {
-      amount: {
-        value: details.amount,
-        currency: "RUB",
-      },
-      confirmation: {
-        type: "redirect",
-        return_url: process.env.NEXT_PUBLIC_FRONT_URL as string,
-      },
-      capture: true,
-      description: details.description,
-      metadata: {
-        order_id: details.orderId,
-      },
-    },
-  });
+export function makeToken(params: Record<string, Primitive>, password: string) {
+  // Берем ТОЛЬКО плоские корневые поля (без вложенных объектов), исключаем Token
+  const flatEntries = Object.entries(params).filter(
+    ([k, v]) => k !== "Token" && (typeof v !== "object" || v === null),
+  ) as [string, Primitive][];
 
-  return { data };
+  // Добавляем Password
+  const map: Record<string, Primitive> = Object.fromEntries(flatEntries);
+  map.Password = password;
+
+  // Сортируем по ключам и конкатенируем значения
+  const concat = Object.keys(map)
+    .sort()
+    .map((k) => String(map[k] ?? ""))
+    .join("");
+
+  return crypto.createHash("sha256").update(concat).digest("hex");
 }

@@ -6,7 +6,7 @@ import {
 import { $apiBack, $apiFront } from "../api/api";
 import axios from "axios";
 import { loginUser } from "../context/user";
-import { User } from "../types/authForm";
+import { User, UserPaymentSuccess } from "../types/authForm";
 import {
   OrderItemFragmentFragment,
   Order_Items,
@@ -30,7 +30,7 @@ class AuthQueries {
     orderId,
     items,
   }: {
-    user: User;
+    user: UserPaymentSuccess;
     totalPrice: string | number;
     orderId: string;
     items: readonly OrderItemFragmentFragment[];

@@ -1,36 +1,34 @@
-import axios from "axios";
-import { NextResponse } from "next/server";
+import { makeToken } from "@/lib/create-payment";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-  try {
-    const reqBody = await req.json();
+export const runtime = "nodejs";
 
-    const { data } = await axios({
-      method: "get",
-      url: `https://api.yookassa.ru/v3/payments/${reqBody.paymentId}`,
-      auth: {
-        username: process.env.YOOKASSA_STORE_ID as string,
-        password: process.env.YOOKASSA_API_KEY as string,
-      },
-    });
+export async function POST(req: NextRequest) {
+  const terminalKey = process.env.TINKOFF_TERMINAL_KEY;
+  const password = process.env.TINKOFF_SECRET_KEY;
 
-    const orderId = await data.metadata.order_id;
-
-    // ====
-    // const { data: dataOrder } = await axios.get(
-    //   `${process.env.NEXT_PUBLIC_SERVER_URL}/items/${orderId}`,
-    // );
-
-    // const itemIds = dataOrder.data.items;
-
-    // const userInfo = JSON.parse(data.description) as {
-    //   address: string;
-    //   name: string;
-    //   lastName: string;
-    // };
-
-    return NextResponse.json({ result: data, orderId: orderId });
-  } catch (error) {
-    throw new Error((error as Error).message);
+  if (!terminalKey || !password) {
+    return NextResponse.json(
+      { error: "Terminal key or password is not set" },
+      { status: 500 },
+    );
   }
+
+  const { paymentId } = await req.json();
+
+  const payload = {
+    TerminalKey: terminalKey,
+    PaymentId: String(paymentId),
+  };
+
+  const Token = makeToken(payload, password);
+
+  const res = await fetch("https://securepay.tinkoff.ru/v2/GetState", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...payload, Token }),
+  });
+
+  const data = await res.json();
+  return NextResponse.json(data, { status: res.status });
 }

@@ -17,3 +17,9 @@ export interface User {
   first_name: string;
   number: string;
 }
+
+export interface UserPaymentSuccess {
+  id: string;
+  last_name: string;
+  first_name: string;
+}

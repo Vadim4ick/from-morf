@@ -42,7 +42,7 @@ export const processOrder = async (props: Props) => {
 
 export const updateStatus = async (
   id: string,
-  status: "PENDING" | "SUCCESS",
+  status: "SUCCESS" | "AUTHORIZED" | "FAILED",
 ) => {
   try {
     // // Создание заказа

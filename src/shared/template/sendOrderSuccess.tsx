@@ -1,5 +1,5 @@
 import { Order_Items } from "@/graphql/__generated__";
-import { User } from "../types/authForm";
+import { UserPaymentSuccess } from "../types/authForm";
 
 export const sendOrderSuccess = ({
   orderId,
@@ -10,8 +10,12 @@ export const sendOrderSuccess = ({
   orderId: string;
   items: Order_Items[];
   totalPrice: string;
-  user: User;
+  user: UserPaymentSuccess;
 }) => {
+  //   <p style="font-size: 16px; margin-top: 10px;">
+  //   Адрес: <b>${user.address}</b><br>
+  //   Номер телефона пользователя: <b>${user.number}</b>
+  // </p>
   return `
     <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
       <h1 style="color: #2c3e50;">
@@ -22,10 +26,6 @@ export const sendOrderSuccess = ({
         Пользователь <b>${user.first_name} ${user.last_name}</b> оплатил заказ на сумму <b>${totalPrice} Р</b>.
       </p>
 
-      <p style="font-size: 16px; margin-top: 10px;">
-        Адрес: <b>${user.address}</b><br>
-        Номер телефона пользователя: <b>${user.number}</b>
-      </p>
 
       <hr style="border: 0; height: 1px; background-color: #ddd; margin: 20px 0;" />
 

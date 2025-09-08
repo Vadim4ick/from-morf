@@ -16,8 +16,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormAuthSchema, formAuthSchema } from "./model/formSchemas";
 import { loginUser } from "@/shared/context/user";
-import emailjs from "@emailjs/browser";
-import { createActivationToken } from "@/lib/utils";
 
 const AuthForm = () => {
   const [visiblePass, setVisiblePass] = useState(false);
@@ -62,34 +60,6 @@ const AuthForm = () => {
 
         return;
       }
-
-      // const { token, activationCode } = await createActivationToken(
-      //   email,
-      //   password,
-      // );
-
-      // emailjs
-      //   .send(
-      //     process.env.NEXT_PUBLIC_EMAILJS_serviceID as string,
-      //     process.env.NEXT_PUBLIC_EMAILJS_templateID as string,
-      //     {
-      //       to_email: email,
-      //       activationCode,
-      //     },
-      //     {
-      //       publicKey: process.env.NEXT_PUBLIC_EMAILJS_publicKey as string,
-      //     },
-      //   )
-      //   .then(
-      //     () => {
-      //       console.log("SUCCESS!");
-      //       localStorage.setItem("activateToken", token);
-      //       toggleConfirmPage(true);
-      //     },
-      //     (error) => {
-      //       console.log("FAILED...", error.text);
-      //     },
-      //   );
 
       const { status, data } = await authQuery.sendMail({ email, password });
 

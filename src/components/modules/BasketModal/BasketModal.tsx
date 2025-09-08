@@ -85,9 +85,10 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
     }
   };
 
-  useEffect(() => {
-    clearCartByPayment();
-  }, [isAuth]);
+  // useEffect(() => {
+  //   clearCartByPayment();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isAuth]);
 
   const clearCartByPayment = async () => {
     const paymentId = JSON.parse(localStorage.getItem("paymentId") as string);
@@ -99,15 +100,14 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
     const data = await checkPaymentFx({ paymentId });
 
     if (data) {
-      if (data.result.status === "succeeded") {
+      if (data.Status === "CONFIRMED") {
         deleteBasket();
-        await updateStatus(data.result.metadata.order_id, "SUCCESS");
+        await updateStatus(data.OrderId, "SUCCESS");
         toast.success("Успешная оплата");
 
-        const orderId = await data.orderId;
+        const orderId = data.OrderId;
 
         const { orders_by_id } = await gql.GetOrderById({ id: orderId });
-
         const orderItems = orders_by_id.items;
         const totalPrice = orders_by_id.totalPrice;
 
@@ -117,6 +117,8 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
           items: orderItems,
           user: user!,
         });
+      } else if (data.Status === "CANCELED" || data.Status === "REJECTED") {
+        toast.error("Платёж отклонён или отменён");
       }
     }
 

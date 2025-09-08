@@ -1,4 +1,3 @@
-import { PaymentDetails } from "@/lib/create-payment";
 import axios, { AxiosError } from "axios";
 import { createDomain } from "effector";
 import { toast } from "sonner";
@@ -25,16 +24,30 @@ export interface Basket {
 export const basket = createDomain();
 
 export const makePaymentFx = basket.createEffect(
-  async ({ amount, description, orderId }: PaymentDetails) => {
+  async ({
+    amount,
+    description,
+    orderId,
+  }: {
+    amount: number;
+    description: string;
+    orderId: string;
+  }) => {
     try {
       const { data } = await axios.post("/api/create-payment", {
-        description: description,
-        orderId: orderId,
-        amount: amount,
+        amount,
+        orderId,
+        description,
       });
 
-      localStorage.setItem("paymentId", JSON.stringify(data.result.data.id));
-      window.location.href = data.result.data.confirmation.confirmation_url;
+      if (data.Success && data.PaymentURL) {
+        // сохраняем PaymentId для дальнейшей проверки статуса
+        localStorage.setItem("paymentId", data.PaymentId);
+        // редиректим на форму оплаты
+        window.location.href = data.PaymentURL;
+      } else {
+        throw new Error(data.Details || "Ошибка инициализации платежа");
+      }
     } catch (error) {
       const err =
         // @ts-ignore
