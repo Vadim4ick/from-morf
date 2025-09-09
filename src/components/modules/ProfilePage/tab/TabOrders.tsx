@@ -46,8 +46,6 @@ const OrderItem = ({
     const discountPrice = parsePrice(sumTotalAllPriceBasket(order.items));
     const discount = +totalDiscount(order.items);
 
-    const basket = order.items.map((el) => el.good);
-
     const { success, orderId } = await processOrder({
       user_id: user.id,
       totalPrice: price,
@@ -57,6 +55,14 @@ const OrderItem = ({
       discountPrice: discountPrice,
     });
 
+    const basket = order.items.map((item) => ({
+      Name: item.good.name,
+      Price: Math.round(item.good.price * 100),
+      Quantity: item.count,
+      Amount: Math.round(item.good.price * item.count * 100),
+      Tax: "none",
+    }));
+
     const description = `Адрес - ${user.address}`;
 
     if (success && orderId) {
@@ -64,6 +70,9 @@ const OrderItem = ({
         description: description.trim(),
         orderId: orderId,
         amount: price,
+
+        user: user,
+        basket: basket,
       });
     }
   };
@@ -186,13 +195,13 @@ const OrderItem = ({
             </div>
           </div>
 
-          <Button
+          {/* <Button
             onClick={onPayment}
             className="h-[50px] bg-[#E3E3E3] text-sm font-semibold uppercase"
             variant={"outline"}
           >
             Повторить заказ
-          </Button>
+          </Button> */}
         </div>
       </div>
     </motion.div>

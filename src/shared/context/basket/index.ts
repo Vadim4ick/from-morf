@@ -1,3 +1,4 @@
+import { User } from "@/shared/types/authForm";
 import axios, { AxiosError } from "axios";
 import { createDomain } from "effector";
 import { toast } from "sonner";
@@ -28,16 +29,30 @@ export const makePaymentFx = basket.createEffect(
     amount,
     description,
     orderId,
+    user,
+    basket,
   }: {
     amount: number;
     description: string;
     orderId: string;
+    user: User;
+    basket: {
+      Name: string;
+      Price: number;
+      Quantity: number;
+      Amount: number;
+      Tax: string;
+    }[];
   }) => {
     try {
       const { data } = await axios.post("/api/create-payment", {
         amount,
         orderId,
         description,
+
+        phone: user.number,
+        email: user.email,
+        basket,
       });
 
       if (data.Success && data.PaymentURL) {

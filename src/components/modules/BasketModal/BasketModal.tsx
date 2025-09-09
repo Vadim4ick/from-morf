@@ -68,6 +68,14 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
       discountPrice: discountPrice,
     });
 
+    const basketTest = basket.map((item) => ({
+      Name: item.title,
+      Price: Math.round(item.count * 100),
+      Quantity: item.count,
+      Amount: Math.round(item.price * item.count * 100),
+      Tax: "none",
+    }));
+
     if (success && orderId) {
       makePaymentFx({
         description: JSON.stringify({
@@ -77,6 +85,10 @@ const BasketModal = ({ variant }: { variant: VariantHeader }) => {
         }),
         orderId: orderId,
         amount: price,
+
+        user: user,
+
+        basket: basketTest,
       });
     }
   };
