@@ -22,4 +22,6 @@ export interface UserPaymentSuccess {
   id: string;
   last_name: string;
   first_name: string;
+  address: string;
+  number: string;
 }

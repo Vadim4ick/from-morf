@@ -34,8 +34,6 @@ export type Mutation = {
   readonly create_order_items_items: ReadonlyArray<Order_Items>;
   readonly create_orders_item: Maybe<Orders>;
   readonly create_orders_items: ReadonlyArray<Orders>;
-  readonly delete_lookBook_goods_item: Maybe<Delete_One>;
-  readonly delete_lookBook_goods_items: Maybe<Delete_Many>;
   readonly delete_order_items_item: Maybe<Delete_One>;
   readonly delete_order_items_items: Maybe<Delete_Many>;
   readonly delete_orders_item: Maybe<Delete_One>;
@@ -78,16 +76,6 @@ export type MutationCreate_Orders_ItemsArgs = {
   page: InputMaybe<Scalars['Int']['input']>;
   search: InputMaybe<Scalars['String']['input']>;
   sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type MutationDelete_LookBook_Goods_ItemArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDelete_LookBook_Goods_ItemsArgs = {
-  ids: ReadonlyArray<InputMaybe<Scalars['ID']['input']>>;
 };
 
 
@@ -1040,6 +1028,7 @@ export type Subscription = {
   readonly additionalSections_mutated: Maybe<AdditionalSections_Mutated>;
   readonly colors_mutated: Maybe<Colors_Mutated>;
   readonly directus_files_mutated: Maybe<Directus_Files_Mutated>;
+  readonly directus_flows_mutated: Maybe<Directus_Flows_Mutated>;
   readonly directus_roles_mutated: Maybe<Directus_Roles_Mutated>;
   readonly directus_users_mutated: Maybe<Directus_Users_Mutated>;
   readonly goodsImg_mutated: Maybe<GoodsImg_Mutated>;
@@ -1078,6 +1067,11 @@ export type SubscriptionColors_MutatedArgs = {
 
 
 export type SubscriptionDirectus_Files_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionDirectus_Flows_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
@@ -1337,6 +1331,32 @@ export type Count_Functions = {
   readonly count: Maybe<Scalars['Int']['output']>;
 };
 
+export type Create_Directus_Files_Input = {
+  readonly charset: InputMaybe<Scalars['String']['input']>;
+  readonly description: InputMaybe<Scalars['String']['input']>;
+  readonly duration: InputMaybe<Scalars['Int']['input']>;
+  readonly embed: InputMaybe<Scalars['String']['input']>;
+  readonly filename_disk: InputMaybe<Scalars['String']['input']>;
+  readonly filename_download: Scalars['String']['input'];
+  readonly filesize: InputMaybe<Scalars['GraphQLBigInt']['input']>;
+  readonly focal_point_x: InputMaybe<Scalars['Int']['input']>;
+  readonly focal_point_y: InputMaybe<Scalars['Int']['input']>;
+  readonly folder: InputMaybe<Scalars['String']['input']>;
+  readonly height: InputMaybe<Scalars['Int']['input']>;
+  readonly id: InputMaybe<Scalars['ID']['input']>;
+  readonly location: InputMaybe<Scalars['String']['input']>;
+  readonly metadata: InputMaybe<Scalars['JSON']['input']>;
+  readonly modified_by: InputMaybe<Create_Directus_Users_Input>;
+  readonly modified_on: InputMaybe<Scalars['Date']['input']>;
+  readonly storage: Scalars['String']['input'];
+  readonly tags: InputMaybe<Scalars['JSON']['input']>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
+  readonly type: InputMaybe<Scalars['String']['input']>;
+  readonly uploaded_by: InputMaybe<Create_Directus_Users_Input>;
+  readonly uploaded_on: InputMaybe<Scalars['Date']['input']>;
+  readonly width: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type Create_Directus_Roles_Input = {
   readonly admin_access: Scalars['Boolean']['input'];
   readonly app_access: InputMaybe<Scalars['Boolean']['input']>;
@@ -1350,9 +1370,10 @@ export type Create_Directus_Roles_Input = {
 };
 
 export type Create_Directus_Users_Input = {
+  readonly address: InputMaybe<Scalars['String']['input']>;
   readonly appearance: InputMaybe<Scalars['String']['input']>;
   readonly auth_data: InputMaybe<Scalars['JSON']['input']>;
-  readonly avatar: InputMaybe<Scalars['String']['input']>;
+  readonly avatar: InputMaybe<Create_Directus_Files_Input>;
   readonly description: InputMaybe<Scalars['String']['input']>;
   readonly email: InputMaybe<Scalars['String']['input']>;
   readonly email_notifications: InputMaybe<Scalars['Boolean']['input']>;
@@ -1364,9 +1385,9 @@ export type Create_Directus_Users_Input = {
   readonly last_name: InputMaybe<Scalars['String']['input']>;
   readonly last_page: InputMaybe<Scalars['String']['input']>;
   readonly location: InputMaybe<Scalars['String']['input']>;
+  readonly number: InputMaybe<Scalars['String']['input']>;
   readonly order: InputMaybe<ReadonlyArray<InputMaybe<Create_Orders_Input>>>;
   readonly password: InputMaybe<Scalars['Hash']['input']>;
-  readonly phone_number: InputMaybe<Scalars['String']['input']>;
   readonly provider: InputMaybe<Scalars['String']['input']>;
   readonly role: InputMaybe<Create_Directus_Roles_Input>;
   readonly status: InputMaybe<Scalars['String']['input']>;
@@ -1378,7 +1399,6 @@ export type Create_Directus_Users_Input = {
   readonly theme_light_overrides: InputMaybe<Scalars['JSON']['input']>;
   readonly title: InputMaybe<Scalars['String']['input']>;
   readonly token: InputMaybe<Scalars['Hash']['input']>;
-  readonly user_address: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Create_Order_Items_Input = {
@@ -1557,6 +1577,41 @@ export type Directus_Files_Mutated = {
   readonly key: Scalars['ID']['output'];
 };
 
+export type Directus_Flows = {
+  readonly __typename?: 'directus_flows';
+  readonly accountability: Maybe<Scalars['String']['output']>;
+  readonly color: Maybe<Scalars['String']['output']>;
+  readonly date_created: Maybe<Scalars['Date']['output']>;
+  readonly date_created_func: Maybe<Datetime_Functions>;
+  readonly description: Maybe<Scalars['String']['output']>;
+  readonly icon: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly name: Scalars['String']['output'];
+  readonly operation: Maybe<Scalars['String']['output']>;
+  readonly options: Maybe<Scalars['JSON']['output']>;
+  readonly options_func: Maybe<Count_Functions>;
+  readonly status: Maybe<Scalars['String']['output']>;
+  readonly trigger: Maybe<Scalars['String']['output']>;
+  readonly user_created: Maybe<Directus_Users>;
+};
+
+
+export type Directus_FlowsUser_CreatedArgs = {
+  filter: InputMaybe<Directus_Users_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Directus_Flows_Mutated = {
+  readonly __typename?: 'directus_flows_mutated';
+  readonly data: Maybe<Directus_Flows>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
 export type Directus_Roles = {
   readonly __typename?: 'directus_roles';
   readonly admin_access: Scalars['Boolean']['output'];
@@ -1605,6 +1660,7 @@ export type Directus_Roles_Mutated = {
 
 export type Directus_Users = {
   readonly __typename?: 'directus_users';
+  readonly address: Maybe<Scalars['String']['output']>;
   readonly appearance: Maybe<Scalars['String']['output']>;
   readonly auth_data: Maybe<Scalars['JSON']['output']>;
   readonly auth_data_func: Maybe<Count_Functions>;
@@ -1621,9 +1677,9 @@ export type Directus_Users = {
   readonly last_name: Maybe<Scalars['String']['output']>;
   readonly last_page: Maybe<Scalars['String']['output']>;
   readonly location: Maybe<Scalars['String']['output']>;
+  readonly number: Maybe<Scalars['String']['output']>;
   readonly order: Maybe<ReadonlyArray<Maybe<Orders>>>;
   readonly password: Maybe<Scalars['Hash']['output']>;
-  readonly phone_number: Maybe<Scalars['String']['output']>;
   readonly provider: Maybe<Scalars['String']['output']>;
   readonly role: Maybe<Directus_Roles>;
   readonly status: Maybe<Scalars['String']['output']>;
@@ -1638,7 +1694,6 @@ export type Directus_Users = {
   readonly theme_light_overrides_func: Maybe<Count_Functions>;
   readonly title: Maybe<Scalars['String']['output']>;
   readonly token: Maybe<Scalars['Hash']['output']>;
-  readonly user_address: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1674,6 +1729,7 @@ export type Directus_UsersRoleArgs = {
 export type Directus_Users_Filter = {
   readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Directus_Users_Filter>>>;
   readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Directus_Users_Filter>>>;
+  readonly address: InputMaybe<String_Filter_Operators>;
   readonly appearance: InputMaybe<String_Filter_Operators>;
   readonly auth_data: InputMaybe<String_Filter_Operators>;
   readonly auth_data_func: InputMaybe<Count_Function_Filter_Operators>;
@@ -1690,9 +1746,9 @@ export type Directus_Users_Filter = {
   readonly last_name: InputMaybe<String_Filter_Operators>;
   readonly last_page: InputMaybe<String_Filter_Operators>;
   readonly location: InputMaybe<String_Filter_Operators>;
+  readonly number: InputMaybe<String_Filter_Operators>;
   readonly order: InputMaybe<Orders_Filter>;
   readonly password: InputMaybe<Hash_Filter_Operators>;
-  readonly phone_number: InputMaybe<String_Filter_Operators>;
   readonly provider: InputMaybe<String_Filter_Operators>;
   readonly role: InputMaybe<Directus_Roles_Filter>;
   readonly status: InputMaybe<String_Filter_Operators>;
@@ -1707,7 +1763,6 @@ export type Directus_Users_Filter = {
   readonly theme_light_overrides_func: InputMaybe<Count_Function_Filter_Operators>;
   readonly title: InputMaybe<String_Filter_Operators>;
   readonly token: InputMaybe<Hash_Filter_Operators>;
-  readonly user_address: InputMaybe<String_Filter_Operators>;
 };
 
 export type Directus_Users_Mutated = {
@@ -1732,6 +1787,7 @@ export type Goods = {
   readonly images: Maybe<ReadonlyArray<Maybe<Goods_Files>>>;
   readonly images_func: Maybe<Count_Functions>;
   readonly name: Maybe<Scalars['String']['output']>;
+  /** Цвета в наличии/Артикул */
   readonly parameters: Maybe<Scalars['String']['output']>;
   readonly price: Maybe<Scalars['Int']['output']>;
   readonly recomendation: Maybe<ReadonlyArray<Maybe<Goods_Goods>>>;
@@ -2010,15 +2066,19 @@ export type Goods_Aggregated = {
 
 export type Goods_Aggregated_Count = {
   readonly __typename?: 'goods_aggregated_count';
+  /** Можно выбрать несколько доп. направлений */
   readonly additionalDirection: Maybe<Scalars['Int']['output']>;
   readonly available_colors: Maybe<Scalars['Int']['output']>;
   readonly description: Maybe<Scalars['Int']['output']>;
   readonly direction: Maybe<Scalars['Int']['output']>;
   readonly discount: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['Int']['output']>;
+  /** Отображается на странице самого товара */
   readonly image_builder: Maybe<Scalars['Int']['output']>;
+  /** Максимум 3 */
   readonly images: Maybe<Scalars['Int']['output']>;
   readonly name: Maybe<Scalars['Int']['output']>;
+  /** Цвета в наличии/Артикул */
   readonly parameters: Maybe<Scalars['Int']['output']>;
   readonly price: Maybe<Scalars['Int']['output']>;
   readonly recomendation: Maybe<Scalars['Int']['output']>;
@@ -2714,6 +2774,7 @@ export type LookBook = {
   readonly img3: Maybe<Directus_Files>;
   readonly mainImages: Maybe<ReadonlyArray<Maybe<LookBook_Files_1>>>;
   readonly mainImages_func: Maybe<Count_Functions>;
+  /** Можно вставлять картинки, текста */
   readonly markdown: Maybe<Scalars['String']['output']>;
   readonly slider: Maybe<ReadonlyArray<Maybe<LookBook_Goods>>>;
   readonly slider_func: Maybe<Count_Functions>;
@@ -2792,6 +2853,7 @@ export type LookBook_Aggregated_Count = {
   readonly img2: Maybe<Scalars['Int']['output']>;
   readonly img3: Maybe<Scalars['Int']['output']>;
   readonly mainImages: Maybe<Scalars['Int']['output']>;
+  /** Можно вставлять картинки, текста */
   readonly markdown: Maybe<Scalars['Int']['output']>;
   readonly slider: Maybe<Scalars['Int']['output']>;
   readonly title: Maybe<Scalars['Int']['output']>;
@@ -3402,6 +3464,32 @@ export type StyleTips_Mutated = {
   readonly key: Scalars['ID']['output'];
 };
 
+export type Update_Directus_Files_Input = {
+  readonly charset: InputMaybe<Scalars['String']['input']>;
+  readonly description: InputMaybe<Scalars['String']['input']>;
+  readonly duration: InputMaybe<Scalars['Int']['input']>;
+  readonly embed: InputMaybe<Scalars['String']['input']>;
+  readonly filename_disk: InputMaybe<Scalars['String']['input']>;
+  readonly filename_download: InputMaybe<Scalars['String']['input']>;
+  readonly filesize: InputMaybe<Scalars['GraphQLBigInt']['input']>;
+  readonly focal_point_x: InputMaybe<Scalars['Int']['input']>;
+  readonly focal_point_y: InputMaybe<Scalars['Int']['input']>;
+  readonly folder: InputMaybe<Scalars['String']['input']>;
+  readonly height: InputMaybe<Scalars['Int']['input']>;
+  readonly id: InputMaybe<Scalars['ID']['input']>;
+  readonly location: InputMaybe<Scalars['String']['input']>;
+  readonly metadata: InputMaybe<Scalars['JSON']['input']>;
+  readonly modified_by: InputMaybe<Update_Directus_Users_Input>;
+  readonly modified_on: InputMaybe<Scalars['Date']['input']>;
+  readonly storage: InputMaybe<Scalars['String']['input']>;
+  readonly tags: InputMaybe<Scalars['JSON']['input']>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
+  readonly type: InputMaybe<Scalars['String']['input']>;
+  readonly uploaded_by: InputMaybe<Update_Directus_Users_Input>;
+  readonly uploaded_on: InputMaybe<Scalars['Date']['input']>;
+  readonly width: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type Update_Directus_Roles_Input = {
   readonly admin_access: InputMaybe<Scalars['Boolean']['input']>;
   readonly app_access: InputMaybe<Scalars['Boolean']['input']>;
@@ -3415,9 +3503,10 @@ export type Update_Directus_Roles_Input = {
 };
 
 export type Update_Directus_Users_Input = {
+  readonly address: InputMaybe<Scalars['String']['input']>;
   readonly appearance: InputMaybe<Scalars['String']['input']>;
   readonly auth_data: InputMaybe<Scalars['JSON']['input']>;
-  readonly avatar: InputMaybe<Scalars['String']['input']>;
+  readonly avatar: InputMaybe<Update_Directus_Files_Input>;
   readonly description: InputMaybe<Scalars['String']['input']>;
   readonly email: InputMaybe<Scalars['String']['input']>;
   readonly email_notifications: InputMaybe<Scalars['Boolean']['input']>;
@@ -3429,9 +3518,9 @@ export type Update_Directus_Users_Input = {
   readonly last_name: InputMaybe<Scalars['String']['input']>;
   readonly last_page: InputMaybe<Scalars['String']['input']>;
   readonly location: InputMaybe<Scalars['String']['input']>;
+  readonly number: InputMaybe<Scalars['String']['input']>;
   readonly order: InputMaybe<ReadonlyArray<InputMaybe<Update_Orders_Input>>>;
   readonly password: InputMaybe<Scalars['Hash']['input']>;
-  readonly phone_number: InputMaybe<Scalars['String']['input']>;
   readonly provider: InputMaybe<Scalars['String']['input']>;
   readonly role: InputMaybe<Update_Directus_Roles_Input>;
   readonly status: InputMaybe<Scalars['String']['input']>;
@@ -3443,7 +3532,6 @@ export type Update_Directus_Users_Input = {
   readonly theme_light_overrides: InputMaybe<Scalars['JSON']['input']>;
   readonly title: InputMaybe<Scalars['String']['input']>;
   readonly token: InputMaybe<Scalars['Hash']['input']>;
-  readonly user_address: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Update_Order_Items_Input = {
@@ -3496,6 +3584,7 @@ export type Version_Goods = {
   readonly images: Maybe<Scalars['JSON']['output']>;
   readonly images_func: Maybe<Count_Functions>;
   readonly name: Maybe<Scalars['String']['output']>;
+  /** Цвета в наличии/Артикул */
   readonly parameters: Maybe<Scalars['String']['output']>;
   readonly price: Maybe<Scalars['Int']['output']>;
   readonly recomendation: Maybe<Scalars['JSON']['output']>;
@@ -3606,6 +3695,7 @@ export type Version_LookBook = {
   readonly img3: Maybe<Scalars['JSON']['output']>;
   readonly mainImages: Maybe<Scalars['JSON']['output']>;
   readonly mainImages_func: Maybe<Count_Functions>;
+  /** Можно вставлять картинки, текста */
   readonly markdown: Maybe<Scalars['String']['output']>;
   readonly slider: Maybe<Scalars['JSON']['output']>;
   readonly slider_func: Maybe<Count_Functions>;
@@ -3709,7 +3799,7 @@ export type GetOrderByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetOrderByIdQuery = { readonly __typename?: 'Query', readonly orders_by_id: { readonly __typename?: 'orders', readonly id: string, readonly totalPrice: number, readonly created_at: any, readonly status: string, readonly items: ReadonlyArray<{ readonly __typename?: 'order_items', readonly id: string, readonly size: string, readonly count: number, readonly color: string, readonly good: { readonly __typename?: 'goods', readonly name: string, readonly id: string, readonly price: number } }>, readonly user: { readonly __typename?: 'directus_users', readonly first_name: string, readonly last_name: string, readonly id: string } } };
+export type GetOrderByIdQuery = { readonly __typename?: 'Query', readonly orders_by_id: { readonly __typename?: 'orders', readonly id: string, readonly totalPrice: number, readonly created_at: any, readonly status: string, readonly items: ReadonlyArray<{ readonly __typename?: 'order_items', readonly id: string, readonly size: string, readonly count: number, readonly color: string, readonly good: { readonly __typename?: 'goods', readonly name: string, readonly id: string, readonly price: number } }>, readonly user: { readonly __typename?: 'directus_users', readonly first_name: string, readonly last_name: string, readonly id: string, readonly address: string, readonly number: string } } };
 
 export type GetOrdersUserQueryVariables = Exact<{
   user_id: InputMaybe<Scalars['String']['input']>;
@@ -3948,6 +4038,8 @@ export const GetOrderByIdDocument = gql`
       first_name
       last_name
       id
+      address
+      number
     }
   }
 }

@@ -12,10 +12,6 @@ export const sendOrderSuccess = ({
   totalPrice: string;
   user: UserPaymentSuccess;
 }) => {
-  //   <p style="font-size: 16px; margin-top: 10px;">
-  //   Адрес: <b>${user.address}</b><br>
-  //   Номер телефона пользователя: <b>${user.number}</b>
-  // </p>
   return `
     <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
       <h1 style="color: #2c3e50;">
@@ -24,6 +20,11 @@ export const sendOrderSuccess = ({
 
       <p style="font-size: 16px;">
         Пользователь <b>${user.first_name} ${user.last_name}</b> оплатил заказ на сумму <b>${totalPrice} Р</b>.
+      </p>
+
+      <p style="font-size: 16px; margin-top: 10px;">
+        Адрес: <b>${user?.address}</b><br>
+        Номер телефона пользователя: <b>${user?.number}</b>
       </p>
 
 

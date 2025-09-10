@@ -13,6 +13,8 @@ query GetOrderById($id: ID!) {
       first_name
       last_name
       id
+      address
+      number
     }
   }
 }
