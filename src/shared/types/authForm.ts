@@ -1,4 +1,4 @@
-export type TypeAuthForm = "auth" | "register";
+export type TypeAuthForm = "auth" | "register" | "reset";
 
 export interface LoginData {
   data: {

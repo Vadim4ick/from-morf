@@ -11,6 +11,7 @@ import {
   $typeForm,
   toggleAuthForm,
   toggleAuthFormOpen,
+  toggleResetForm,
 } from "@/shared/context/auth";
 import { AuthForm } from "./AuthForm";
 import { useAuth } from "@/shared/hooks/useAuth.hooks";
@@ -26,6 +27,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { protectedPath } from "@/shared/const";
 import { Button } from "@/components/ui/button";
 import useImagePreloader from "@/shared/hooks/useImagePreloader.hooks";
+import { ResetForm } from "./ResetForm";
 
 const ProfileModal = () => {
   const [currentForm, user, authFormOpen] = useUnit([
@@ -69,17 +71,23 @@ const ProfileModal = () => {
           <>
             <DialogHeader className="flex items-center">
               <DialogTitle className="mb-9 uppercase">
-                {currentForm === "auth" ? "Авторизация" : "Регистрация"}
+                {currentForm === "auth" && "Авторизация"}
+                {currentForm === "register" && "Регистрация"}
+                {currentForm === "reset" && "Восстановление пароля"}
               </DialogTitle>
 
               <DialogDescription className="mb-14 max-w-[235px] text-[15px]">
-                {currentForm === "auth"
-                  ? "Войдите в аккаунт с помощью логина и пароля"
-                  : " Мы отправим вам ПИСЬМО с кодом подтверждения на указанный вами email"}
+                {currentForm === "reset" && "Восстановление пароля"}
+                {currentForm === "register" &&
+                  " Мы отправим вам ПИСЬМО с кодом подтверждения на указанный вами email"}
+                {currentForm === "auth" &&
+                  "Войдите в аккаунт с помощью логина и пароля"}
               </DialogDescription>
             </DialogHeader>
 
-            <AuthForm />
+            {currentForm !== "reset" && <AuthForm />}
+
+            {currentForm === "reset" && <ResetForm />}
 
             <Button
               onClick={() => toggleAuthForm()}
@@ -88,6 +96,18 @@ const ProfileModal = () => {
             >
               {currentForm === "auth" ? "Нет аккаунта?" : "Уже есть аккаунт?"}
             </Button>
+
+            {currentForm === "auth" && (
+              <div className="flex w-full items-center justify-center">
+                <Button
+                  onClick={() => toggleResetForm()}
+                  className="w-fit p-0"
+                  variant={"reset"}
+                >
+                  Забыли пароль?
+                </Button>
+              </div>
+            )}
           </>
         ) : (
           <>

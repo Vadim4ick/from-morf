@@ -12,6 +12,8 @@ export const toggleAuthForm = authForm.createEvent();
 
 export const toggleAuthFormOpen = authForm.createEvent();
 
+export const toggleResetForm = authForm.createEvent();
+
 export const $regiterError = authForm
   .createStore<boolean>(false)
   .on(changeRegisterError, (_, value) => value)
@@ -30,7 +32,8 @@ export const $typeForm = authForm
     } else {
       return "auth";
     }
-  });
+  })
+  .on(toggleResetForm, () => "reset");
 
 export const $confirm = authForm
   .createStore<boolean>(false)

@@ -6,11 +6,6 @@ import {
 import { $apiBack, $apiFront } from "../api/api";
 import axios from "axios";
 import { loginUser } from "../context/user";
-import { User, UserPaymentSuccess } from "../types/authForm";
-import {
-  OrderItemFragmentFragment,
-  Order_Items,
-} from "@/graphql/__generated__";
 
 class AuthQueries {
   async sendMail({ email, password }: { email: string; password: string }) {
@@ -72,6 +67,10 @@ class AuthQueries {
     });
 
     return data;
+  }
+
+  async forgotPassword(email: string) {
+    return $apiFront.post("/api/auth/forgot-password", { email });
   }
 }
 
