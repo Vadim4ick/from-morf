@@ -2,27 +2,24 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { authQuery } from "@/shared/queries/authQueries";
+import { toast } from "sonner";
+import { toggleAuthFormOpen } from "@/shared/context/auth";
 
 const ResetForm = () => {
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
 
   const handleReset = async () => {
     try {
       await authQuery.forgotPassword(email);
-      setSent(true);
+      toast.success(
+        `Мы отправили письмо для восстановления пароля на ${email}.`,
+      );
+
+      toggleAuthFormOpen();
     } catch (e) {
       console.error("Ошибка восстановления", e);
     }
   };
-
-  if (sent) {
-    return (
-      <p className="text-center text-sm text-green-600">
-        Мы отправили письмо для восстановления пароля на {email}.
-      </p>
-    );
-  }
 
   return (
     <div className="flex flex-col gap-4">

@@ -47,7 +47,7 @@ export default function ResetPage() {
 
       toast.success("Пароль успешно обновлён ✅");
 
-      setTimeout(() => router.push("/"), 2000);
+      setTimeout(() => router.push("/"), 100);
     } catch (err: any) {
       setError(err.message);
       toast.error(err.message || "Ошибка при сбросе пароля");
