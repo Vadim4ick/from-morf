@@ -17,6 +17,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
   const metadata = {
     title: goods_by_id.name,
+    description:
+      "Жилеты, платья, юбки и другие модели FROMMORF. Преимущественно натуральные ткани, сдержанная палитра и архитектурный крой.",
   };
 
   return metadata;

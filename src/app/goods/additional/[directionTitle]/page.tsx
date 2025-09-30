@@ -4,6 +4,8 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Товары",
+  description:
+    "Жилеты, платья, юбки и другие модели FROMMORF. Преимущественно натуральные ткани, сдержанная палитра и архитектурный крой.",
 };
 
 export const revalidate = 60;
